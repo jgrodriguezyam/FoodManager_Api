@@ -155,6 +155,7 @@
     <Compile Include="Helpers\WebApiExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sessions\AuthorizeLogin.cs" />
+    <Compile Include="Sessions\LoginValidator.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
