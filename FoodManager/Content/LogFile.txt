@@ -1,0 +1,15 @@
+2015-12-16 00:12:42,360 [7] ERROR  - Cannot open database "SurveyEngineDb" requested by the login. The login failed.
+Login failed for user 'sa'.
+2015-12-16 09:15:05,949 [12] ERROR  - Cannot open database "SurveyEngineDb" requested by the login. The login failed.
+Login failed for user 'sa'.
+2015-12-16 10:25:00,613 [5] ERROR  - Cannot open database "SurveyEngineDb" requested by the login. The login failed.
+Login failed for user 'sa'.
+2015-12-18 02:33:59,921 [11] ERROR  - Se produjo una excepción en el inicializador de tipo de 'ServiceStack.OrmLite.SqlServer.SqlServerOrmLiteDialectProvider'.
+2015-12-18 02:35:39,533 [7] ERROR  - Se produjo una excepción en el inicializador de tipo de 'ServiceStack.OrmLite.SqlServer.SqlServerOrmLiteDialectProvider'.
+2015-12-18 02:38:36,079 [7] ERROR  - Se produjo una excepción en el inicializador de tipo de 'ServiceStack.OrmLite.SqlServer.SqlServerOrmLiteDialectProvider'.
+2016-01-21 11:54:55,712 [5] ERROR  - ExecuteNonQuery requiere que el comando tenga una transacción cuando la conexión asignada al mismo está en una transacción local pendiente. No se ha inicializado la propiedad Transaction del comando.
+2016-01-21 11:57:02,802 [13] ERROR  - ExecuteNonQuery requiere que el comando tenga una transacción cuando la conexión asignada al mismo está en una transacción local pendiente. No se ha inicializado la propiedad Transaction del comando.
+2016-01-21 13:00:41,190 [8] ERROR  - Desbordamiento de SqlDateTime. Debe estar entre 1/1/1753 12:00:00 AM y 12/31/9999 11:59:59 PM.
+2016-01-21 13:04:09,678 [8] ERROR  - Desbordamiento de SqlDateTime. Debe estar entre 1/1/1753 12:00:00 AM y 12/31/9999 11:59:59 PM.
+2016-01-21 13:09:36,232 [28] ERROR  - The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Checklist_Route". The conflict occurred in database "DsEngine", table "dbo.Route", column 'Id'.
+The statement has been terminated.

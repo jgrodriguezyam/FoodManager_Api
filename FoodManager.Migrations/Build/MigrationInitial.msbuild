@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Migrate">
+  <UsingTask TaskName="FluentMigrator.MSBuild.Migrate"
+       AssemblyFile="../Lib/FluentMigrator/FluentMigrator.MSBuild.dll"/>
+
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)'==''">Debug</Configuration>
+    <ConnectionString Condition=" '$(ConnectionString)'==''">Server=localhost; Database=FoodManager; User Id=sa; Password=desarrollo;</ConnectionString>
+    <ArtifactsPath Condition=" '$(ArtifactsPath)'==''">../artifacts</ArtifactsPath>
+
+    <CoreAssembly Condition=" '$(CoreAssembly)'==''">../bin/$(Configuration)/FoodManager.Migrations.dll</CoreAssembly>
+    <ApplicationArtifact Condition=" '$(ApplicationArtifact)'==''">Core</ApplicationArtifact>
+    <ApplicationTarget Condition=" '$(ApplicationTarget)'==''">$(CoreAssembly)</ApplicationTarget>
+  </PropertyGroup>
+
+  <Target Name="Migrate" >
+    <Message Text="Starting FluentMigrator Migration"/>
+    <Migrate Database="sqlserver2008"
+             Connection="$(ConnectionString)"
+             Target="$(ApplicationTarget)"
+             Output="True"
+             OutputFilename="$(ArtifactsPath)\$(ApplicationArtifact)_Migrate.sql">
+    </Migrate>
+  </Target>
+
+  <Target Name="MigrateRollback" >
+    <Message Text="Starting FluentMigrator Migration Rollback"/>
+    <Migrate Database="sqlserver2008"
+             Connection="$(ConnectionString)"
+             Target="$(ApplicationTarget)"
+			       Task="rollback"
+             Output="True"
+             OutputFilename="$(ArtifactsPath)\$(ApplicationArtifact)_MigrateRollback.sql">
+    </Migrate>
+  </Target>
+
+  <Target Name="MigrateRollbackAll" >
+    <Message Text="Starting FluentMigrator Migration Rollback All"/>
+    <Migrate Database="sqlserver2008"
+             Connection="$(ConnectionString)"
+             Target="$(ApplicationTarget)"
+	           Task="rollback:all"
+             Output="True"
+             OutputFilename="$(ArtifactsPath)\$(ApplicationArtifact)_MigrateRollbackAll.sql">
+    </Migrate>
+  </Target>
+
+</Project>
