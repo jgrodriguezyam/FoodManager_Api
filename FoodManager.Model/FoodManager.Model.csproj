@@ -46,7 +46,13 @@
     <Compile Include="Base\EntityBase.cs" />
     <Compile Include="Base\IAuditInfo.cs" />
     <Compile Include="Base\IDeletable.cs" />
+    <Compile Include="Branch.cs" />
+    <Compile Include="Company.cs" />
+    <Compile Include="Department.cs" />
     <Compile Include="IHmac\IHmacHelper.cs" />
+    <Compile Include="IRepositories\IBranchRepository.cs" />
+    <Compile Include="IRepositories\ICompanyRepository.cs" />
+    <Compile Include="IRepositories\IDepartmentRepository.cs" />
     <Compile Include="IRepositories\IRegionRepository.cs" />
     <Compile Include="IRepositories\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

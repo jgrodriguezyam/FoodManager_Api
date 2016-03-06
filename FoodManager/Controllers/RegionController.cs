@@ -4,7 +4,7 @@ using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Regions;
 using FoodManager.Services.Interfaces;
 
-namespace FoodManager.Controllers.Regions
+namespace FoodManager.Controllers
 {
     public class RegionController : ApiController
     {

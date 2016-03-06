@@ -15,5 +15,8 @@
         public static readonly string Timespan = "Timespan";
 
         public static readonly string CryptographyKey = "FoodManagerKey";
+
+        public static readonly int IsActiveDefault = 1;
+        public static readonly int StatusDefault = 1;
     }
 }

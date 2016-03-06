@@ -7,6 +7,9 @@ using FoodManager.Model.IRepositories;
 using FoodManager.OrmLite.DataBase;
 using FoodManager.OrmLite.Hmac;
 using FoodManager.OrmLite.Repositories;
+using FoodManager.Queries.Branches;
+using FoodManager.Queries.Companies;
+using FoodManager.Queries.Departments;
 using FoodManager.Queries.Regions;
 using FoodManager.Services.Implements;
 using FoodManager.Services.Interfaces;
@@ -57,6 +60,21 @@ namespace FoodManager.IoC.Configs
             _container.Register<IRegionQuery, RegionQuery>();
             _container.Register<IRegionValidator, RegionValidator>();
             _container.Register<IRegionService, RegionService>();
+
+            _container.Register<ICompanyRepository, CompanyRepositoryOrmLite>();
+            _container.Register<ICompanyQuery, CompanyQuery>();
+            _container.Register<ICompanyValidator, CompanyValidator>();
+            _container.Register<ICompanyService, CompanyService>();
+
+            _container.Register<IBranchRepository, BranchRepositoryOrmLite>();
+            _container.Register<IBranchQuery, BranchQuery>();
+            _container.Register<IBranchValidator, BranchValidator>();
+            _container.Register<IBranchService, BranchService>();
+
+            _container.Register<IDepartmentRepository, DepartmentRepositoryOrmLite>();
+            _container.Register<IDepartmentQuery, DepartmentQuery>();
+            _container.Register<IDepartmentValidator, DepartmentValidator>();
+            _container.Register<IDepartmentService, DepartmentService>();
         }
     }
 }

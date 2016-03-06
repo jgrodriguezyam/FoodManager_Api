@@ -50,10 +50,10 @@ namespace FoodManager.Services.Implements
         {
             try
             {
-                var regionToCreate = TypeAdapter.Adapt<Region>(request);
-                _regionValidator.ValidateAndThrowException(regionToCreate, "Base");
-                _regionRepository.Add(regionToCreate);
-                return new CreateResponse(regionToCreate.Id);
+                var region = TypeAdapter.Adapt<Region>(request);
+                _regionValidator.ValidateAndThrowException(region, "Base");
+                _regionRepository.Add(region);
+                return new CreateResponse(region.Id);
             }
             catch (DataAccessException)
             {

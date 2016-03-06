@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Branches\BranchQuery.cs" />
+    <Compile Include="Branches\IBranchQuery.cs" />
+    <Compile Include="Companies\CompanyQuery.cs" />
+    <Compile Include="Companies\ICompanyQuery.cs" />
+    <Compile Include="Departments\DepartmentQuery.cs" />
+    <Compile Include="Departments\IDepartmentQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Regions\IRegionQuery.cs" />
     <Compile Include="Regions\RegionQuery.cs" />

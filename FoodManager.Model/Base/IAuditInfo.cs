@@ -8,5 +8,6 @@ namespace FoodManager.Model.Base
         int ModifiedBy { get; set; }
         DateTime CreatedOn { get; set; }
         DateTime ModifiedOn { get; set; }
+        bool Status { get; set; }
     }
 }

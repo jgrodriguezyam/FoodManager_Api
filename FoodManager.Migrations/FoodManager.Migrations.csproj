@@ -67,6 +67,12 @@
     <Folder Include="artifacts\" />
     <Folder Include="Fixes\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FoodManager.Infrastructure\FoodManager.Infrastructure.csproj">
+      <Project>{31543791-A186-4996-833B-40D08A4ABB85}</Project>
+      <Name>FoodManager.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

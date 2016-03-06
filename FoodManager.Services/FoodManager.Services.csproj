@@ -52,14 +52,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implements\BranchService.cs" />
+    <Compile Include="Implements\CompanyService.cs" />
+    <Compile Include="Implements\DepartmentService.cs" />
     <Compile Include="Implements\RegionService.cs" />
     <Compile Include="Implements\UserService.cs" />
+    <Compile Include="Interfaces\IBranchService.cs" />
+    <Compile Include="Interfaces\ICompanyService.cs" />
+    <Compile Include="Interfaces\IDepartmentService.cs" />
     <Compile Include="Interfaces\IRegionService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validators\Implements\BranchValidator.cs" />
+    <Compile Include="Validators\Implements\CompanyValidator.cs" />
+    <Compile Include="Validators\Implements\DepartmentValidator.cs" />
     <Compile Include="Validators\Implements\FileValidator.cs" />
     <Compile Include="Validators\Implements\RegionValidator.cs" />
     <Compile Include="Validators\Implements\UserValidator.cs" />
+    <Compile Include="Validators\Interfaces\IBranchValidator.cs" />
+    <Compile Include="Validators\Interfaces\ICompanyValidator.cs" />
+    <Compile Include="Validators\Interfaces\IDepartmentValidator.cs" />
     <Compile Include="Validators\Interfaces\IFileValidator.cs" />
     <Compile Include="Validators\Interfaces\IRegionValidator.cs" />
     <Compile Include="Validators\Interfaces\IUserValidator.cs" />
