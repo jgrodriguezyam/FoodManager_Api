@@ -101,5 +101,11 @@ namespace FoodManager.OrmLite.DataBase
             DbTransaction.Rollback();
             DbConnection.Dispose();
         }
+
+        public void RefreshHmac<T>(string publicKey, string time, int id) where T : new()
+        {
+            var fieldsToUpdate = string.Format("PublicKey = '{0}', Time = '{1}'", publicKey, time);
+            DbConnection.Update<T>(fieldsToUpdate, "Id = {0}".Params(id));
+        }
     }
 }

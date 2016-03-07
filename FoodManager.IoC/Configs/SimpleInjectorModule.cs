@@ -11,6 +11,7 @@ using FoodManager.Queries.Branches;
 using FoodManager.Queries.Companies;
 using FoodManager.Queries.Departments;
 using FoodManager.Queries.Regions;
+using FoodManager.Queries.Users;
 using FoodManager.Services.Implements;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Implements;
@@ -75,6 +76,11 @@ namespace FoodManager.IoC.Configs
             _container.Register<IDepartmentQuery, DepartmentQuery>();
             _container.Register<IDepartmentValidator, DepartmentValidator>();
             _container.Register<IDepartmentService, DepartmentService>();
+
+            _container.Register<IUserRepository, UserRepositoryOrmLite>();
+            _container.Register<IUserService, UserService>();
+            _container.Register<IUserValidator, UserValidator>();
+            _container.Register<IUserQuery, UserQuery>();
         }
     }
 }

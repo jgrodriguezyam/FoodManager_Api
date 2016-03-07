@@ -92,7 +92,7 @@
     <Compile Include="Files\ServerDomainResolver.cs" />
     <Compile Include="Files\StorageProvider.cs" />
     <Compile Include="Files\StreamReply.cs" />
-    <Compile Include="Hmac\DisableValidatorHmac.cs" />
+    <Compile Include="Validators\Enums\DisableValidatorHmac.cs" />
     <Compile Include="Hmac\HmacGenerator.cs" />
     <Compile Include="IGenericQuery\IQuery.cs" />
     <Compile Include="IGenericRepositories\IReadableRepository.cs" />
@@ -110,6 +110,7 @@
     <Compile Include="Strings\StringExtensions.cs" />
     <Compile Include="Utils\Cryptography.cs" />
     <Compile Include="Validators\BaseValidator.cs" />
+    <Compile Include="Validators\Enums\DisableValidatorRole.cs" />
     <Compile Include="Validators\IValidator.cs" />
     <Compile Include="Validators\Validate.cs" />
   </ItemGroup>
@@ -117,6 +118,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

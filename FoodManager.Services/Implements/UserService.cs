@@ -1,165 +1,174 @@
-﻿using FoodManager.Services.Interfaces;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using FastMapper;
+using FoodManager.DTO.BaseResponse;
+using FoodManager.DTO.Message.Users;
+using FoodManager.Infrastructure.Exceptions;
+using FoodManager.Infrastructure.Utils;
+using FoodManager.Model;
+using FoodManager.Model.IHmac;
+using FoodManager.Model.IRepositories;
+using FoodManager.Queries.Users;
+using FoodManager.Services.Interfaces;
+using FoodManager.Services.Validators.Interfaces;
 
 namespace FoodManager.Services.Implements
 {
     public class UserService : IUserService
     {
-        //private readonly IUserRepository _userRepository;
-        //private readonly IUserQuery _userQuery;
-        //private readonly IHmacHelper _hmacHelper;
-        //private readonly IUserValidator _userValidator;
+        private readonly IUserQuery _userQuery;
+        private readonly IUserRepository _userRepository;
+        private readonly IUserValidator _userValidator;
+        private readonly IHmacHelper _hmacHelper;
 
-        //public UserService(IUserRepository userRepository, IUserQuery userQuery, IHmacHelper hmacHelper, IUserValidator userValidator)
-        //{
-        //    _userRepository = userRepository;
-        //    _userQuery = userQuery;
-        //    _hmacHelper = hmacHelper;
-        //    _userValidator = userValidator;
-        //}
+        public UserService(IUserQuery userQuery, IUserRepository userRepository, IUserValidator userValidator, IHmacHelper hmacHelper)
+        {
+            _userQuery = userQuery;
+            _userRepository = userRepository;
+            _userValidator = userValidator;
+            _hmacHelper = hmacHelper;
+        }
 
-        //public FindUsersResponse Find(FindUsersRequest request)
-        //{
-        //    try
-        //    {
-        //        _userQuery.WithName(request.Name);
-        //        _userQuery.WithUserName(request.UserName);
-        //        _userQuery.WithOnlyActivatedStatus(true);
-        //        _userQuery.WithBranch(request.BranchId);
-        //        _userQuery.WithCode(request.Code);
-        //        _userQuery.Sort(request.Sort, request.SortBy);
-        //        _userQuery.Paginate(request.StartPage, request.EndPage);
-        //        int totalRecords;
-        //        var users = _userQuery.Execute<User>(out totalRecords);
+        public FindUsersResponse Find(FindUsersRequest request)
+        {
+            try
+            {
+                _userQuery.WithOnlyActivated(true);
+                _userQuery.Sort(request.Sort, request.SortBy);
+                var totalRecords = _userQuery.TotalRecords();
+                _userQuery.Paginate(request.StartPage, request.EndPage);
+                var users = _userQuery.Execute();
 
-        //        return new FindUsersResponse
-        //        {
-        //            Users = users.ConvertModelToDtos(),
-        //            TotalRecords = totalRecords
-        //        };
-        //    }
-        //    catch (DataAccessException)
-        //    {
-        //        throw new SurveyEngineApplicationException();
-        //    }
-        //}
+                return new FindUsersResponse
+                {
+                    Users = TypeAdapter.Adapt<List<UserResponse>>(users),
+                    TotalRecords = totalRecords
+                };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
 
-        //public CreateResponse Create(UserRequest request)
-        //{
-        //    try
-        //    {
-        //        var userToCreate = request.ConvertToModel();
-        //        _userValidator.ValidateAndThrowException(userToCreate, "Base");
-        //        userToCreate.EncryptPassword();
-        //        _userRepository.Add(userToCreate);
-        //        return new CreateResponse(userToCreate.Id);
-        //    }
-        //    catch (DataAccessException)
-        //    {
-        //        throw new SurveyEngineApplicationException();
-        //    }
-        //}
+        public CreateResponse Create(UserRequest request)
+        {
+            try
+            {
+                var user = TypeAdapter.Adapt<User>(request);
+                _userValidator.ValidateAndThrowException(user, "Base");
+                user.EncryptPassword();
+                _userRepository.Add(user);
+                return new CreateResponse(user.Id);
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
 
-        //public SuccessResponse Update(UserRequest request)
-        //{
-        //    try
-        //    {
-        //        var currentUser = _userRepository.FindBy(request.Id);
-        //        currentUser.ThrowExceptionIfIsNull("Usuario no encontrado");
-        //        var userToUpdate = request.ConvertToModel();
-        //        currentUser.CopyFrom(userToUpdate);
-        //        _userValidator.ValidateAndThrowException(currentUser, "Base");
-        //        _userRepository.Update(currentUser);
-        //        return new SuccessResponse { IsSuccess = true };
-        //    }
-        //    catch (DataAccessException)
-        //    {
-        //        throw new SurveyEngineApplicationException();
-        //    }
-        //}
+        public SuccessResponse Update(UserRequest request)
+        {
+            try
+            {
+                var currentUser = _userRepository.FindBy(request.Id);
+                currentUser.ThrowExceptionIfIsNull("Usuario no encontrado");
+                var userToCopy = TypeAdapter.Adapt<User>(request);
+                TypeAdapter.Adapt(userToCopy, currentUser);
+                _userValidator.ValidateAndThrowException(currentUser, "Base");
+                _userRepository.Update(currentUser);
+                return new SuccessResponse { IsSuccess = true };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
 
-        //public DTO.User Get(GetUserRequest request)
-        //{
-        //    try
-        //    {
-        //        var user = _userRepository.FindBy(request.Id);
-        //        user.ThrowExceptionIfIsNull("Usuario no encontrado");
-        //        return user.ConverToDto();
-        //    }
-        //    catch (DataAccessException)
-        //    {
-        //        throw new SurveyEngineApplicationException();
-        //    }
-        //}
+        public DTO.User Get(GetUserRequest request)
+        {
+            try
+            {
+                var user = _userRepository.FindBy(request.Id);
+                user.ThrowExceptionIfIsNull("Usuario no encontrado");
+                return TypeAdapter.Adapt<DTO.User>(user);
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
 
-        //public SuccessResponse Delete(DeleteUserRequest request)
-        //{
-        //    try
-        //    {
-        //        var user = _userRepository.FindBy(request.Id);
-        //        user.ThrowExceptionIfIsNull("Usuario no encontrado");
-        //        _userRepository.Remove(user);
-        //        return new SuccessResponse { IsSuccess = true };
-        //    }
-        //    catch (DataAccessException)
-        //    {
-        //        throw new SurveyEngineApplicationException();
-        //    }
-        //}
+        public SuccessResponse Delete(DeleteUserRequest request)
+        {
+            try
+            {
+                var user = _userRepository.FindBy(request.Id);
+                user.ThrowExceptionIfIsNull("Usuario no encontrado");
+                _userRepository.Remove(user);
+                return new SuccessResponse { IsSuccess = true };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
 
-        //public LoginUserResponse Login(LoginUserRequest request)
-        //{
-        //    try
-        //    {
-        //        var encryptPassword = Cryptography.Encrypt(request.Password);
-        //        var userToUpdate = _userRepository.FindBy(request.UserName, encryptPassword);
-        //        userToUpdate.ThrowExceptionIfIsNull(HttpStatusCode.Unauthorized, "Credenciales invalidas");
-        //        userToUpdate.Login();
-        //        _hmacHelper.RefreshHmacOfUser(userToUpdate);
+        public LoginUserResponse Login(LoginUserRequest request)
+        {
+            try
+            {
+                var encryptPassword = Cryptography.Encrypt(request.Password);
+                var userToUpdate = _userRepository.FindBy(user => user.UserName == request.UserName && user.Password == encryptPassword).FirstOrDefault();
+                userToUpdate.ThrowExceptionIfIsNull(HttpStatusCode.Unauthorized, "Credenciales invalidas");
+                userToUpdate.Login();
+                _hmacHelper.RefreshHmacOfUser(userToUpdate);
 
-        //        return new LoginUserResponse
-        //        {
-        //            UserId = userToUpdate.Id,
-        //            PublicKey = userToUpdate.PublicKey
-        //        };
-        //    }
-        //    catch (DataAccessException)
-        //    {
-        //        throw new SurveyEngineApplicationException();
-        //    }
-        //}
+                return new LoginUserResponse
+                {
+                    UserId = userToUpdate.Id,
+                    PublicKey = userToUpdate.PublicKey
+                };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
 
-        //public SuccessResponse Logout(LogoutUserRequest request)
-        //{
-        //    try
-        //    {
-        //        var userToUpdate = _userRepository.FindBy(request.Id);
-        //        userToUpdate.ThrowExceptionIfIsNull("Usuario no encontrado");
-        //        userToUpdate.Logout();
-        //        _hmacHelper.RefreshHmacOfUser(userToUpdate);
-        //        return new SuccessResponse { IsSuccess = true };
-        //    }
-        //    catch (DataAccessException)
-        //    {
-        //        throw new SurveyEngineApplicationException();
-        //    }
-        //}
+        public SuccessResponse Logout(LogoutUserRequest request)
+        {
+            try
+            {
+                var user = _userRepository.FindBy(request.Id);
+                user.ThrowExceptionIfIsNull("Usuario no encontrado");
+                user.Logout();
+                _hmacHelper.RefreshHmacOfUser(user);
+                return new SuccessResponse { IsSuccess = true };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
 
-        //public SuccessResponse ChangePassword(ChangeUserPasswordRequest request)
-        //{
-        //    try
-        //    {
-        //        var encryptOldPassword = Cryptography.Encrypt(request.OldPassword);
-        //        var userToUpdate = _userRepository.FindBy(request.UserName, encryptOldPassword);
-        //        userToUpdate.ThrowExceptionIfIsNull(HttpStatusCode.Unauthorized, "Credenciales invalidas");
-        //        userToUpdate.Password = request.NewPassword;
-        //        userToUpdate.EncryptPassword();
-        //        _userRepository.Update(userToUpdate);
-        //        return new SuccessResponse { IsSuccess = true };
-        //    }
-        //    catch (DataAccessException)
-        //    {
-        //        throw new SurveyEngineApplicationException();
-        //    }
-        //}
+        public SuccessResponse ChangePassword(ChangeUserPasswordRequest request)
+        {
+            try
+            {
+                var encryptOldPassword = Cryptography.Encrypt(request.OldPassword);
+                var userToUpdate = _userRepository.FindBy(user => user.UserName == request.UserName && user.Password == encryptOldPassword).FirstOrDefault();
+                userToUpdate.ThrowExceptionIfIsNull(HttpStatusCode.Unauthorized, "Credenciales invalidas");
+                userToUpdate.Password = request.NewPassword;
+                userToUpdate.EncryptPassword();
+                _userRepository.Update(userToUpdate);
+                return new SuccessResponse { IsSuccess = true };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
     }
 }

@@ -1,18 +1,27 @@
-﻿using FoodManager.Model;
+﻿using System.Linq;
+using FoodManager.Model;
 using FoodManager.Model.IHmac;
+using FoodManager.OrmLite.DataBase;
 
 namespace FoodManager.OrmLite.Hmac
 {
     public class HmacHelperOrmLite : IHmacHelper
     {
+        private readonly IDataBaseSqlServerOrmLite _dataBaseSqlServerOrmLite;
+
+        public HmacHelperOrmLite(IDataBaseSqlServerOrmLite dataBaseSqlServerOrmLite)
+        {
+            _dataBaseSqlServerOrmLite = dataBaseSqlServerOrmLite;
+        }
+        
         public User FindUserByPublicKey(string publicKey)
         {
-            throw new System.NotImplementedException();
+            return _dataBaseSqlServerOrmLite.FindBy<User>(user => user.PublicKey == publicKey).FirstOrDefault();
         }
 
         public void RefreshHmacOfUser(User user)
         {
-            throw new System.NotImplementedException();
+            _dataBaseSqlServerOrmLite.RefreshHmac<User>(user.PublicKey, user.Time, user.Id);
         }
     }
 }

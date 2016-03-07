@@ -45,6 +45,7 @@ namespace FoodManager.DataAccess.Listeners
                     entityToAudit.ModifiedOn = today;
                     entityToAudit.CreatedBy = userId;
                     entityToAudit.ModifiedBy = userId;
+                    entityToAudit.Status = true;
                     if (entity is IDeletable)
                     {
                         var entityDeletable = entity as IDeletable;

@@ -2,6 +2,9 @@
 using FluentMigrator;
 using FoodManager.Infrastructure.Constants;
 using FoodManager.Infrastructure.Dates;
+using FoodManager.Infrastructure.Enums;
+using FoodManager.Infrastructure.Utils;
+using FoodManager.Model.Enums;
 
 namespace FoodManager.Migrations.Sprint_01
 {
@@ -83,19 +86,25 @@ namespace FoodManager.Migrations.Sprint_01
 
             #endregion
 
-            //#region User
+            #region User
 
-            //Create.Table("User").InSchema("dbo")
-            //    .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-            //    .WithColumn("Name").AsString(250).NotNullable()
-            //    .WithColumn("Code").AsString(250).NotNullable()
-            //    .WithColumn("Status").AsBoolean().NotNullable()
-            //    .WithColumn("UserName").AsString(250).Unique().NotNullable()
-            //    .WithColumn("Password").AsString(250).NotNullable()
-            //    .WithColumn("PublicKey").AsString(250).Nullable()
-            //    .WithColumn("Time").AsString(250).Nullable();
+            Create.Table("User").InSchema("dbo")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Name").AsString(250).NotNullable()
+                .WithColumn("Type").AsInt32().NotNullable()
+                .WithColumn("UserName").AsString(250).Unique().NotNullable()
+                .WithColumn("Password").AsString(250).NotNullable()
+                .WithColumn("PublicKey").AsString(250).Nullable()
+                .WithColumn("Time").AsString(250).Nullable()
 
-            //#endregion
+                .WithColumn("CreatedBy").AsInt32().NotNullable()
+                .WithColumn("ModifiedBy").AsInt32().NotNullable()
+                .WithColumn("CreatedOn").AsDateTime().NotNullable()
+                .WithColumn("ModifiedOn").AsDateTime().NotNullable()
+                .WithColumn("Status").AsBoolean().NotNullable()
+                .WithColumn("IsActive").AsBoolean();
+
+            #endregion
 
             Init();
         }
@@ -129,12 +138,11 @@ namespace FoodManager.Migrations.Sprint_01
 
             #endregion
 
-            //#region User
+            #region User
+            
+            Delete.Table("User").InSchema("dbo");
 
-            //Delete.ForeignKey("FK_User_Branch").OnTable("User").InSchema("dbo");
-            //Delete.Table("User").InSchema("dbo");
-
-            //#endregion
+            #endregion
         }
 
         private void Init()
@@ -142,20 +150,23 @@ namespace FoodManager.Migrations.Sprint_01
             var today = DateTime.Now.ToDateTimeStringDb();
 
             Execute.Sql("INSERT INTO Region (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
-                        "('Yucatan', " + GlobalConstants.AdminRoleId + ", " + GlobalConstants.AdminRoleId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")," +
-                        "('Campeche', " + GlobalConstants.AdminRoleId + ", " + GlobalConstants.AdminRoleId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")");
+                        "('Yucatan', " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")," +
+                        "('Campeche', " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")");
 
             Execute.Sql("INSERT INTO Company (Name, RegionId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
-                        "('Bepensa Industria', 1," + GlobalConstants.AdminRoleId + ", " + GlobalConstants.AdminRoleId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")," +
-                        "('Bepensa Bebidas', 1," + GlobalConstants.AdminRoleId + ", " + GlobalConstants.AdminRoleId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")");
+                        "('Bepensa Industria', 1," + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")," +
+                        "('Bepensa Bebidas', 1," + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")");
 
             Execute.Sql("INSERT INTO Branch (Name, Code, CompanyId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
-                        "('Opesystem', 'CODE1', 1," + GlobalConstants.AdminRoleId + ", " + GlobalConstants.AdminRoleId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")," +
-                        "('Finbe', 'CODE2', 1," + GlobalConstants.AdminRoleId + ", " + GlobalConstants.AdminRoleId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")");
+                        "('Opesystem', 'CODE1', 1," + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")," +
+                        "('Finbe', 'CODE2', 1," + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")");
 
             Execute.Sql("INSERT INTO Department (Name, BranchId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
-                        "('Desarrollo', 1," + GlobalConstants.AdminRoleId + ", " + GlobalConstants.AdminRoleId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")," +
-                        "('HelpDesk', 1," + GlobalConstants.AdminRoleId + ", " + GlobalConstants.AdminRoleId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")");
+                        "('Desarrollo', 1," + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")," +
+                        "('HelpDesk', 1," + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")");
+
+            Execute.Sql("INSERT INTO [User] (Name, Type, UserName, Password, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+                        "('" + GlobalConstants.AdminUserName + "', " + UserType.Admin.GetValue()  + ", '" + GlobalConstants.AdminUserName + "', '" + Cryptography.Encrypt(GlobalConstants.AdminPassword) + "'," + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")");
         }
     }
 }

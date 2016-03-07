@@ -1,4 +1,4 @@
-﻿namespace FoodManager.Infrastructure.Hmac
+﻿namespace FoodManager.Infrastructure.Validators.Enums
 {
     public enum DisableValidatorHmac
     {

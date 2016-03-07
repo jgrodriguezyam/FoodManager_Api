@@ -75,10 +75,21 @@
     <Compile Include="Message\Regions\FindRegionsRequest.cs" />
     <Compile Include="Message\Regions\FindRegionsResponse.cs" />
     <Compile Include="Message\Regions\GetRegionRequest.cs" />
+    <Compile Include="Message\Users\ChangeUserPasswordRequest.cs" />
+    <Compile Include="Message\Users\DeleteUserRequest.cs" />
+    <Compile Include="Message\Users\FindUsersRequest.cs" />
+    <Compile Include="Message\Users\FindUsersResponse.cs" />
+    <Compile Include="Message\Users\GetUserRequest.cs" />
+    <Compile Include="Message\Users\LoginUserRequest.cs" />
+    <Compile Include="Message\Users\LoginUserResponse.cs" />
+    <Compile Include="Message\Users\LogoutUserRequest.cs" />
+    <Compile Include="Message\Users\UserRequest.cs" />
+    <Compile Include="Message\Users\UserResponse.cs" />
     <Compile Include="Region.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Message\Regions\RegionRequest.cs" />
     <Compile Include="Message\Regions\RegionResponse.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

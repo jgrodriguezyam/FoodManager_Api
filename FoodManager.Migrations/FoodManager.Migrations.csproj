@@ -72,6 +72,10 @@
       <Project>{31543791-A186-4996-833B-40D08A4ABB85}</Project>
       <Name>FoodManager.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FoodManager.Model\FoodManager.Model.csproj">
+      <Project>{349C10C6-CC15-4A5A-8845-CF04EE2C687F}</Project>
+      <Name>FoodManager.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

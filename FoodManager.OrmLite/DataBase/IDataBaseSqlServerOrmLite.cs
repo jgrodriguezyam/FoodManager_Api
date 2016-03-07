@@ -22,5 +22,6 @@ namespace FoodManager.OrmLite.DataBase
         int Count<T>(SqlServerExpressionVisitor<T> sqlExpressionVisitor) where T : new();
         void Commit();
         void Rollback();
+        void RefreshHmac<T>(string publicKey, string time, int id) where T : new();
     }
 }

@@ -149,7 +149,9 @@
     <Compile Include="Controllers\BranchController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\IsAliveController.cs" />
     <Compile Include="Controllers\RegionController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filters\ExceptionFilter.cs" />
     <Compile Include="Filters\SwaggerOperationFilter.cs" />
     <Compile Include="Handlers\HelpPageHandler.cs" />

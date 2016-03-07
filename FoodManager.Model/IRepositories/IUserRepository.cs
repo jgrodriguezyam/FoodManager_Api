@@ -4,6 +4,6 @@ namespace FoodManager.Model.IRepositories
 {
     public interface IUserRepository : IRepository<User>
     {
-        User FindBy(string userName, string password);
+        
     }
 }

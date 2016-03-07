@@ -3,6 +3,7 @@ using FoodManager.DTO.Message.Branches;
 using FoodManager.DTO.Message.Companies;
 using FoodManager.DTO.Message.Departments;
 using FoodManager.DTO.Message.Regions;
+using FoodManager.DTO.Message.Users;
 
 namespace FoodManager.Mapper.Configs
 {
@@ -21,7 +22,8 @@ namespace FoodManager.Mapper.Configs
                 .IgnoreMember(dest => dest.CreatedOn)
                 .IgnoreMember(dest => dest.ModifiedBy)
                 .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive);
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
 
             TypeAdapterConfig<Model.Region, Model.Region>
                 .NewConfig()
@@ -30,7 +32,8 @@ namespace FoodManager.Mapper.Configs
                 .IgnoreMember(dest => dest.CreatedOn)
                 .IgnoreMember(dest => dest.ModifiedBy)
                 .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive);
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
 
             TypeAdapterConfig<RegionRequest, Model.Region>
                 .NewConfig();
@@ -51,7 +54,8 @@ namespace FoodManager.Mapper.Configs
                 .IgnoreMember(dest => dest.CreatedOn)
                 .IgnoreMember(dest => dest.ModifiedBy)
                 .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive);
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
 
             TypeAdapterConfig<Model.Company, Model.Company>
                 .NewConfig()
@@ -60,7 +64,8 @@ namespace FoodManager.Mapper.Configs
                 .IgnoreMember(dest => dest.CreatedOn)
                 .IgnoreMember(dest => dest.ModifiedBy)
                 .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive);
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
 
             TypeAdapterConfig<CompanyRequest, Model.Company>
                 .NewConfig();
@@ -81,7 +86,8 @@ namespace FoodManager.Mapper.Configs
                 .IgnoreMember(dest => dest.CreatedOn)
                 .IgnoreMember(dest => dest.ModifiedBy)
                 .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive);
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
 
             TypeAdapterConfig<Model.Branch, Model.Branch>
                 .NewConfig()
@@ -90,7 +96,8 @@ namespace FoodManager.Mapper.Configs
                 .IgnoreMember(dest => dest.CreatedOn)
                 .IgnoreMember(dest => dest.ModifiedBy)
                 .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive);
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
 
             TypeAdapterConfig<BranchRequest, Model.Branch>
                 .NewConfig();
@@ -111,7 +118,8 @@ namespace FoodManager.Mapper.Configs
                 .IgnoreMember(dest => dest.CreatedOn)
                 .IgnoreMember(dest => dest.ModifiedBy)
                 .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive);
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
 
             TypeAdapterConfig<Model.Department, Model.Department>
                 .NewConfig()
@@ -120,12 +128,49 @@ namespace FoodManager.Mapper.Configs
                 .IgnoreMember(dest => dest.CreatedOn)
                 .IgnoreMember(dest => dest.ModifiedBy)
                 .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive);
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
 
             TypeAdapterConfig<DepartmentRequest, Model.Department>
                 .NewConfig();
 
             TypeAdapterConfig<Model.Department, DepartmentResponse>
+                .NewConfig();
+
+            #endregion
+
+            #region User
+
+            TypeAdapterConfig<Model.User, DTO.User>
+                .NewConfig();
+
+            TypeAdapterConfig<DTO.User, Model.User>
+                .NewConfig()
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<Model.User, Model.User>
+                .NewConfig()
+                .IgnoreMember(dest => dest.Id)
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status)
+                .IgnoreMember(dest => dest.UserName)
+                .IgnoreMember(dest => dest.Password)
+                .IgnoreMember(dest => dest.PublicKey)
+                .IgnoreMember(dest => dest.Time);
+
+            TypeAdapterConfig<UserRequest, Model.User>
+                .NewConfig();
+
+            TypeAdapterConfig<Model.User, UserResponse>
                 .NewConfig();
 
             #endregion

@@ -1,10 +1,15 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using FoodManager.Infrastructure.Constants;
 using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Infrastructure.Strings;
 using FoodManager.Infrastructure.Utils;
+using System.Web.Http.Controllers;
+using FoodManager.Infrastructure.Enums;
+using FoodManager.Infrastructure.Objects;
+using FoodManager.Infrastructure.Validators.Enums;
 
 namespace FoodManager.Sessions
 {
@@ -36,6 +41,12 @@ namespace FoodManager.Sessions
             for (var i = 0; i < buff.Length; i++)
                 sbinary += buff[i].ToString("X2");
             return (sbinary);
+        }
+
+        public static bool ActionValidationHmac(HttpActionContext actionContext)
+        {
+            var disableAction = new DisableValidatorHmac().ConvertToCollection().FirstOrDefault(dvm => dvm.Name == actionContext.ActionDescriptor.ActionName);
+            return disableAction.IsNull();
         }
     }
 }
