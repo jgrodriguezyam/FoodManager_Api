@@ -1,4 +1,5 @@
 ﻿using FoodManager.DTO;
+using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Warnings;
 
@@ -11,5 +12,6 @@ namespace FoodManager.Services.Interfaces
         SuccessResponse Update(WarningRequest request);
         Warning Get(GetWarningRequest request);
         SuccessResponse Delete(DeleteWarningRequest request);
+        SuccessResponse ChangeStatus(ChangeStatus request);
     }
 }

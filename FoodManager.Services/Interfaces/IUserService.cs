@@ -1,4 +1,5 @@
 ﻿using FoodManager.DTO;
+using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Users;
 
@@ -14,5 +15,6 @@ namespace FoodManager.Services.Interfaces
         LoginUserResponse Login(LoginUserRequest request);
         SuccessResponse Logout(LogoutUserRequest request);
         SuccessResponse ChangePassword(ChangeUserPasswordRequest request);
+        SuccessResponse ChangeStatus(ChangeStatus request);
     }
 }

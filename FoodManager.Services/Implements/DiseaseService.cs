@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using FastMapper;
+using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Diseases;
 using FoodManager.Infrastructure.Exceptions;
@@ -100,6 +102,24 @@ namespace FoodManager.Services.Implements
                 var disease = _diseaseRepository.FindBy(request.Id);
                 disease.ThrowExceptionIfIsNull("Enfermedad no encontrada");
                 _diseaseRepository.Remove(disease);
+                return new SuccessResponse { IsSuccess = true };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public SuccessResponse ChangeStatus(ChangeStatus request)
+        {
+            try
+            {
+                var disease = _diseaseRepository.FindBy(request.Id);
+                disease.ThrowExceptionIfIsNull("Enfermedad no encontrada");
+                if (disease.Status.Equals(request.Status))
+                    ExceptionExtensions.ThrowStatusException(HttpStatusCode.Accepted, request.Status);
+                disease.Status = request.Status;
+                _diseaseRepository.Update(disease);
                 return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)

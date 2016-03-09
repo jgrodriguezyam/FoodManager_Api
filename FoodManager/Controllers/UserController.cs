@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using FoodManager.DTO;
+using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Users;
 using FoodManager.Services.Interfaces;
@@ -61,6 +62,12 @@ namespace FoodManager.Controllers
         public SuccessResponse Put(ChangeUserPasswordRequest request)
         {
             return _userService.ChangePassword(request);
+        }
+
+        [HttpPut, Route("users/{Id}/status/{Status}")]
+        public SuccessResponse Put(ChangeStatus request)
+        {
+            return _userService.ChangeStatus(request);
         }
     }
 }

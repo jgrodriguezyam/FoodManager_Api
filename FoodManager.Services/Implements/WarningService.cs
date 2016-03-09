@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using FastMapper;
+using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Warnings;
 using FoodManager.Infrastructure.Exceptions;
@@ -100,6 +102,24 @@ namespace FoodManager.Services.Implements
                 var warning = _warningRepository.FindBy(request.Id);
                 warning.ThrowExceptionIfIsNull("Advertencia no encontrada");
                 _warningRepository.Remove(warning);
+                return new SuccessResponse { IsSuccess = true };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public SuccessResponse ChangeStatus(ChangeStatus request)
+        {
+            try
+            {
+                var warning = _warningRepository.FindBy(request.Id);
+                warning.ThrowExceptionIfIsNull("Advertencia no encontrada");
+                if (warning.Status.Equals(request.Status))
+                    ExceptionExtensions.ThrowStatusException(HttpStatusCode.Accepted, request.Status);
+                warning.Status = request.Status;
+                _warningRepository.Update(warning);
                 return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)

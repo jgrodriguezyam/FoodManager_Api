@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using FastMapper;
+using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Companies;
 using FoodManager.Infrastructure.Exceptions;
@@ -100,6 +102,24 @@ namespace FoodManager.Services.Implements
                 var company = _companyRepository.FindBy(request.Id);
                 company.ThrowExceptionIfIsNull("Compania no encontrada");
                 _companyRepository.Remove(company);
+                return new SuccessResponse { IsSuccess = true };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public SuccessResponse ChangeStatus(ChangeStatus request)
+        {
+            try
+            {
+                var company = _companyRepository.FindBy(request.Id);
+                company.ThrowExceptionIfIsNull("Compania no encontrada");
+                if (company.Status.Equals(request.Status))
+                    ExceptionExtensions.ThrowStatusException(HttpStatusCode.Accepted, request.Status);
+                company.Status = request.Status;
+                _companyRepository.Update(company);
                 return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)

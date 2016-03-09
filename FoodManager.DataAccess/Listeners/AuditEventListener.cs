@@ -36,10 +36,10 @@ namespace FoodManager.DataAccess.Listeners
 
         private void SetAudit(object entity, EventType eventType)
         {
-            var headerPublicKey = HttpContext.Current.Request.Headers[GlobalConstants.PublicKey];
-            var user = _hmacHelper.FindUserByPublicKey(headerPublicKey);
-            var userId = user.Id;
-            //var userId = 1;
+            //var headerPublicKey = HttpContext.Current.Request.Headers[GlobalConstants.PublicKey];
+            //var user = _hmacHelper.FindUserByPublicKey(headerPublicKey);
+            //var userId = user.Id;
+            var userId = 1;
 
             var entityToAudit = entity as IAuditInfo;
             var today = DateTime.Now.ToDateTimeString().DateTimeStringToDateTime();

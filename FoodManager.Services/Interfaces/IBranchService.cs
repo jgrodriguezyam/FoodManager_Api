@@ -1,4 +1,5 @@
 ﻿using FoodManager.DTO;
+using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Branches;
 
@@ -11,5 +12,6 @@ namespace FoodManager.Services.Interfaces
         SuccessResponse Update(BranchRequest request);
         Branch Get(GetBranchRequest request);
         SuccessResponse Delete(DeleteBranchRequest request);
+        SuccessResponse ChangeStatus(ChangeStatus request);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using FoodManager.DTO;
+using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Departments;
 using FoodManager.Services.Interfaces;
@@ -43,6 +44,12 @@ namespace FoodManager.Controllers
         public SuccessResponse Delete(DeleteDepartmentRequest request)
         {
             return _departmentService.Delete(request);
+        }
+
+        [HttpPut, Route("departments/{Id}/status/{Status}")]
+        public SuccessResponse Put(ChangeStatus request)
+        {
+            return _departmentService.ChangeStatus(request);
         }
     }
 }

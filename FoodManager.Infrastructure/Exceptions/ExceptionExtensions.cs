@@ -63,6 +63,15 @@ namespace FoodManager.Infrastructure.Exceptions
             });
         }
 
+        public static void ThrowStatusException(HttpStatusCode httpStatusCode, bool entityStatus)
+        {
+            throw new HttpResponseException(new HttpResponseMessage
+            {
+                StatusCode = httpStatusCode,
+                Content = new StringContent("{\"Message\": \"El estado ya se encontraba " + (entityStatus ? "activado" : "desactivado") + "\"}", Encoding.Default, "application/json")
+            });
+        }
+
         public static void ThrowExceptionIfIsNull(this object objectValue, string message)
         {
             if (objectValue.IsNull())

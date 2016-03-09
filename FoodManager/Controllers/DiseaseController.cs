@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using FoodManager.DTO;
+using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Diseases;
 using FoodManager.Services.Interfaces;
@@ -43,6 +44,12 @@ namespace FoodManager.Controllers
         public SuccessResponse Delete(DeleteDiseaseRequest request)
         {
             return _diseaseService.Delete(request);
+        }
+
+        [HttpPut, Route("diseases/{Id}/status/{Status}")]
+        public SuccessResponse Put(ChangeStatus request)
+        {
+            return _diseaseService.ChangeStatus(request);
         }
     }
 }

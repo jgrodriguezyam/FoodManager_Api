@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using FoodManager.DTO;
+using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Branches;
 using FoodManager.Services.Interfaces;
@@ -43,6 +44,12 @@ namespace FoodManager.Controllers
         public SuccessResponse Delete(DeleteBranchRequest request)
         {
             return _branchService.Delete(request);
+        }
+
+        [HttpPut, Route("branches/{Id}/status/{Status}")]
+        public SuccessResponse Put(ChangeStatus request)
+        {
+            return _branchService.ChangeStatus(request);
         }
     }
 }

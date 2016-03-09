@@ -1,4 +1,5 @@
 ﻿using FoodManager.DTO;
+using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Diseases;
 
@@ -11,5 +12,6 @@ namespace FoodManager.Services.Interfaces
         SuccessResponse Update(DiseaseRequest request);
         Disease Get(GetDiseaseRequest request);
         SuccessResponse Delete(DeleteDiseaseRequest request);
+        SuccessResponse ChangeStatus(ChangeStatus request);
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using FastMapper;
+using FoodManager.DTO.BaseRequest;
 using FoodManager.Services.Interfaces;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Regions;
@@ -100,6 +102,24 @@ namespace FoodManager.Services.Implements
                 var region = _regionRepository.FindBy(request.Id);
                 region.ThrowExceptionIfIsNull("Region no encontrada");
                 _regionRepository.Remove(region);
+                return new SuccessResponse { IsSuccess = true };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public SuccessResponse ChangeStatus(ChangeStatus request)
+        {
+            try
+            {
+                var region = _regionRepository.FindBy(request.Id);
+                region.ThrowExceptionIfIsNull("Region no encontrada");
+                if (region.Status.Equals(request.Status))
+                    ExceptionExtensions.ThrowStatusException(HttpStatusCode.Accepted, request.Status);
+                region.Status = request.Status;
+                _regionRepository.Update(region);
                 return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)

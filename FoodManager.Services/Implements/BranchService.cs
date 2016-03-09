@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using FastMapper;
+using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Branches;
 using FoodManager.Infrastructure.Exceptions;
@@ -100,6 +102,24 @@ namespace FoodManager.Services.Implements
                 var branch = _branchRepository.FindBy(request.Id);
                 branch.ThrowExceptionIfIsNull("Sucursal no encontrada");
                 _branchRepository.Remove(branch);
+                return new SuccessResponse { IsSuccess = true };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public SuccessResponse ChangeStatus(ChangeStatus request)
+        {
+            try
+            {
+                var branch = _branchRepository.FindBy(request.Id);
+                branch.ThrowExceptionIfIsNull("Sucursal no encontrada");
+                if(branch.Status.Equals(request.Status))
+                    ExceptionExtensions.ThrowStatusException(HttpStatusCode.Accepted, request.Status);
+                branch.Status = request.Status;
+                _branchRepository.Update(branch);
                 return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)

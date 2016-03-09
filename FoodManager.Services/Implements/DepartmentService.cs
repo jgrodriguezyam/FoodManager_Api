@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using FastMapper;
+using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Departments;
 using FoodManager.Infrastructure.Exceptions;
@@ -100,6 +102,24 @@ namespace FoodManager.Services.Implements
                 var department = _departmentRepository.FindBy(request.Id);
                 department.ThrowExceptionIfIsNull("Departamento no encontrado");
                 _departmentRepository.Remove(department);
+                return new SuccessResponse { IsSuccess = true };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public SuccessResponse ChangeStatus(ChangeStatus request)
+        {
+            try
+            {
+                var department = _departmentRepository.FindBy(request.Id);
+                department.ThrowExceptionIfIsNull("Departamento no encontrado");
+                if (department.Status.Equals(request.Status))
+                    ExceptionExtensions.ThrowStatusException(HttpStatusCode.Accepted, request.Status);
+                department.Status = request.Status;
+                _departmentRepository.Update(department);
                 return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)

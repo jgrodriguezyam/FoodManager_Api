@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using FastMapper;
+using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Users;
 using FoodManager.Infrastructure.Exceptions;
@@ -163,6 +164,24 @@ namespace FoodManager.Services.Implements
                 userToUpdate.Password = request.NewPassword;
                 userToUpdate.EncryptPassword();
                 _userRepository.Update(userToUpdate);
+                return new SuccessResponse { IsSuccess = true };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public SuccessResponse ChangeStatus(ChangeStatus request)
+        {
+            try
+            {
+                var user = _userRepository.FindBy(request.Id);
+                user.ThrowExceptionIfIsNull("Usuario no encontrado");
+                if (user.Status.Equals(request.Status))
+                    ExceptionExtensions.ThrowStatusException(HttpStatusCode.Accepted, request.Status);
+                user.Status = request.Status;
+                _userRepository.Update(user);
                 return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)

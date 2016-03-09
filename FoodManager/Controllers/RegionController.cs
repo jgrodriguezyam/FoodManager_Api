@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using FoodManager.DTO;
+using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Regions;
 using FoodManager.Services.Interfaces;
@@ -43,6 +44,12 @@ namespace FoodManager.Controllers
         public SuccessResponse Delete(DeleteRegionRequest request)
         {
             return _regionService.Delete(request);
+        }
+
+        [HttpPut, Route("regions/{Id}/status/{Status}")]
+        public SuccessResponse Put(ChangeStatus request)
+        {
+            return _regionService.ChangeStatus(request);
         }
     }
 }
