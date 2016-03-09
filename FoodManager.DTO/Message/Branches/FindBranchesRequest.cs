@@ -2,7 +2,7 @@
 
 namespace FoodManager.DTO.Message.Branches
 {
-    public class FindBranchesRequest : FindBaseRequest
+    public class FindBranchesRequest : FindStatusRequest
     {
          
     }

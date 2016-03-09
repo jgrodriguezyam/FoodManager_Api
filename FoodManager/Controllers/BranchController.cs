@@ -47,7 +47,7 @@ namespace FoodManager.Controllers
         }
 
         [HttpPut, Route("branches/{Id}/status/{Status}")]
-        public SuccessResponse Put(ChangeStatus request)
+        public SuccessResponse Put(ChangeStatusRequest request)
         {
             return _branchService.ChangeStatus(request);
         }

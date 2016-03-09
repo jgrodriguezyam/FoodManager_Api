@@ -7,6 +7,8 @@ namespace FoodManager.Queries.Departments
     public interface IDepartmentQuery : IQuery
     {
         void WithOnlyActivated(bool onlyActivated);
+        void WithOnlyStatusActivated(bool onlyStatusActivated);
+        void WithOnlyStatusDeactivated(bool onlyStatusDeactivated);
         IEnumerable<Department> Execute();
     }
 }

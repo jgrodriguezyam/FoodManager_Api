@@ -1,4 +1,7 @@
-﻿namespace FoodManager.Infrastructure.Constants
+﻿using System;
+using FoodManager.Infrastructure.Dates;
+
+namespace FoodManager.Infrastructure.Constants
 {
     public static class GlobalConstants
     {
@@ -16,7 +19,15 @@
 
         public static readonly string CryptographyKey = "FoodManagerKey";
 
-        public static readonly int IsActiveDefault = 1;
-        public static readonly int StatusDefault = 1;
+        public static readonly int ActivatedMigration = 1;
+        public static readonly int StatusActivatedMigration = 1;
+
+        public static readonly bool Activated = true;
+        public static readonly bool Deactivated = false;
+
+        public static readonly bool StatusActivated = true;
+        public static readonly bool StatusDeactivated = false;
+
+        public static DateTime TodayListener = DateTime.Now.ToDateTimeString().DateTimeStringToDateTime();
     }
 }

@@ -36,13 +36,12 @@ namespace FoodManager.DataAccess.Listeners
 
         private void SetAudit(object entity, EventType eventType)
         {
-            //var headerPublicKey = HttpContext.Current.Request.Headers[GlobalConstants.PublicKey];
-            //var user = _hmacHelper.FindUserByPublicKey(headerPublicKey);
-            //var userId = user.Id;
-            var userId = 1;
-
+            var headerPublicKey = HttpContext.Current.Request.Headers[GlobalConstants.PublicKey];
+            var user = _hmacHelper.FindUserByPublicKey(headerPublicKey);
+            var userId = user.Id;
+            //var userId = 1;
             var entityToAudit = entity as IAuditInfo;
-            var today = DateTime.Now.ToDateTimeString().DateTimeStringToDateTime();
+            var today = GlobalConstants.TodayListener;
 
             switch (eventType)
             {
@@ -51,11 +50,11 @@ namespace FoodManager.DataAccess.Listeners
                     entityToAudit.ModifiedOn = today;
                     entityToAudit.CreatedBy = userId;
                     entityToAudit.ModifiedBy = userId;
-                    entityToAudit.Status = true;
+                    entityToAudit.Status = GlobalConstants.StatusActivated;
                     if (entity is IDeletable)
                     {
                         var entityDeletable = entity as IDeletable;
-                        entityDeletable.IsActive = true;
+                        entityDeletable.IsActive = GlobalConstants.Activated;
                     }
                 break;
                 case EventType.Update:
@@ -65,11 +64,11 @@ namespace FoodManager.DataAccess.Listeners
                 case EventType.Delete:
                     entityToAudit.ModifiedBy = userId;
                     entityToAudit.ModifiedOn = today;
-                    entityToAudit.Status = false;
+                    entityToAudit.Status = GlobalConstants.StatusDeactivated;
                     if (entity is IDeletable)
                     {
                         var entityDeletable = entity as IDeletable;
-                        entityDeletable.IsActive = false;
+                        entityDeletable.IsActive = GlobalConstants.Deactivated;
                     }
                     break;
             }

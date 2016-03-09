@@ -12,6 +12,6 @@ namespace FoodManager.Services.Interfaces
         SuccessResponse Update(DiseaseRequest request);
         Disease Get(GetDiseaseRequest request);
         SuccessResponse Delete(DeleteDiseaseRequest request);
-        SuccessResponse ChangeStatus(ChangeStatus request);
+        SuccessResponse ChangeStatus(ChangeStatusRequest request);
     }
 }

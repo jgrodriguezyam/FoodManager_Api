@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using FoodManager.Infrastructure.Constants;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Queries;
 using FoodManager.Model;
@@ -22,7 +23,19 @@ namespace FoodManager.Queries.Warnings
         public void WithOnlyActivated(bool onlyActivated)
         {
             if (onlyActivated)
-                _query.Where(newCoolerMultimedia => newCoolerMultimedia.IsActive);
+                _query.Where(warning => warning.IsActive);
+        }
+
+        public void WithOnlyStatusActivated(bool onlyStatusActivated)
+        {
+            if (onlyStatusActivated)
+                _query.Where(warning => warning.Status);
+        }
+
+        public void WithOnlyStatusDeactivated(bool onlyStatusDeactivated)
+        {
+            if (onlyStatusDeactivated)
+                _query.Where(warning => warning.Status == GlobalConstants.StatusDeactivated);
         }
 
         public void Sort(string sort, string sortBy)

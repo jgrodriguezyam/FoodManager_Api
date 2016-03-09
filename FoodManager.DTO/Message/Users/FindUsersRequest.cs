@@ -2,7 +2,7 @@
 
 namespace FoodManager.DTO.Message.Users
 {
-    public class FindUsersRequest : FindBaseRequest
+    public class FindUsersRequest : FindStatusRequest
     {
         public string Name { get; set; }
         public string UserName { get; set; }

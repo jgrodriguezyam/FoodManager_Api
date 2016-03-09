@@ -31,6 +31,8 @@ namespace FoodManager.Services.Implements
             try
             {
                 _regionQuery.WithOnlyActivated(true);
+                _regionQuery.WithOnlyStatusActivated(request.OnlyStatusActivated);
+                _regionQuery.WithOnlyStatusDeactivated(request.OnlyStatusDeactivated);
                 _regionQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _regionQuery.TotalRecords();
                 _regionQuery.Paginate(request.StartPage, request.EndPage);
@@ -110,7 +112,7 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public SuccessResponse ChangeStatus(ChangeStatus request)
+        public SuccessResponse ChangeStatus(ChangeStatusRequest request)
         {
             try
             {

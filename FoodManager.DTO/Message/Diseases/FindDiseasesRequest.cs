@@ -2,7 +2,7 @@
 
 namespace FoodManager.DTO.Message.Diseases
 {
-    public class FindDiseasesRequest : FindBaseRequest
+    public class FindDiseasesRequest : FindStatusRequest
     {
          
     }

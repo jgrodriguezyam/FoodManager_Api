@@ -7,6 +7,8 @@ namespace FoodManager.Queries.Regions
     public interface IRegionQuery : IQuery
     {
         void WithOnlyActivated(bool onlyActivated);
+        void WithOnlyStatusActivated(bool onlyStatusActivated);
+        void WithOnlyStatusDeactivated(bool onlyStatusDeactivated);
         IEnumerable<Region> Execute();
     }
 }

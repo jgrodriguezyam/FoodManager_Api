@@ -2,7 +2,7 @@
 
 namespace FoodManager.DTO.Message.Departments
 {
-    public class FindDepartmentsRequest : FindBaseRequest
+    public class FindDepartmentsRequest : FindStatusRequest
     {
          
     }

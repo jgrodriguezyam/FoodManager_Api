@@ -12,6 +12,6 @@ namespace FoodManager.Services.Interfaces
         SuccessResponse Update(WarningRequest request);
         Warning Get(GetWarningRequest request);
         SuccessResponse Delete(DeleteWarningRequest request);
-        SuccessResponse ChangeStatus(ChangeStatus request);
+        SuccessResponse ChangeStatus(ChangeStatusRequest request);
     }
 }

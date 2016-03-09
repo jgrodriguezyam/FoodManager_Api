@@ -15,6 +15,6 @@ namespace FoodManager.Services.Interfaces
         LoginUserResponse Login(LoginUserRequest request);
         SuccessResponse Logout(LogoutUserRequest request);
         SuccessResponse ChangePassword(ChangeUserPasswordRequest request);
-        SuccessResponse ChangeStatus(ChangeStatus request);
+        SuccessResponse ChangeStatus(ChangeStatusRequest request);
     }
 }

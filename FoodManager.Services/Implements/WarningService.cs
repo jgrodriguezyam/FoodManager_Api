@@ -31,6 +31,8 @@ namespace FoodManager.Services.Implements
             try
             {
                 _warningQuery.WithOnlyActivated(true);
+                _warningQuery.WithOnlyStatusActivated(request.OnlyStatusActivated);
+                _warningQuery.WithOnlyStatusDeactivated(request.OnlyStatusDeactivated);
                 _warningQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _warningQuery.TotalRecords();
                 _warningQuery.Paginate(request.StartPage, request.EndPage);
@@ -110,7 +112,7 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public SuccessResponse ChangeStatus(ChangeStatus request)
+        public SuccessResponse ChangeStatus(ChangeStatusRequest request)
         {
             try
             {

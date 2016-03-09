@@ -7,6 +7,8 @@ namespace FoodManager.Queries.Branches
     public interface IBranchQuery : IQuery
     {
         void WithOnlyActivated(bool onlyActivated);
+        void WithOnlyStatusActivated(bool onlyStatusActivated);
+        void WithOnlyStatusDeactivated(bool onlyStatusDeactivated);
         IEnumerable<Branch> Execute();
     }
 }

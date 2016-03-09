@@ -2,7 +2,7 @@
 
 namespace FoodManager.DTO.Message.Warnings
 {
-    public class FindWarningsRequest : FindBaseRequest
+    public class FindWarningsRequest : FindStatusRequest
     {
          
     }

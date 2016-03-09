@@ -40,8 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseRequest\ChangeStatus.cs" />
+    <Compile Include="BaseRequest\ChangeStatusRequest.cs" />
     <Compile Include="BaseRequest\FindBaseRequest.cs" />
+    <Compile Include="BaseRequest\FindStatusRequest.cs" />
     <Compile Include="BaseRequest\IdentifierBaseRequest.cs" />
     <Compile Include="BaseRequest\LoginRequest.cs" />
     <Compile Include="BaseRequest\LogoutRequest.cs" />
