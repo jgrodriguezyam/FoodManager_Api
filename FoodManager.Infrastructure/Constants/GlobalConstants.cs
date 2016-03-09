@@ -27,7 +27,5 @@ namespace FoodManager.Infrastructure.Constants
 
         public static readonly bool StatusActivated = true;
         public static readonly bool StatusDeactivated = false;
-
-        public static DateTime TodayListener = DateTime.Now.ToDateTimeString().DateTimeStringToDateTime();
     }
 }

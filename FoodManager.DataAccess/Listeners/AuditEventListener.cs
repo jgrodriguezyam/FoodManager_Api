@@ -41,7 +41,7 @@ namespace FoodManager.DataAccess.Listeners
             var userId = user.Id;
             //var userId = 1;
             var entityToAudit = entity as IAuditInfo;
-            var today = GlobalConstants.TodayListener;
+            var today = DateTime.Now.ToDateTimeString().DateTimeStringToDateTime();
 
             switch (eventType)
             {
