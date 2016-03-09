@@ -28,12 +28,18 @@ namespace FoodManager.DataAccess.Listeners
                 SetAudit(entity, EventType.Update);
         }
 
+        public void OnPreDelete(object entity)
+        {
+            if (entity is IAuditInfo)
+                SetAudit(entity, EventType.Delete);
+        }
+
         private void SetAudit(object entity, EventType eventType)
         {
-            //var headerPublicKey = HttpContext.Current.Request.Headers[GlobalConstants.PublicKey];
-            //var user = _hmacHelper.FindUserByPublicKey(headerPublicKey);
-            //var userId = user.Id;
-            var userId = 1;
+            var headerPublicKey = HttpContext.Current.Request.Headers[GlobalConstants.PublicKey];
+            var user = _hmacHelper.FindUserByPublicKey(headerPublicKey);
+            var userId = user.Id;
+            //var userId = 1;
 
             var entityToAudit = entity as IAuditInfo;
             var today = DateTime.Now.ToDateTimeString().DateTimeStringToDateTime();
@@ -55,6 +61,16 @@ namespace FoodManager.DataAccess.Listeners
                 case EventType.Update:
                     entityToAudit.ModifiedBy = userId;
                     entityToAudit.ModifiedOn = today;
+                    break;
+                case EventType.Delete:
+                    entityToAudit.ModifiedBy = userId;
+                    entityToAudit.ModifiedOn = today;
+                    entityToAudit.Status = false;
+                    if (entity is IDeletable)
+                    {
+                        var entityDeletable = entity as IDeletable;
+                        entityDeletable.IsActive = false;
+                    }
                     break;
             }
         }

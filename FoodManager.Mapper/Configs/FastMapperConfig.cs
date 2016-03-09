@@ -2,8 +2,10 @@
 using FoodManager.DTO.Message.Branches;
 using FoodManager.DTO.Message.Companies;
 using FoodManager.DTO.Message.Departments;
+using FoodManager.DTO.Message.Diseases;
 using FoodManager.DTO.Message.Regions;
 using FoodManager.DTO.Message.Users;
+using FoodManager.DTO.Message.Warnings;
 
 namespace FoodManager.Mapper.Configs
 {
@@ -171,6 +173,70 @@ namespace FoodManager.Mapper.Configs
                 .NewConfig();
 
             TypeAdapterConfig<Model.User, UserResponse>
+                .NewConfig();
+
+            #endregion
+
+            #region Disease
+
+            TypeAdapterConfig<Model.Disease, DTO.Disease>
+                .NewConfig();
+
+            TypeAdapterConfig<DTO.Disease, Model.Disease>
+                .NewConfig()
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<Model.Disease, Model.Disease>
+                .NewConfig()
+                .IgnoreMember(dest => dest.Id)
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<DiseaseRequest, Model.Disease>
+                .NewConfig();
+
+            TypeAdapterConfig<Model.Disease, DiseaseResponse>
+                .NewConfig();
+
+            #endregion
+
+            #region Warning
+
+            TypeAdapterConfig<Model.Warning, DTO.Warning>
+                .NewConfig();
+
+            TypeAdapterConfig<DTO.Warning, Model.Warning>
+                .NewConfig()
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<Model.Warning, Model.Warning>
+                .NewConfig()
+                .IgnoreMember(dest => dest.Id)
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<WarningRequest, Model.Warning>
+                .NewConfig();
+
+            TypeAdapterConfig<Model.Warning, WarningResponse>
                 .NewConfig();
 
             #endregion

@@ -15,6 +15,7 @@ namespace FoodManager.OrmLite.DataBase
         void RemoveById<T>(int id) where T : new();
         T GetById<T>(int id) where T : new();
         void LogicRemoveById<T>(int id) where T : new();
+        void LogicRemove<T>(T objectToRemove) where T : new();
         T SingleById<T>(int id) where T : new();
         T SingleById<T>(string id) where T : new();
         IEnumerable<T> FindBy<T>(Expression<Func<T, bool>> predicate);

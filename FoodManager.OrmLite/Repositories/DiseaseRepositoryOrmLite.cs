@@ -8,40 +8,40 @@ using FoodManager.OrmLite.DataBase;
 
 namespace FoodManager.OrmLite.Repositories
 {
-    public class RegionRepositoryOrmLite : IRegionRepository
+    public class DiseaseRepositoryOrmLite : IDiseaseRepository
     {
         private readonly IDataBaseSqlServerOrmLite _dataBaseSqlServerOrmLite;
         private readonly IAuditEventListener _auditEventListener;
 
-        public RegionRepositoryOrmLite(IDataBaseSqlServerOrmLite dataBaseSqlServerOrmLite, IAuditEventListener auditEventListener)
+        public DiseaseRepositoryOrmLite(IDataBaseSqlServerOrmLite dataBaseSqlServerOrmLite, IAuditEventListener auditEventListener)
         {
             _dataBaseSqlServerOrmLite = dataBaseSqlServerOrmLite;
             _auditEventListener = auditEventListener;
         }
 
-        public Region FindBy(int id)
+        public Disease FindBy(int id)
         {
-            return _dataBaseSqlServerOrmLite.GetById<Region>(id);
+            return _dataBaseSqlServerOrmLite.GetById<Disease>(id);
         }
 
-        public IEnumerable<Region> FindBy(Expression<Func<Region, bool>> predicate)
+        public IEnumerable<Disease> FindBy(Expression<Func<Disease, bool>> predicate)
         {
             return _dataBaseSqlServerOrmLite.FindBy(predicate);
         }
 
-        public void Add(Region item)
+        public void Add(Disease item)
         {
             _auditEventListener.OnPreInsert(item);
             _dataBaseSqlServerOrmLite.Insert(item);
         }
 
-        public void Update(Region item)
+        public void Update(Disease item)
         {
             _auditEventListener.OnPreUpdate(item);
             _dataBaseSqlServerOrmLite.Update(item);
         }
 
-        public void Remove(Region item)
+        public void Remove(Disease item)
         {
             _auditEventListener.OnPreDelete(item);
             _dataBaseSqlServerOrmLite.LogicRemove(item);

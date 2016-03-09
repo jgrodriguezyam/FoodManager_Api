@@ -9,6 +9,7 @@ namespace FoodManager.OrmLite.DataBase
 {
     public class DataBaseSqlServerOrmLite : IDataBaseSqlServerOrmLite
     {
+        private const int RegisterStatusDeactivate = 0;
         private const int RegisterDeactivate = 0;
         private const int RegisterActivate = 1;
         public IDbConnectionFactory DbConnectionFactory;
@@ -56,6 +57,11 @@ namespace FoodManager.OrmLite.DataBase
         public void LogicRemoveById<T>(int id) where T : new()
         {
             DbConnection.Update<T>("IsActive = {0}".Params(RegisterDeactivate), "Id = {0}".Params(id));
+        }
+
+        public void LogicRemove<T>(T objectToRemove) where T : new()
+        {
+            DbConnection.Update(objectToRemove);
         }
 
         public T SingleById<T>(int id) where T : new()

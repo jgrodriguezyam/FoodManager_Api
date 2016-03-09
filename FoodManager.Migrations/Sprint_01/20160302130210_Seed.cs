@@ -86,6 +86,42 @@ namespace FoodManager.Migrations.Sprint_01
 
             #endregion
 
+            #region Disease
+
+            Create.Table("Disease").InSchema("dbo")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Name").AsString(250).NotNullable()
+                .WithColumn("Code").AsString(250).Unique().NotNullable()
+
+                .WithColumn("CreatedBy").AsInt32().NotNullable()
+                .WithColumn("ModifiedBy").AsInt32().NotNullable()
+                .WithColumn("CreatedOn").AsDateTime().NotNullable()
+                .WithColumn("ModifiedOn").AsDateTime().NotNullable()
+                .WithColumn("Status").AsBoolean().NotNullable()
+                .WithColumn("IsActive").AsBoolean();
+
+            #endregion
+
+            #region Warning
+
+            Create.Table("Warning").InSchema("dbo")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Name").AsString(250).NotNullable()
+                .WithColumn("Code").AsString(250).Unique().NotNullable()
+                .WithColumn("DiseaseId").AsInt32().NotNullable()
+
+                .WithColumn("CreatedBy").AsInt32().NotNullable()
+                .WithColumn("ModifiedBy").AsInt32().NotNullable()
+                .WithColumn("CreatedOn").AsDateTime().NotNullable()
+                .WithColumn("ModifiedOn").AsDateTime().NotNullable()
+                .WithColumn("Status").AsBoolean().NotNullable()
+                .WithColumn("IsActive").AsBoolean();
+
+            Create.ForeignKey("FK_Warning_Disease").FromTable("Warning").InSchema("dbo").ForeignColumn("DiseaseId")
+                 .ToTable("Disease").InSchema("dbo").PrimaryColumn("Id");
+
+            #endregion
+
             #region User
 
             Create.Table("User").InSchema("dbo")
@@ -111,16 +147,10 @@ namespace FoodManager.Migrations.Sprint_01
 
         public override void Down()
         {
-            #region Region
+            #region Department
 
-            Delete.Table("Region").InSchema("dbo");
-
-            #endregion
-
-            #region Company
-
-            Delete.ForeignKey("FK_Company_Region").OnTable("Company").InSchema("dbo");
-            Delete.Table("Company").InSchema("dbo");
+            Delete.ForeignKey("FK_Department_Branch").OnTable("Department").InSchema("dbo");
+            Delete.Table("Department").InSchema("dbo");
 
             #endregion
 
@@ -131,15 +161,34 @@ namespace FoodManager.Migrations.Sprint_01
 
             #endregion
 
-            #region Department
+            #region Company
 
-            Delete.ForeignKey("FK_Department_Branch").OnTable("Department").InSchema("dbo");
-            Delete.Table("Department").InSchema("dbo");
+            Delete.ForeignKey("FK_Company_Region").OnTable("Company").InSchema("dbo");
+            Delete.Table("Company").InSchema("dbo");
+
+            #endregion
+
+            #region Region
+
+            Delete.Table("Region").InSchema("dbo");
+
+            #endregion
+
+            #region Warning
+
+            Delete.ForeignKey("FK_Warning_Disease").OnTable("Warning").InSchema("dbo");
+            Delete.Table("Warning").InSchema("dbo");
+
+            #endregion
+
+            #region Disease
+
+            Delete.Table("Disease").InSchema("dbo");
 
             #endregion
 
             #region User
-            
+
             Delete.Table("User").InSchema("dbo");
 
             #endregion
@@ -167,6 +216,14 @@ namespace FoodManager.Migrations.Sprint_01
 
             Execute.Sql("INSERT INTO [User] (Name, Type, UserName, Password, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
                         "('" + GlobalConstants.AdminUserName + "', " + UserType.Admin.GetValue()  + ", '" + GlobalConstants.AdminUserName + "', '" + Cryptography.Encrypt(GlobalConstants.AdminPassword) + "'," + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")");
+
+            Execute.Sql("INSERT INTO Disease (Name, Code, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+                        "('Enfermedad cardiaca', 'CODE1'," + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")," +
+                        "('Diabetes', 'CODE2'," + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")");
+
+            Execute.Sql("INSERT INTO Warning (Name, Code, DiseaseId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+                        "('Te estas pasando de calorias', 'CODE1', 1," + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")," +
+                        "('Cuidado con tu alimentacion', 'CODE2', 1," + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusDefault + ", " + GlobalConstants.IsActiveDefault + ")");
         }
     }
 }

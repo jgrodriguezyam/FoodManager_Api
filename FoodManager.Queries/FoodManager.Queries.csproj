@@ -52,11 +52,15 @@
     <Compile Include="Companies\ICompanyQuery.cs" />
     <Compile Include="Departments\DepartmentQuery.cs" />
     <Compile Include="Departments\IDepartmentQuery.cs" />
+    <Compile Include="Diseases\DiseaseQuery.cs" />
+    <Compile Include="Diseases\IDiseaseQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Regions\IRegionQuery.cs" />
     <Compile Include="Regions\RegionQuery.cs" />
     <Compile Include="Users\IUserQuery.cs" />
     <Compile Include="Users\UserQuery.cs" />
+    <Compile Include="Warnings\IWarningQuery.cs" />
+    <Compile Include="Warnings\WarningQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FoodManager.Infrastructure\FoodManager.Infrastructure.csproj">

@@ -10,8 +10,10 @@ using FoodManager.OrmLite.Repositories;
 using FoodManager.Queries.Branches;
 using FoodManager.Queries.Companies;
 using FoodManager.Queries.Departments;
+using FoodManager.Queries.Diseases;
 using FoodManager.Queries.Regions;
 using FoodManager.Queries.Users;
+using FoodManager.Queries.Warnings;
 using FoodManager.Services.Implements;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Implements;
@@ -78,9 +80,19 @@ namespace FoodManager.IoC.Configs
             _container.Register<IDepartmentService, DepartmentService>();
 
             _container.Register<IUserRepository, UserRepositoryOrmLite>();
-            _container.Register<IUserService, UserService>();
-            _container.Register<IUserValidator, UserValidator>();
             _container.Register<IUserQuery, UserQuery>();
+            _container.Register<IUserValidator, UserValidator>();
+            _container.Register<IUserService, UserService>();
+
+            _container.Register<IDiseaseRepository, DiseaseRepositoryOrmLite>();
+            _container.Register<IDiseaseQuery, DiseaseQuery>();
+            _container.Register<IDiseaseValidator, DiseaseValidator>();
+            _container.Register<IDiseaseService, DiseaseService>();
+
+            _container.Register<IWarningRepository, WarningRepositoryOrmLite>();
+            _container.Register<IWarningQuery, WarningQuery>();
+            _container.Register<IWarningValidator, WarningValidator>();
+            _container.Register<IWarningService, WarningService>();
         }
     }
 }

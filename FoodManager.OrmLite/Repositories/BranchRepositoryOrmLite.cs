@@ -43,7 +43,8 @@ namespace FoodManager.OrmLite.Repositories
 
         public void Remove(Branch item)
         {
-            _dataBaseSqlServerOrmLite.LogicRemoveById<Branch>(item.Id);
+            _auditEventListener.OnPreDelete(item);
+            _dataBaseSqlServerOrmLite.LogicRemove(item);
         }
     }
 }
