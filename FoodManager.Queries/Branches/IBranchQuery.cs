@@ -9,6 +9,7 @@ namespace FoodManager.Queries.Branches
         void WithOnlyActivated(bool onlyActivated);
         void WithOnlyStatusActivated(bool onlyStatusActivated);
         void WithOnlyStatusDeactivated(bool onlyStatusDeactivated);
+        void WithCompany(int companyId);
         IEnumerable<Branch> Execute();
     }
 }

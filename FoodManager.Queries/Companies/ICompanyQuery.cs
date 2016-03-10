@@ -9,6 +9,7 @@ namespace FoodManager.Queries.Companies
         void WithOnlyActivated(bool onlyActivated);
         void WithOnlyStatusActivated(bool onlyStatusActivated);
         void WithOnlyStatusDeactivated(bool onlyStatusDeactivated);
+        void WithRegion(int regionId);
         IEnumerable<Company> Execute();
     }
 }

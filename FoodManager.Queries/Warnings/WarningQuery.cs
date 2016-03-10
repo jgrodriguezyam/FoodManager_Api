@@ -38,6 +38,12 @@ namespace FoodManager.Queries.Warnings
                 _query.Where(warning => warning.Status == GlobalConstants.StatusDeactivated);
         }
 
+        public void WithDisease(int diseaseId)
+        {
+            if (diseaseId.IsNotZero())
+                _query.Where(warning => warning.DiseaseId == diseaseId);
+        }
+
         public void Sort(string sort, string sortBy)
         {
             sort = sort.SortResolver();

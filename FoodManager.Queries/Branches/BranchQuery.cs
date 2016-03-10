@@ -38,6 +38,12 @@ namespace FoodManager.Queries.Branches
                 _query.Where(branch => branch.Status == GlobalConstants.StatusDeactivated);
         }
 
+        public void WithCompany(int companyId)
+        {
+            if (companyId.IsNotZero())
+                _query.Where(branch => branch.CompanyId == companyId);
+        }
+
         public void Sort(string sort, string sortBy)
         {
             sort = sort.SortResolver();

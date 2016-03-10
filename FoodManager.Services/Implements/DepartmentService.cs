@@ -33,6 +33,7 @@ namespace FoodManager.Services.Implements
                 _departmentQuery.WithOnlyActivated(true);
                 _departmentQuery.WithOnlyStatusActivated(request.OnlyStatusActivated);
                 _departmentQuery.WithOnlyStatusDeactivated(request.OnlyStatusDeactivated);
+                _departmentQuery.WithBranch(request.BranchId);
                 _departmentQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _departmentQuery.TotalRecords();
                 _departmentQuery.Paginate(request.StartPage, request.EndPage);

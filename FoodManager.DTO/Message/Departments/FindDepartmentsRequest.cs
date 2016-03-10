@@ -4,6 +4,6 @@ namespace FoodManager.DTO.Message.Departments
 {
     public class FindDepartmentsRequest : FindStatusRequest
     {
-         
+         public int BranchId { get; set; }
     }
 }
