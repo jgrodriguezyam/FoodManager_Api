@@ -44,6 +44,7 @@
     <Compile Include="BaseRequest\FindBaseRequest.cs" />
     <Compile Include="BaseRequest\FindStatusRequest.cs" />
     <Compile Include="BaseRequest\IdentifierBaseRequest.cs" />
+    <Compile Include="BaseRequest\IsReferenceRequest.cs" />
     <Compile Include="BaseRequest\LoginRequest.cs" />
     <Compile Include="BaseRequest\LogoutRequest.cs" />
     <Compile Include="BaseResponse\CreateResponse.cs" />

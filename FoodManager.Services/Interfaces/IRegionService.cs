@@ -13,5 +13,6 @@ namespace FoodManager.Services.Interfaces
         Region Get(GetRegionRequest request);
         SuccessResponse Delete(DeleteRegionRequest request);
         SuccessResponse ChangeStatus(ChangeStatusRequest request);
+        SuccessResponse IsReference(IsReferenceRequest request);
     }
 }

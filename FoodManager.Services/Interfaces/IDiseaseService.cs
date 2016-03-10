@@ -13,5 +13,6 @@ namespace FoodManager.Services.Interfaces
         Disease Get(GetDiseaseRequest request);
         SuccessResponse Delete(DeleteDiseaseRequest request);
         SuccessResponse ChangeStatus(ChangeStatusRequest request);
+        SuccessResponse IsReference(IsReferenceRequest request);
     }
 }

@@ -51,5 +51,11 @@ namespace FoodManager.Controllers
         {
             return _branchService.ChangeStatus(request);
         }
+
+        [HttpGet, Route("branches/is-reference/{Id}")]
+        public SuccessResponse Get(IsReferenceRequest request)
+        {
+            return _branchService.IsReference(request);
+        }
     }
 }

@@ -39,7 +39,7 @@ namespace FoodManager.DataAccess.Listeners
             var headerPublicKey = HttpContext.Current.Request.Headers[GlobalConstants.PublicKey];
             var user = _hmacHelper.FindUserByPublicKey(headerPublicKey);
             var userId = user.Id;
-            //var userId = 1;
+            //const int userId = 1;
             var entityToAudit = entity as IAuditInfo;
             var today = DateTime.Now.ToDateTimeString().DateTimeStringToDateTime();
 

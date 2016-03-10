@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using FoodManager.DataAccess.Listeners;
+using FoodManager.Infrastructure.Integers;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.OrmLite.DataBase;
@@ -45,6 +46,12 @@ namespace FoodManager.OrmLite.Repositories
         {
             _auditEventListener.OnPreDelete(item);
             _dataBaseSqlServerOrmLite.LogicRemove(item);
+        }
+
+        public bool IsReference(int regionId)
+        {
+            var companyReference = _dataBaseSqlServerOrmLite.Count<Company>(company => company.RegionId == regionId && company.Status);
+            return companyReference.IsNotZero();
         }
     }
 }

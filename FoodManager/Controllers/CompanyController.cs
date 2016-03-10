@@ -51,5 +51,11 @@ namespace FoodManager.Controllers
         {
             return _companyService.ChangeStatus(request);
         }
+
+        [HttpGet, Route("companies/is-reference/{Id}")]
+        public SuccessResponse Get(IsReferenceRequest request)
+        {
+            return _companyService.IsReference(request);
+        }
     }
 }

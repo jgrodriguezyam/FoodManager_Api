@@ -21,6 +21,7 @@ namespace FoodManager.OrmLite.DataBase
         IEnumerable<T> FindBy<T>(Expression<Func<T, bool>> predicate);
         IEnumerable<T> FindExpressionVisitor<T>(SqlServerExpressionVisitor<T> sqlExpressionVisitor) where T : new();
         int Count<T>(SqlServerExpressionVisitor<T> sqlExpressionVisitor) where T : new();
+        int Count<T>(Expression<Func<T, bool>> predicate);
         void Commit();
         void Rollback();
         void RefreshHmac<T>(string publicKey, string time, int id) where T : new();

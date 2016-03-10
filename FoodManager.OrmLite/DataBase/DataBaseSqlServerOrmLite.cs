@@ -9,7 +9,6 @@ namespace FoodManager.OrmLite.DataBase
 {
     public class DataBaseSqlServerOrmLite : IDataBaseSqlServerOrmLite
     {
-        private const int RegisterStatusDeactivate = 0;
         private const int RegisterDeactivate = 0;
         private const int RegisterActivate = 1;
         public IDbConnectionFactory DbConnectionFactory;
@@ -93,6 +92,12 @@ namespace FoodManager.OrmLite.DataBase
         public int Count<T>(SqlServerExpressionVisitor<T> sqlExpressionVisitor) where T : new()
         {
             var totalCount = DbConnection.Count(sqlExpressionVisitor);
+            return Convert.ToInt32(totalCount);
+        }
+
+        public int Count<T>(Expression<Func<T, bool>> predicate)
+        {
+            var totalCount = DbConnection.Count(predicate);
             return Convert.ToInt32(totalCount);
         }
 

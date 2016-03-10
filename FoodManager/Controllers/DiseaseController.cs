@@ -51,5 +51,11 @@ namespace FoodManager.Controllers
         {
             return _diseaseService.ChangeStatus(request);
         }
+
+        [HttpGet, Route("diseases/is-reference/{Id}")]
+        public SuccessResponse Get(IsReferenceRequest request)
+        {
+            return _diseaseService.IsReference(request);
+        }
     }
 }

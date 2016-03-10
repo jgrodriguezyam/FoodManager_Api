@@ -3,18 +3,39 @@ using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Validators;
 using FoodManager.Model;
 using FoodManager.Services.Validators.Interfaces;
+using FluentValidation.Results;
+using FoodManager.Infrastructure.Constants;
+using FoodManager.Infrastructure.Objects;
+using FoodManager.Model.IRepositories;
 
 namespace FoodManager.Services.Validators.Implements
 {
     public class CompanyValidator : BaseValidator<Company>, ICompanyValidator
     {
-        public CompanyValidator()
+        private readonly IRegionRepository _regionRepository;
+
+        public CompanyValidator(IRegionRepository regionRepository)
         {
+            _regionRepository = regionRepository;
+
             RuleSet("Base", () =>
             {
                 RuleFor(company => company.Name).NotNull().NotEmpty();
                 RuleFor(company => company.RegionId).Must(regionId => regionId.IsNotZero()).WithMessage("Tienes que elegir una region");
+                Custom(ReferencesValidate);
             });
+        }
+
+        public ValidationFailure ReferencesValidate(Company company, ValidationContext<Company> context)
+        {
+            var region = _regionRepository.FindBy(company.RegionId);
+            if (region.IsNull())
+                return new ValidationFailure("Company", string.Format("La region {0} no existe", company.RegionId));
+
+            if (region.Status.Equals(GlobalConstants.StatusDeactivated))
+                return new ValidationFailure("Company", string.Format("La region {0} esta desactivada", company.RegionId));
+
+            return null;
         }
     }
 }
