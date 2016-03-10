@@ -11,6 +11,7 @@ using FoodManager.Queries.Branches;
 using FoodManager.Queries.Companies;
 using FoodManager.Queries.Departments;
 using FoodManager.Queries.Diseases;
+using FoodManager.Queries.Jobs;
 using FoodManager.Queries.Regions;
 using FoodManager.Queries.Users;
 using FoodManager.Queries.Warnings;
@@ -93,6 +94,11 @@ namespace FoodManager.IoC.Configs
             _container.Register<IWarningQuery, WarningQuery>();
             _container.Register<IWarningValidator, WarningValidator>();
             _container.Register<IWarningService, WarningService>();
+
+            _container.Register<IJobRepository, JobRepositoryOrmLite>();
+            _container.Register<IJobQuery, JobQuery>();
+            _container.Register<IJobValidator, JobValidator>();
+            _container.Register<IJobService, JobService>();
         }
     }
 }

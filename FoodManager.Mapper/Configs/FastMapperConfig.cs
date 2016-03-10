@@ -3,6 +3,7 @@ using FoodManager.DTO.Message.Branches;
 using FoodManager.DTO.Message.Companies;
 using FoodManager.DTO.Message.Departments;
 using FoodManager.DTO.Message.Diseases;
+using FoodManager.DTO.Message.Jobs;
 using FoodManager.DTO.Message.Regions;
 using FoodManager.DTO.Message.Users;
 using FoodManager.DTO.Message.Warnings;
@@ -237,6 +238,38 @@ namespace FoodManager.Mapper.Configs
                 .NewConfig();
 
             TypeAdapterConfig<Model.Warning, WarningResponse>
+                .NewConfig();
+
+            #endregion
+
+            #region Job
+
+            TypeAdapterConfig<Model.Job, DTO.Job>
+                .NewConfig();
+
+            TypeAdapterConfig<DTO.Job, Model.Job>
+                .NewConfig()
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<Model.Job, Model.Job>
+                .NewConfig()
+                .IgnoreMember(dest => dest.Id)
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<JobRequest, Model.Job>
+                .NewConfig();
+
+            TypeAdapterConfig<Model.Job, JobResponse>
                 .NewConfig();
 
             #endregion

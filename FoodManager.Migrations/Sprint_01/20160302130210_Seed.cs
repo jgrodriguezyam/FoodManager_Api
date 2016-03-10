@@ -122,6 +122,21 @@ namespace FoodManager.Migrations.Sprint_01
 
             #endregion
 
+            #region Job
+
+            Create.Table("Job").InSchema("dbo")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Name").AsString(250).NotNullable()
+
+                .WithColumn("CreatedBy").AsInt32().NotNullable()
+                .WithColumn("ModifiedBy").AsInt32().NotNullable()
+                .WithColumn("CreatedOn").AsDateTime().NotNullable()
+                .WithColumn("ModifiedOn").AsDateTime().NotNullable()
+                .WithColumn("Status").AsBoolean().NotNullable()
+                .WithColumn("IsActive").AsBoolean();
+
+            #endregion
+
             #region User
 
             Create.Table("User").InSchema("dbo")
@@ -187,6 +202,12 @@ namespace FoodManager.Migrations.Sprint_01
 
             #endregion
 
+            #region Job
+
+            Delete.Table("Job").InSchema("dbo");
+
+            #endregion
+
             #region User
 
             Delete.Table("User").InSchema("dbo");
@@ -224,6 +245,10 @@ namespace FoodManager.Migrations.Sprint_01
             Execute.Sql("INSERT INTO Warning (Name, Code, DiseaseId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
                         "('Te estas pasando de calorias', 'CODE1', 1," + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")," +
                         "('Cuidado con tu alimentacion', 'CODE2', 1," + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
+
+            Execute.Sql("INSERT INTO Job (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+                        "('Secretaria', " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")," +
+                        "('Programador', " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
         }
     }
 }
