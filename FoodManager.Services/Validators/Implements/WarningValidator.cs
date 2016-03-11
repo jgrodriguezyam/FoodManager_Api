@@ -30,12 +30,9 @@ namespace FoodManager.Services.Validators.Implements
         public ValidationFailure ReferencesValidate(Warning warning, ValidationContext<Warning> context)
         {
             var disease = _diseaseRepository.FindBy(warning.DiseaseId);
-            if (disease.IsNull())
-                return new ValidationFailure("Warning", string.Format("La enfermedad {0} no existe", warning.DiseaseId));
-
-            if (disease.Status.Equals(GlobalConstants.StatusDeactivated))
-                return new ValidationFailure("Warning", string.Format("La enfermedad {0} esta desactivada", warning.DiseaseId));
-
+            if (disease.IsNull() || disease.Status.Equals(GlobalConstants.StatusDeactivated))
+                return new ValidationFailure("Warning", "La enfermedad esta desactivada o no existe");
+            
             return null;
         }
     }

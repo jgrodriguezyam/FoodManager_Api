@@ -29,11 +29,8 @@ namespace FoodManager.Services.Validators.Implements
         public ValidationFailure ReferencesValidate(Company company, ValidationContext<Company> context)
         {
             var region = _regionRepository.FindBy(company.RegionId);
-            if (region.IsNull())
-                return new ValidationFailure("Company", string.Format("La region {0} no existe", company.RegionId));
-
-            if (region.Status.Equals(GlobalConstants.StatusDeactivated))
-                return new ValidationFailure("Company", string.Format("La region {0} esta desactivada", company.RegionId));
+            if (region.IsNull() || region.Status.Equals(GlobalConstants.StatusDeactivated))
+                return new ValidationFailure("Company", "La region esta desactivada o no existe");
 
             return null;
         }

@@ -29,11 +29,8 @@ namespace FoodManager.Services.Validators.Implements
         public ValidationFailure ReferencesValidate(Department department, ValidationContext<Department> context)
         {
             var branch = _branchRepository.FindBy(department.BranchId);
-            if (branch.IsNull())
-                return new ValidationFailure("Department", string.Format("La sucursal {0} no existe", department.BranchId));
-
-            if (branch.Status.Equals(GlobalConstants.StatusDeactivated))
-                return new ValidationFailure("Department", string.Format("La sucursal {0} esta desactivada", department.BranchId));
+            if (branch.IsNull() || branch.Status.Equals(GlobalConstants.StatusDeactivated))
+                return new ValidationFailure("Department", "La sucursal esta desactivada o no existe");
 
             return null;
         }

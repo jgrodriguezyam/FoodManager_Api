@@ -30,11 +30,8 @@ namespace FoodManager.Services.Validators.Implements
         public ValidationFailure ReferencesValidate(Branch branch, ValidationContext<Branch> context)
         {
             var company = _companyRepository.FindBy(branch.CompanyId);
-            if (company.IsNull())
-                return new ValidationFailure("Branch", string.Format("La compania {0} no existe", branch.CompanyId));
-
-            if (company.Status.Equals(GlobalConstants.StatusDeactivated))
-                return new ValidationFailure("Branch", string.Format("La compania {0} esta desactivada", branch.CompanyId));
+            if (company.IsNull() || company.Status.Equals(GlobalConstants.StatusDeactivated))
+                return new ValidationFailure("Branch", "La compania esta desactivada o no existe");
 
             return null;
         }
