@@ -38,6 +38,12 @@ namespace FoodManager.Queries.Users
                 _query.Where(user => user.Status == GlobalConstants.StatusDeactivated);
         }
 
+        public void WithDealer(int dealerId)
+        {
+            if (dealerId.IsNotZero())
+                _query.Where(user => user.DealerId == dealerId);
+        }
+
         public void Sort(string sort, string sortBy)
         {
             sort = sort.SortResolver();

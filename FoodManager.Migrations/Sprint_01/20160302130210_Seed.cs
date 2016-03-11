@@ -2,9 +2,7 @@
 using FluentMigrator;
 using FoodManager.Infrastructure.Constants;
 using FoodManager.Infrastructure.Dates;
-using FoodManager.Infrastructure.Enums;
 using FoodManager.Infrastructure.Utils;
-using FoodManager.Model.Enums;
 
 namespace FoodManager.Migrations.Sprint_01
 {
@@ -137,26 +135,6 @@ namespace FoodManager.Migrations.Sprint_01
 
             #endregion
 
-            #region User
-
-            Create.Table("User").InSchema("dbo")
-                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("Name").AsString(250).NotNullable()
-                .WithColumn("Type").AsInt32().NotNullable()
-                .WithColumn("UserName").AsString(250).Unique().NotNullable()
-                .WithColumn("Password").AsString(250).NotNullable()
-                .WithColumn("PublicKey").AsString(250).Nullable()
-                .WithColumn("Time").AsString(250).Nullable()
-
-                .WithColumn("CreatedBy").AsInt32().NotNullable()
-                .WithColumn("ModifiedBy").AsInt32().NotNullable()
-                .WithColumn("CreatedOn").AsDateTime().NotNullable()
-                .WithColumn("ModifiedOn").AsDateTime().NotNullable()
-                .WithColumn("Status").AsBoolean().NotNullable()
-                .WithColumn("IsActive").AsBoolean();
-
-            #endregion
-
             #region Tip
 
             Create.Table("Tip").InSchema("dbo")
@@ -184,6 +162,29 @@ namespace FoodManager.Migrations.Sprint_01
                 .WithColumn("ModifiedOn").AsDateTime().NotNullable()
                 .WithColumn("Status").AsBoolean().NotNullable()
                 .WithColumn("IsActive").AsBoolean();
+
+            #endregion
+
+            #region User
+
+            Create.Table("User").InSchema("dbo")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Name").AsString(250).NotNullable()
+                .WithColumn("UserName").AsString(250).Unique().NotNullable()
+                .WithColumn("Password").AsString(250).NotNullable()
+                .WithColumn("PublicKey").AsString(250).Nullable()
+                .WithColumn("Time").AsString(250).Nullable()
+                .WithColumn("DealerId").AsInt32().Nullable()
+
+                .WithColumn("CreatedBy").AsInt32().NotNullable()
+                .WithColumn("ModifiedBy").AsInt32().NotNullable()
+                .WithColumn("CreatedOn").AsDateTime().NotNullable()
+                .WithColumn("ModifiedOn").AsDateTime().NotNullable()
+                .WithColumn("Status").AsBoolean().NotNullable()
+                .WithColumn("IsActive").AsBoolean();
+
+            Create.ForeignKey("FK_User_Dealer").FromTable("User").InSchema("dbo").ForeignColumn("DealerId")
+                 .ToTable("Dealer").InSchema("dbo").PrimaryColumn("Id");
 
             #endregion
 
@@ -240,6 +241,7 @@ namespace FoodManager.Migrations.Sprint_01
 
             #region User
 
+            Delete.ForeignKey("FK_User_Dealer").OnTable("User").InSchema("dbo");
             Delete.Table("User").InSchema("dbo");
 
             #endregion
@@ -277,8 +279,8 @@ namespace FoodManager.Migrations.Sprint_01
                         "('Desarrollo', 1," + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")," +
                         "('HelpDesk', 1," + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
 
-            Execute.Sql("INSERT INTO [User] (Name, Type, UserName, Password, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
-                        "('" + GlobalConstants.AdminUserName + "', " + UserType.Admin.GetValue()  + ", '" + GlobalConstants.AdminUserName + "', '" + Cryptography.Encrypt(GlobalConstants.AdminPassword) + "'," + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.ActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
+            Execute.Sql("INSERT INTO [User] (Name, UserName, Password, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+                        "('" + GlobalConstants.AdminUserName + "', '" + GlobalConstants.AdminUserName + "', '" + Cryptography.Encrypt(GlobalConstants.AdminPassword) + "'," + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.ActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
 
             Execute.Sql("INSERT INTO Disease (Name, Code, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
                         "('Enfermedad cardiaca', 'CODE1'," + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")," +

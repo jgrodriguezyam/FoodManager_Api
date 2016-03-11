@@ -38,6 +38,7 @@ namespace FoodManager.Services.Implements
                 _userQuery.WithOnlyActivated(true);
                 _userQuery.WithOnlyStatusActivated(request.OnlyStatusActivated);
                 _userQuery.WithOnlyStatusDeactivated(request.OnlyStatusDeactivated);
+                _userQuery.WithDealer(request.DealerId);
                 _userQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _userQuery.TotalRecords();
                 _userQuery.Paginate(request.StartPage, request.EndPage);

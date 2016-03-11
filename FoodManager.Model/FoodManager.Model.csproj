@@ -51,7 +51,6 @@
     <Compile Include="Dealer.cs" />
     <Compile Include="Department.cs" />
     <Compile Include="Disease.cs" />
-    <Compile Include="Enums\UserType.cs" />
     <Compile Include="IHmac\IHmacHelper.cs" />
     <Compile Include="IRepositories\IBranchRepository.cs" />
     <Compile Include="IRepositories\ICompanyRepository.cs" />
@@ -70,7 +69,9 @@
     <Compile Include="User.cs" />
     <Compile Include="Warning.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Enums\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FoodManager.Infrastructure\FoodManager.Infrastructure.csproj">
       <Project>{31543791-A186-4996-833B-40D08A4ABB85}</Project>

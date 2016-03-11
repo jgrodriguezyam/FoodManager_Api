@@ -6,5 +6,6 @@ namespace FoodManager.DTO.Message.Users
     {
         public string Name { get; set; }
         public string UserName { get; set; }
+        public int DealerId { get; set; }
     }
 }
