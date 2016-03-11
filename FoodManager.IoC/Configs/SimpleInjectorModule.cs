@@ -9,6 +9,7 @@ using FoodManager.OrmLite.Hmac;
 using FoodManager.OrmLite.Repositories;
 using FoodManager.Queries.Branches;
 using FoodManager.Queries.Companies;
+using FoodManager.Queries.Dealers;
 using FoodManager.Queries.Departments;
 using FoodManager.Queries.Diseases;
 using FoodManager.Queries.Jobs;
@@ -105,6 +106,11 @@ namespace FoodManager.IoC.Configs
             _container.Register<ITipQuery, TipQuery>();
             _container.Register<ITipValidator, TipValidator>();
             _container.Register<ITipService, TipService>();
+
+            _container.Register<IDealerRepository, DealerRepositoryOrmLite>();
+            _container.Register<IDealerQuery, DealerQuery>();
+            _container.Register<IDealerValidator, DealerValidator>();
+            _container.Register<IDealerService, DealerService>();
         }
     }
 }

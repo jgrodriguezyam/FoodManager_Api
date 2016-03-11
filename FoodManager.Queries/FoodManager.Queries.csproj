@@ -50,6 +50,8 @@
     <Compile Include="Branches\IBranchQuery.cs" />
     <Compile Include="Companies\CompanyQuery.cs" />
     <Compile Include="Companies\ICompanyQuery.cs" />
+    <Compile Include="Dealers\DealerQuery.cs" />
+    <Compile Include="Dealers\IDealerQuery.cs" />
     <Compile Include="Departments\DepartmentQuery.cs" />
     <Compile Include="Departments\IDepartmentQuery.cs" />
     <Compile Include="Diseases\DiseaseQuery.cs" />

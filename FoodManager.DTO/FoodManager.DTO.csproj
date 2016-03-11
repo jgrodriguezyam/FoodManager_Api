@@ -55,6 +55,7 @@
     <Compile Include="BaseResponse\SuccessResponse.cs" />
     <Compile Include="Branch.cs" />
     <Compile Include="Company.cs" />
+    <Compile Include="Dealer.cs" />
     <Compile Include="Department.cs" />
     <Compile Include="Disease.cs" />
     <Compile Include="Job.cs" />
@@ -64,6 +65,12 @@
     <Compile Include="Message\Branches\FindBranchesRequest.cs" />
     <Compile Include="Message\Branches\FindBranchesResponse.cs" />
     <Compile Include="Message\Branches\GetBranchRequest.cs" />
+    <Compile Include="Message\Dealers\DealerRequest.cs" />
+    <Compile Include="Message\Dealers\DealerResponse.cs" />
+    <Compile Include="Message\Dealers\DeleteDealerRequest.cs" />
+    <Compile Include="Message\Dealers\FindDealersRequest.cs" />
+    <Compile Include="Message\Dealers\FindDealersResponse.cs" />
+    <Compile Include="Message\Dealers\GetDealerRequest.cs" />
     <Compile Include="Message\Departments\DeleteDepartmentRequest.cs" />
     <Compile Include="Message\Companies\CompanyRequest.cs" />
     <Compile Include="Message\Companies\CompanyResponse.cs" />

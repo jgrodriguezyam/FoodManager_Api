@@ -1,6 +1,7 @@
 ﻿using FastMapper;
 using FoodManager.DTO.Message.Branches;
 using FoodManager.DTO.Message.Companies;
+using FoodManager.DTO.Message.Dealers;
 using FoodManager.DTO.Message.Departments;
 using FoodManager.DTO.Message.Diseases;
 using FoodManager.DTO.Message.Jobs;
@@ -303,6 +304,38 @@ namespace FoodManager.Mapper.Configs
                 .NewConfig();
 
             TypeAdapterConfig<Model.Tip, TipResponse>
+                .NewConfig();
+
+            #endregion
+
+            #region Dealer
+
+            TypeAdapterConfig<Model.Dealer, DTO.Dealer>
+                .NewConfig();
+
+            TypeAdapterConfig<DTO.Dealer, Model.Dealer>
+                .NewConfig()
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<Model.Dealer, Model.Dealer>
+                .NewConfig()
+                .IgnoreMember(dest => dest.Id)
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<DealerRequest, Model.Dealer>
+                .NewConfig();
+
+            TypeAdapterConfig<Model.Dealer, DealerResponse>
                 .NewConfig();
 
             #endregion
