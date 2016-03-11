@@ -1,9 +1,8 @@
-﻿namespace FoodManager.DTO
+﻿namespace FoodManager.DTO.Message.Tips
 {
-    public class Job
+    public class TipRequest
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public bool Status { get; set; }
     }
 }

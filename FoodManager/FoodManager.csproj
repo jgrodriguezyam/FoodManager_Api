@@ -153,6 +153,7 @@
     <Compile Include="Controllers\IsAliveController.cs" />
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\RegionController.cs" />
+    <Compile Include="Controllers\TipController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WarningController.cs" />
     <Compile Include="Filters\ExceptionFilter.cs" />

@@ -58,6 +58,7 @@
     <Compile Include="Implements\DiseaseService.cs" />
     <Compile Include="Implements\JobService.cs" />
     <Compile Include="Implements\RegionService.cs" />
+    <Compile Include="Implements\TipService.cs" />
     <Compile Include="Implements\UserService.cs" />
     <Compile Include="Implements\WarningService.cs" />
     <Compile Include="Interfaces\IBranchService.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Interfaces\IDiseaseService.cs" />
     <Compile Include="Interfaces\IJobService.cs" />
     <Compile Include="Interfaces\IRegionService.cs" />
+    <Compile Include="Interfaces\ITipService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Interfaces\IWarningService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Validators\Implements\FileValidator.cs" />
     <Compile Include="Validators\Implements\JobValidator.cs" />
     <Compile Include="Validators\Implements\RegionValidator.cs" />
+    <Compile Include="Validators\Implements\TipValidator.cs" />
     <Compile Include="Validators\Implements\UserValidator.cs" />
     <Compile Include="Validators\Implements\WarningValidator.cs" />
     <Compile Include="Validators\Interfaces\IBranchValidator.cs" />
@@ -85,6 +88,7 @@
     <Compile Include="Validators\Interfaces\IFileValidator.cs" />
     <Compile Include="Validators\Interfaces\IJobValidator.cs" />
     <Compile Include="Validators\Interfaces\IRegionValidator.cs" />
+    <Compile Include="Validators\Interfaces\ITipValidator.cs" />
     <Compile Include="Validators\Interfaces\IUserValidator.cs" />
     <Compile Include="Validators\Interfaces\IWarningValidator.cs" />
   </ItemGroup>

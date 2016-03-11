@@ -5,6 +5,7 @@ using FoodManager.DTO.Message.Departments;
 using FoodManager.DTO.Message.Diseases;
 using FoodManager.DTO.Message.Jobs;
 using FoodManager.DTO.Message.Regions;
+using FoodManager.DTO.Message.Tips;
 using FoodManager.DTO.Message.Users;
 using FoodManager.DTO.Message.Warnings;
 
@@ -270,6 +271,38 @@ namespace FoodManager.Mapper.Configs
                 .NewConfig();
 
             TypeAdapterConfig<Model.Job, JobResponse>
+                .NewConfig();
+
+            #endregion
+
+            #region Tip
+
+            TypeAdapterConfig<Model.Tip, DTO.Tip>
+                .NewConfig();
+
+            TypeAdapterConfig<DTO.Tip, Model.Tip>
+                .NewConfig()
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<Model.Tip, Model.Tip>
+                .NewConfig()
+                .IgnoreMember(dest => dest.Id)
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<TipRequest, Model.Tip>
+                .NewConfig();
+
+            TypeAdapterConfig<Model.Tip, TipResponse>
                 .NewConfig();
 
             #endregion

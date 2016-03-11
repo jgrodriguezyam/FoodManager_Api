@@ -13,6 +13,7 @@ using FoodManager.Queries.Departments;
 using FoodManager.Queries.Diseases;
 using FoodManager.Queries.Jobs;
 using FoodManager.Queries.Regions;
+using FoodManager.Queries.Tips;
 using FoodManager.Queries.Users;
 using FoodManager.Queries.Warnings;
 using FoodManager.Services.Implements;
@@ -99,6 +100,11 @@ namespace FoodManager.IoC.Configs
             _container.Register<IJobQuery, JobQuery>();
             _container.Register<IJobValidator, JobValidator>();
             _container.Register<IJobService, JobService>();
+
+            _container.Register<ITipRepository, TipRepositoryOrmLite>();
+            _container.Register<ITipQuery, TipQuery>();
+            _container.Register<ITipValidator, TipValidator>();
+            _container.Register<ITipService, TipService>();
         }
     }
 }

@@ -157,6 +157,21 @@ namespace FoodManager.Migrations.Sprint_01
 
             #endregion
 
+            #region Tip
+
+            Create.Table("Tip").InSchema("dbo")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Name").AsString(250).NotNullable()
+
+                .WithColumn("CreatedBy").AsInt32().NotNullable()
+                .WithColumn("ModifiedBy").AsInt32().NotNullable()
+                .WithColumn("CreatedOn").AsDateTime().NotNullable()
+                .WithColumn("ModifiedOn").AsDateTime().NotNullable()
+                .WithColumn("Status").AsBoolean().NotNullable()
+                .WithColumn("IsActive").AsBoolean();
+
+            #endregion
+
             Init();
         }
 
@@ -213,6 +228,12 @@ namespace FoodManager.Migrations.Sprint_01
             Delete.Table("User").InSchema("dbo");
 
             #endregion
+
+            #region Tip
+
+            Delete.Table("Tip").InSchema("dbo");
+
+            #endregion
         }
 
         private void Init()
@@ -249,6 +270,10 @@ namespace FoodManager.Migrations.Sprint_01
             Execute.Sql("INSERT INTO Job (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
                         "('Secretaria', " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")," +
                         "('Programador', " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
+
+            Execute.Sql("INSERT INTO Tip (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+                        "('Nunca olvides que el desayuno es primordial', " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")," +
+                        "('Evita catalogar los alimentos', " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
         }
     }
 }

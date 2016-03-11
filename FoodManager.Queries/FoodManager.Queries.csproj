@@ -59,6 +59,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Regions\IRegionQuery.cs" />
     <Compile Include="Regions\RegionQuery.cs" />
+    <Compile Include="Tips\ITipQuery.cs" />
+    <Compile Include="Tips\TipQuery.cs" />
     <Compile Include="Users\IUserQuery.cs" />
     <Compile Include="Users\UserQuery.cs" />
     <Compile Include="Warnings\IWarningQuery.cs" />

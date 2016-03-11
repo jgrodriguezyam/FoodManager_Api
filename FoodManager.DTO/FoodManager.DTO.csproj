@@ -92,6 +92,12 @@
     <Compile Include="Message\Regions\FindRegionsRequest.cs" />
     <Compile Include="Message\Regions\FindRegionsResponse.cs" />
     <Compile Include="Message\Regions\GetRegionRequest.cs" />
+    <Compile Include="Message\Tips\DeleteTipRequest.cs" />
+    <Compile Include="Message\Tips\FindTipsRequest.cs" />
+    <Compile Include="Message\Tips\FindTipsResponse.cs" />
+    <Compile Include="Message\Tips\GetTipRequest.cs" />
+    <Compile Include="Message\Tips\TipRequest.cs" />
+    <Compile Include="Message\Tips\TipResponse.cs" />
     <Compile Include="Message\Users\ChangeUserPasswordRequest.cs" />
     <Compile Include="Message\Users\DeleteUserRequest.cs" />
     <Compile Include="Message\Users\FindUsersRequest.cs" />
@@ -112,6 +118,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Message\Regions\RegionRequest.cs" />
     <Compile Include="Message\Regions\RegionResponse.cs" />
+    <Compile Include="Tip.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Warning.cs" />
   </ItemGroup>

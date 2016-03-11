@@ -70,6 +70,7 @@
     <Compile Include="Repositories\DiseaseRepositoryOrmLite.cs" />
     <Compile Include="Repositories\JobRepositoryOrmLite.cs" />
     <Compile Include="Repositories\RegionRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\TipRepositoryOrmLite.cs" />
     <Compile Include="Repositories\UserRepositoryOrmLite.cs" />
     <Compile Include="Repositories\WarningRepositoryOrmLite.cs" />
     <Compile Include="Utils\LimitResolver.cs" />
