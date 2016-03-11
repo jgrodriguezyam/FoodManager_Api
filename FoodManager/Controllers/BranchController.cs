@@ -57,5 +57,17 @@ namespace FoodManager.Controllers
         {
             return _branchService.IsReference(request);
         }
+
+        [HttpPost, Route("branches/{FirstReference}/dealers/{SecondReference}")]
+        public SuccessResponse Post(RelationRequest request)
+        {
+            return _branchService.AddDealer(request);
+        }
+
+        [HttpDelete, Route("branches/{FirstReference}/dealers/{SecondReference}")]
+        public SuccessResponse Delete(RelationRequest request)
+        {
+            return _branchService.RemoveDealer(request);
+        }
     }
 }

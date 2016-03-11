@@ -47,11 +47,13 @@
     <Compile Include="Base\IAuditInfo.cs" />
     <Compile Include="Base\IDeletable.cs" />
     <Compile Include="Branch.cs" />
+    <Compile Include="BranchDealer.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="Dealer.cs" />
     <Compile Include="Department.cs" />
     <Compile Include="Disease.cs" />
     <Compile Include="IHmac\IHmacHelper.cs" />
+    <Compile Include="IRepositories\IBranchDealerRepository.cs" />
     <Compile Include="IRepositories\IBranchRepository.cs" />
     <Compile Include="IRepositories\ICompanyRepository.cs" />
     <Compile Include="IRepositories\IDealerRepository.cs" />

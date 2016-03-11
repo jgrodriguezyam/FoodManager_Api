@@ -64,6 +64,7 @@
     <Compile Include="DataBase\IDataBaseSqlServerOrmLite.cs" />
     <Compile Include="Hmac\HmacHelperOrmLite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\BranchDealerRepositoryOrmLite.cs" />
     <Compile Include="Repositories\BranchRepositoryOrmLite.cs" />
     <Compile Include="Repositories\CompanyRepositoryOrmLite.cs" />
     <Compile Include="Repositories\DealerRepositoryOrmLite.cs" />

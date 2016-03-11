@@ -1,4 +1,5 @@
 ﻿using FastMapper;
+using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.Message.Branches;
 using FoodManager.DTO.Message.Companies;
 using FoodManager.DTO.Message.Dealers;
@@ -337,6 +338,15 @@ namespace FoodManager.Mapper.Configs
 
             TypeAdapterConfig<Model.Dealer, DealerResponse>
                 .NewConfig();
+
+            #endregion
+
+            #region GenericEntityRelation
+
+            TypeAdapterConfig<RelationRequest, Model.BranchDealer>
+                .NewConfig()
+                .MapFrom(dest => dest.BranchId, src => src.FirstReference)
+                .MapFrom(dest => dest.DealerId, src => src.SecondReference);
 
             #endregion
         }

@@ -73,6 +73,7 @@
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Interfaces\IWarningService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validators\Implements\BranchDealerValidator.cs" />
     <Compile Include="Validators\Implements\BranchValidator.cs" />
     <Compile Include="Validators\Implements\CompanyValidator.cs" />
     <Compile Include="Validators\Implements\DealerValidator.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Validators\Implements\TipValidator.cs" />
     <Compile Include="Validators\Implements\UserValidator.cs" />
     <Compile Include="Validators\Implements\WarningValidator.cs" />
+    <Compile Include="Validators\Interfaces\IBranchDealerValidator.cs" />
     <Compile Include="Validators\Interfaces\IBranchValidator.cs" />
     <Compile Include="Validators\Interfaces\ICompanyValidator.cs" />
     <Compile Include="Validators\Interfaces\IDealerValidator.cs" />

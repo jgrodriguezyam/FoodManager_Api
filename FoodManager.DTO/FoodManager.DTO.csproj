@@ -47,6 +47,7 @@
     <Compile Include="BaseRequest\IsReferenceRequest.cs" />
     <Compile Include="BaseRequest\LoginRequest.cs" />
     <Compile Include="BaseRequest\LogoutRequest.cs" />
+    <Compile Include="BaseRequest\RelationRequest.cs" />
     <Compile Include="BaseResponse\CreateResponse.cs" />
     <Compile Include="BaseResponse\EnumeratorResponse.cs" />
     <Compile Include="BaseResponse\ErrorResponse.cs" />

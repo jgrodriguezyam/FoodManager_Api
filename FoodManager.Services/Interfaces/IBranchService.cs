@@ -14,5 +14,7 @@ namespace FoodManager.Services.Interfaces
         SuccessResponse Delete(DeleteBranchRequest request);
         SuccessResponse ChangeStatus(ChangeStatusRequest request);
         SuccessResponse IsReference(IsReferenceRequest request);
+        SuccessResponse AddDealer(RelationRequest request);
+        SuccessResponse RemoveDealer(RelationRequest request);
     }
 }

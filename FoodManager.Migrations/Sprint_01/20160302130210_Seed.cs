@@ -165,6 +165,22 @@ namespace FoodManager.Migrations.Sprint_01
 
             #endregion
 
+            #region BranchDealer
+
+            Create.Table("BranchDealer").InSchema("dbo")
+                .WithColumn("BranchId").AsInt32().NotNullable()
+                .WithColumn("DealerId").AsInt32().NotNullable();
+
+            Create.ForeignKey("FK_BranchDealer_Branch").FromTable("BranchDealer").InSchema("dbo").ForeignColumn("BranchId")
+                 .ToTable("Branch").InSchema("dbo").PrimaryColumn("Id");
+            Create.ForeignKey("FK_BranchDealer_Dealer").FromTable("BranchDealer").InSchema("dbo").ForeignColumn("DealerId")
+                 .ToTable("Dealer").InSchema("dbo").PrimaryColumn("Id");
+
+            Create.Index("IX_BranchDealer").OnTable("BranchDealer").InSchema("dbo")
+                .OnColumn("BranchId").Ascending().OnColumn("DealerId").Ascending().WithOptions().Unique();
+
+            #endregion
+
             #region User
 
             Create.Table("User").InSchema("dbo")
@@ -193,6 +209,14 @@ namespace FoodManager.Migrations.Sprint_01
 
         public override void Down()
         {
+            #region BranchDealer
+
+            Delete.ForeignKey("FK_BranchDealer_Branch").OnTable("BranchDealer").InSchema("dbo");
+            Delete.ForeignKey("FK_BranchDealer_Dealer").OnTable("BranchDealer").InSchema("dbo");
+            Delete.Table("BranchDealer").InSchema("dbo");
+
+            #endregion
+
             #region Department
 
             Delete.ForeignKey("FK_Department_Branch").OnTable("Department").InSchema("dbo");
@@ -301,6 +325,8 @@ namespace FoodManager.Migrations.Sprint_01
             Execute.Sql("INSERT INTO Dealer (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
                         "('Areca', " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")," +
                         "('Cocina Walter', " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
+
+            Execute.Sql("INSERT INTO BranchDealer (BranchId, DealerId) VALUES (1,1), (1,2)");
         }
     }
 }

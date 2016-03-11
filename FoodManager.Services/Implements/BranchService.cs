@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
@@ -18,12 +19,16 @@ namespace FoodManager.Services.Implements
         private readonly IBranchQuery _branchQuery;
         private readonly IBranchRepository _branchRepository;
         private readonly IBranchValidator _branchValidator;
+        private readonly IBranchDealerRepository _branchDealerRepository;
+        private readonly IBranchDealerValidator _branchDealerValidator;
 
-        public BranchService(IBranchQuery branchQuery, IBranchRepository branchRepository, IBranchValidator branchValidator)
+        public BranchService(IBranchQuery branchQuery, IBranchRepository branchRepository, IBranchValidator branchValidator, IBranchDealerRepository branchDealerRepository, IBranchDealerValidator branchDealerValidator)
         {
             _branchQuery = branchQuery;
             _branchRepository = branchRepository;
             _branchValidator = branchValidator;
+            _branchDealerRepository = branchDealerRepository;
+            _branchDealerValidator = branchDealerValidator;
         }
 
         public FindBranchesResponse Find(FindBranchesRequest request)
@@ -137,6 +142,36 @@ namespace FoodManager.Services.Implements
             {
                 var isReference = _branchRepository.IsReference(request.Id);
                 return new SuccessResponse { IsSuccess = isReference };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public SuccessResponse AddDealer(RelationRequest request)
+        {
+            try
+            {
+                var branchDealer = TypeAdapter.Adapt<BranchDealer>(request);
+                _branchDealerValidator.ValidateAndThrowException(branchDealer, "Base");
+                _branchDealerRepository.Add(branchDealer);
+                return new SuccessResponse { IsSuccess = true };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public SuccessResponse RemoveDealer(RelationRequest request)
+        {
+            try
+            {
+                var branchDealer = _branchDealerRepository.FindBy(branchDealerRe => branchDealerRe.BranchId == request.FirstReference && branchDealerRe.DealerId == request.SecondReference).FirstOrDefault();
+                branchDealer.ThrowExceptionIfIsNull("Relacion no encontrada");
+                _branchDealerRepository.Remove(branchDealer);
+                return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)
             {

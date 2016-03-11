@@ -111,6 +111,9 @@ namespace FoodManager.IoC.Configs
             _container.Register<IDealerQuery, DealerQuery>();
             _container.Register<IDealerValidator, DealerValidator>();
             _container.Register<IDealerService, DealerService>();
+
+            _container.Register<IBranchDealerRepository, BranchDealerRepositoryOrmLite>();
+            _container.Register<IBranchDealerValidator, BranchDealerValidator>();
         }
     }
 }
