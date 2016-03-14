@@ -2,7 +2,9 @@
 using FluentMigrator;
 using FoodManager.Infrastructure.Constants;
 using FoodManager.Infrastructure.Dates;
+using FoodManager.Infrastructure.Enums;
 using FoodManager.Infrastructure.Utils;
+using FoodManager.Model.Enums;
 
 namespace FoodManager.Migrations.Sprint_01
 {
@@ -204,6 +206,22 @@ namespace FoodManager.Migrations.Sprint_01
 
             #endregion
 
+            #region Saucer
+
+            Create.Table("Saucer").InSchema("dbo")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Name").AsString(250).NotNullable()
+                .WithColumn("Type").AsInt32().NotNullable()
+
+                .WithColumn("CreatedBy").AsInt32().NotNullable()
+                .WithColumn("ModifiedBy").AsInt32().NotNullable()
+                .WithColumn("CreatedOn").AsDateTime().NotNullable()
+                .WithColumn("ModifiedOn").AsDateTime().NotNullable()
+                .WithColumn("Status").AsBoolean().NotNullable()
+                .WithColumn("IsActive").AsBoolean();
+
+            #endregion
+
             Init();
         }
 
@@ -281,6 +299,12 @@ namespace FoodManager.Migrations.Sprint_01
             Delete.Table("Dealer").InSchema("dbo");
 
             #endregion
+
+            #region Saucer
+
+            Delete.Table("Saucer").InSchema("dbo");
+
+            #endregion
         }
 
         private void Init()
@@ -327,6 +351,10 @@ namespace FoodManager.Migrations.Sprint_01
                         "('Cocina Walter', " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
 
             Execute.Sql("INSERT INTO BranchDealer (BranchId, DealerId) VALUES (1,1), (1,2)");
+
+            Execute.Sql("INSERT INTO Saucer (Name, Type, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+                        "('Frijol con puerco', " + SaucerType.Main.GetValue() + ", " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")," +
+                        "('Pechuga asada', " + SaucerType.Main.GetValue() + ", " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
         }
     }
 }

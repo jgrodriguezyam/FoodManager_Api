@@ -7,6 +7,7 @@ using FoodManager.DTO.Message.Departments;
 using FoodManager.DTO.Message.Diseases;
 using FoodManager.DTO.Message.Jobs;
 using FoodManager.DTO.Message.Regions;
+using FoodManager.DTO.Message.Saucers;
 using FoodManager.DTO.Message.Tips;
 using FoodManager.DTO.Message.Users;
 using FoodManager.DTO.Message.Warnings;
@@ -337,6 +338,38 @@ namespace FoodManager.Mapper.Configs
                 .NewConfig();
 
             TypeAdapterConfig<Model.Dealer, DealerResponse>
+                .NewConfig();
+
+            #endregion
+
+            #region Saucer
+
+            TypeAdapterConfig<Model.Saucer, DTO.Saucer>
+                .NewConfig();
+
+            TypeAdapterConfig<DTO.Saucer, Model.Saucer>
+                .NewConfig()
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<Model.Saucer, Model.Saucer>
+                .NewConfig()
+                .IgnoreMember(dest => dest.Id)
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<SaucerRequest, Model.Saucer>
+                .NewConfig();
+
+            TypeAdapterConfig<Model.Saucer, SaucerResponse>
                 .NewConfig();
 
             #endregion

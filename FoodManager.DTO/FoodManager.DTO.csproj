@@ -100,6 +100,12 @@
     <Compile Include="Message\Regions\FindRegionsRequest.cs" />
     <Compile Include="Message\Regions\FindRegionsResponse.cs" />
     <Compile Include="Message\Regions\GetRegionRequest.cs" />
+    <Compile Include="Message\Saucers\DeleteSaucerRequest.cs" />
+    <Compile Include="Message\Saucers\FindSaucersRequest.cs" />
+    <Compile Include="Message\Saucers\FindSaucersResponse.cs" />
+    <Compile Include="Message\Saucers\GetSaucerRequest.cs" />
+    <Compile Include="Message\Saucers\SaucerRequest.cs" />
+    <Compile Include="Message\Saucers\SaucerResponse.cs" />
     <Compile Include="Message\Tips\DeleteTipRequest.cs" />
     <Compile Include="Message\Tips\FindTipsRequest.cs" />
     <Compile Include="Message\Tips\FindTipsResponse.cs" />
@@ -126,6 +132,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Message\Regions\RegionRequest.cs" />
     <Compile Include="Message\Regions\RegionResponse.cs" />
+    <Compile Include="Saucer.cs" />
     <Compile Include="Tip.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Warning.cs" />
