@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
@@ -18,12 +19,16 @@ namespace FoodManager.Services.Implements
         private readonly IDealerQuery _dealerQuery;
         private readonly IDealerRepository _dealerRepository;
         private readonly IDealerValidator _dealerValidator;
+        private readonly IDealerSaucerRepository _dealerSaucerRepository;
+        private readonly IDealerSaucerValidator _dealerSaucerValidator;
 
-        public DealerService(IDealerQuery dealerQuery, IDealerRepository dealerRepository, IDealerValidator dealerValidator)
+        public DealerService(IDealerQuery dealerQuery, IDealerRepository dealerRepository, IDealerValidator dealerValidator, IDealerSaucerRepository dealerSaucerRepository, IDealerSaucerValidator dealerSaucerValidator)
         {
             _dealerQuery = dealerQuery;
             _dealerRepository = dealerRepository;
             _dealerValidator = dealerValidator;
+            _dealerSaucerRepository = dealerSaucerRepository;
+            _dealerSaucerValidator = dealerSaucerValidator;
         }
 
         public FindDealersResponse Find(FindDealersRequest request)
@@ -136,6 +141,36 @@ namespace FoodManager.Services.Implements
             {
                 var isReference = _dealerRepository.IsReference(request.Id);
                 return new SuccessResponse { IsSuccess = isReference };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public SuccessResponse AddSaucer(RelationRequest request)
+        {
+            try
+            {
+                var dealerSaucer = TypeAdapter.Adapt<DealerSaucer>(request);
+                _dealerSaucerValidator.ValidateAndThrowException(dealerSaucer, "Base");
+                _dealerSaucerRepository.Add(dealerSaucer);
+                return new SuccessResponse { IsSuccess = true };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public SuccessResponse RemoveSaucer(RelationRequest request)
+        {
+            try
+            {
+                var dealerSaucer = _dealerSaucerRepository.FindBy(dealerSaucerRe => dealerSaucerRe.DealerId == request.FirstReference && dealerSaucerRe.SaucerId == request.SecondReference).FirstOrDefault();
+                dealerSaucer.ThrowExceptionIfIsNull("Relacion no encontrada");
+                _dealerSaucerRepository.Remove(dealerSaucer);
+                return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)
             {

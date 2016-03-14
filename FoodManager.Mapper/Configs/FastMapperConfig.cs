@@ -381,6 +381,11 @@ namespace FoodManager.Mapper.Configs
                 .MapFrom(dest => dest.BranchId, src => src.FirstReference)
                 .MapFrom(dest => dest.DealerId, src => src.SecondReference);
 
+            TypeAdapterConfig<RelationRequest, Model.DealerSaucer>
+                .NewConfig()
+                .MapFrom(dest => dest.DealerId, src => src.FirstReference)
+                .MapFrom(dest => dest.SaucerId, src => src.SecondReference);
+
             #endregion
         }
     }

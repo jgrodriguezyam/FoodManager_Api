@@ -110,43 +110,58 @@ ALTER TABLE [dbo].[User] ADD CONSTRAINT [FK_User_Dealer] FOREIGN KEY ([DealerId]
 /* CreateTable Saucer */
 CREATE TABLE [dbo].[Saucer] ([Id] INT NOT NULL IDENTITY(1,1), [Name] NVARCHAR(250) NOT NULL, [Type] INT NOT NULL, [CreatedBy] INT NOT NULL, [ModifiedBy] INT NOT NULL, [CreatedOn] DATETIME NOT NULL, [ModifiedOn] DATETIME NOT NULL, [Status] BIT NOT NULL, [IsActive] BIT NOT NULL, CONSTRAINT [PK_Saucer] PRIMARY KEY ([Id]))
 
-/* ExecuteSqlStatement INSERT INTO Region (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Yucatan', 1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1),('Campeche', 1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1) */
-INSERT INTO Region (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Yucatan', 1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1),('Campeche', 1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1)
+/* CreateTable DealerSaucer */
+CREATE TABLE [dbo].[DealerSaucer] ([DealerId] INT NOT NULL, [SaucerId] INT NOT NULL)
 
-/* ExecuteSqlStatement INSERT INTO Company (Name, RegionId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Bepensa Industria', 1,1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1),('Bepensa Bebidas', 1,1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1) */
-INSERT INTO Company (Name, RegionId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Bepensa Industria', 1,1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1),('Bepensa Bebidas', 1,1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1)
+/* CreateForeignKey FK_DealerSaucer_Dealer DealerSaucer(DealerId) Dealer(Id) */
+ALTER TABLE [dbo].[DealerSaucer] ADD CONSTRAINT [FK_DealerSaucer_Dealer] FOREIGN KEY ([DealerId]) REFERENCES [dbo].[Dealer] ([Id])
 
-/* ExecuteSqlStatement INSERT INTO Branch (Name, Code, CompanyId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Opesystem', 'CODE1', 1,1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1),('Finbe', 'CODE2', 1,1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1) */
-INSERT INTO Branch (Name, Code, CompanyId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Opesystem', 'CODE1', 1,1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1),('Finbe', 'CODE2', 1,1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1)
+/* CreateForeignKey FK_DealerSaucer_Saucer DealerSaucer(SaucerId) Saucer(Id) */
+ALTER TABLE [dbo].[DealerSaucer] ADD CONSTRAINT [FK_DealerSaucer_Saucer] FOREIGN KEY ([SaucerId]) REFERENCES [dbo].[Saucer] ([Id])
 
-/* ExecuteSqlStatement INSERT INTO Department (Name, BranchId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Desarrollo', 1,1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1),('HelpDesk', 1,1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1) */
-INSERT INTO Department (Name, BranchId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Desarrollo', 1,1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1),('HelpDesk', 1,1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1)
+/* CreateIndex DealerSaucer (DealerId, SaucerId) */
+CREATE UNIQUE INDEX [IX_DealerSaucer] ON [dbo].[DealerSaucer] ([DealerId] ASC, [SaucerId] ASC)
 
-/* ExecuteSqlStatement INSERT INTO [User] (Name, UserName, Password, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('admin', 'admin', 'JRxZJ9O9m6Y=',1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1) */
-INSERT INTO [User] (Name, UserName, Password, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('admin', 'admin', 'JRxZJ9O9m6Y=',1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1)
+/* ExecuteSqlStatement INSERT INTO Region (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Yucatan', 1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1),('Campeche', 1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1) */
+INSERT INTO Region (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Yucatan', 1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1),('Campeche', 1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1)
 
-/* ExecuteSqlStatement INSERT INTO Disease (Name, Code, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Enfermedad cardiaca', 'CODE1',1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1),('Diabetes', 'CODE2',1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1) */
-INSERT INTO Disease (Name, Code, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Enfermedad cardiaca', 'CODE1',1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1),('Diabetes', 'CODE2',1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1)
+/* ExecuteSqlStatement INSERT INTO Company (Name, RegionId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Bepensa Industria', 1,1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1),('Bepensa Bebidas', 1,1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1) */
+INSERT INTO Company (Name, RegionId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Bepensa Industria', 1,1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1),('Bepensa Bebidas', 1,1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1)
 
-/* ExecuteSqlStatement INSERT INTO Warning (Name, Code, DiseaseId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Te estas pasando de calorias', 'CODE1', 1,1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1),('Cuidado con tu alimentacion', 'CODE2', 1,1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1) */
-INSERT INTO Warning (Name, Code, DiseaseId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Te estas pasando de calorias', 'CODE1', 1,1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1),('Cuidado con tu alimentacion', 'CODE2', 1,1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1)
+/* ExecuteSqlStatement INSERT INTO Branch (Name, Code, CompanyId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Opesystem', 'CODE1', 1,1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1),('Finbe', 'CODE2', 1,1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1) */
+INSERT INTO Branch (Name, Code, CompanyId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Opesystem', 'CODE1', 1,1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1),('Finbe', 'CODE2', 1,1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1)
 
-/* ExecuteSqlStatement INSERT INTO Job (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Secretaria', 1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1),('Programador', 1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1) */
-INSERT INTO Job (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Secretaria', 1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1),('Programador', 1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1)
+/* ExecuteSqlStatement INSERT INTO Department (Name, BranchId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Desarrollo', 1,1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1),('HelpDesk', 1,1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1) */
+INSERT INTO Department (Name, BranchId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Desarrollo', 1,1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1),('HelpDesk', 1,1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1)
 
-/* ExecuteSqlStatement INSERT INTO Tip (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Nunca olvides que el desayuno es primordial', 1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1),('Evita catalogar los alimentos', 1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1) */
-INSERT INTO Tip (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Nunca olvides que el desayuno es primordial', 1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1),('Evita catalogar los alimentos', 1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1)
+/* ExecuteSqlStatement INSERT INTO [User] (Name, UserName, Password, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('admin', 'admin', 'JRxZJ9O9m6Y=',1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1) */
+INSERT INTO [User] (Name, UserName, Password, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('admin', 'admin', 'JRxZJ9O9m6Y=',1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1)
 
-/* ExecuteSqlStatement INSERT INTO Dealer (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Areca', 1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1),('Cocina Walter', 1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1) */
-INSERT INTO Dealer (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Areca', 1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1),('Cocina Walter', 1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1)
+/* ExecuteSqlStatement INSERT INTO Disease (Name, Code, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Enfermedad cardiaca', 'CODE1',1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1),('Diabetes', 'CODE2',1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1) */
+INSERT INTO Disease (Name, Code, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Enfermedad cardiaca', 'CODE1',1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1),('Diabetes', 'CODE2',1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1)
+
+/* ExecuteSqlStatement INSERT INTO Warning (Name, Code, DiseaseId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Te estas pasando de calorias', 'CODE1', 1,1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1),('Cuidado con tu alimentacion', 'CODE2', 1,1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1) */
+INSERT INTO Warning (Name, Code, DiseaseId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Te estas pasando de calorias', 'CODE1', 1,1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1),('Cuidado con tu alimentacion', 'CODE2', 1,1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1)
+
+/* ExecuteSqlStatement INSERT INTO Job (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Secretaria', 1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1),('Programador', 1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1) */
+INSERT INTO Job (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Secretaria', 1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1),('Programador', 1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1)
+
+/* ExecuteSqlStatement INSERT INTO Tip (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Nunca olvides que el desayuno es primordial', 1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1),('Evita catalogar los alimentos', 1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1) */
+INSERT INTO Tip (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Nunca olvides que el desayuno es primordial', 1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1),('Evita catalogar los alimentos', 1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1)
+
+/* ExecuteSqlStatement INSERT INTO Dealer (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Areca', 1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1),('Cocina Walter', 1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1) */
+INSERT INTO Dealer (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Areca', 1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1),('Cocina Walter', 1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1)
 
 /* ExecuteSqlStatement INSERT INTO BranchDealer (BranchId, DealerId) VALUES (1,1), (1,2) */
 INSERT INTO BranchDealer (BranchId, DealerId) VALUES (1,1), (1,2)
 
-/* ExecuteSqlStatement INSERT INTO Saucer (Name, Type, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Frijol con puerco', 1, 1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1),('Pechuga asada', 1, 1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1) */
-INSERT INTO Saucer (Name, Type, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Frijol con puerco', 1, 1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1),('Pechuga asada', 1, 1, 1, '03/14/2016 12:29:38', '03/14/2016 12:29:38', 1, 1)
+/* ExecuteSqlStatement INSERT INTO Saucer (Name, Type, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Frijol con puerco', 1, 1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1),('Pechuga asada', 1, 1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1) */
+INSERT INTO Saucer (Name, Type, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES ('Frijol con puerco', 1, 1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1),('Pechuga asada', 1, 1, 1, '03/14/2016 14:57:14', '03/14/2016 14:57:14', 1, 1)
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (20160302130210, '2016-03-14T18:29:38', '_20160302130210_Seed')
+/* ExecuteSqlStatement INSERT INTO DealerSaucer (DealerId, SaucerId) VALUES (1,1), (1,2) */
+INSERT INTO DealerSaucer (DealerId, SaucerId) VALUES (1,1), (1,2)
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (20160302130210, '2016-03-14T20:57:14', '_20160302130210_Seed')
 /* Committing Transaction */
 /* 20160302130210: _20160302130210_Seed migrated */
 

@@ -222,6 +222,22 @@ namespace FoodManager.Migrations.Sprint_01
 
             #endregion
 
+            #region DealerSaucer
+
+            Create.Table("DealerSaucer").InSchema("dbo")
+                .WithColumn("DealerId").AsInt32().NotNullable()
+                .WithColumn("SaucerId").AsInt32().NotNullable();
+
+            Create.ForeignKey("FK_DealerSaucer_Dealer").FromTable("DealerSaucer").InSchema("dbo").ForeignColumn("DealerId")
+                 .ToTable("Dealer").InSchema("dbo").PrimaryColumn("Id");
+            Create.ForeignKey("FK_DealerSaucer_Saucer").FromTable("DealerSaucer").InSchema("dbo").ForeignColumn("SaucerId")
+                 .ToTable("Saucer").InSchema("dbo").PrimaryColumn("Id");
+
+            Create.Index("IX_DealerSaucer").OnTable("DealerSaucer").InSchema("dbo")
+                .OnColumn("DealerId").Ascending().OnColumn("SaucerId").Ascending().WithOptions().Unique();
+
+            #endregion
+
             Init();
         }
 
@@ -294,6 +310,14 @@ namespace FoodManager.Migrations.Sprint_01
 
             #endregion
 
+            #region DealerSaucer
+
+            Delete.ForeignKey("FK_DealerSaucer_Dealer").OnTable("DealerSaucer").InSchema("dbo");
+            Delete.ForeignKey("FK_DealerSaucer_Saucer").OnTable("DealerSaucer").InSchema("dbo");
+            Delete.Table("DealerSaucer").InSchema("dbo");
+
+            #endregion
+
             #region Dealer
 
             Delete.Table("Dealer").InSchema("dbo");
@@ -355,6 +379,8 @@ namespace FoodManager.Migrations.Sprint_01
             Execute.Sql("INSERT INTO Saucer (Name, Type, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
                         "('Frijol con puerco', " + SaucerType.Main.GetValue() + ", " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")," +
                         "('Pechuga asada', " + SaucerType.Main.GetValue() + ", " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
+
+            Execute.Sql("INSERT INTO DealerSaucer (DealerId, SaucerId) VALUES (1,1), (1,2)");
         }
     }
 }
