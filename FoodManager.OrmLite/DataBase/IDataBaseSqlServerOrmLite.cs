@@ -13,6 +13,7 @@ namespace FoodManager.OrmLite.DataBase
         void Remove<T>(T objectToRemove) where T : new();
         void Remove<T>(Expression<Func<T, bool>> predicate);
         void RemoveById<T>(int id) where T : new();
+        void RemoveMiddleEntity<T>(T objectToRemove) where T : class;
         T GetById<T>(int id) where T : new();
         void LogicRemoveById<T>(int id) where T : new();
         void LogicRemove<T>(T objectToRemove) where T : new();

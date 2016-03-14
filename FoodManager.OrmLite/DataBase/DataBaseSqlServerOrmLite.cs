@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq.Expressions;
+using FoodManager.Infrastructure.Queries;
 using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.SqlServer;
 
@@ -45,6 +46,12 @@ namespace FoodManager.OrmLite.DataBase
         public void RemoveById<T>(int id) where T : new()
         {
             DbConnection.DeleteById<T>(id);
+        }
+
+        public void RemoveMiddleEntity<T>(T objectToRemove) where T : class
+        {
+            var predicate = objectToRemove.DeleteMiddleLambdaResolver();
+            DbConnection.Delete<T>(predicate);
         }
 
         public T GetById<T>(int id) where T : new()

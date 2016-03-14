@@ -38,7 +38,7 @@ namespace FoodManager.OrmLite.Repositories
 
         public void Remove(BranchDealer item)
         {
-            _dataBaseSqlServerOrmLite.Remove<BranchDealer>(branchDealer => branchDealer.BranchId == item.BranchId && branchDealer.DealerId == item.DealerId);
+            _dataBaseSqlServerOrmLite.RemoveMiddleEntity(item);
         }
     }
 }
