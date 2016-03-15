@@ -63,6 +63,7 @@
     <Compile Include="IRepositories\IJobRepository.cs" />
     <Compile Include="IRepositories\IRegionRepository.cs" />
     <Compile Include="IRepositories\IDealerSaucerRepository.cs" />
+    <Compile Include="IRepositories\ISaucerMultimediaRepository.cs" />
     <Compile Include="IRepositories\ISaucerRepository.cs" />
     <Compile Include="IRepositories\ITipRepository.cs" />
     <Compile Include="IRepositories\IUserRepository.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Region.cs" />
     <Compile Include="Saucer.cs" />
     <Compile Include="DealerSaucer.cs" />
+    <Compile Include="SaucerMultimedia.cs" />
     <Compile Include="Tip.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Warning.cs" />

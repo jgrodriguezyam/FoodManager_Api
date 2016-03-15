@@ -155,6 +155,7 @@
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\RegionController.cs" />
     <Compile Include="Controllers\SaucerController.cs" />
+    <Compile Include="Controllers\SaucerMultimediaController.cs" />
     <Compile Include="Controllers\TipController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WarningController.cs" />
@@ -172,6 +173,8 @@
   <ItemGroup>
     <Content Include="Content\LogFile.txt" />
     <Content Include="Content\Multimedia\Coca_Cola.jpg" />
+    <Content Include="Content\Multimedia\Frijol1.jpg" />
+    <Content Include="Content\Multimedia\Frijol2.jpg" />
     <Content Include="Content\ProjectImage\BG.png" />
     <Content Include="Content\ProjectImage\BGRed.png" />
     <Content Include="Content\ProjectImage\Logo.png" />
@@ -184,7 +187,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\Local.pubxml" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>

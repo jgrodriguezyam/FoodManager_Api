@@ -238,6 +238,25 @@ namespace FoodManager.Migrations.Sprint_01
 
             #endregion
 
+            #region SaucerMultimedia
+
+            Create.Table("SaucerMultimedia").InSchema("dbo")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Path").AsString(int.MaxValue).NotNullable()
+                .WithColumn("SaucerId").AsInt32().NotNullable()
+
+                .WithColumn("CreatedBy").AsInt32().NotNullable()
+                .WithColumn("ModifiedBy").AsInt32().NotNullable()
+                .WithColumn("CreatedOn").AsDateTime().NotNullable()
+                .WithColumn("ModifiedOn").AsDateTime().NotNullable()
+                .WithColumn("Status").AsBoolean().NotNullable()
+                .WithColumn("IsActive").AsBoolean();
+
+            Create.ForeignKey("FK_SaucerMultimedia_Saucer").FromTable("SaucerMultimedia").InSchema("dbo").ForeignColumn("SaucerId")
+                 .ToTable("Saucer").InSchema("dbo").PrimaryColumn("Id");
+
+            #endregion
+
             Init();
         }
 
@@ -324,6 +343,13 @@ namespace FoodManager.Migrations.Sprint_01
 
             #endregion
 
+            #region SaucerMultimedia
+
+            Delete.ForeignKey("FK_SaucerMultimedia_Saucer").OnTable("SaucerMultimedia").InSchema("dbo");
+            Delete.Table("SaucerMultimedia").InSchema("dbo");
+
+            #endregion
+
             #region Saucer
 
             Delete.Table("Saucer").InSchema("dbo");
@@ -381,6 +407,10 @@ namespace FoodManager.Migrations.Sprint_01
                         "('Pechuga asada', " + SaucerType.Main.GetValue() + ", " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
 
             Execute.Sql("INSERT INTO DealerSaucer (DealerId, SaucerId) VALUES (1,1), (1,2)");
+
+            Execute.Sql("INSERT INTO SaucerMultimedia (Path, SaucerId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+                        "('Frijol1.jpg', 1, " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")," +
+                        "('Frijol2.jpg', 1, " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
         }
     }
 }

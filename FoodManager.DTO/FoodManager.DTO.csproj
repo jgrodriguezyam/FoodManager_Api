@@ -43,6 +43,7 @@
     <Compile Include="BaseRequest\ChangeStatusRequest.cs" />
     <Compile Include="BaseRequest\FindBaseRequest.cs" />
     <Compile Include="BaseRequest\FindStatusRequest.cs" />
+    <Compile Include="BaseRequest\GetFileRequest.cs" />
     <Compile Include="BaseRequest\IdentifierBaseRequest.cs" />
     <Compile Include="BaseRequest\IsReferenceRequest.cs" />
     <Compile Include="BaseRequest\LoginRequest.cs" />
@@ -100,6 +101,12 @@
     <Compile Include="Message\Regions\FindRegionsRequest.cs" />
     <Compile Include="Message\Regions\FindRegionsResponse.cs" />
     <Compile Include="Message\Regions\GetRegionRequest.cs" />
+    <Compile Include="Message\SaucerMultimedias\DeleteSaucerMultimediaRequest.cs" />
+    <Compile Include="Message\SaucerMultimedias\FindSaucerMultimediasRequest.cs" />
+    <Compile Include="Message\SaucerMultimedias\FindSaucerMultimediasResponse.cs" />
+    <Compile Include="Message\SaucerMultimedias\GetSaucerMultimediaRequest.cs" />
+    <Compile Include="Message\SaucerMultimedias\SaucerMultimediaRequest.cs" />
+    <Compile Include="Message\SaucerMultimedias\SaucerMultimediaResponse.cs" />
     <Compile Include="Message\Saucers\DeleteSaucerRequest.cs" />
     <Compile Include="Message\Saucers\FindSaucersRequest.cs" />
     <Compile Include="Message\Saucers\FindSaucersResponse.cs" />
@@ -133,6 +140,7 @@
     <Compile Include="Message\Regions\RegionRequest.cs" />
     <Compile Include="Message\Regions\RegionResponse.cs" />
     <Compile Include="Saucer.cs" />
+    <Compile Include="SaucerMultimedia.cs" />
     <Compile Include="Tip.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Warning.cs" />

@@ -7,10 +7,12 @@ using FoodManager.DTO.Message.Departments;
 using FoodManager.DTO.Message.Diseases;
 using FoodManager.DTO.Message.Jobs;
 using FoodManager.DTO.Message.Regions;
+using FoodManager.DTO.Message.SaucerMultimedias;
 using FoodManager.DTO.Message.Saucers;
 using FoodManager.DTO.Message.Tips;
 using FoodManager.DTO.Message.Users;
 using FoodManager.DTO.Message.Warnings;
+using FoodManager.Mapper.Resolvers;
 
 namespace FoodManager.Mapper.Configs
 {
@@ -371,6 +373,41 @@ namespace FoodManager.Mapper.Configs
 
             TypeAdapterConfig<Model.Saucer, SaucerResponse>
                 .NewConfig();
+
+            #endregion
+
+            #region SaucerMultimedia
+
+            TypeAdapterConfig<Model.SaucerMultimedia, DTO.SaucerMultimedia>
+                .NewConfig()
+                .MapFrom(dest => dest.Path, src => MapperResolver.MultimediaPath(src.Path));
+
+            TypeAdapterConfig<DTO.SaucerMultimedia, Model.SaucerMultimedia>
+                .NewConfig()
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<Model.SaucerMultimedia, Model.SaucerMultimedia>
+                .NewConfig()
+                .IgnoreMember(dest => dest.Path)
+                .IgnoreMember(dest => dest.Id)
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<SaucerMultimediaRequest, Model.SaucerMultimedia>
+                .NewConfig();
+
+            TypeAdapterConfig<Model.SaucerMultimedia, SaucerMultimediaResponse>
+                .NewConfig()
+                .MapFrom(dest => dest.Path, src => MapperResolver.MultimediaPath(src.Path));
 
             #endregion
 

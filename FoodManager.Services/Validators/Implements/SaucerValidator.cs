@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using FluentValidation;
 using FluentValidation.Results;
-using FoodManager.Infrastructure.Constants;
 using FoodManager.Infrastructure.Enums;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Objects;

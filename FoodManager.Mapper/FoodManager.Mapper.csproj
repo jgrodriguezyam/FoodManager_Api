@@ -46,10 +46,9 @@
   <ItemGroup>
     <Compile Include="Configs\FastMapperConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resolvers\MapperResolver.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resolvers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
@@ -57,6 +56,10 @@
     <ProjectReference Include="..\FoodManager.DTO\FoodManager.DTO.csproj">
       <Project>{7B016222-00F1-45BD-BD36-63D918A753E7}</Project>
       <Name>FoodManager.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FoodManager.Infrastructure\FoodManager.Infrastructure.csproj">
+      <Project>{31543791-A186-4996-833B-40D08A4ABB85}</Project>
+      <Name>FoodManager.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\FoodManager.Model\FoodManager.Model.csproj">
       <Project>{349C10C6-CC15-4A5A-8845-CF04EE2C687F}</Project>
