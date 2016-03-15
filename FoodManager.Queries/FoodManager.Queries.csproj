@@ -56,6 +56,8 @@
     <Compile Include="Departments\IDepartmentQuery.cs" />
     <Compile Include="Diseases\DiseaseQuery.cs" />
     <Compile Include="Diseases\IDiseaseQuery.cs" />
+    <Compile Include="IngredientGroups\IIngredientGroupQuery.cs" />
+    <Compile Include="IngredientGroups\IngredientGroupQuery.cs" />
     <Compile Include="Jobs\IJobQuery.cs" />
     <Compile Include="Jobs\JobQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

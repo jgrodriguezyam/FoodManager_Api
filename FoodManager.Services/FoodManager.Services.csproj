@@ -57,6 +57,7 @@
     <Compile Include="Implements\DealerService.cs" />
     <Compile Include="Implements\DepartmentService.cs" />
     <Compile Include="Implements\DiseaseService.cs" />
+    <Compile Include="Implements\IngredientGroupService.cs" />
     <Compile Include="Implements\JobService.cs" />
     <Compile Include="Implements\RegionService.cs" />
     <Compile Include="Implements\SaucerMultimediaService.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Interfaces\IDealerService.cs" />
     <Compile Include="Interfaces\IDepartmentService.cs" />
     <Compile Include="Interfaces\IDiseaseService.cs" />
+    <Compile Include="Interfaces\IIngredientGroupService.cs" />
     <Compile Include="Interfaces\IJobService.cs" />
     <Compile Include="Interfaces\IRegionService.cs" />
     <Compile Include="Interfaces\ISaucerMultimediaService.cs" />
@@ -85,6 +87,7 @@
     <Compile Include="Validators\Implements\DepartmentValidator.cs" />
     <Compile Include="Validators\Implements\DiseaseValidator.cs" />
     <Compile Include="Validators\Implements\FileValidator.cs" />
+    <Compile Include="Validators\Implements\IngredientGroupValidator.cs" />
     <Compile Include="Validators\Implements\JobValidator.cs" />
     <Compile Include="Validators\Implements\RegionValidator.cs" />
     <Compile Include="Validators\Implements\SaucerMultimediaValidator.cs" />
@@ -100,6 +103,7 @@
     <Compile Include="Validators\Interfaces\IDepartmentValidator.cs" />
     <Compile Include="Validators\Interfaces\IDiseaseValidator.cs" />
     <Compile Include="Validators\Interfaces\IFileValidator.cs" />
+    <Compile Include="Validators\Interfaces\IIngredientGroupValidator.cs" />
     <Compile Include="Validators\Interfaces\IJobValidator.cs" />
     <Compile Include="Validators\Interfaces\IRegionValidator.cs" />
     <Compile Include="Validators\Interfaces\ISaucerMultimediaValidator.cs" />

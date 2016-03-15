@@ -5,6 +5,7 @@ using FoodManager.DTO.Message.Companies;
 using FoodManager.DTO.Message.Dealers;
 using FoodManager.DTO.Message.Departments;
 using FoodManager.DTO.Message.Diseases;
+using FoodManager.DTO.Message.IngredientGroups;
 using FoodManager.DTO.Message.Jobs;
 using FoodManager.DTO.Message.Regions;
 using FoodManager.DTO.Message.SaucerMultimedias;
@@ -408,6 +409,38 @@ namespace FoodManager.Mapper.Configs
             TypeAdapterConfig<Model.SaucerMultimedia, SaucerMultimediaResponse>
                 .NewConfig()
                 .MapFrom(dest => dest.Path, src => MapperResolver.MultimediaPath(src.Path));
+
+            #endregion
+
+            #region IngredientGroup
+
+            TypeAdapterConfig<Model.IngredientGroup, DTO.IngredientGroup>
+                .NewConfig();
+
+            TypeAdapterConfig<DTO.IngredientGroup, Model.IngredientGroup>
+                .NewConfig()
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<Model.IngredientGroup, Model.IngredientGroup>
+                .NewConfig()
+                .IgnoreMember(dest => dest.Id)
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<IngredientGroupRequest, Model.IngredientGroup>
+                .NewConfig();
+
+            TypeAdapterConfig<Model.IngredientGroup, IngredientGroupResponse>
+                .NewConfig();
 
             #endregion
 

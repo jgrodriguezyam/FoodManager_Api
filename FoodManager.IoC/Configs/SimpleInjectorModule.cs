@@ -12,6 +12,7 @@ using FoodManager.Queries.Companies;
 using FoodManager.Queries.Dealers;
 using FoodManager.Queries.Departments;
 using FoodManager.Queries.Diseases;
+using FoodManager.Queries.IngredientGroups;
 using FoodManager.Queries.Jobs;
 using FoodManager.Queries.Regions;
 using FoodManager.Queries.SaucerMultimedias;
@@ -129,6 +130,11 @@ namespace FoodManager.IoC.Configs
             _container.Register<ISaucerMultimediaQuery, SaucerMultimediaQuery>();
             _container.Register<ISaucerMultimediaValidator, SaucerMultimediaValidator>();
             _container.Register<ISaucerMultimediaService, SaucerMultimediaService>();
+
+            _container.Register<IIngredientGroupRepository, IngredientGroupRepositoryOrmLite>();
+            _container.Register<IIngredientGroupQuery, IngredientGroupQuery>();
+            _container.Register<IIngredientGroupValidator, IngredientGroupValidator>();
+            _container.Register<IIngredientGroupService, IngredientGroupService>();
         }
     }
 }
