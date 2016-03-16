@@ -58,6 +58,8 @@
     <Compile Include="Diseases\IDiseaseQuery.cs" />
     <Compile Include="IngredientGroups\IIngredientGroupQuery.cs" />
     <Compile Include="IngredientGroups\IngredientGroupQuery.cs" />
+    <Compile Include="Ingredients\IIngredientQuery.cs" />
+    <Compile Include="Ingredients\IngredientQuery.cs" />
     <Compile Include="Jobs\IJobQuery.cs" />
     <Compile Include="Jobs\JobQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

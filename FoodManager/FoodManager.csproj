@@ -151,6 +151,7 @@
     <Compile Include="Controllers\DealerController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\DiseaseController.cs" />
+    <Compile Include="Controllers\IngredientController.cs" />
     <Compile Include="Controllers\IngredientGroupController.cs" />
     <Compile Include="Controllers\IsAliveController.cs" />
     <Compile Include="Controllers\JobController.cs" />

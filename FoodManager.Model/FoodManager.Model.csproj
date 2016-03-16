@@ -54,6 +54,7 @@
     <Compile Include="Disease.cs" />
     <Compile Include="Enums\SaucerType.cs" />
     <Compile Include="IHmac\IHmacHelper.cs" />
+    <Compile Include="Ingredient.cs" />
     <Compile Include="IngredientGroup.cs" />
     <Compile Include="IRepositories\IBranchDealerRepository.cs" />
     <Compile Include="IRepositories\IBranchRepository.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="IRepositories\IDepartmentRepository.cs" />
     <Compile Include="IRepositories\IDiseaseRepository.cs" />
     <Compile Include="IRepositories\IIngredientGroupRepository.cs" />
+    <Compile Include="IRepositories\IIngredientRepository.cs" />
     <Compile Include="IRepositories\IJobRepository.cs" />
     <Compile Include="IRepositories\IRegionRepository.cs" />
     <Compile Include="IRepositories\IDealerSaucerRepository.cs" />

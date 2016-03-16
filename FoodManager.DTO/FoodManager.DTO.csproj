@@ -60,6 +60,7 @@
     <Compile Include="Dealer.cs" />
     <Compile Include="Department.cs" />
     <Compile Include="Disease.cs" />
+    <Compile Include="Ingredient.cs" />
     <Compile Include="IngredientGroup.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="Message\Branches\BranchRequest.cs" />
@@ -98,6 +99,12 @@
     <Compile Include="Message\IngredientGroups\GetIngredientGroupRequest.cs" />
     <Compile Include="Message\IngredientGroups\IngredientGroupRequest.cs" />
     <Compile Include="Message\IngredientGroups\IngredientGroupResponse.cs" />
+    <Compile Include="Message\Ingredients\DeleteIngredientRequest.cs" />
+    <Compile Include="Message\Ingredients\FindIngredientsRequest.cs" />
+    <Compile Include="Message\Ingredients\FindIngredientsResponse.cs" />
+    <Compile Include="Message\Ingredients\GetIngredientRequest.cs" />
+    <Compile Include="Message\Ingredients\IngredientRequest.cs" />
+    <Compile Include="Message\Ingredients\IngredientResponse.cs" />
     <Compile Include="Message\Jobs\DeleteJobRequest.cs" />
     <Compile Include="Message\Jobs\FindJobsRequest.cs" />
     <Compile Include="Message\Jobs\FindJobsResponse.cs" />

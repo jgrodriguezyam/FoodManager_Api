@@ -273,6 +273,31 @@ namespace FoodManager.Migrations.Sprint_01
 
             #endregion
 
+            #region Ingredient
+
+            Create.Table("Ingredient").InSchema("dbo")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Name").AsString(250).NotNullable()
+                .WithColumn("Amount").AsInt32().NotNullable()
+                .WithColumn("KiloCalorie").AsInt32().NotNullable()
+                .WithColumn("Protein").AsInt32().NotNullable()
+                .WithColumn("Lipid").AsInt32().NotNullable()
+                .WithColumn("Hdec").AsInt32().NotNullable()
+                .WithColumn("Sodium").AsInt32().NotNullable()
+                .WithColumn("IngredientGroupId").AsInt32().NotNullable()
+
+                .WithColumn("CreatedBy").AsInt32().NotNullable()
+                .WithColumn("ModifiedBy").AsInt32().NotNullable()
+                .WithColumn("CreatedOn").AsDateTime().NotNullable()
+                .WithColumn("ModifiedOn").AsDateTime().NotNullable()
+                .WithColumn("Status").AsBoolean().NotNullable()
+                .WithColumn("IsActive").AsBoolean();
+
+            Create.ForeignKey("FK_Ingredient_IngredientGroup").FromTable("Ingredient").InSchema("dbo").ForeignColumn("IngredientGroupId")
+                 .ToTable("IngredientGroup").InSchema("dbo").PrimaryColumn("Id");
+
+            #endregion
+
             Init();
         }
 
@@ -377,6 +402,13 @@ namespace FoodManager.Migrations.Sprint_01
             Delete.Table("IngredientGroup").InSchema("dbo");
 
             #endregion
+
+            #region Ingredient
+
+            Delete.ForeignKey("FK_Ingredient_IngredientGroup").OnTable("Ingredient").InSchema("dbo");
+            Delete.Table("Ingredient").InSchema("dbo");
+
+            #endregion
         }
 
         private void Init()
@@ -437,6 +469,10 @@ namespace FoodManager.Migrations.Sprint_01
             Execute.Sql("INSERT INTO IngredientGroup (Name, Color, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
                         "('Carnes y Pescado', 'Rojo', " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")," +
                         "('Verduras y Frutas', 'Verde', " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
+
+            Execute.Sql("INSERT INTO Ingredient (Name, Amount, KiloCalorie, Protein, Lipid, Hdec, Sodium, IngredientGroupId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+                        "('Frijol', 100, 10, 10, 10, 10, 10, 1, " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")," +
+                        "('Puerco', 100, 10, 10, 10, 10, 10, 1, " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
         }
     }
 }
