@@ -61,6 +61,7 @@
     <Compile Include="Implements\IngredientService.cs" />
     <Compile Include="Implements\JobService.cs" />
     <Compile Include="Implements\RegionService.cs" />
+    <Compile Include="Implements\SaucerConfigurationService.cs" />
     <Compile Include="Implements\SaucerMultimediaService.cs" />
     <Compile Include="Implements\SaucerService.cs" />
     <Compile Include="Implements\TipService.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Interfaces\IIngredientService.cs" />
     <Compile Include="Interfaces\IJobService.cs" />
     <Compile Include="Interfaces\IRegionService.cs" />
+    <Compile Include="Interfaces\ISaucerConfigurationService.cs" />
     <Compile Include="Interfaces\ISaucerMultimediaService.cs" />
     <Compile Include="Interfaces\ISaucerService.cs" />
     <Compile Include="Interfaces\ITipService.cs" />
@@ -93,6 +95,7 @@
     <Compile Include="Validators\Implements\IngredientValidator.cs" />
     <Compile Include="Validators\Implements\JobValidator.cs" />
     <Compile Include="Validators\Implements\RegionValidator.cs" />
+    <Compile Include="Validators\Implements\SaucerConfigurationValidator.cs" />
     <Compile Include="Validators\Implements\SaucerMultimediaValidator.cs" />
     <Compile Include="Validators\Implements\SaucerValidator.cs" />
     <Compile Include="Validators\Implements\TipValidator.cs" />
@@ -110,6 +113,7 @@
     <Compile Include="Validators\Interfaces\IIngredientValidator.cs" />
     <Compile Include="Validators\Interfaces\IJobValidator.cs" />
     <Compile Include="Validators\Interfaces\IRegionValidator.cs" />
+    <Compile Include="Validators\Interfaces\ISaucerConfigurationValidator.cs" />
     <Compile Include="Validators\Interfaces\ISaucerMultimediaValidator.cs" />
     <Compile Include="Validators\Interfaces\ISaucerValidator.cs" />
     <Compile Include="Validators\Interfaces\ITipValidator.cs" />

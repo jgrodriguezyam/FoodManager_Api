@@ -9,6 +9,7 @@ using FoodManager.DTO.Message.IngredientGroups;
 using FoodManager.DTO.Message.Ingredients;
 using FoodManager.DTO.Message.Jobs;
 using FoodManager.DTO.Message.Regions;
+using FoodManager.DTO.Message.SaucerConfigurations;
 using FoodManager.DTO.Message.SaucerMultimedias;
 using FoodManager.DTO.Message.Saucers;
 using FoodManager.DTO.Message.Tips;
@@ -488,6 +489,38 @@ namespace FoodManager.Mapper.Configs
                 .NewConfig()
                 .MapFrom(dest => dest.DealerId, src => src.FirstReference)
                 .MapFrom(dest => dest.SaucerId, src => src.SecondReference);
+
+            #endregion
+
+            #region SaucerConfiguration
+
+            TypeAdapterConfig<Model.SaucerConfiguration, DTO.SaucerConfiguration>
+                .NewConfig();
+
+            TypeAdapterConfig<DTO.SaucerConfiguration, Model.SaucerConfiguration>
+                .NewConfig()
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<Model.SaucerConfiguration, Model.SaucerConfiguration>
+                .NewConfig()
+                .IgnoreMember(dest => dest.Id)
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<SaucerConfigurationRequest, Model.SaucerConfiguration>
+                .NewConfig();
+
+            TypeAdapterConfig<Model.SaucerConfiguration, SaucerConfigurationResponse>
+                .NewConfig();
 
             #endregion
         }

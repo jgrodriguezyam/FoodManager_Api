@@ -115,6 +115,12 @@
     <Compile Include="Message\Regions\FindRegionsRequest.cs" />
     <Compile Include="Message\Regions\FindRegionsResponse.cs" />
     <Compile Include="Message\Regions\GetRegionRequest.cs" />
+    <Compile Include="Message\SaucerConfigurations\DeleteSaucerConfigurationRequest.cs" />
+    <Compile Include="Message\SaucerConfigurations\FindSaucerConfigurationsRequest.cs" />
+    <Compile Include="Message\SaucerConfigurations\FindSaucerConfigurationsResponse.cs" />
+    <Compile Include="Message\SaucerConfigurations\GetSaucerConfigurationRequest.cs" />
+    <Compile Include="Message\SaucerConfigurations\SaucerConfigurationRequest.cs" />
+    <Compile Include="Message\SaucerConfigurations\SaucerConfigurationResponse.cs" />
     <Compile Include="Message\SaucerMultimedias\DeleteSaucerMultimediaRequest.cs" />
     <Compile Include="Message\SaucerMultimedias\FindSaucerMultimediasRequest.cs" />
     <Compile Include="Message\SaucerMultimedias\FindSaucerMultimediasResponse.cs" />
@@ -154,6 +160,7 @@
     <Compile Include="Message\Regions\RegionRequest.cs" />
     <Compile Include="Message\Regions\RegionResponse.cs" />
     <Compile Include="Saucer.cs" />
+    <Compile Include="SaucerConfiguration.cs" />
     <Compile Include="SaucerMultimedia.cs" />
     <Compile Include="Tip.cs" />
     <Compile Include="User.cs" />

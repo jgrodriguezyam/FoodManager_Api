@@ -298,6 +298,31 @@ namespace FoodManager.Migrations.Sprint_01
 
             #endregion
 
+            #region SaucerConfiguration
+
+            Create.Table("SaucerConfiguration").InSchema("dbo")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("SaucerId").AsInt32().NotNullable()
+                .WithColumn("IngredientId").AsInt32().NotNullable()
+                .WithColumn("Amount").AsInt32().NotNullable()
+
+                .WithColumn("CreatedBy").AsInt32().NotNullable()
+                .WithColumn("ModifiedBy").AsInt32().NotNullable()
+                .WithColumn("CreatedOn").AsDateTime().NotNullable()
+                .WithColumn("ModifiedOn").AsDateTime().NotNullable()
+                .WithColumn("Status").AsBoolean().NotNullable()
+                .WithColumn("IsActive").AsBoolean();
+
+            Create.ForeignKey("FK_SaucerConfiguration_Saucer").FromTable("SaucerConfiguration").InSchema("dbo").ForeignColumn("SaucerId")
+                 .ToTable("Saucer").InSchema("dbo").PrimaryColumn("Id");
+            Create.ForeignKey("FK_SaucerConfiguration_Ingredient").FromTable("SaucerConfiguration").InSchema("dbo").ForeignColumn("IngredientId")
+                 .ToTable("Ingredient").InSchema("dbo").PrimaryColumn("Id");
+
+            Create.Index("IX_SaucerConfiguration").OnTable("SaucerConfiguration").InSchema("dbo")
+                .OnColumn("SaucerId").Ascending().OnColumn("IngredientId").Ascending().WithOptions().Unique();
+
+            #endregion
+
             Init();
         }
 
@@ -409,6 +434,14 @@ namespace FoodManager.Migrations.Sprint_01
             Delete.Table("Ingredient").InSchema("dbo");
 
             #endregion
+
+            #region SaucerConfiguration
+
+            Delete.ForeignKey("FK_SaucerConfiguration_Saucer").OnTable("SaucerConfiguration").InSchema("dbo");
+            Delete.ForeignKey("FK_SaucerConfiguration_Ingredient").OnTable("SaucerConfiguration").InSchema("dbo");
+            Delete.Table("SaucerConfiguration").InSchema("dbo");
+
+            #endregion
         }
 
         private void Init()
@@ -473,6 +506,10 @@ namespace FoodManager.Migrations.Sprint_01
             Execute.Sql("INSERT INTO Ingredient (Name, Amount, KiloCalorie, Protein, Lipid, Hdec, Sodium, IngredientGroupId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
                         "('Frijol', 100, 10, 10, 10, 10, 10, 1, " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")," +
                         "('Puerco', 100, 10, 10, 10, 10, 10, 1, " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
+
+            Execute.Sql("INSERT INTO SaucerConfiguration (SaucerId, IngredientId, Amount, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+                        "(1, 1, 3, " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")," +
+                        "(1, 2, 3," + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
         }
     }
 }

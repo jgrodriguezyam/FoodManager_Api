@@ -16,6 +16,7 @@ using FoodManager.Queries.IngredientGroups;
 using FoodManager.Queries.Ingredients;
 using FoodManager.Queries.Jobs;
 using FoodManager.Queries.Regions;
+using FoodManager.Queries.SaucerConfigurations;
 using FoodManager.Queries.SaucerMultimedias;
 using FoodManager.Queries.Saucers;
 using FoodManager.Queries.Tips;
@@ -141,6 +142,11 @@ namespace FoodManager.IoC.Configs
             _container.Register<IIngredientQuery, IngredientQuery>();
             _container.Register<IIngredientValidator, IngredientValidator>();
             _container.Register<IIngredientService, IngredientService>();
+
+            _container.Register<ISaucerConfigurationRepository, SaucerConfigurationRepositoryOrmLite>();
+            _container.Register<ISaucerConfigurationQuery, SaucerConfigurationQuery>();
+            _container.Register<ISaucerConfigurationValidator, SaucerConfigurationValidator>();
+            _container.Register<ISaucerConfigurationService, SaucerConfigurationService>();
         }
     }
 }
