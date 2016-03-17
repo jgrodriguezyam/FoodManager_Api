@@ -8,8 +8,8 @@ using FoodManager.Model.Enums;
 
 namespace FoodManager.Migrations.Sprint_01
 {
-    [Migration(20160302130210)]
-    public class _20160302130210_Seed : Migration
+    [Migration(1)]
+    public class _1_Seed : Migration
     {
         public override void Up()
         {
