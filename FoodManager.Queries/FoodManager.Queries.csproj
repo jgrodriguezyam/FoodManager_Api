@@ -77,6 +77,8 @@
     <Compile Include="Users\UserQuery.cs" />
     <Compile Include="Warnings\IWarningQuery.cs" />
     <Compile Include="Warnings\WarningQuery.cs" />
+    <Compile Include="Workers\IWorkerQuery.cs" />
+    <Compile Include="Workers\WorkerQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FoodManager.Infrastructure\FoodManager.Infrastructure.csproj">

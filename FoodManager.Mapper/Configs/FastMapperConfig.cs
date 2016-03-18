@@ -15,6 +15,7 @@ using FoodManager.DTO.Message.Saucers;
 using FoodManager.DTO.Message.Tips;
 using FoodManager.DTO.Message.Users;
 using FoodManager.DTO.Message.Warnings;
+using FoodManager.DTO.Message.Workers;
 using FoodManager.Mapper.Resolvers;
 
 namespace FoodManager.Mapper.Configs
@@ -520,6 +521,40 @@ namespace FoodManager.Mapper.Configs
                 .NewConfig();
 
             TypeAdapterConfig<Model.SaucerConfiguration, SaucerConfigurationResponse>
+                .NewConfig();
+
+            #endregion
+
+            #region Worker
+
+            TypeAdapterConfig<Model.Worker, DTO.Worker>
+                .NewConfig();
+
+            TypeAdapterConfig<DTO.Worker, Model.Worker>
+                .NewConfig()
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<Model.Worker, Model.Worker>
+                .NewConfig()
+                .IgnoreMember(dest => dest.Id)
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status)
+                .IgnoreMember(dest => dest.PublicKey)
+                .IgnoreMember(dest => dest.Time);
+
+            TypeAdapterConfig<WorkerRequest, Model.Worker>
+                .NewConfig();
+
+            TypeAdapterConfig<Model.Worker, WorkerResponse>
                 .NewConfig();
 
             #endregion

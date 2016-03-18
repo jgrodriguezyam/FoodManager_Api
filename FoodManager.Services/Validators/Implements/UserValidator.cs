@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Validators;
 using FoodManager.Model;
 using FoodManager.Services.Validators.Interfaces;

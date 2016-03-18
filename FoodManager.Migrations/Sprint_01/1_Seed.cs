@@ -323,6 +323,39 @@ namespace FoodManager.Migrations.Sprint_01
 
             #endregion
 
+            #region Worker
+
+            Create.Table("Worker").InSchema("dbo")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Code").AsString(250).NotNullable()
+                .WithColumn("FirstName").AsString(250).NotNullable()
+                .WithColumn("LastName").AsString(250).NotNullable()
+                .WithColumn("Email").AsString(250).Unique().NotNullable()
+                .WithColumn("Imss").AsString(250).Unique().NotNullable()
+                .WithColumn("Gender").AsInt32().NotNullable()
+                .WithColumn("Badge").AsString(250).Unique().NotNullable()
+                .WithColumn("PublicKey").AsString(250).Nullable()
+                .WithColumn("Time").AsString(250).Nullable()
+                .WithColumn("DepartmentId").AsInt32().NotNullable()
+                .WithColumn("JobId").AsInt32().NotNullable()
+                .WithColumn("DealerId").AsInt32().NotNullable()
+
+                .WithColumn("CreatedBy").AsInt32().NotNullable()
+                .WithColumn("ModifiedBy").AsInt32().NotNullable()
+                .WithColumn("CreatedOn").AsDateTime().NotNullable()
+                .WithColumn("ModifiedOn").AsDateTime().NotNullable()
+                .WithColumn("Status").AsBoolean().NotNullable()
+                .WithColumn("IsActive").AsBoolean();
+
+            Create.ForeignKey("FK_Worker_Department").FromTable("Worker").InSchema("dbo").ForeignColumn("DepartmentId")
+                 .ToTable("Department").InSchema("dbo").PrimaryColumn("Id");
+            Create.ForeignKey("FK_Worker_Job").FromTable("Worker").InSchema("dbo").ForeignColumn("JobId")
+                 .ToTable("Job").InSchema("dbo").PrimaryColumn("Id");
+            Create.ForeignKey("FK_Worker_Dealer").FromTable("Worker").InSchema("dbo").ForeignColumn("DealerId")
+                 .ToTable("Dealer").InSchema("dbo").PrimaryColumn("Id");
+
+            #endregion
+
             Init();
         }
 
@@ -333,6 +366,15 @@ namespace FoodManager.Migrations.Sprint_01
             Delete.ForeignKey("FK_BranchDealer_Branch").OnTable("BranchDealer").InSchema("dbo");
             Delete.ForeignKey("FK_BranchDealer_Dealer").OnTable("BranchDealer").InSchema("dbo");
             Delete.Table("BranchDealer").InSchema("dbo");
+
+            #endregion
+
+            #region Worker
+
+            Delete.ForeignKey("FK_Worker_Department").OnTable("Worker").InSchema("dbo");
+            Delete.ForeignKey("FK_Worker_Job").OnTable("Worker").InSchema("dbo");
+            Delete.ForeignKey("FK_Worker_Dealer").OnTable("Worker").InSchema("dbo");
+            Delete.Table("Worker").InSchema("dbo");
 
             #endregion
 
@@ -509,7 +551,11 @@ namespace FoodManager.Migrations.Sprint_01
 
             Execute.Sql("INSERT INTO SaucerConfiguration (SaucerId, IngredientId, Amount, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
                         "(1, 1, 3, " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")," +
-                        "(1, 2, 3," + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
+                        "(1, 2, 3, " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
+
+            Execute.Sql("INSERT INTO Worker (Code, FirstName, LastName, Email, Imss, Gender, Badge, DepartmentId, JobId, DealerId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+                        "('1122', 'Juan', 'Martinez', 'juan@gmail.com', 'WV12H78', 1, '010107002113774', 1, 1, 1, " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")," +
+                        "('3344', 'Luis', 'Hernandez', 'luis@gmail.com', 'kV34H23', 1, '010107002112355', 1, 1, 1, " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
         }
     }
 }

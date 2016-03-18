@@ -162,6 +162,7 @@
     <Compile Include="Controllers\TipController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WarningController.cs" />
+    <Compile Include="Controllers\WorkerController.cs" />
     <Compile Include="Filters\ExceptionFilter.cs" />
     <Compile Include="Filters\SwaggerOperationFilter.cs" />
     <Compile Include="Handlers\HelpPageHandler.cs" />

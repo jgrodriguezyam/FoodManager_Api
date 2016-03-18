@@ -155,6 +155,12 @@
     <Compile Include="Message\Warnings\GetWarningRequest.cs" />
     <Compile Include="Message\Warnings\WarningRequest.cs" />
     <Compile Include="Message\Warnings\WarningResponse.cs" />
+    <Compile Include="Message\Workers\DeleteWorkerRequest.cs" />
+    <Compile Include="Message\Workers\FindWorkersRequest.cs" />
+    <Compile Include="Message\Workers\FindWorkersResponse.cs" />
+    <Compile Include="Message\Workers\GetWorkerRequest.cs" />
+    <Compile Include="Message\Workers\WorkerRequest.cs" />
+    <Compile Include="Message\Workers\WorkerResponse.cs" />
     <Compile Include="Region.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Message\Regions\RegionRequest.cs" />
@@ -165,6 +171,7 @@
     <Compile Include="Tip.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Warning.cs" />
+    <Compile Include="Worker.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

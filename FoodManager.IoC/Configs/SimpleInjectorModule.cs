@@ -22,6 +22,7 @@ using FoodManager.Queries.Saucers;
 using FoodManager.Queries.Tips;
 using FoodManager.Queries.Users;
 using FoodManager.Queries.Warnings;
+using FoodManager.Queries.Workers;
 using FoodManager.Services.Implements;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Implements;
@@ -147,6 +148,11 @@ namespace FoodManager.IoC.Configs
             _container.Register<ISaucerConfigurationQuery, SaucerConfigurationQuery>();
             _container.Register<ISaucerConfigurationValidator, SaucerConfigurationValidator>();
             _container.Register<ISaucerConfigurationService, SaucerConfigurationService>();
+
+            _container.Register<IWorkerRepository, WorkerRepositoryOrmLite>();
+            _container.Register<IWorkerQuery, WorkerQuery>();
+            _container.Register<IWorkerValidator, WorkerValidator>();
+            _container.Register<IWorkerService, WorkerService>();
         }
     }
 }

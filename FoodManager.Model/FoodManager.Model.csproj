@@ -52,6 +52,7 @@
     <Compile Include="Dealer.cs" />
     <Compile Include="Department.cs" />
     <Compile Include="Disease.cs" />
+    <Compile Include="Enums\GenderType.cs" />
     <Compile Include="Enums\SaucerType.cs" />
     <Compile Include="IHmac\IHmacHelper.cs" />
     <Compile Include="Ingredient.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="IRepositories\ITipRepository.cs" />
     <Compile Include="IRepositories\IUserRepository.cs" />
     <Compile Include="IRepositories\IWarningRepository.cs" />
+    <Compile Include="IRepositories\IWorkerRepository.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Region.cs" />
@@ -83,6 +85,7 @@
     <Compile Include="Tip.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Warning.cs" />
+    <Compile Include="Worker.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

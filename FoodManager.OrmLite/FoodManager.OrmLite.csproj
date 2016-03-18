@@ -81,6 +81,7 @@
     <Compile Include="Repositories\TipRepositoryOrmLite.cs" />
     <Compile Include="Repositories\UserRepositoryOrmLite.cs" />
     <Compile Include="Repositories\WarningRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\WorkerRepositoryOrmLite.cs" />
     <Compile Include="Utils\LimitResolver.cs" />
   </ItemGroup>
   <ItemGroup>
