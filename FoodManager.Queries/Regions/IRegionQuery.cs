@@ -9,6 +9,7 @@ namespace FoodManager.Queries.Regions
         void WithOnlyActivated(bool onlyActivated);
         void WithOnlyStatusActivated(bool onlyStatusActivated);
         void WithOnlyStatusDeactivated(bool onlyStatusDeactivated);
+        void WithName(string name);
         IEnumerable<Region> Execute();
     }
 }

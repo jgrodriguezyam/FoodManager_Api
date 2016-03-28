@@ -3,6 +3,7 @@ using FoodManager.Infrastructure.Constants;
 using FoodManager.Model;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Queries;
+using FoodManager.Infrastructure.Strings;
 using FoodManager.OrmLite.DataBase;
 using FoodManager.OrmLite.Utils;
 using ServiceStack.OrmLite.SqlServer;
@@ -36,6 +37,12 @@ namespace FoodManager.Queries.Regions
         {
             if (onlyStatusDeactivated)
                 _query.Where(region => region.Status == GlobalConstants.StatusDeactivated);
+        }
+
+        public void WithName(string name)
+        {
+            if (name.IsNotNullOrEmpty())
+                _query.Where(region => region.Name.Contains(name));
         }
 
         public void Sort(string sort, string sortBy)

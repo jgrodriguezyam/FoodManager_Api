@@ -33,6 +33,7 @@ namespace FoodManager.Services.Implements
                 _regionQuery.WithOnlyActivated(true);
                 _regionQuery.WithOnlyStatusActivated(request.OnlyStatusActivated);
                 _regionQuery.WithOnlyStatusDeactivated(request.OnlyStatusDeactivated);
+                _regionQuery.WithName(request.Name);
                 _regionQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _regionQuery.TotalRecords();
                 _regionQuery.Paginate(request.StartPage, request.EndPage);
@@ -103,6 +104,9 @@ namespace FoodManager.Services.Implements
             {
                 var region = _regionRepository.FindBy(request.Id);
                 region.ThrowExceptionIfIsNull("Region no encontrada");
+                var isReference = _regionRepository.IsReference(request.Id);
+                if (isReference)
+                    ExceptionExtensions.ThrowIsReferenceException(HttpStatusCode.PreconditionFailed);
                 _regionRepository.Remove(region);
                 return new SuccessResponse { IsSuccess = true };
             }

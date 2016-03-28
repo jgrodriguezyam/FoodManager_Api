@@ -72,6 +72,15 @@ namespace FoodManager.Infrastructure.Exceptions
             });
         }
 
+        public static void ThrowIsReferenceException(HttpStatusCode httpStatusCode)
+        {
+            throw new HttpResponseException(new HttpResponseMessage
+            {
+                StatusCode = httpStatusCode,
+                Content = new StringContent("{\"Message\": \"Remover previamente las referencias\"}", Encoding.Default, "application/json")
+            });
+        }
+
         public static void ThrowExceptionIfIsNull(this object objectValue, string message)
         {
             if (objectValue.IsNull())
