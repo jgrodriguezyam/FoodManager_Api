@@ -111,6 +111,7 @@
     <Compile Include="Utils\Cryptography.cs" />
     <Compile Include="Validators\BaseValidator.cs" />
     <Compile Include="Validators\Enums\DisableValidatorRole.cs" />
+    <Compile Include="Validators\Enums\LoginType.cs" />
     <Compile Include="Validators\IValidator.cs" />
     <Compile Include="Validators\Validate.cs" />
   </ItemGroup>

@@ -12,6 +12,8 @@ namespace FoodManager.Services.Interfaces
         SuccessResponse Update(WorkerRequest request);
         Worker Get(GetWorkerRequest request);
         SuccessResponse Delete(DeleteWorkerRequest request);
+        LoginWorkerResponse Login(LoginWorkerRequest request);
+        SuccessResponse Logout(LogoutWorkerRequest request);
         SuccessResponse ChangeStatus(ChangeStatusRequest request);
     }
 }

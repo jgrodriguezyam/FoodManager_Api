@@ -127,7 +127,7 @@ namespace FoodManager.Services.Implements
                 var userToUpdate = _userRepository.FindBy(user => user.UserName == request.UserName && user.Password == encryptPassword).FirstOrDefault();
                 userToUpdate.ThrowExceptionIfIsNull(HttpStatusCode.Unauthorized, "Credenciales invalidas");
                 userToUpdate.Login();
-                _hmacHelper.RefreshHmacOfUser(userToUpdate);
+                _hmacHelper.UpdateHmacOfUser(userToUpdate);
 
                 return new LoginUserResponse
                 {
@@ -148,7 +148,7 @@ namespace FoodManager.Services.Implements
                 var user = _userRepository.FindBy(request.Id);
                 user.ThrowExceptionIfIsNull("Usuario no encontrado");
                 user.Logout();
-                _hmacHelper.RefreshHmacOfUser(user);
+                _hmacHelper.UpdateHmacOfUser(user);
                 return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)

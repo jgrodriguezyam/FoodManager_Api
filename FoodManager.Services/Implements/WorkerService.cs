@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
@@ -6,6 +7,7 @@ using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Workers;
 using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Model;
+using FoodManager.Model.IHmac;
 using FoodManager.Model.IRepositories;
 using FoodManager.Queries.Workers;
 using FoodManager.Services.Interfaces;
@@ -18,12 +20,14 @@ namespace FoodManager.Services.Implements
         private readonly IWorkerQuery _workerQuery;
         private readonly IWorkerRepository _workerRepository;
         private readonly IWorkerValidator _workerValidator;
+        private readonly IHmacHelper _hmacHelper;
 
-        public WorkerService(IWorkerQuery workerQuery, IWorkerRepository workerRepository, IWorkerValidator workerValidator)
+        public WorkerService(IWorkerQuery workerQuery, IWorkerRepository workerRepository, IWorkerValidator workerValidator, IHmacHelper hmacHelper)
         {
             _workerQuery = workerQuery;
             _workerRepository = workerRepository;
             _workerValidator = workerValidator;
+            _hmacHelper = hmacHelper;
         }
 
         public FindWorkersResponse Find(FindWorkersRequest request)
@@ -107,6 +111,43 @@ namespace FoodManager.Services.Implements
                 var worker = _workerRepository.FindBy(request.Id);
                 worker.ThrowExceptionIfIsNull("Trabajador no encontrado");
                 _workerRepository.Remove(worker);
+                return new SuccessResponse { IsSuccess = true };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public LoginWorkerResponse Login(LoginWorkerRequest request)
+        {
+            try
+            {
+                var workerToUpdate = _workerRepository.FindBy(worker => worker.Badge == request.Badge).FirstOrDefault();
+                workerToUpdate.ThrowExceptionIfIsNull(HttpStatusCode.Unauthorized, "Credenciales invalidas");
+                workerToUpdate.Login();
+                _hmacHelper.UpdateHmacOfWorker(workerToUpdate);
+
+                return new LoginWorkerResponse
+                {
+                    WorkerId = workerToUpdate.Id,
+                    PublicKey = workerToUpdate.PublicKey
+                };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public SuccessResponse Logout(LogoutWorkerRequest request)
+        {
+            try
+            {
+                var worker = _workerRepository.FindBy(request.Id);
+                worker.ThrowExceptionIfIsNull("Trabajador no encontrado");
+                worker.Logout();
+                _hmacHelper.UpdateHmacOfWorker(worker);
                 return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)

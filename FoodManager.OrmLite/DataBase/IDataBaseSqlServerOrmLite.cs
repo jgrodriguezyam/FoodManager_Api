@@ -25,6 +25,6 @@ namespace FoodManager.OrmLite.DataBase
         int Count<T>(Expression<Func<T, bool>> predicate);
         void Commit();
         void Rollback();
-        void RefreshHmac<T>(string publicKey, string time, int id) where T : new();
+        void UpdateHmac<T>(string publicKey, string time, int id) where T : new();
     }
 }

@@ -159,6 +159,9 @@
     <Compile Include="Message\Workers\FindWorkersRequest.cs" />
     <Compile Include="Message\Workers\FindWorkersResponse.cs" />
     <Compile Include="Message\Workers\GetWorkerRequest.cs" />
+    <Compile Include="Message\Workers\LoginWorkerRequest.cs" />
+    <Compile Include="Message\Workers\LoginWorkerResponse.cs" />
+    <Compile Include="Message\Workers\LogoutWorkerRequest.cs" />
     <Compile Include="Message\Workers\WorkerRequest.cs" />
     <Compile Include="Message\Workers\WorkerResponse.cs" />
     <Compile Include="Region.cs" />

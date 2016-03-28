@@ -46,6 +46,18 @@ namespace FoodManager.Controllers
             return _workerService.Delete(request);
         }
 
+        [HttpPost, Route("workers/login")]
+        public LoginWorkerResponse Login(LoginWorkerRequest request)
+        {
+            return _workerService.Login(request);
+        }
+
+        [HttpPost, Route("workers/logout/{Id}")]
+        public SuccessResponse Logout(LogoutWorkerRequest request)
+        {
+            return _workerService.Logout(request);
+        }
+
         [HttpPut, Route("workers/{Id}/status/{Status}")]
         public SuccessResponse Put(ChangeStatusRequest request)
         {

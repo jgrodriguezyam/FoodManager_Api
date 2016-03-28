@@ -19,9 +19,19 @@ namespace FoodManager.OrmLite.Hmac
             return _dataBaseSqlServerOrmLite.FindBy<User>(user => user.PublicKey == publicKey).FirstOrDefault();
         }
 
-        public void RefreshHmacOfUser(User user)
+        public void UpdateHmacOfUser(User user)
         {
-            _dataBaseSqlServerOrmLite.RefreshHmac<User>(user.PublicKey, user.Time, user.Id);
+            _dataBaseSqlServerOrmLite.UpdateHmac<User>(user.PublicKey, user.Time, user.Id);
+        }
+
+        public Worker FindWorkerByPublicKey(string publicKey)
+        {
+            return _dataBaseSqlServerOrmLite.FindBy<Worker>(worker => worker.PublicKey == publicKey).FirstOrDefault();
+        }
+
+        public void UpdateHmacOfWorker(Worker worker)
+        {
+            _dataBaseSqlServerOrmLite.UpdateHmac<Worker>(worker.PublicKey, worker.Time, worker.Id);
         }
     }
 }

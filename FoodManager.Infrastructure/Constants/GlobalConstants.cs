@@ -16,6 +16,7 @@ namespace FoodManager.Infrastructure.Constants
         public static readonly string PublicKey = "PublicKey";
         public static readonly string PrivateKey = "PrivateKey";
         public static readonly string Timespan = "Timespan";
+        public static readonly string LoginType = "LoginType";
 
         public static readonly string CryptographyKey = "FoodManagerKey";
 

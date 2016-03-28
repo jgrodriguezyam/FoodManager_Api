@@ -1,4 +1,5 @@
-﻿using FoodManager.Model.Base;
+﻿using FoodManager.Infrastructure.Hmac;
+using FoodManager.Model.Base;
 using ServiceStack.DataAnnotations;
 
 namespace FoodManager.Model
@@ -21,5 +22,27 @@ namespace FoodManager.Model
         public int DealerId { get; set; }
 
         public bool IsActive { get; set; }
+
+        #region Methods
+
+        public virtual void Login()
+        {
+            PublicKey = HmacGenerator.PublicKey();
+            Time = HmacGenerator.Timespan();
+        }
+
+        public virtual void Logout()
+        {
+            PublicKey = "";
+            Time = "";
+        }
+
+        public virtual void RefreshAuthenticationHmac(string time)
+        {
+            PublicKey = HmacGenerator.PublicKey();
+            Time = time;
+        }
+
+        #endregion
     }
 }
