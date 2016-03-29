@@ -11,6 +11,7 @@ using FoodManager.Model;
 using FoodManager.Model.IHmac;
 using FoodManager.Model.IRepositories;
 using FoodManager.Queries.Users;
+using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Interfaces;
 
@@ -22,13 +23,15 @@ namespace FoodManager.Services.Implements
         private readonly IUserRepository _userRepository;
         private readonly IUserValidator _userValidator;
         private readonly IHmacHelper _hmacHelper;
+        private readonly IUserFactory _userFactory;
 
-        public UserService(IUserQuery userQuery, IUserRepository userRepository, IUserValidator userValidator, IHmacHelper hmacHelper)
+        public UserService(IUserQuery userQuery, IUserRepository userRepository, IUserValidator userValidator, IHmacHelper hmacHelper, IUserFactory userFactory)
         {
             _userQuery = userQuery;
             _userRepository = userRepository;
             _userValidator = userValidator;
             _hmacHelper = hmacHelper;
+            _userFactory = userFactory;
         }
 
         public FindUsersResponse Find(FindUsersRequest request)
@@ -96,7 +99,7 @@ namespace FoodManager.Services.Implements
             {
                 var user = _userRepository.FindBy(request.Id);
                 user.ThrowExceptionIfIsNull("Usuario no encontrado");
-                return TypeAdapter.Adapt<DTO.User>(user);
+                return _userFactory.Execute(user);
             }
             catch (DataAccessException)
             {

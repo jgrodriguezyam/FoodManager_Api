@@ -9,6 +9,7 @@ using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Queries.Branches;
+using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Interfaces;
 
@@ -21,14 +22,16 @@ namespace FoodManager.Services.Implements
         private readonly IBranchValidator _branchValidator;
         private readonly IBranchDealerRepository _branchDealerRepository;
         private readonly IBranchDealerValidator _branchDealerValidator;
+        private readonly IBranchFactory _branchFactory;
 
-        public BranchService(IBranchQuery branchQuery, IBranchRepository branchRepository, IBranchValidator branchValidator, IBranchDealerRepository branchDealerRepository, IBranchDealerValidator branchDealerValidator)
+        public BranchService(IBranchQuery branchQuery, IBranchRepository branchRepository, IBranchValidator branchValidator, IBranchDealerRepository branchDealerRepository, IBranchDealerValidator branchDealerValidator, IBranchFactory branchFactory)
         {
             _branchQuery = branchQuery;
             _branchRepository = branchRepository;
             _branchValidator = branchValidator;
             _branchDealerRepository = branchDealerRepository;
             _branchDealerValidator = branchDealerValidator;
+            _branchFactory = branchFactory;
         }
 
         public FindBranchesResponse Find(FindBranchesRequest request)
@@ -95,7 +98,7 @@ namespace FoodManager.Services.Implements
             {
                 var branch = _branchRepository.FindBy(request.Id);
                 branch.ThrowExceptionIfIsNull("Sucursal no encontrada");
-                return TypeAdapter.Adapt<DTO.Branch>(branch);
+                return _branchFactory.Execute(branch);
             }
             catch (DataAccessException)
             {

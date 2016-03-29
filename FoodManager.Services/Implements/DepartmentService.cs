@@ -8,6 +8,7 @@ using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Queries.Departments;
+using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Interfaces;
 
@@ -18,12 +19,14 @@ namespace FoodManager.Services.Implements
         private readonly IDepartmentQuery _departmentQuery;
         private readonly IDepartmentRepository _departmentRepository;
         private readonly IDepartmentValidator _departmentValidator;
+        private readonly IDepartmentFactory _departmentFactory;
 
-        public DepartmentService(IDepartmentQuery departmentQuery, IDepartmentRepository departmentRepository, IDepartmentValidator departmentValidator)
+        public DepartmentService(IDepartmentQuery departmentQuery, IDepartmentRepository departmentRepository, IDepartmentValidator departmentValidator, IDepartmentFactory departmentFactory)
         {
             _departmentQuery = departmentQuery;
             _departmentRepository = departmentRepository;
             _departmentValidator = departmentValidator;
+            _departmentFactory = departmentFactory;
         }
 
         public FindDepartmentsResponse Find(FindDepartmentsRequest request)
@@ -90,7 +93,7 @@ namespace FoodManager.Services.Implements
             {
                 var department = _departmentRepository.FindBy(request.Id);
                 department.ThrowExceptionIfIsNull("Departamento no encontrado");
-                return TypeAdapter.Adapt<DTO.Department>(department);
+                return _departmentFactory.Execute(department);
             }
             catch (DataAccessException)
             {

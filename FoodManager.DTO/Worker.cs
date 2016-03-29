@@ -10,9 +10,9 @@
         public string Imss { get; set; }
         public int Gender { get; set; }
         public string Badge { get; set; }
-        public int DepartmentId { get; set; }
-        public int JobId { get; set; }
-        public int DealerId { get; set; }
+        public Department Department { get; set; }
+        public Job Job { get; set; }
+        public Dealer Dealer { get; set; }
         public bool Status { get; set; }
     }
 }

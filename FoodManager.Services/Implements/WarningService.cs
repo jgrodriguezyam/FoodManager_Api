@@ -8,6 +8,7 @@ using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Queries.Warnings;
+using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Interfaces;
 
@@ -18,12 +19,14 @@ namespace FoodManager.Services.Implements
         private readonly IWarningQuery _warningQuery;
         private readonly IWarningRepository _warningRepository;
         private readonly IWarningValidator _warningValidator;
+        private readonly IWarningFactory _warningFactory;
 
-        public WarningService(IWarningQuery warningQuery, IWarningRepository warningRepository, IWarningValidator warningValidator)
+        public WarningService(IWarningQuery warningQuery, IWarningRepository warningRepository, IWarningValidator warningValidator, IWarningFactory warningFactory)
         {
             _warningQuery = warningQuery;
             _warningRepository = warningRepository;
             _warningValidator = warningValidator;
+            _warningFactory = warningFactory;
         }
 
         public FindWarningsResponse Find(FindWarningsRequest request)
@@ -90,7 +93,7 @@ namespace FoodManager.Services.Implements
             {
                 var warning = _warningRepository.FindBy(request.Id);
                 warning.ThrowExceptionIfIsNull("Advertencia no encontrada");
-                return TypeAdapter.Adapt<DTO.Warning>(warning);
+                return _warningFactory.Execute(warning);
             }
             catch (DataAccessException)
             {

@@ -52,6 +52,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\Implements\BranchFactory.cs" />
+    <Compile Include="Factories\Implements\CompanyFactory.cs" />
+    <Compile Include="Factories\Implements\IngredientFactory.cs" />
+    <Compile Include="Factories\Implements\SaucerConfigurationFactory.cs" />
+    <Compile Include="Factories\Implements\UserFactory.cs" />
+    <Compile Include="Factories\Implements\DepartmentFactory.cs" />
+    <Compile Include="Factories\Implements\WarningFactory.cs" />
+    <Compile Include="Factories\Implements\WorkerFactory.cs" />
+    <Compile Include="Factories\Interfaces\IBranchFactory.cs" />
+    <Compile Include="Factories\Interfaces\ICompanyFactory.cs" />
+    <Compile Include="Factories\Interfaces\IIngredientFactory.cs" />
+    <Compile Include="Factories\Interfaces\ISaucerConfigurationFactory.cs" />
+    <Compile Include="Factories\Interfaces\IUserFactory.cs" />
+    <Compile Include="Factories\Interfaces\IDepartmentFactory.cs" />
+    <Compile Include="Factories\Interfaces\IWarningFactory.cs" />
+    <Compile Include="Factories\Interfaces\IWorkerFactory.cs" />
     <Compile Include="Implements\BranchService.cs" />
     <Compile Include="Implements\CompanyService.cs" />
     <Compile Include="Implements\DealerService.cs" />
@@ -142,10 +158,7 @@
       <Name>FoodManager.Queries</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Factories\Implements\" />
-    <Folder Include="Factories\Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

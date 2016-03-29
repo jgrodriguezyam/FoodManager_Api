@@ -8,6 +8,7 @@ using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Queries.SaucerConfigurations;
+using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Interfaces;
 
@@ -18,12 +19,14 @@ namespace FoodManager.Services.Implements
         private readonly ISaucerConfigurationQuery _saucerConfigurationQuery;
         private readonly ISaucerConfigurationRepository _saucerConfigurationRepository;
         private readonly ISaucerConfigurationValidator _saucerConfigurationValidator;
+        private readonly ISaucerConfigurationFactory _saucerConfigurationFactory;
 
-        public SaucerConfigurationService(ISaucerConfigurationQuery saucerConfigurationQuery, ISaucerConfigurationRepository saucerConfigurationRepository, ISaucerConfigurationValidator saucerConfigurationValidator)
+        public SaucerConfigurationService(ISaucerConfigurationQuery saucerConfigurationQuery, ISaucerConfigurationRepository saucerConfigurationRepository, ISaucerConfigurationValidator saucerConfigurationValidator, ISaucerConfigurationFactory saucerConfigurationFactory)
         {
             _saucerConfigurationQuery = saucerConfigurationQuery;
             _saucerConfigurationRepository = saucerConfigurationRepository;
             _saucerConfigurationValidator = saucerConfigurationValidator;
+            _saucerConfigurationFactory = saucerConfigurationFactory;
         }
 
         public FindSaucerConfigurationsResponse Find(FindSaucerConfigurationsRequest request)
@@ -91,7 +94,7 @@ namespace FoodManager.Services.Implements
             {
                 var saucerConfiguration = _saucerConfigurationRepository.FindBy(request.Id);
                 saucerConfiguration.ThrowExceptionIfIsNull("Configuracion de platillo no encontrado");
-                return TypeAdapter.Adapt<DTO.SaucerConfiguration>(saucerConfiguration);
+                return _saucerConfigurationFactory.Execute(saucerConfiguration);
             }
             catch (DataAccessException)
             {

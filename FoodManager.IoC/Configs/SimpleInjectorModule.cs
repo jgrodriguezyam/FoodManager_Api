@@ -23,6 +23,8 @@ using FoodManager.Queries.Tips;
 using FoodManager.Queries.Users;
 using FoodManager.Queries.Warnings;
 using FoodManager.Queries.Workers;
+using FoodManager.Services.Factories.Implements;
+using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Implements;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Implements;
@@ -77,21 +79,25 @@ namespace FoodManager.IoC.Configs
             _container.Register<ICompanyQuery, CompanyQuery>();
             _container.Register<ICompanyValidator, CompanyValidator>();
             _container.Register<ICompanyService, CompanyService>();
+            _container.Register<ICompanyFactory, CompanyFactory>();
 
             _container.Register<IBranchRepository, BranchRepositoryOrmLite>();
             _container.Register<IBranchQuery, BranchQuery>();
             _container.Register<IBranchValidator, BranchValidator>();
             _container.Register<IBranchService, BranchService>();
+            _container.Register<IBranchFactory, BranchFactory>();
 
             _container.Register<IDepartmentRepository, DepartmentRepositoryOrmLite>();
             _container.Register<IDepartmentQuery, DepartmentQuery>();
             _container.Register<IDepartmentValidator, DepartmentValidator>();
             _container.Register<IDepartmentService, DepartmentService>();
+            _container.Register<IDepartmentFactory, DepartmentFactory>();
 
             _container.Register<IUserRepository, UserRepositoryOrmLite>();
             _container.Register<IUserQuery, UserQuery>();
             _container.Register<IUserValidator, UserValidator>();
             _container.Register<IUserService, UserService>();
+            _container.Register<IUserFactory, UserFactory>();
 
             _container.Register<IDiseaseRepository, DiseaseRepositoryOrmLite>();
             _container.Register<IDiseaseQuery, DiseaseQuery>();
@@ -102,6 +108,7 @@ namespace FoodManager.IoC.Configs
             _container.Register<IWarningQuery, WarningQuery>();
             _container.Register<IWarningValidator, WarningValidator>();
             _container.Register<IWarningService, WarningService>();
+            _container.Register<IWarningFactory, WarningFactory>();
 
             _container.Register<IJobRepository, JobRepositoryOrmLite>();
             _container.Register<IJobQuery, JobQuery>();
@@ -143,16 +150,19 @@ namespace FoodManager.IoC.Configs
             _container.Register<IIngredientQuery, IngredientQuery>();
             _container.Register<IIngredientValidator, IngredientValidator>();
             _container.Register<IIngredientService, IngredientService>();
+            _container.Register<IIngredientFactory, IngredientFactory>();
 
             _container.Register<ISaucerConfigurationRepository, SaucerConfigurationRepositoryOrmLite>();
             _container.Register<ISaucerConfigurationQuery, SaucerConfigurationQuery>();
             _container.Register<ISaucerConfigurationValidator, SaucerConfigurationValidator>();
             _container.Register<ISaucerConfigurationService, SaucerConfigurationService>();
+            _container.Register<ISaucerConfigurationFactory, SaucerConfigurationFactory>();
 
             _container.Register<IWorkerRepository, WorkerRepositoryOrmLite>();
             _container.Register<IWorkerQuery, WorkerQuery>();
             _container.Register<IWorkerValidator, WorkerValidator>();
             _container.Register<IWorkerService, WorkerService>();
+            _container.Register<IWorkerFactory, WorkerFactory>();
         }
     }
 }

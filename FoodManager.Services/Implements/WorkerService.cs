@@ -10,6 +10,7 @@ using FoodManager.Model;
 using FoodManager.Model.IHmac;
 using FoodManager.Model.IRepositories;
 using FoodManager.Queries.Workers;
+using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Interfaces;
 
@@ -21,13 +22,15 @@ namespace FoodManager.Services.Implements
         private readonly IWorkerRepository _workerRepository;
         private readonly IWorkerValidator _workerValidator;
         private readonly IHmacHelper _hmacHelper;
+        private readonly IWorkerFactory _workerFactory;
 
-        public WorkerService(IWorkerQuery workerQuery, IWorkerRepository workerRepository, IWorkerValidator workerValidator, IHmacHelper hmacHelper)
+        public WorkerService(IWorkerQuery workerQuery, IWorkerRepository workerRepository, IWorkerValidator workerValidator, IHmacHelper hmacHelper, IWorkerFactory workerFactory)
         {
             _workerQuery = workerQuery;
             _workerRepository = workerRepository;
             _workerValidator = workerValidator;
             _hmacHelper = hmacHelper;
+            _workerFactory = workerFactory;
         }
 
         public FindWorkersResponse Find(FindWorkersRequest request)
@@ -96,7 +99,7 @@ namespace FoodManager.Services.Implements
             {
                 var worker = _workerRepository.FindBy(request.Id);
                 worker.ThrowExceptionIfIsNull("Trabajador no encontrado");
-                return TypeAdapter.Adapt<DTO.Worker>(worker);
+                return _workerFactory.Execute(worker);
             }
             catch (DataAccessException)
             {

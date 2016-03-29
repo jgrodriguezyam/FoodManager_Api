@@ -1,0 +1,27 @@
+﻿using FastMapper;
+using FoodManager.Infrastructure.Objects;
+using FoodManager.Model;
+using FoodManager.Model.IRepositories;
+using FoodManager.Services.Factories.Interfaces;
+
+namespace FoodManager.Services.Factories.Implements
+{
+    public class UserFactory : IUserFactory
+    {
+        private readonly IDealerRepository _dealerRepository;
+
+        public UserFactory(IDealerRepository dealerRepository)
+        {
+            _dealerRepository = dealerRepository;
+        }
+
+        public DTO.User Execute(User user)
+        {
+            var userDto = TypeAdapter.Adapt<DTO.User>(user);
+            var dealer = _dealerRepository.FindBy(user.DealerId);
+            if (dealer.IsNotNull())
+                userDto.Dealer = TypeAdapter.Adapt<DTO.Dealer>(dealer);
+            return userDto;
+        }
+    }
+}

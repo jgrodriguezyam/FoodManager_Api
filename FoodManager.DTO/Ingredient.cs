@@ -10,7 +10,7 @@
         public int Lipid { get; set; }
         public int Hdec { get; set; }
         public int Sodium { get; set; }
-        public int IngredientGroupId { get; set; }
+        public IngredientGroup IngredientGroup { get; set; }
         public bool Status { get; set; }
     }
 }

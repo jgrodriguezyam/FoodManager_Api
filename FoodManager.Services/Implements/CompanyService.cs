@@ -8,6 +8,7 @@ using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Queries.Companies;
+using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Interfaces;
 
@@ -18,12 +19,14 @@ namespace FoodManager.Services.Implements
         private readonly ICompanyQuery _companyQuery;
         private readonly ICompanyRepository _companyRepository;
         private readonly ICompanyValidator _companyValidator;
+        private readonly ICompanyFactory _companyFactory;
 
-        public CompanyService(ICompanyQuery companyQuery, ICompanyRepository companyRepository, ICompanyValidator companyValidator)
+        public CompanyService(ICompanyQuery companyQuery, ICompanyRepository companyRepository, ICompanyValidator companyValidator, ICompanyFactory companyFactory)
         {
             _companyQuery = companyQuery;
             _companyRepository = companyRepository;
             _companyValidator = companyValidator;
+            _companyFactory = companyFactory;
         }
 
         public FindCompaniesResponse Find(FindCompaniesRequest request)
@@ -90,7 +93,7 @@ namespace FoodManager.Services.Implements
             {
                 var company = _companyRepository.FindBy(request.Id);
                 company.ThrowExceptionIfIsNull("Compania no encontrada");
-                return TypeAdapter.Adapt<DTO.Company>(company);
+                return _companyFactory.Execute(company);
             }
             catch (DataAccessException)
             {

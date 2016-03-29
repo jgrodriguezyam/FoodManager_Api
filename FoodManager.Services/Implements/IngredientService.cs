@@ -8,6 +8,7 @@ using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Queries.Ingredients;
+using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Interfaces;
 
@@ -18,12 +19,14 @@ namespace FoodManager.Services.Implements
         private readonly IIngredientQuery _ingredientQuery;
         private readonly IIngredientRepository _ingredientRepository;
         private readonly IIngredientValidator _ingredientValidator;
+        private readonly IIngredientFactory _ingredientFactory;
 
-        public IngredientService(IIngredientQuery ingredientQuery, IIngredientRepository ingredientRepository, IIngredientValidator ingredientValidator)
+        public IngredientService(IIngredientQuery ingredientQuery, IIngredientRepository ingredientRepository, IIngredientValidator ingredientValidator, IIngredientFactory ingredientFactory)
         {
             _ingredientQuery = ingredientQuery;
             _ingredientRepository = ingredientRepository;
             _ingredientValidator = ingredientValidator;
+            _ingredientFactory = ingredientFactory;
         }
 
         public FindIngredientsResponse Find(FindIngredientsRequest request)
@@ -90,7 +93,7 @@ namespace FoodManager.Services.Implements
             {
                 var ingredient = _ingredientRepository.FindBy(request.Id);
                 ingredient.ThrowExceptionIfIsNull("Ingrediente no encontrado");
-                return TypeAdapter.Adapt<DTO.Ingredient>(ingredient);
+                return _ingredientFactory.Execute(ingredient);
             }
             catch (DataAccessException)
             {
