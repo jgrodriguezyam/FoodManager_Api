@@ -15,5 +15,6 @@ namespace FoodManager.Services.Interfaces
         LoginWorkerResponse Login(LoginWorkerRequest request);
         SuccessResponse Logout(LogoutWorkerRequest request);
         SuccessResponse ChangeStatus(ChangeStatusRequest request);
+        SuccessResponse IsReference(IsReferenceRequest request);
     }
 }

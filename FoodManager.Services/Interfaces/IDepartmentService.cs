@@ -13,5 +13,6 @@ namespace FoodManager.Services.Interfaces
         Department Get(GetDepartmentRequest request);
         SuccessResponse Delete(DeleteDepartmentRequest request);
         SuccessResponse ChangeStatus(ChangeStatusRequest request);
+        SuccessResponse IsReference(IsReferenceRequest request);
     }
 }

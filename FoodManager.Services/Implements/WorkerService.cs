@@ -176,5 +176,18 @@ namespace FoodManager.Services.Implements
                 throw new ApplicationException();
             }
         }
+
+        public SuccessResponse IsReference(IsReferenceRequest request)
+        {
+            try
+            {
+                var isReference = _workerRepository.IsReference(request.Id);
+                return new SuccessResponse { IsSuccess = isReference };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
     }
 }

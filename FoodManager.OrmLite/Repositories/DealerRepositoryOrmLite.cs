@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using FoodManager.DataAccess.Listeners;
+using FoodManager.Infrastructure.Integers;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.OrmLite.DataBase;
@@ -49,7 +50,11 @@ namespace FoodManager.OrmLite.Repositories
 
         public bool IsReference(int dealerId)
         {
-            throw new NotImplementedException();
+            var amountOfReferences = _dataBaseSqlServerOrmLite.Count<BranchDealer>(branchDealer => branchDealer.DealerId == dealerId);
+            amountOfReferences += _dataBaseSqlServerOrmLite.Count<User>(user => user.DealerId == dealerId && user.Status);
+            amountOfReferences += _dataBaseSqlServerOrmLite.Count<DealerSaucer>(dealerSaucer => dealerSaucer.DealerId == dealerId);
+            amountOfReferences += _dataBaseSqlServerOrmLite.Count<Worker>(worker => worker.DealerId == dealerId && worker.Status);
+            return amountOfReferences.IsNotZero();
         }
     }
 }

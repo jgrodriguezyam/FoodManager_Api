@@ -46,5 +46,10 @@ namespace FoodManager.OrmLite.Repositories
             _auditEventListener.OnPreDelete(item);
             _dataBaseSqlServerOrmLite.LogicRemove(item);
         }
+
+        public bool IsReference(int workerId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
