@@ -113,6 +113,9 @@ namespace FoodManager.Services.Implements
             {
                 var worker = _workerRepository.FindBy(request.Id);
                 worker.ThrowExceptionIfIsNull("Trabajador no encontrado");
+                var isReference = _workerRepository.IsReference(request.Id);
+                if (isReference)
+                    ExceptionExtensions.ThrowIsReferenceException();
                 _workerRepository.Remove(worker);
                 return new SuccessResponse { IsSuccess = true };
             }

@@ -107,6 +107,9 @@ namespace FoodManager.Services.Implements
             {
                 var ingredient = _ingredientRepository.FindBy(request.Id);
                 ingredient.ThrowExceptionIfIsNull("Ingrediente no encontrado");
+                var isReference = _ingredientRepository.IsReference(request.Id);
+                if (isReference)
+                    ExceptionExtensions.ThrowIsReferenceException();
                 _ingredientRepository.Remove(ingredient);
                 return new SuccessResponse { IsSuccess = true };
             }

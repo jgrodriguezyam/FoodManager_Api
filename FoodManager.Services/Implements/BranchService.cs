@@ -112,6 +112,9 @@ namespace FoodManager.Services.Implements
             {
                 var branch = _branchRepository.FindBy(request.Id);
                 branch.ThrowExceptionIfIsNull("Sucursal no encontrada");
+                var isReference = _branchRepository.IsReference(request.Id);
+                if (isReference)
+                    ExceptionExtensions.ThrowIsReferenceException();
                 _branchRepository.Remove(branch);
                 return new SuccessResponse { IsSuccess = true };
             }

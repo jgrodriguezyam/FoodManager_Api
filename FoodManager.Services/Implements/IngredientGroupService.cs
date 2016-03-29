@@ -103,6 +103,9 @@ namespace FoodManager.Services.Implements
             {
                 var ingredientGroup = _ingredientGroupRepository.FindBy(request.Id);
                 ingredientGroup.ThrowExceptionIfIsNull("Grupo de ingredientes no encontrado");
+                var isReference = _ingredientGroupRepository.IsReference(request.Id);
+                if (isReference)
+                    ExceptionExtensions.ThrowIsReferenceException();
                 _ingredientGroupRepository.Remove(ingredientGroup);
                 return new SuccessResponse { IsSuccess = true };
             }

@@ -103,6 +103,9 @@ namespace FoodManager.Services.Implements
             {
                 var disease = _diseaseRepository.FindBy(request.Id);
                 disease.ThrowExceptionIfIsNull("Enfermedad no encontrada");
+                var isReference = _diseaseRepository.IsReference(request.Id);
+                if (isReference)
+                    ExceptionExtensions.ThrowIsReferenceException();
                 _diseaseRepository.Remove(disease);
                 return new SuccessResponse { IsSuccess = true };
             }

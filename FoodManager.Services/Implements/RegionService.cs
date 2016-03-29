@@ -106,7 +106,7 @@ namespace FoodManager.Services.Implements
                 region.ThrowExceptionIfIsNull("Region no encontrada");
                 var isReference = _regionRepository.IsReference(request.Id);
                 if (isReference)
-                    ExceptionExtensions.ThrowIsReferenceException(HttpStatusCode.PreconditionFailed);
+                    ExceptionExtensions.ThrowIsReferenceException();
                 _regionRepository.Remove(region);
                 return new SuccessResponse { IsSuccess = true };
             }

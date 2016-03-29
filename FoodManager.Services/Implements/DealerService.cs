@@ -108,6 +108,9 @@ namespace FoodManager.Services.Implements
             {
                 var dealer = _dealerRepository.FindBy(request.Id);
                 dealer.ThrowExceptionIfIsNull("Distribuidor no encontrado");
+                var isReference = _dealerRepository.IsReference(request.Id);
+                if (isReference)
+                    ExceptionExtensions.ThrowIsReferenceException();
                 _dealerRepository.Remove(dealer);
                 return new SuccessResponse { IsSuccess = true };
             }

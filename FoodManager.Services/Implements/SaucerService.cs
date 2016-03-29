@@ -103,6 +103,9 @@ namespace FoodManager.Services.Implements
             {
                 var saucer = _saucerRepository.FindBy(request.Id);
                 saucer.ThrowExceptionIfIsNull("Platillo no encontrado");
+                var isReference = _saucerRepository.IsReference(request.Id);
+                if (isReference)
+                    ExceptionExtensions.ThrowIsReferenceException();
                 _saucerRepository.Remove(saucer);
                 return new SuccessResponse { IsSuccess = true };
             }
