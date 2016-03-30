@@ -37,6 +37,7 @@ namespace FoodManager.Services.Implements
                 _warningQuery.WithOnlyStatusActivated(request.OnlyStatusActivated);
                 _warningQuery.WithOnlyStatusDeactivated(request.OnlyStatusDeactivated);
                 _warningQuery.WithDisease(request.DiseaseId);
+                _warningQuery.WithName(request.Name);
                 _warningQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _warningQuery.TotalRecords();
                 _warningQuery.Paginate(request.StartPage, request.EndPage);

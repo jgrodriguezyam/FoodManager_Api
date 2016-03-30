@@ -10,6 +10,7 @@ namespace FoodManager.Queries.Warnings
         void WithOnlyStatusActivated(bool onlyStatusActivated);
         void WithOnlyStatusDeactivated(bool onlyStatusDeactivated);
         void WithDisease(int diseaseId);
+        void WithName(string name);
         IEnumerable<Warning> Execute();
     }
 }

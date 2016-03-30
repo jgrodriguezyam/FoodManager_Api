@@ -9,6 +9,7 @@ namespace FoodManager.Queries.Tips
         void WithOnlyActivated(bool onlyActivated);
         void WithOnlyStatusActivated(bool onlyStatusActivated);
         void WithOnlyStatusDeactivated(bool onlyStatusDeactivated);
+        void WithName(string name);
         IEnumerable<Tip> Execute();
     }
 }

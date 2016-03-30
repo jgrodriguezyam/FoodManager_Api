@@ -33,6 +33,7 @@ namespace FoodManager.Services.Implements
                 _tipQuery.WithOnlyActivated(true);
                 _tipQuery.WithOnlyStatusActivated(request.OnlyStatusActivated);
                 _tipQuery.WithOnlyStatusDeactivated(request.OnlyStatusDeactivated);
+                _tipQuery.WithName(request.Name);
                 _tipQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _tipQuery.TotalRecords();
                 _tipQuery.Paginate(request.StartPage, request.EndPage);

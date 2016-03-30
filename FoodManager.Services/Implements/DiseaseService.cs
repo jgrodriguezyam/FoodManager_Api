@@ -33,6 +33,7 @@ namespace FoodManager.Services.Implements
                 _diseaseQuery.WithOnlyActivated(true);
                 _diseaseQuery.WithOnlyStatusActivated(request.OnlyStatusActivated);
                 _diseaseQuery.WithOnlyStatusDeactivated(request.OnlyStatusDeactivated);
+                _diseaseQuery.WithName(request.Name);
                 _diseaseQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _diseaseQuery.TotalRecords();
                 _diseaseQuery.Paginate(request.StartPage, request.EndPage);

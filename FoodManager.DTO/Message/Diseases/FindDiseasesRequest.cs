@@ -4,6 +4,6 @@ namespace FoodManager.DTO.Message.Diseases
 {
     public class FindDiseasesRequest : FindStatusRequest
     {
-         
+        public string Name { get; set; }
     }
 }

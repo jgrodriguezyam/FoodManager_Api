@@ -4,6 +4,7 @@ namespace FoodManager.DTO.Message.Warnings
 {
     public class FindWarningsRequest : FindStatusRequest
     {
-         public int DiseaseId { get; set; }
+        public int DiseaseId { get; set; }
+        public string Name { get; set; }
     }
 }
