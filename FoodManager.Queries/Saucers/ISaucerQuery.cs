@@ -9,6 +9,7 @@ namespace FoodManager.Queries.Saucers
         void WithOnlyActivated(bool onlyActivated);
         void WithOnlyStatusActivated(bool onlyStatusActivated);
         void WithOnlyStatusDeactivated(bool onlyStatusDeactivated);
+        void WithName(string name);
         IEnumerable<Saucer> Execute();
     }
 }

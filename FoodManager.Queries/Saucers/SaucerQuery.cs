@@ -2,6 +2,7 @@
 using FoodManager.Infrastructure.Constants;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Queries;
+using FoodManager.Infrastructure.Strings;
 using FoodManager.Model;
 using FoodManager.OrmLite.DataBase;
 using FoodManager.OrmLite.Utils;
@@ -36,6 +37,12 @@ namespace FoodManager.Queries.Saucers
         {
             if (onlyStatusDeactivated)
                 _query.Where(saucer => saucer.Status == GlobalConstants.StatusDeactivated);
+        }
+
+        public void WithName(string name)
+        {
+            if (name.IsNotNullOrEmpty())
+                _query.Where(saucer => saucer.Name.Contains(name));
         }
 
         public void Sort(string sort, string sortBy)

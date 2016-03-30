@@ -10,6 +10,7 @@ namespace FoodManager.Queries.Users
         void WithOnlyStatusActivated(bool onlyStatusActivated);
         void WithOnlyStatusDeactivated(bool onlyStatusDeactivated);
         void WithDealer(int dealerId);
+        void WithName(string name);
         IEnumerable<User> Execute();
     }
 }

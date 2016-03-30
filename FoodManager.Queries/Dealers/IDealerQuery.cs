@@ -9,6 +9,7 @@ namespace FoodManager.Queries.Dealers
         void WithOnlyActivated(bool onlyActivated);
         void WithOnlyStatusActivated(bool onlyStatusActivated);
         void WithOnlyStatusDeactivated(bool onlyStatusDeactivated);
+        void WithName(string name);
         IEnumerable<Dealer> Execute();
     }
 }
