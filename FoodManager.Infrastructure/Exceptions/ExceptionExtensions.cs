@@ -68,7 +68,7 @@ namespace FoodManager.Infrastructure.Exceptions
             throw new HttpResponseException(new HttpResponseMessage
             {
                 StatusCode = httpStatusCode,
-                Content = new StringContent("{\"Message\": \"El estado ya se encontraba " + (entityStatus ? "activado" : "desactivado") + "\"}", Encoding.Default, "application/json")
+                Content = new StringContent("{\"Message\": \"El registro ya se encuentra " + (entityStatus ? "activo" : "inactivo") + "\"}", Encoding.Default, "application/json")
             });
         }
 
