@@ -2,6 +2,7 @@
 using FoodManager.Infrastructure.Constants;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Queries;
+using FoodManager.Infrastructure.Strings;
 using FoodManager.Model;
 using FoodManager.OrmLite.DataBase;
 using FoodManager.OrmLite.Utils;
@@ -54,6 +55,18 @@ namespace FoodManager.Queries.Workers
         {
             if (dealerId.IsNotZero())
                 _query.Where(worker => worker.DealerId == dealerId);
+        }
+
+        public void WithCode(string code)
+        {
+            if (code.IsNotNullOrEmpty())
+                _query.Where(worker => worker.Code.Contains(code));
+        }
+
+        public void WithEmail(string email)
+        {
+            if (email.IsNotNullOrEmpty())
+                _query.Where(worker => worker.Email.Contains(email));
         }
 
         public void Sort(string sort, string sortBy)

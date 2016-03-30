@@ -43,6 +43,8 @@ namespace FoodManager.Services.Implements
                 _workerQuery.WithDepartment(request.DepartmentId);
                 _workerQuery.WithJob(request.JobId);
                 _workerQuery.WithDealer(request.DealerId);
+                _workerQuery.WithCode(request.Code);
+                _workerQuery.WithEmail(request.Email);
                 _workerQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _workerQuery.TotalRecords();
                 _workerQuery.Paginate(request.StartPage, request.EndPage);
