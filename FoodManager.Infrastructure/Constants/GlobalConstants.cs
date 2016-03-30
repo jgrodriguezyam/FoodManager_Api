@@ -1,7 +1,4 @@
-﻿using System;
-using FoodManager.Infrastructure.Dates;
-
-namespace FoodManager.Infrastructure.Constants
+﻿namespace FoodManager.Infrastructure.Constants
 {
     public static class GlobalConstants
     {
