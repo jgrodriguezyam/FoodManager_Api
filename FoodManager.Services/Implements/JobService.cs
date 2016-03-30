@@ -33,6 +33,7 @@ namespace FoodManager.Services.Implements
                 _jobQuery.WithOnlyActivated(true);
                 _jobQuery.WithOnlyStatusActivated(request.OnlyStatusActivated);
                 _jobQuery.WithOnlyStatusDeactivated(request.OnlyStatusDeactivated);
+                _jobQuery.WithName(request.Name);
                 _jobQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _jobQuery.TotalRecords();
                 _jobQuery.Paginate(request.StartPage, request.EndPage);
