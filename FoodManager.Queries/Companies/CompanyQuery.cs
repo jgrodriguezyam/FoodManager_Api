@@ -2,6 +2,7 @@
 using FoodManager.Infrastructure.Constants;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Queries;
+using FoodManager.Infrastructure.Strings;
 using FoodManager.Model;
 using FoodManager.OrmLite.DataBase;
 using FoodManager.OrmLite.Utils;
@@ -42,6 +43,12 @@ namespace FoodManager.Queries.Companies
         {
             if (regionId.IsNotZero())
                 _query.Where(company => company.RegionId == regionId);
+        }
+
+        public void WithName(string name)
+        {
+            if (name.IsNotNullOrEmpty())
+                _query.Where(company => company.Name.Contains(name));
         }
 
         public void Sort(string sort, string sortBy)
