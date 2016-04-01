@@ -63,6 +63,7 @@
     <Compile Include="Ingredient.cs" />
     <Compile Include="IngredientGroup.cs" />
     <Compile Include="Job.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Message\Branches\BranchRequest.cs" />
     <Compile Include="Message\Branches\BranchResponse.cs" />
     <Compile Include="Message\Branches\DeleteBranchRequest.cs" />
@@ -111,6 +112,12 @@
     <Compile Include="Message\Jobs\GetJobRequest.cs" />
     <Compile Include="Message\Jobs\JobRequest.cs" />
     <Compile Include="Message\Jobs\JobResponse.cs" />
+    <Compile Include="Message\Menus\DeleteMenuRequest.cs" />
+    <Compile Include="Message\Menus\FindMenusRequest.cs" />
+    <Compile Include="Message\Menus\FindMenusResponse.cs" />
+    <Compile Include="Message\Menus\GetMenuRequest.cs" />
+    <Compile Include="Message\Menus\MenuRequest.cs" />
+    <Compile Include="Message\Menus\MenuResponse.cs" />
     <Compile Include="Message\Regions\DeleteRegionRequest.cs" />
     <Compile Include="Message\Regions\FindRegionsRequest.cs" />
     <Compile Include="Message\Regions\FindRegionsResponse.cs" />

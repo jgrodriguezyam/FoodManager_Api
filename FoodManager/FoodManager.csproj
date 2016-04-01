@@ -155,6 +155,7 @@
     <Compile Include="Controllers\IngredientGroupController.cs" />
     <Compile Include="Controllers\IsAliveController.cs" />
     <Compile Include="Controllers\JobController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\RegionController.cs" />
     <Compile Include="Controllers\SaucerConfiguracionController.cs" />
     <Compile Include="Controllers\SaucerController.cs" />

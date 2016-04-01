@@ -8,6 +8,7 @@ using FoodManager.DTO.Message.Diseases;
 using FoodManager.DTO.Message.IngredientGroups;
 using FoodManager.DTO.Message.Ingredients;
 using FoodManager.DTO.Message.Jobs;
+using FoodManager.DTO.Message.Menus;
 using FoodManager.DTO.Message.Regions;
 using FoodManager.DTO.Message.SaucerConfigurations;
 using FoodManager.DTO.Message.SaucerMultimedias;
@@ -555,6 +556,38 @@ namespace FoodManager.Mapper.Configs
                 .NewConfig();
 
             TypeAdapterConfig<Model.Worker, WorkerResponse>
+                .NewConfig();
+
+            #endregion
+
+            #region Menu
+
+            TypeAdapterConfig<Model.Menu, DTO.Menu>
+                .NewConfig();
+
+            TypeAdapterConfig<DTO.Menu, Model.Menu>
+                .NewConfig()
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<Model.Menu, Model.Menu>
+                .NewConfig()
+                .IgnoreMember(dest => dest.Id)
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<MenuRequest, Model.Menu>
+                .NewConfig();
+
+            TypeAdapterConfig<Model.Menu, MenuResponse>
                 .NewConfig();
 
             #endregion

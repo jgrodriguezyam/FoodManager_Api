@@ -55,6 +55,7 @@
     <Compile Include="Factories\Implements\BranchFactory.cs" />
     <Compile Include="Factories\Implements\CompanyFactory.cs" />
     <Compile Include="Factories\Implements\IngredientFactory.cs" />
+    <Compile Include="Factories\Implements\MenuFactory.cs" />
     <Compile Include="Factories\Implements\SaucerConfigurationFactory.cs" />
     <Compile Include="Factories\Implements\UserFactory.cs" />
     <Compile Include="Factories\Implements\DepartmentFactory.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Factories\Interfaces\IBranchFactory.cs" />
     <Compile Include="Factories\Interfaces\ICompanyFactory.cs" />
     <Compile Include="Factories\Interfaces\IIngredientFactory.cs" />
+    <Compile Include="Factories\Interfaces\IMenuFactory.cs" />
     <Compile Include="Factories\Interfaces\ISaucerConfigurationFactory.cs" />
     <Compile Include="Factories\Interfaces\IUserFactory.cs" />
     <Compile Include="Factories\Interfaces\IDepartmentFactory.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Implements\IngredientGroupService.cs" />
     <Compile Include="Implements\IngredientService.cs" />
     <Compile Include="Implements\JobService.cs" />
+    <Compile Include="Implements\MenuService.cs" />
     <Compile Include="Implements\RegionService.cs" />
     <Compile Include="Implements\SaucerConfigurationService.cs" />
     <Compile Include="Implements\SaucerMultimediaService.cs" />
@@ -92,6 +95,7 @@
     <Compile Include="Interfaces\IIngredientGroupService.cs" />
     <Compile Include="Interfaces\IIngredientService.cs" />
     <Compile Include="Interfaces\IJobService.cs" />
+    <Compile Include="Interfaces\IMenuService.cs" />
     <Compile Include="Interfaces\IRegionService.cs" />
     <Compile Include="Interfaces\ISaucerConfigurationService.cs" />
     <Compile Include="Interfaces\ISaucerMultimediaService.cs" />
@@ -112,6 +116,7 @@
     <Compile Include="Validators\Implements\IngredientGroupValidator.cs" />
     <Compile Include="Validators\Implements\IngredientValidator.cs" />
     <Compile Include="Validators\Implements\JobValidator.cs" />
+    <Compile Include="Validators\Implements\MenuValidator.cs" />
     <Compile Include="Validators\Implements\RegionValidator.cs" />
     <Compile Include="Validators\Implements\SaucerConfigurationValidator.cs" />
     <Compile Include="Validators\Implements\SaucerMultimediaValidator.cs" />
@@ -131,6 +136,7 @@
     <Compile Include="Validators\Interfaces\IIngredientGroupValidator.cs" />
     <Compile Include="Validators\Interfaces\IIngredientValidator.cs" />
     <Compile Include="Validators\Interfaces\IJobValidator.cs" />
+    <Compile Include="Validators\Interfaces\IMenuValidator.cs" />
     <Compile Include="Validators\Interfaces\IRegionValidator.cs" />
     <Compile Include="Validators\Interfaces\ISaucerConfigurationValidator.cs" />
     <Compile Include="Validators\Interfaces\ISaucerMultimediaValidator.cs" />

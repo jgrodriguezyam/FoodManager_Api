@@ -356,6 +356,34 @@ namespace FoodManager.Migrations.Sprint_01
 
             #endregion
 
+            #region Menu
+
+            Create.Table("Menu").InSchema("dbo")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Name").AsString(250).NotNullable()
+                .WithColumn("DayWeek").AsInt32().NotNullable()
+                .WithColumn("Type").AsInt32().Nullable()
+                .WithColumn("Limit").AsInt32().Nullable()
+                .WithColumn("StartDate").AsDateTime().NotNullable()
+                .WithColumn("EndDate").AsDateTime().NotNullable()
+                .WithColumn("MaxAmount").AsInt32().Nullable()
+                .WithColumn("DealerId").AsInt32().NotNullable()
+                .WithColumn("SaucerId").AsInt32().NotNullable()
+
+                .WithColumn("CreatedBy").AsInt32().NotNullable()
+                .WithColumn("ModifiedBy").AsInt32().NotNullable()
+                .WithColumn("CreatedOn").AsDateTime().NotNullable()
+                .WithColumn("ModifiedOn").AsDateTime().NotNullable()
+                .WithColumn("Status").AsBoolean().NotNullable()
+                .WithColumn("IsActive").AsBoolean();
+
+            Create.ForeignKey("FK_Menu_Dealer").FromTable("Menu").InSchema("dbo").ForeignColumn("DealerId")
+                 .ToTable("Dealer").InSchema("dbo").PrimaryColumn("Id");
+            Create.ForeignKey("FK_Menu_Saucer").FromTable("Menu").InSchema("dbo").ForeignColumn("SaucerId")
+                 .ToTable("Saucer").InSchema("dbo").PrimaryColumn("Id");
+
+            #endregion
+
             Init();
         }
 
@@ -434,6 +462,14 @@ namespace FoodManager.Migrations.Sprint_01
             #region Tip
 
             Delete.Table("Tip").InSchema("dbo");
+
+            #endregion
+
+            #region Menu
+
+            Delete.ForeignKey("FK_Menu_Dealer").OnTable("Menu").InSchema("dbo");
+            Delete.ForeignKey("FK_Menu_Saucer").OnTable("Menu").InSchema("dbo");
+            Delete.Table("Menu").InSchema("dbo");
 
             #endregion
 

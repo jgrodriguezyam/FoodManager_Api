@@ -73,6 +73,7 @@
     <Compile Include="Repositories\IngredientGroupRepositoryOrmLite.cs" />
     <Compile Include="Repositories\IngredientRepositoryOrmLite.cs" />
     <Compile Include="Repositories\JobRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\MenuRepositoryOrmLite.cs" />
     <Compile Include="Repositories\RegionRepositoryOrmLite.cs" />
     <Compile Include="Repositories\DealerSaucerRepositoryOrmLite.cs" />
     <Compile Include="Repositories\SaucerConfigurationRepositoryOrmLite.cs" />
