@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -81,7 +80,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var currentSaucerMultimedia = _saucerMultimediaRepository.FindBy(request.Id);
-                currentSaucerMultimedia.ThrowExceptionIfIsNull("Multimedia de platillo no encontrado");
+                currentSaucerMultimedia.ThrowExceptionIfRecordIsNull();
                 var saucerMultimediaToCopy = TypeAdapter.Adapt<SaucerMultimedia>(request);
                 TypeAdapter.Adapt(saucerMultimediaToCopy, currentSaucerMultimedia);
                 _saucerMultimediaValidator.ValidateAndThrowException(currentSaucerMultimedia, "Base");
@@ -99,7 +98,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var saucerMultimedia = _saucerMultimediaRepository.FindBy(request.Id);
-                saucerMultimedia.ThrowExceptionIfIsNull("Multimedia de platillo no encontrado");
+                saucerMultimedia.ThrowExceptionIfRecordIsNull();
                 return TypeAdapter.Adapt<DTO.SaucerMultimedia>(saucerMultimedia);
             }
             catch (DataAccessException)
@@ -113,7 +112,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var saucerMultimedia = _saucerMultimediaRepository.FindBy(request.Id);
-                saucerMultimedia.ThrowExceptionIfIsNull("Multimedia de platillo no encontrado");
+                saucerMultimedia.ThrowExceptionIfRecordIsNull();
                 _saucerMultimediaRepository.Remove(saucerMultimedia);
                 return new SuccessResponse { IsSuccess = true };
             }
@@ -128,7 +127,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var saucerMultimedia = _saucerMultimediaRepository.FindBy(request.Id);
-                saucerMultimedia.ThrowExceptionIfIsNull("Multimedia de platillo no encontrado");
+                saucerMultimedia.ThrowExceptionIfRecordIsNull();
                 if (saucerMultimedia.Status.Equals(request.Status))
                     ExceptionExtensions.ThrowStatusException(request.Status);
                 saucerMultimedia.Status = request.Status;
@@ -146,7 +145,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var saucerMultimedia = _saucerMultimediaRepository.FindBy(request.Id);
-                saucerMultimedia.ThrowExceptionIfIsNull("Multimedia de platillo no encontrado");
+                saucerMultimedia.ThrowExceptionIfRecordIsNull();
                 var stream = _storageProvider.Retrieve(saucerMultimedia.Path);
                 return stream;
             }

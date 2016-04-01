@@ -82,7 +82,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var currentWorker = _workerRepository.FindBy(request.Id);
-                currentWorker.ThrowExceptionIfIsNull("Trabajador no encontrado");
+                currentWorker.ThrowExceptionIfRecordIsNull();
                 var workerToCopy = TypeAdapter.Adapt<Worker>(request);
                 TypeAdapter.Adapt(workerToCopy, currentWorker);
                 _workerValidator.ValidateAndThrowException(currentWorker, "Base");
@@ -100,7 +100,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var worker = _workerRepository.FindBy(request.Id);
-                worker.ThrowExceptionIfIsNull("Trabajador no encontrado");
+                worker.ThrowExceptionIfRecordIsNull();
                 return _workerFactory.Execute(worker);
             }
             catch (DataAccessException)
@@ -114,7 +114,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var worker = _workerRepository.FindBy(request.Id);
-                worker.ThrowExceptionIfIsNull("Trabajador no encontrado");
+                worker.ThrowExceptionIfRecordIsNull();
                 var isReference = _workerRepository.IsReference(request.Id);
                 if (isReference)
                     ExceptionExtensions.ThrowIsReferenceException();
@@ -153,7 +153,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var worker = _workerRepository.FindBy(request.Id);
-                worker.ThrowExceptionIfIsNull("Trabajador no encontrado");
+                worker.ThrowExceptionIfRecordIsNull();
                 worker.Logout();
                 _hmacHelper.UpdateHmacOfWorker(worker);
                 return new SuccessResponse { IsSuccess = true };
@@ -169,7 +169,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var worker = _workerRepository.FindBy(request.Id);
-                worker.ThrowExceptionIfIsNull("Trabajador no encontrado");
+                worker.ThrowExceptionIfRecordIsNull();
                 if (worker.Status.Equals(request.Status))
                     ExceptionExtensions.ThrowStatusException(request.Status);
                 worker.Status = request.Status;

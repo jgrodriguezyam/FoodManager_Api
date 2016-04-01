@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.Services.Interfaces;
@@ -71,7 +70,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var currentRegion = _regionRepository.FindBy(request.Id);
-                currentRegion.ThrowExceptionIfIsNull("Region no encontrada");
+                currentRegion.ThrowExceptionIfRecordIsNull();
                 var regionToCopy = TypeAdapter.Adapt<Region>(request);
                 TypeAdapter.Adapt(regionToCopy, currentRegion);
                 _regionValidator.ValidateAndThrowException(currentRegion, "Base");
@@ -89,7 +88,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var region = _regionRepository.FindBy(request.Id);
-                region.ThrowExceptionIfIsNull("Region no encontrada");
+                region.ThrowExceptionIfRecordIsNull();
                 return TypeAdapter.Adapt<DTO.Region>(region);
             }
             catch (DataAccessException)
@@ -103,7 +102,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var region = _regionRepository.FindBy(request.Id);
-                region.ThrowExceptionIfIsNull("Region no encontrada");
+                region.ThrowExceptionIfRecordIsNull();
                 var isReference = _regionRepository.IsReference(request.Id);
                 if (isReference)
                     ExceptionExtensions.ThrowIsReferenceException();
@@ -121,7 +120,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var region = _regionRepository.FindBy(request.Id);
-                region.ThrowExceptionIfIsNull("Region no encontrada");
+                region.ThrowExceptionIfRecordIsNull();
                 if (region.Status.Equals(request.Status))
                     ExceptionExtensions.ThrowStatusException(request.Status);
                 region.Status = request.Status;

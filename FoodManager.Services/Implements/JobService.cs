@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -71,7 +70,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var currentJob = _jobRepository.FindBy(request.Id);
-                currentJob.ThrowExceptionIfIsNull("Puesto no encontrada");
+                currentJob.ThrowExceptionIfRecordIsNull();
                 var jobToCopy = TypeAdapter.Adapt<Job>(request);
                 TypeAdapter.Adapt(jobToCopy, currentJob);
                 _jobValidator.ValidateAndThrowException(currentJob, "Base");
@@ -89,7 +88,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var job = _jobRepository.FindBy(request.Id);
-                job.ThrowExceptionIfIsNull("Puesto no encontrada");
+                job.ThrowExceptionIfRecordIsNull();
                 return TypeAdapter.Adapt<DTO.Job>(job);
             }
             catch (DataAccessException)
@@ -103,7 +102,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var job = _jobRepository.FindBy(request.Id);
-                job.ThrowExceptionIfIsNull("Puesto no encontrada");
+                job.ThrowExceptionIfRecordIsNull();
                 var isReference = _jobRepository.IsReference(request.Id);
                 if (isReference)
                     ExceptionExtensions.ThrowIsReferenceException();
@@ -121,7 +120,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var job = _jobRepository.FindBy(request.Id);
-                job.ThrowExceptionIfIsNull("Puesto no encontrada");
+                job.ThrowExceptionIfRecordIsNull();
                 if (job.Status.Equals(request.Status))
                     ExceptionExtensions.ThrowStatusException(request.Status);
                 job.Status = request.Status;

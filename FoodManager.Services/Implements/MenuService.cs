@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -76,7 +75,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var currentMenu = _menuRepository.FindBy(request.Id);
-                currentMenu.ThrowExceptionIfIsNull("Menu no encontrado");
+                currentMenu.ThrowExceptionIfRecordIsNull();
                 var menuToCopy = TypeAdapter.Adapt<Menu>(request);
                 TypeAdapter.Adapt(menuToCopy, currentMenu);
                 _menuValidator.ValidateAndThrowException(currentMenu, "Base");
@@ -94,7 +93,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var menu = _menuRepository.FindBy(request.Id);
-                menu.ThrowExceptionIfIsNull("Menu no encontrado");
+                menu.ThrowExceptionIfRecordIsNull();
                 return _menuFactory.Execute(menu);
             }
             catch (DataAccessException)
@@ -108,7 +107,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var menu = _menuRepository.FindBy(request.Id);
-                menu.ThrowExceptionIfIsNull("Menu no encontrado");
+                menu.ThrowExceptionIfRecordIsNull();
                 _menuRepository.Remove(menu);
                 return new SuccessResponse { IsSuccess = true };
             }
@@ -123,7 +122,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var menu = _menuRepository.FindBy(request.Id);
-                menu.ThrowExceptionIfIsNull("Menu no encontrado");
+                menu.ThrowExceptionIfRecordIsNull();
                 if (menu.Status.Equals(request.Status))
                     ExceptionExtensions.ThrowStatusException(request.Status);
                 menu.Status = request.Status;

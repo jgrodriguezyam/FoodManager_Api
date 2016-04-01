@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -75,7 +74,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var currentSaucerConfiguration = _saucerConfigurationRepository.FindBy(request.Id);
-                currentSaucerConfiguration.ThrowExceptionIfIsNull("Configuracion de platillo no encontrado");
+                currentSaucerConfiguration.ThrowExceptionIfRecordIsNull();
                 var saucerConfigurationToCopy = TypeAdapter.Adapt<SaucerConfiguration>(request);
                 TypeAdapter.Adapt(saucerConfigurationToCopy, currentSaucerConfiguration);
                 _saucerConfigurationValidator.ValidateAndThrowException(currentSaucerConfiguration, "Base");
@@ -93,7 +92,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var saucerConfiguration = _saucerConfigurationRepository.FindBy(request.Id);
-                saucerConfiguration.ThrowExceptionIfIsNull("Configuracion de platillo no encontrado");
+                saucerConfiguration.ThrowExceptionIfRecordIsNull();
                 return _saucerConfigurationFactory.Execute(saucerConfiguration);
             }
             catch (DataAccessException)
@@ -107,7 +106,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var saucerConfiguration = _saucerConfigurationRepository.FindBy(request.Id);
-                saucerConfiguration.ThrowExceptionIfIsNull("Configuracion de platillo no encontrado");
+                saucerConfiguration.ThrowExceptionIfRecordIsNull();
                 _saucerConfigurationRepository.Remove(saucerConfiguration);
                 return new SuccessResponse { IsSuccess = true };
             }
@@ -122,7 +121,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var saucerConfiguration = _saucerConfigurationRepository.FindBy(request.Id);
-                saucerConfiguration.ThrowExceptionIfIsNull("Configuracion de platillo no encontrado");
+                saucerConfiguration.ThrowExceptionIfRecordIsNull();
                 if (saucerConfiguration.Status.Equals(request.Status))
                     ExceptionExtensions.ThrowStatusException(request.Status);
                 saucerConfiguration.Status = request.Status;

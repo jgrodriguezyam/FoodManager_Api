@@ -82,7 +82,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var currentUser = _userRepository.FindBy(request.Id);
-                currentUser.ThrowExceptionIfIsNull("Usuario no encontrado");
+                currentUser.ThrowExceptionIfRecordIsNull();
                 var userToCopy = TypeAdapter.Adapt<User>(request);
                 TypeAdapter.Adapt(userToCopy, currentUser);
                 _userValidator.ValidateAndThrowException(currentUser, "Base");
@@ -100,7 +100,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var user = _userRepository.FindBy(request.Id);
-                user.ThrowExceptionIfIsNull("Usuario no encontrado");
+                user.ThrowExceptionIfRecordIsNull();
                 return _userFactory.Execute(user);
             }
             catch (DataAccessException)
@@ -114,7 +114,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var user = _userRepository.FindBy(request.Id);
-                user.ThrowExceptionIfIsNull("Usuario no encontrado");
+                user.ThrowExceptionIfRecordIsNull();
                 _userRepository.Remove(user);
                 return new SuccessResponse { IsSuccess = true };
             }
@@ -151,7 +151,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var user = _userRepository.FindBy(request.Id);
-                user.ThrowExceptionIfIsNull("Usuario no encontrado");
+                user.ThrowExceptionIfRecordIsNull();
                 user.Logout();
                 _hmacHelper.UpdateHmacOfUser(user);
                 return new SuccessResponse { IsSuccess = true };
@@ -185,7 +185,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var user = _userRepository.FindBy(request.Id);
-                user.ThrowExceptionIfIsNull("Usuario no encontrado");
+                user.ThrowExceptionIfRecordIsNull();
                 if (user.Status.Equals(request.Status))
                     ExceptionExtensions.ThrowStatusException(request.Status);
                 user.Status = request.Status;

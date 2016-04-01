@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -71,7 +70,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var currentTip = _tipRepository.FindBy(request.Id);
-                currentTip.ThrowExceptionIfIsNull("Consejo no encontrado");
+                currentTip.ThrowExceptionIfRecordIsNull();
                 var tipToCopy = TypeAdapter.Adapt<Tip>(request);
                 TypeAdapter.Adapt(tipToCopy, currentTip);
                 _tipValidator.ValidateAndThrowException(currentTip, "Base");
@@ -89,7 +88,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var tip = _tipRepository.FindBy(request.Id);
-                tip.ThrowExceptionIfIsNull("Consejo no encontrado");
+                tip.ThrowExceptionIfRecordIsNull();
                 return TypeAdapter.Adapt<DTO.Tip>(tip);
             }
             catch (DataAccessException)
@@ -103,7 +102,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var tip = _tipRepository.FindBy(request.Id);
-                tip.ThrowExceptionIfIsNull("Consejo no encontrado");
+                tip.ThrowExceptionIfRecordIsNull();
                 _tipRepository.Remove(tip);
                 return new SuccessResponse { IsSuccess = true };
             }
@@ -118,7 +117,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var tip = _tipRepository.FindBy(request.Id);
-                tip.ThrowExceptionIfIsNull("Consejo no encontrado");
+                tip.ThrowExceptionIfRecordIsNull();
                 if (tip.Status.Equals(request.Status))
                     ExceptionExtensions.ThrowStatusException(request.Status);
                 tip.Status = request.Status;

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -75,7 +74,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var currentIngredient = _ingredientRepository.FindBy(request.Id);
-                currentIngredient.ThrowExceptionIfIsNull("Ingrediente no encontrado");
+                currentIngredient.ThrowExceptionIfRecordIsNull();
                 var ingredientToCopy = TypeAdapter.Adapt<Ingredient>(request);
                 TypeAdapter.Adapt(ingredientToCopy, currentIngredient);
                 _ingredientValidator.ValidateAndThrowException(currentIngredient, "Base");
@@ -93,7 +92,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var ingredient = _ingredientRepository.FindBy(request.Id);
-                ingredient.ThrowExceptionIfIsNull("Ingrediente no encontrado");
+                ingredient.ThrowExceptionIfRecordIsNull();
                 return _ingredientFactory.Execute(ingredient);
             }
             catch (DataAccessException)
@@ -107,7 +106,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var ingredient = _ingredientRepository.FindBy(request.Id);
-                ingredient.ThrowExceptionIfIsNull("Ingrediente no encontrado");
+                ingredient.ThrowExceptionIfRecordIsNull();
                 var isReference = _ingredientRepository.IsReference(request.Id);
                 if (isReference)
                     ExceptionExtensions.ThrowIsReferenceException();
@@ -125,7 +124,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var ingredient = _ingredientRepository.FindBy(request.Id);
-                ingredient.ThrowExceptionIfIsNull("Ingrediente no encontrado");
+                ingredient.ThrowExceptionIfRecordIsNull();
                 if (ingredient.Status.Equals(request.Status))
                     ExceptionExtensions.ThrowStatusException(request.Status);
                 ingredient.Status = request.Status;

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -71,7 +70,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var currentSaucer = _saucerRepository.FindBy(request.Id);
-                currentSaucer.ThrowExceptionIfIsNull("Platillo no encontrado");
+                currentSaucer.ThrowExceptionIfRecordIsNull();
                 var saucerToCopy = TypeAdapter.Adapt<Saucer>(request);
                 TypeAdapter.Adapt(saucerToCopy, currentSaucer);
                 _saucerValidator.ValidateAndThrowException(currentSaucer, "Base");
@@ -89,7 +88,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var saucer = _saucerRepository.FindBy(request.Id);
-                saucer.ThrowExceptionIfIsNull("Platillo no encontrado");
+                saucer.ThrowExceptionIfRecordIsNull();
                 return TypeAdapter.Adapt<DTO.Saucer>(saucer);
             }
             catch (DataAccessException)
@@ -103,7 +102,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var saucer = _saucerRepository.FindBy(request.Id);
-                saucer.ThrowExceptionIfIsNull("Platillo no encontrado");
+                saucer.ThrowExceptionIfRecordIsNull();
                 var isReference = _saucerRepository.IsReference(request.Id);
                 if (isReference)
                     ExceptionExtensions.ThrowIsReferenceException();
@@ -121,7 +120,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var saucer = _saucerRepository.FindBy(request.Id);
-                saucer.ThrowExceptionIfIsNull("Platillo no encontrado");
+                saucer.ThrowExceptionIfRecordIsNull();
                 if (saucer.Status.Equals(request.Status))
                     ExceptionExtensions.ThrowStatusException(request.Status);
                 saucer.Status = request.Status;

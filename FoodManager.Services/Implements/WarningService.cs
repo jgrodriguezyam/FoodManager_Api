@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -75,7 +74,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var currentWarning = _warningRepository.FindBy(request.Id);
-                currentWarning.ThrowExceptionIfIsNull("Advertencia no encontrada");
+                currentWarning.ThrowExceptionIfRecordIsNull();
                 var warningToCopy = TypeAdapter.Adapt<Warning>(request);
                 TypeAdapter.Adapt(warningToCopy, currentWarning);
                 _warningValidator.ValidateAndThrowException(currentWarning, "Base");
@@ -93,7 +92,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var warning = _warningRepository.FindBy(request.Id);
-                warning.ThrowExceptionIfIsNull("Advertencia no encontrada");
+                warning.ThrowExceptionIfRecordIsNull();
                 return _warningFactory.Execute(warning);
             }
             catch (DataAccessException)
@@ -107,7 +106,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var warning = _warningRepository.FindBy(request.Id);
-                warning.ThrowExceptionIfIsNull("Advertencia no encontrada");
+                warning.ThrowExceptionIfRecordIsNull();
                 _warningRepository.Remove(warning);
                 return new SuccessResponse { IsSuccess = true };
             }
@@ -122,7 +121,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var warning = _warningRepository.FindBy(request.Id);
-                warning.ThrowExceptionIfIsNull("Advertencia no encontrada");
+                warning.ThrowExceptionIfRecordIsNull();
                 if (warning.Status.Equals(request.Status))
                     ExceptionExtensions.ThrowStatusException(request.Status);
                 warning.Status = request.Status;

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -71,7 +70,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var currentIngredientGroup = _ingredientGroupRepository.FindBy(request.Id);
-                currentIngredientGroup.ThrowExceptionIfIsNull("Grupo de ingredientes no encontrado");
+                currentIngredientGroup.ThrowExceptionIfRecordIsNull();
                 var ingredientGroupToCopy = TypeAdapter.Adapt<IngredientGroup>(request);
                 TypeAdapter.Adapt(ingredientGroupToCopy, currentIngredientGroup);
                 _ingredientGroupValidator.ValidateAndThrowException(currentIngredientGroup, "Base");
@@ -89,7 +88,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var ingredientGroup = _ingredientGroupRepository.FindBy(request.Id);
-                ingredientGroup.ThrowExceptionIfIsNull("Grupo de ingredientes no encontrado");
+                ingredientGroup.ThrowExceptionIfRecordIsNull();
                 return TypeAdapter.Adapt<DTO.IngredientGroup>(ingredientGroup);
             }
             catch (DataAccessException)
@@ -103,7 +102,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var ingredientGroup = _ingredientGroupRepository.FindBy(request.Id);
-                ingredientGroup.ThrowExceptionIfIsNull("Grupo de ingredientes no encontrado");
+                ingredientGroup.ThrowExceptionIfRecordIsNull();
                 var isReference = _ingredientGroupRepository.IsReference(request.Id);
                 if (isReference)
                     ExceptionExtensions.ThrowIsReferenceException();
@@ -121,7 +120,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var ingredientGroup = _ingredientGroupRepository.FindBy(request.Id);
-                ingredientGroup.ThrowExceptionIfIsNull("Grupo de ingredientes no encontrado");
+                ingredientGroup.ThrowExceptionIfRecordIsNull();
                 if (ingredientGroup.Status.Equals(request.Status))
                     ExceptionExtensions.ThrowStatusException(request.Status);
                 ingredientGroup.Status = request.Status;

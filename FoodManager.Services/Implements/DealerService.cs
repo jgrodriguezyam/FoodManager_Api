@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -76,7 +75,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var currentDealer = _dealerRepository.FindBy(request.Id);
-                currentDealer.ThrowExceptionIfIsNull("Distribuidor no encontrado");
+                currentDealer.ThrowExceptionIfRecordIsNull();
                 var dealerToCopy = TypeAdapter.Adapt<Dealer>(request);
                 TypeAdapter.Adapt(dealerToCopy, currentDealer);
                 _dealerValidator.ValidateAndThrowException(currentDealer, "Base");
@@ -94,7 +93,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var dealer = _dealerRepository.FindBy(request.Id);
-                dealer.ThrowExceptionIfIsNull("Distribuidor no encontrado");
+                dealer.ThrowExceptionIfRecordIsNull();
                 return TypeAdapter.Adapt<DTO.Dealer>(dealer);
             }
             catch (DataAccessException)
@@ -108,7 +107,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var dealer = _dealerRepository.FindBy(request.Id);
-                dealer.ThrowExceptionIfIsNull("Distribuidor no encontrado");
+                dealer.ThrowExceptionIfRecordIsNull();
                 var isReference = _dealerRepository.IsReference(request.Id);
                 if (isReference)
                     ExceptionExtensions.ThrowIsReferenceException();
@@ -126,7 +125,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var dealer = _dealerRepository.FindBy(request.Id);
-                dealer.ThrowExceptionIfIsNull("Distribuidor no encontrado");
+                dealer.ThrowExceptionIfRecordIsNull();
                 if (dealer.Status.Equals(request.Status))
                     ExceptionExtensions.ThrowStatusException(request.Status);
                 dealer.Status = request.Status;
@@ -172,7 +171,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var dealerSaucer = _dealerSaucerRepository.FindBy(dealerSaucerRe => dealerSaucerRe.DealerId == request.FirstReference && dealerSaucerRe.SaucerId == request.SecondReference).FirstOrDefault();
-                dealerSaucer.ThrowExceptionIfIsNull("Relacion no encontrada");
+                dealerSaucer.ThrowExceptionIfRecordIsNull();
                 _dealerSaucerRepository.Remove(dealerSaucer);
                 return new SuccessResponse { IsSuccess = true };
             }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -80,7 +79,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var currentBranch = _branchRepository.FindBy(request.Id);
-                currentBranch.ThrowExceptionIfIsNull("Sucursal no encontrada");
+                currentBranch.ThrowExceptionIfRecordIsNull();
                 var branchToCopy = TypeAdapter.Adapt<Branch>(request);
                 TypeAdapter.Adapt(branchToCopy, currentBranch);
                 _branchValidator.ValidateAndThrowException(currentBranch, "Base");
@@ -98,7 +97,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var branch = _branchRepository.FindBy(request.Id);
-                branch.ThrowExceptionIfIsNull("Sucursal no encontrada");
+                branch.ThrowExceptionIfRecordIsNull();
                 return _branchFactory.Execute(branch);
             }
             catch (DataAccessException)
@@ -112,7 +111,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var branch = _branchRepository.FindBy(request.Id);
-                branch.ThrowExceptionIfIsNull("Sucursal no encontrada");
+                branch.ThrowExceptionIfRecordIsNull();
                 var isReference = _branchRepository.IsReference(request.Id);
                 if (isReference)
                     ExceptionExtensions.ThrowIsReferenceException();
@@ -130,7 +129,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var branch = _branchRepository.FindBy(request.Id);
-                branch.ThrowExceptionIfIsNull("Sucursal no encontrada");
+                branch.ThrowExceptionIfRecordIsNull();
                 if(branch.Status.Equals(request.Status))
                     ExceptionExtensions.ThrowStatusException(request.Status);
                 branch.Status = request.Status;
@@ -176,7 +175,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var branchDealer = _branchDealerRepository.FindBy(branchDealerRe => branchDealerRe.BranchId == request.FirstReference && branchDealerRe.DealerId == request.SecondReference).FirstOrDefault();
-                branchDealer.ThrowExceptionIfIsNull("Relacion no encontrada");
+                branchDealer.ThrowExceptionIfRecordIsNull();
                 _branchDealerRepository.Remove(branchDealer);
                 return new SuccessResponse { IsSuccess = true };
             }

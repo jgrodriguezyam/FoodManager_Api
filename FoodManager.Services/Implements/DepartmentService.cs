@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -75,7 +74,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var currentDepartment = _departmentRepository.FindBy(request.Id);
-                currentDepartment.ThrowExceptionIfIsNull("Departamento no encontrado");
+                currentDepartment.ThrowExceptionIfRecordIsNull();
                 var departmentToCopy = TypeAdapter.Adapt<Department>(request);
                 TypeAdapter.Adapt(departmentToCopy, currentDepartment);
                 _departmentValidator.ValidateAndThrowException(currentDepartment, "Base");
@@ -93,7 +92,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var department = _departmentRepository.FindBy(request.Id);
-                department.ThrowExceptionIfIsNull("Departamento no encontrado");
+                department.ThrowExceptionIfRecordIsNull();
                 return _departmentFactory.Execute(department);
             }
             catch (DataAccessException)
@@ -107,7 +106,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var department = _departmentRepository.FindBy(request.Id);
-                department.ThrowExceptionIfIsNull("Departamento no encontrado");
+                department.ThrowExceptionIfRecordIsNull();
                 var isReference = _departmentRepository.IsReference(request.Id);
                 if (isReference)
                     ExceptionExtensions.ThrowIsReferenceException();
@@ -125,7 +124,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var department = _departmentRepository.FindBy(request.Id);
-                department.ThrowExceptionIfIsNull("Departamento no encontrado");
+                department.ThrowExceptionIfRecordIsNull();
                 if (department.Status.Equals(request.Status))
                     ExceptionExtensions.ThrowStatusException(request.Status);
                 department.Status = request.Status;

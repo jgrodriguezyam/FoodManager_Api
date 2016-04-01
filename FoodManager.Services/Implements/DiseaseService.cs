@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -71,7 +70,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var currentDisease = _diseaseRepository.FindBy(request.Id);
-                currentDisease.ThrowExceptionIfIsNull("Enfermedad no encontrada");
+                currentDisease.ThrowExceptionIfRecordIsNull();
                 var diseasToCopy = TypeAdapter.Adapt<Disease>(request);
                 TypeAdapter.Adapt(diseasToCopy, currentDisease);
                 _diseaseValidator.ValidateAndThrowException(currentDisease, "Base");
@@ -89,7 +88,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var disease = _diseaseRepository.FindBy(request.Id);
-                disease.ThrowExceptionIfIsNull("Enfermedad no encontrada");
+                disease.ThrowExceptionIfRecordIsNull();
                 return TypeAdapter.Adapt<DTO.Disease>(disease);
             }
             catch (DataAccessException)
@@ -103,7 +102,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var disease = _diseaseRepository.FindBy(request.Id);
-                disease.ThrowExceptionIfIsNull("Enfermedad no encontrada");
+                disease.ThrowExceptionIfRecordIsNull();
                 var isReference = _diseaseRepository.IsReference(request.Id);
                 if (isReference)
                     ExceptionExtensions.ThrowIsReferenceException();
@@ -121,7 +120,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var disease = _diseaseRepository.FindBy(request.Id);
-                disease.ThrowExceptionIfIsNull("Enfermedad no encontrada");
+                disease.ThrowExceptionIfRecordIsNull();
                 if (disease.Status.Equals(request.Status))
                     ExceptionExtensions.ThrowStatusException(request.Status);
                 disease.Status = request.Status;

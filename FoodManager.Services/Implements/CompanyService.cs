@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -75,7 +74,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var currentCompany = _companyRepository.FindBy(request.Id);
-                currentCompany.ThrowExceptionIfIsNull("Compania no encontrada");
+                currentCompany.ThrowExceptionIfRecordIsNull();
                 var copanyToCopy = TypeAdapter.Adapt<Company>(request);
                 TypeAdapter.Adapt(copanyToCopy, currentCompany);
                 _companyValidator.ValidateAndThrowException(currentCompany, "Base");
@@ -93,7 +92,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var company = _companyRepository.FindBy(request.Id);
-                company.ThrowExceptionIfIsNull("Compania no encontrada");
+                company.ThrowExceptionIfRecordIsNull();
                 return _companyFactory.Execute(company);
             }
             catch (DataAccessException)
@@ -107,7 +106,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var company = _companyRepository.FindBy(request.Id);
-                company.ThrowExceptionIfIsNull("Compania no encontrada");
+                company.ThrowExceptionIfRecordIsNull();
                 var isReference = _companyRepository.IsReference(request.Id);
                 if (isReference)
                     ExceptionExtensions.ThrowIsReferenceException();
@@ -125,7 +124,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var company = _companyRepository.FindBy(request.Id);
-                company.ThrowExceptionIfIsNull("Compania no encontrada");
+                company.ThrowExceptionIfRecordIsNull();
                 if (company.Status.Equals(request.Status))
                     ExceptionExtensions.ThrowStatusException(request.Status);
                 company.Status = request.Status;

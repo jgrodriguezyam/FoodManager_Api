@@ -81,10 +81,10 @@ namespace FoodManager.Infrastructure.Exceptions
             });
         }
 
-        public static void ThrowExceptionIfIsNull(this object objectValue, string message)
+        public static void ThrowExceptionIfRecordIsNull(this object objectValue)
         {
             if (objectValue.IsNull())
-                ThrowCustomException(HttpStatusCode.NotFound, message);
+                ThrowCustomException(HttpStatusCode.NotFound, "Registro no encontrado");
         }
     }
 }
