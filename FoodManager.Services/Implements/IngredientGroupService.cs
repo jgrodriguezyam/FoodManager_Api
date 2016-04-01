@@ -104,8 +104,7 @@ namespace FoodManager.Services.Implements
                 var ingredientGroup = _ingredientGroupRepository.FindBy(request.Id);
                 ingredientGroup.ThrowExceptionIfRecordIsNull();
                 var isReference = _ingredientGroupRepository.IsReference(request.Id);
-                if (isReference)
-                    ExceptionExtensions.ThrowIsReferenceException();
+                isReference.ThrowExceptionIfIsReference();
                 _ingredientGroupRepository.Remove(ingredientGroup);
                 return new SuccessResponse { IsSuccess = true };
             }

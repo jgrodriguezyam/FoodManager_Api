@@ -108,8 +108,7 @@ namespace FoodManager.Services.Implements
                 var company = _companyRepository.FindBy(request.Id);
                 company.ThrowExceptionIfRecordIsNull();
                 var isReference = _companyRepository.IsReference(request.Id);
-                if (isReference)
-                    ExceptionExtensions.ThrowIsReferenceException();
+                isReference.ThrowExceptionIfIsReference();
                 _companyRepository.Remove(company);
                 return new SuccessResponse { IsSuccess = true };
             }

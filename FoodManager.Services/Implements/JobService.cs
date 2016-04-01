@@ -104,8 +104,7 @@ namespace FoodManager.Services.Implements
                 var job = _jobRepository.FindBy(request.Id);
                 job.ThrowExceptionIfRecordIsNull();
                 var isReference = _jobRepository.IsReference(request.Id);
-                if (isReference)
-                    ExceptionExtensions.ThrowIsReferenceException();
+                isReference.ThrowExceptionIfIsReference();
                 _jobRepository.Remove(job);
                 return new SuccessResponse { IsSuccess = true };
             }

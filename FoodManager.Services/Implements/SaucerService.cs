@@ -104,8 +104,7 @@ namespace FoodManager.Services.Implements
                 var saucer = _saucerRepository.FindBy(request.Id);
                 saucer.ThrowExceptionIfRecordIsNull();
                 var isReference = _saucerRepository.IsReference(request.Id);
-                if (isReference)
-                    ExceptionExtensions.ThrowIsReferenceException();
+                isReference.ThrowExceptionIfIsReference();
                 _saucerRepository.Remove(saucer);
                 return new SuccessResponse { IsSuccess = true };
             }

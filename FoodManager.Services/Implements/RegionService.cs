@@ -104,8 +104,7 @@ namespace FoodManager.Services.Implements
                 var region = _regionRepository.FindBy(request.Id);
                 region.ThrowExceptionIfRecordIsNull();
                 var isReference = _regionRepository.IsReference(request.Id);
-                if (isReference)
-                    ExceptionExtensions.ThrowIsReferenceException();
+                isReference.ThrowExceptionIfIsReference();
                 _regionRepository.Remove(region);
                 return new SuccessResponse { IsSuccess = true };
             }

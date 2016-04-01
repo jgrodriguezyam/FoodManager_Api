@@ -113,8 +113,7 @@ namespace FoodManager.Services.Implements
                 var branch = _branchRepository.FindBy(request.Id);
                 branch.ThrowExceptionIfRecordIsNull();
                 var isReference = _branchRepository.IsReference(request.Id);
-                if (isReference)
-                    ExceptionExtensions.ThrowIsReferenceException();
+                isReference.ThrowExceptionIfIsReference();
                 _branchRepository.Remove(branch);
                 return new SuccessResponse { IsSuccess = true };
             }

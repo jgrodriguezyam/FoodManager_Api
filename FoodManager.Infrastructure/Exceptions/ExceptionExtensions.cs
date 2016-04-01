@@ -72,13 +72,16 @@ namespace FoodManager.Infrastructure.Exceptions
             });
         }
 
-        public static void ThrowIsReferenceException()
+        public static void ThrowExceptionIfIsReference(this bool isRefence)
         {
-            throw new HttpResponseException(new HttpResponseMessage
+            if (isRefence)
             {
-                StatusCode = HttpStatusCode.PreconditionFailed,
-                Content = new StringContent("{\"Message\": \"Remover previamente las referencias\"}", Encoding.Default, "application/json")
-            });
+                throw new HttpResponseException(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.PreconditionFailed,
+                    Content = new StringContent("{\"Message\": \"Remover previamente las referencias\"}", Encoding.Default, "application/json")
+                });
+            }
         }
 
         public static void ThrowExceptionIfRecordIsNull(this object objectValue)

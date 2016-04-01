@@ -108,8 +108,7 @@ namespace FoodManager.Services.Implements
                 var department = _departmentRepository.FindBy(request.Id);
                 department.ThrowExceptionIfRecordIsNull();
                 var isReference = _departmentRepository.IsReference(request.Id);
-                if (isReference)
-                    ExceptionExtensions.ThrowIsReferenceException();
+                isReference.ThrowExceptionIfIsReference();
                 _departmentRepository.Remove(department);
                 return new SuccessResponse { IsSuccess = true };
             }

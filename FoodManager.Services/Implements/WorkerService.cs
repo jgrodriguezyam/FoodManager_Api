@@ -116,8 +116,7 @@ namespace FoodManager.Services.Implements
                 var worker = _workerRepository.FindBy(request.Id);
                 worker.ThrowExceptionIfRecordIsNull();
                 var isReference = _workerRepository.IsReference(request.Id);
-                if (isReference)
-                    ExceptionExtensions.ThrowIsReferenceException();
+                isReference.ThrowExceptionIfIsReference();
                 _workerRepository.Remove(worker);
                 return new SuccessResponse { IsSuccess = true };
             }

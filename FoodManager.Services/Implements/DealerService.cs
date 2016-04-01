@@ -109,8 +109,7 @@ namespace FoodManager.Services.Implements
                 var dealer = _dealerRepository.FindBy(request.Id);
                 dealer.ThrowExceptionIfRecordIsNull();
                 var isReference = _dealerRepository.IsReference(request.Id);
-                if (isReference)
-                    ExceptionExtensions.ThrowIsReferenceException();
+                isReference.ThrowExceptionIfIsReference();
                 _dealerRepository.Remove(dealer);
                 return new SuccessResponse { IsSuccess = true };
             }
