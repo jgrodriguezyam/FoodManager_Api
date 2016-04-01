@@ -50,7 +50,7 @@ namespace FoodManager.OrmLite.Repositories
 
         public bool IsReference(int regionId)
         {
-            var amountOfReferences = _dataBaseSqlServerOrmLite.Count<Company>(company => company.RegionId == regionId && company.Status);
+            var amountOfReferences = _dataBaseSqlServerOrmLite.Count<Company>(company => company.RegionId == regionId && company.IsActive);
             return amountOfReferences.IsNotZero();
         }
     }
