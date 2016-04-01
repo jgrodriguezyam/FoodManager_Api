@@ -122,8 +122,7 @@ namespace FoodManager.Services.Implements
             {
                 var warning = _warningRepository.FindBy(request.Id);
                 warning.ThrowExceptionIfRecordIsNull();
-                if (warning.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(request.Status);
+                warning.Status.ThrowExceptionIfIsSameStatus(request.Status);
                 warning.Status = request.Status;
                 _warningRepository.Update(warning);
                 return new SuccessResponse { IsSuccess = true };

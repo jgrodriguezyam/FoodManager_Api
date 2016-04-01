@@ -169,8 +169,7 @@ namespace FoodManager.Services.Implements
             {
                 var worker = _workerRepository.FindBy(request.Id);
                 worker.ThrowExceptionIfRecordIsNull();
-                if (worker.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(request.Status);
+                worker.Status.ThrowExceptionIfIsSameStatus(request.Status);
                 worker.Status = request.Status;
                 _workerRepository.Update(worker);
                 return new SuccessResponse { IsSuccess = true };

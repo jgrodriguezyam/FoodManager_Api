@@ -118,8 +118,7 @@ namespace FoodManager.Services.Implements
             {
                 var tip = _tipRepository.FindBy(request.Id);
                 tip.ThrowExceptionIfRecordIsNull();
-                if (tip.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(request.Status);
+                tip.Status.ThrowExceptionIfIsSameStatus(request.Status);
                 tip.Status = request.Status;
                 _tipRepository.Update(tip);
                 return new SuccessResponse { IsSuccess = true };

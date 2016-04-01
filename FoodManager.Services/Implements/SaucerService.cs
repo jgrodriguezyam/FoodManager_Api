@@ -120,8 +120,7 @@ namespace FoodManager.Services.Implements
             {
                 var saucer = _saucerRepository.FindBy(request.Id);
                 saucer.ThrowExceptionIfRecordIsNull();
-                if (saucer.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(request.Status);
+                saucer.Status.ThrowExceptionIfIsSameStatus(request.Status);
                 saucer.Status = request.Status;
                 _saucerRepository.Update(saucer);
                 return new SuccessResponse { IsSuccess = true };

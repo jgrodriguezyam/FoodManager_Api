@@ -129,8 +129,7 @@ namespace FoodManager.Services.Implements
             {
                 var branch = _branchRepository.FindBy(request.Id);
                 branch.ThrowExceptionIfRecordIsNull();
-                if(branch.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(request.Status);
+                branch.Status.ThrowExceptionIfIsSameStatus(request.Status);
                 branch.Status = request.Status;
                 _branchRepository.Update(branch);
                 return new SuccessResponse { IsSuccess = true };

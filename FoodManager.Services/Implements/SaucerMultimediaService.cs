@@ -128,8 +128,7 @@ namespace FoodManager.Services.Implements
             {
                 var saucerMultimedia = _saucerMultimediaRepository.FindBy(request.Id);
                 saucerMultimedia.ThrowExceptionIfRecordIsNull();
-                if (saucerMultimedia.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(request.Status);
+                saucerMultimedia.Status.ThrowExceptionIfIsSameStatus(request.Status);
                 saucerMultimedia.Status = request.Status;
                 _saucerMultimediaRepository.Update(saucerMultimedia);
                 return new SuccessResponse { IsSuccess = true };

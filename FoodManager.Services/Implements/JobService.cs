@@ -120,8 +120,7 @@ namespace FoodManager.Services.Implements
             {
                 var job = _jobRepository.FindBy(request.Id);
                 job.ThrowExceptionIfRecordIsNull();
-                if (job.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(request.Status);
+                job.Status.ThrowExceptionIfIsSameStatus(request.Status);
                 job.Status = request.Status;
                 _jobRepository.Update(job);
                 return new SuccessResponse { IsSuccess = true };

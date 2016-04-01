@@ -120,8 +120,7 @@ namespace FoodManager.Services.Implements
             {
                 var region = _regionRepository.FindBy(request.Id);
                 region.ThrowExceptionIfRecordIsNull();
-                if (region.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(request.Status);
+                region.Status.ThrowExceptionIfIsSameStatus(request.Status); ;
                 region.Status = request.Status;
                 _regionRepository.Update(region);
                 return new SuccessResponse { IsSuccess = true };

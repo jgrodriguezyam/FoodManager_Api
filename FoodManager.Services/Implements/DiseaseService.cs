@@ -120,8 +120,7 @@ namespace FoodManager.Services.Implements
             {
                 var disease = _diseaseRepository.FindBy(request.Id);
                 disease.ThrowExceptionIfRecordIsNull();
-                if (disease.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(request.Status);
+                disease.Status.ThrowExceptionIfIsSameStatus(request.Status);
                 disease.Status = request.Status;
                 _diseaseRepository.Update(disease);
                 return new SuccessResponse { IsSuccess = true };

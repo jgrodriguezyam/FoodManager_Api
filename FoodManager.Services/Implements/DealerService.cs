@@ -125,8 +125,7 @@ namespace FoodManager.Services.Implements
             {
                 var dealer = _dealerRepository.FindBy(request.Id);
                 dealer.ThrowExceptionIfRecordIsNull();
-                if (dealer.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(request.Status);
+                dealer.Status.ThrowExceptionIfIsSameStatus(request.Status);
                 dealer.Status = request.Status;
                 _dealerRepository.Update(dealer);
                 return new SuccessResponse { IsSuccess = true };

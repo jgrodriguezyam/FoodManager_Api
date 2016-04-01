@@ -186,8 +186,7 @@ namespace FoodManager.Services.Implements
             {
                 var user = _userRepository.FindBy(request.Id);
                 user.ThrowExceptionIfRecordIsNull();
-                if (user.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(request.Status);
+                user.Status.ThrowExceptionIfIsSameStatus(request.Status);
                 user.Status = request.Status;
                 _userRepository.Update(user);
                 return new SuccessResponse { IsSuccess = true };

@@ -124,8 +124,7 @@ namespace FoodManager.Services.Implements
             {
                 var department = _departmentRepository.FindBy(request.Id);
                 department.ThrowExceptionIfRecordIsNull();
-                if (department.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(request.Status);
+                department.Status.ThrowExceptionIfIsSameStatus(request.Status);
                 department.Status = request.Status;
                 _departmentRepository.Update(department);
                 return new SuccessResponse { IsSuccess = true };

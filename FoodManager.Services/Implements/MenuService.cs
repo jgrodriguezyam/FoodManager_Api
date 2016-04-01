@@ -123,8 +123,7 @@ namespace FoodManager.Services.Implements
             {
                 var menu = _menuRepository.FindBy(request.Id);
                 menu.ThrowExceptionIfRecordIsNull();
-                if (menu.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(request.Status);
+                menu.Status.ThrowExceptionIfIsSameStatus(request.Status);
                 menu.Status = request.Status;
                 _menuRepository.Update(menu);
                 return new SuccessResponse { IsSuccess = true };
