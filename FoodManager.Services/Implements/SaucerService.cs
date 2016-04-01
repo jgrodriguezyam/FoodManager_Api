@@ -123,7 +123,7 @@ namespace FoodManager.Services.Implements
                 var saucer = _saucerRepository.FindBy(request.Id);
                 saucer.ThrowExceptionIfIsNull("Platillo no encontrado");
                 if (saucer.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(HttpStatusCode.Accepted, request.Status);
+                    ExceptionExtensions.ThrowStatusException(request.Status);
                 saucer.Status = request.Status;
                 _saucerRepository.Update(saucer);
                 return new SuccessResponse { IsSuccess = true };

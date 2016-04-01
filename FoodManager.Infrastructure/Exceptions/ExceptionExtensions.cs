@@ -63,11 +63,11 @@ namespace FoodManager.Infrastructure.Exceptions
             });
         }
 
-        public static void ThrowStatusException(HttpStatusCode httpStatusCode, bool entityStatus)
+        public static void ThrowStatusException(bool entityStatus)
         {
             throw new HttpResponseException(new HttpResponseMessage
             {
-                StatusCode = httpStatusCode,
+                StatusCode = HttpStatusCode.Accepted,
                 Content = new StringContent("{\"Message\": \"El registro ya se encuentra " + (entityStatus ? "activo" : "inactivo") + "\"}", Encoding.Default, "application/json")
             });
         }

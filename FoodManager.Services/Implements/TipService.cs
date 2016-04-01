@@ -120,7 +120,7 @@ namespace FoodManager.Services.Implements
                 var tip = _tipRepository.FindBy(request.Id);
                 tip.ThrowExceptionIfIsNull("Consejo no encontrado");
                 if (tip.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(HttpStatusCode.Accepted, request.Status);
+                    ExceptionExtensions.ThrowStatusException(request.Status);
                 tip.Status = request.Status;
                 _tipRepository.Update(tip);
                 return new SuccessResponse { IsSuccess = true };

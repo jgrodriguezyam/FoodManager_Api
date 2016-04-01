@@ -127,7 +127,7 @@ namespace FoodManager.Services.Implements
                 var ingredient = _ingredientRepository.FindBy(request.Id);
                 ingredient.ThrowExceptionIfIsNull("Ingrediente no encontrado");
                 if (ingredient.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(HttpStatusCode.Accepted, request.Status);
+                    ExceptionExtensions.ThrowStatusException(request.Status);
                 ingredient.Status = request.Status;
                 _ingredientRepository.Update(ingredient);
                 return new SuccessResponse { IsSuccess = true };

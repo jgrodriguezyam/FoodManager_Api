@@ -123,7 +123,7 @@ namespace FoodManager.Services.Implements
                 var job = _jobRepository.FindBy(request.Id);
                 job.ThrowExceptionIfIsNull("Puesto no encontrada");
                 if (job.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(HttpStatusCode.Accepted, request.Status);
+                    ExceptionExtensions.ThrowStatusException(request.Status);
                 job.Status = request.Status;
                 _jobRepository.Update(job);
                 return new SuccessResponse { IsSuccess = true };

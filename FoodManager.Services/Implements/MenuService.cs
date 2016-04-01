@@ -125,7 +125,7 @@ namespace FoodManager.Services.Implements
                 var menu = _menuRepository.FindBy(request.Id);
                 menu.ThrowExceptionIfIsNull("Menu no encontrado");
                 if (menu.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(HttpStatusCode.Accepted, request.Status);
+                    ExceptionExtensions.ThrowStatusException(request.Status);
                 menu.Status = request.Status;
                 _menuRepository.Update(menu);
                 return new SuccessResponse { IsSuccess = true };

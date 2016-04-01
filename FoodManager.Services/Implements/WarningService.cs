@@ -124,7 +124,7 @@ namespace FoodManager.Services.Implements
                 var warning = _warningRepository.FindBy(request.Id);
                 warning.ThrowExceptionIfIsNull("Advertencia no encontrada");
                 if (warning.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(HttpStatusCode.Accepted, request.Status);
+                    ExceptionExtensions.ThrowStatusException(request.Status);
                 warning.Status = request.Status;
                 _warningRepository.Update(warning);
                 return new SuccessResponse { IsSuccess = true };

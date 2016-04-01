@@ -130,7 +130,7 @@ namespace FoodManager.Services.Implements
                 var saucerMultimedia = _saucerMultimediaRepository.FindBy(request.Id);
                 saucerMultimedia.ThrowExceptionIfIsNull("Multimedia de platillo no encontrado");
                 if (saucerMultimedia.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(HttpStatusCode.Accepted, request.Status);
+                    ExceptionExtensions.ThrowStatusException(request.Status);
                 saucerMultimedia.Status = request.Status;
                 _saucerMultimediaRepository.Update(saucerMultimedia);
                 return new SuccessResponse { IsSuccess = true };

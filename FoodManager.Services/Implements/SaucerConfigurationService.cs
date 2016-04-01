@@ -124,7 +124,7 @@ namespace FoodManager.Services.Implements
                 var saucerConfiguration = _saucerConfigurationRepository.FindBy(request.Id);
                 saucerConfiguration.ThrowExceptionIfIsNull("Configuracion de platillo no encontrado");
                 if (saucerConfiguration.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(HttpStatusCode.Accepted, request.Status);
+                    ExceptionExtensions.ThrowStatusException(request.Status);
                 saucerConfiguration.Status = request.Status;
                 _saucerConfigurationRepository.Update(saucerConfiguration);
                 return new SuccessResponse { IsSuccess = true };

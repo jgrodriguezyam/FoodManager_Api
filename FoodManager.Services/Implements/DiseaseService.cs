@@ -123,7 +123,7 @@ namespace FoodManager.Services.Implements
                 var disease = _diseaseRepository.FindBy(request.Id);
                 disease.ThrowExceptionIfIsNull("Enfermedad no encontrada");
                 if (disease.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(HttpStatusCode.Accepted, request.Status);
+                    ExceptionExtensions.ThrowStatusException(request.Status);
                 disease.Status = request.Status;
                 _diseaseRepository.Update(disease);
                 return new SuccessResponse { IsSuccess = true };

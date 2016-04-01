@@ -123,7 +123,7 @@ namespace FoodManager.Services.Implements
                 var ingredientGroup = _ingredientGroupRepository.FindBy(request.Id);
                 ingredientGroup.ThrowExceptionIfIsNull("Grupo de ingredientes no encontrado");
                 if (ingredientGroup.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(HttpStatusCode.Accepted, request.Status);
+                    ExceptionExtensions.ThrowStatusException(request.Status);
                 ingredientGroup.Status = request.Status;
                 _ingredientGroupRepository.Update(ingredientGroup);
                 return new SuccessResponse { IsSuccess = true };

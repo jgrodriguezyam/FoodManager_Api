@@ -132,7 +132,7 @@ namespace FoodManager.Services.Implements
                 var branch = _branchRepository.FindBy(request.Id);
                 branch.ThrowExceptionIfIsNull("Sucursal no encontrada");
                 if(branch.Status.Equals(request.Status))
-                    ExceptionExtensions.ThrowStatusException(HttpStatusCode.Accepted, request.Status);
+                    ExceptionExtensions.ThrowStatusException(request.Status);
                 branch.Status = request.Status;
                 _branchRepository.Update(branch);
                 return new SuccessResponse { IsSuccess = true };
