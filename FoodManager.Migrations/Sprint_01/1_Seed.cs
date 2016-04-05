@@ -52,7 +52,7 @@ namespace FoodManager.Migrations.Sprint_01
             Create.Table("Branch").InSchema("dbo")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(250).NotNullable()
-                .WithColumn("Code").AsString(250).Unique().NotNullable()
+                .WithColumn("Code").AsString(250).NotNullable()
                 .WithColumn("CompanyId").AsInt32().NotNullable()
 
                 .WithColumn("CreatedBy").AsInt32().NotNullable()
@@ -107,7 +107,7 @@ namespace FoodManager.Migrations.Sprint_01
             Create.Table("Warning").InSchema("dbo")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(250).NotNullable()
-                .WithColumn("Code").AsString(250).Unique().NotNullable()
+                .WithColumn("Code").AsString(250).NotNullable()
                 .WithColumn("DiseaseId").AsInt32().NotNullable()
 
                 .WithColumn("CreatedBy").AsInt32().NotNullable()

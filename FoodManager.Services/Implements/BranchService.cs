@@ -64,7 +64,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var branch = TypeAdapter.Adapt<Branch>(request);
-                _branchValidator.ValidateAndThrowException(branch, "Base");
+                _branchValidator.ValidateAndThrowException(branch, "Base,Create");
                 _branchRepository.Add(branch);
                 return new CreateResponse(branch.Id);
             }
@@ -82,7 +82,7 @@ namespace FoodManager.Services.Implements
                 currentBranch.ThrowExceptionIfRecordIsNull();
                 var branchToCopy = TypeAdapter.Adapt<Branch>(request);
                 TypeAdapter.Adapt(branchToCopy, currentBranch);
-                _branchValidator.ValidateAndThrowException(currentBranch, "Base");
+                _branchValidator.ValidateAndThrowException(currentBranch, "Base,Update");
                 _branchRepository.Update(currentBranch);
                 return new SuccessResponse { IsSuccess = true };
             }

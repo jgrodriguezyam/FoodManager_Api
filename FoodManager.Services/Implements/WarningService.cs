@@ -59,7 +59,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var warning = TypeAdapter.Adapt<Warning>(request);
-                _warningValidator.ValidateAndThrowException(warning, "Base");
+                _warningValidator.ValidateAndThrowException(warning, "Base,Create");
                 _warningRepository.Add(warning);
                 return new CreateResponse(warning.Id);
             }
@@ -77,7 +77,7 @@ namespace FoodManager.Services.Implements
                 currentWarning.ThrowExceptionIfRecordIsNull();
                 var warningToCopy = TypeAdapter.Adapt<Warning>(request);
                 TypeAdapter.Adapt(warningToCopy, currentWarning);
-                _warningValidator.ValidateAndThrowException(currentWarning, "Base");
+                _warningValidator.ValidateAndThrowException(currentWarning, "Base,Update");
                 _warningRepository.Update(currentWarning);
                 return new SuccessResponse { IsSuccess = true };
             }
