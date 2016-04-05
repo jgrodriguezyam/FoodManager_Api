@@ -91,7 +91,7 @@ namespace FoodManager.Migrations.Sprint_01
             Create.Table("Disease").InSchema("dbo")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(250).NotNullable()
-                .WithColumn("Code").AsString(250).Unique().NotNullable()
+                .WithColumn("Code").AsString(250).NotNullable()
 
                 .WithColumn("CreatedBy").AsInt32().NotNullable()
                 .WithColumn("ModifiedBy").AsInt32().NotNullable()

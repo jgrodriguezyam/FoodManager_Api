@@ -55,7 +55,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var disease = TypeAdapter.Adapt<Disease>(request);
-                _diseaseValidator.ValidateAndThrowException(disease, "Base");
+                _diseaseValidator.ValidateAndThrowException(disease, "Base,Create");
                 _diseaseRepository.Add(disease);
                 return new CreateResponse(disease.Id);
             }
@@ -73,7 +73,7 @@ namespace FoodManager.Services.Implements
                 currentDisease.ThrowExceptionIfRecordIsNull();
                 var diseasToCopy = TypeAdapter.Adapt<Disease>(request);
                 TypeAdapter.Adapt(diseasToCopy, currentDisease);
-                _diseaseValidator.ValidateAndThrowException(currentDisease, "Base");
+                _diseaseValidator.ValidateAndThrowException(currentDisease, "Base,Update");
                 _diseaseRepository.Update(currentDisease);
                 return new SuccessResponse { IsSuccess = true };
             }
