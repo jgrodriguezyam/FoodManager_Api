@@ -2,10 +2,11 @@
 {
     public class NutritionInformation : INutritionInformation
     {
-        public int KiloCalorie { get; set; }
-        public int Protein { get; set; }
-        public int Lipid { get; set; }
-        public int Hdec { get; set; }
-        public int Sodium { get; set; }
+        public decimal Energy { get; set; }
+        public decimal Protein { get; set; }
+        public decimal Carbohydrate { get; set; }
+        public decimal Sugar { get; set; }
+        public decimal Lipid { get; set; }
+        public decimal Sodium { get; set; }
     }
 }

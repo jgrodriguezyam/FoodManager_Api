@@ -279,11 +279,12 @@ namespace FoodManager.Migrations.Sprint_01
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(250).NotNullable()
                 .WithColumn("Amount").AsInt32().NotNullable()
-                .WithColumn("KiloCalorie").AsInt32().NotNullable()
-                .WithColumn("Protein").AsInt32().NotNullable()
-                .WithColumn("Lipid").AsInt32().NotNullable()
-                .WithColumn("Hdec").AsInt32().NotNullable()
-                .WithColumn("Sodium").AsInt32().NotNullable()
+                .WithColumn("Energy").AsDecimal().NotNullable()
+                .WithColumn("Protein").AsDecimal().NotNullable()
+                .WithColumn("Carbohydrate").AsDecimal().NotNullable()
+                .WithColumn("Sugar").AsDecimal().NotNullable()
+                .WithColumn("Lipid").AsDecimal().NotNullable()
+                .WithColumn("Sodium").AsDecimal().NotNullable()
                 .WithColumn("IngredientGroupId").AsInt32().NotNullable()
 
                 .WithColumn("CreatedBy").AsInt32().NotNullable()
@@ -389,11 +390,12 @@ namespace FoodManager.Migrations.Sprint_01
             Create.Table("Reservation").InSchema("dbo")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Date").AsDateTime().NotNullable()
-                .WithColumn("KiloCalorie").AsInt32().NotNullable()
-                .WithColumn("Protein").AsInt32().NotNullable()
-                .WithColumn("Lipid").AsInt32().NotNullable()
-                .WithColumn("Hdec").AsInt32().NotNullable()
-                .WithColumn("Sodium").AsInt32().NotNullable()
+                .WithColumn("Energy").AsDecimal().NotNullable()
+                .WithColumn("Protein").AsDecimal().NotNullable()
+                .WithColumn("Carbohydrate").AsDecimal().NotNullable()
+                .WithColumn("Sugar").AsDecimal().NotNullable()
+                .WithColumn("Lipid").AsDecimal().NotNullable()
+                .WithColumn("Sodium").AsDecimal().NotNullable()
                 .WithColumn("WorkerId").AsInt32().NotNullable()
                 .WithColumn("SaucerId").AsInt32().NotNullable()
 
@@ -616,9 +618,9 @@ namespace FoodManager.Migrations.Sprint_01
                         "('Carnes y Pescado', 'Rojo', " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")," +
                         "('Verduras y Frutas', 'Verde', " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
 
-            Execute.Sql("INSERT INTO Ingredient (Name, Amount, KiloCalorie, Protein, Lipid, Hdec, Sodium, IngredientGroupId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
-                        "('Frijol', 100, 10, 10, 10, 10, 10, 1, " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")," +
-                        "('Puerco', 100, 10, 10, 10, 10, 10, 1, " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
+            Execute.Sql("INSERT INTO Ingredient (Name, Amount, Energy, Protein, Carbohydrate, Sugar, Lipid, Sodium, IngredientGroupId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+                        "('Frijol', 100, 10, 10, 10, 10, 10, 10, 1, " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")," +
+                        "('Puerco', 100, 10, 10, 10, 10, 10, 10, 1, " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")");
 
             Execute.Sql("INSERT INTO SaucerConfiguration (SaucerId, IngredientId, Amount, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
                         "(1, 1, 3, " + GlobalConstants.SystemUserId + ", " + GlobalConstants.SystemUserId + ", '" + today + "', '" + today + "', " + GlobalConstants.StatusActivatedMigration + ", " + GlobalConstants.ActivatedMigration + ")," +

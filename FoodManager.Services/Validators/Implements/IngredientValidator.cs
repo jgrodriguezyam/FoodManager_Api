@@ -22,10 +22,11 @@ namespace FoodManager.Services.Validators.Implements
             {
                 RuleFor(ingredient => ingredient.Name).NotNull().NotEmpty();
                 RuleFor(ingredient => ingredient.Amount).NotNull().NotEmpty();
-                RuleFor(ingredient => ingredient.KiloCalorie).NotNull().NotEmpty();
+                RuleFor(ingredient => ingredient.Energy).NotNull().NotEmpty();
                 RuleFor(ingredient => ingredient.Protein).NotNull().NotEmpty();
+                RuleFor(ingredient => ingredient.Carbohydrate).NotNull().NotEmpty();
+                RuleFor(ingredient => ingredient.Sugar).NotNull().NotEmpty();
                 RuleFor(ingredient => ingredient.Lipid).NotNull().NotEmpty();
-                RuleFor(ingredient => ingredient.Hdec).NotNull().NotEmpty();
                 RuleFor(ingredient => ingredient.Sodium).NotNull().NotEmpty();
                 RuleFor(ingredient => ingredient.IngredientGroupId).Must(ingredientGroupId => ingredientGroupId.IsNotZero()).WithMessage("Tienes que elegir un grupo");
                 Custom(ReferencesValidate);

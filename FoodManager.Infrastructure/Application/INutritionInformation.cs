@@ -2,10 +2,11 @@
 {
     public interface INutritionInformation
     {
-         int KiloCalorie { get; set; }
-         int Protein { get; set; }
-         int Lipid { get; set; }
-         int Hdec { get; set; }
-         int Sodium { get; set; }
+        decimal Energy { get; set; }
+        decimal Protein { get; set; }
+        decimal Carbohydrate { get; set; }
+        decimal Sugar { get; set; }
+        decimal Lipid { get; set; }
+        decimal Sodium { get; set; }
     }
 }
