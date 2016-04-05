@@ -9,7 +9,7 @@ namespace FoodManager.Model
         [AutoIncrement]
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
         public decimal Energy { get; set; }
         public decimal Protein { get; set; }
         public decimal Carbohydrate { get; set; }

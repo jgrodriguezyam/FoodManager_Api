@@ -278,7 +278,7 @@ namespace FoodManager.Migrations.Sprint_01
             Create.Table("Ingredient").InSchema("dbo")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(250).NotNullable()
-                .WithColumn("Amount").AsInt32().NotNullable()
+                .WithColumn("Amount").AsDecimal().NotNullable()
                 .WithColumn("Energy").AsDecimal().NotNullable()
                 .WithColumn("Protein").AsDecimal().NotNullable()
                 .WithColumn("Carbohydrate").AsDecimal().NotNullable()
