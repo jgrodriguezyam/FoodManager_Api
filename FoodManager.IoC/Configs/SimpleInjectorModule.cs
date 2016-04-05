@@ -17,6 +17,7 @@ using FoodManager.Queries.Ingredients;
 using FoodManager.Queries.Jobs;
 using FoodManager.Queries.Menus;
 using FoodManager.Queries.Regions;
+using FoodManager.Queries.Reservations;
 using FoodManager.Queries.SaucerConfigurations;
 using FoodManager.Queries.SaucerMultimedias;
 using FoodManager.Queries.Saucers;
@@ -170,6 +171,12 @@ namespace FoodManager.IoC.Configs
             _container.Register<IMenuValidator, MenuValidator>();
             _container.Register<IMenuService, MenuService>();
             _container.Register<IMenuFactory, MenuFactory>();
+
+            _container.Register<IReservationRepository, ReservationRepositoryOrmLite>();
+            _container.Register<IReservationQuery, ReservationQuery>();
+            _container.Register<IReservationValidator, ReservationValidator>();
+            _container.Register<IReservationService, ReservationService>();
+            _container.Register<IReservationFactory, ReservationFactory>();
         }
     }
 }

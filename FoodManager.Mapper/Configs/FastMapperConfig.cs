@@ -10,6 +10,7 @@ using FoodManager.DTO.Message.Ingredients;
 using FoodManager.DTO.Message.Jobs;
 using FoodManager.DTO.Message.Menus;
 using FoodManager.DTO.Message.Regions;
+using FoodManager.DTO.Message.Reservations;
 using FoodManager.DTO.Message.SaucerConfigurations;
 using FoodManager.DTO.Message.SaucerMultimedias;
 using FoodManager.DTO.Message.Saucers;
@@ -588,6 +589,38 @@ namespace FoodManager.Mapper.Configs
                 .NewConfig();
 
             TypeAdapterConfig<Model.Menu, MenuResponse>
+                .NewConfig();
+
+            #endregion
+
+            #region Reservation
+
+            TypeAdapterConfig<Model.Reservation, DTO.Reservation>
+                .NewConfig();
+
+            TypeAdapterConfig<DTO.Reservation, Model.Reservation>
+                .NewConfig()
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<Model.Reservation, Model.Reservation>
+                .NewConfig()
+                .IgnoreMember(dest => dest.Id)
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<ReservationRequest, Model.Reservation>
+                .NewConfig();
+
+            TypeAdapterConfig<Model.Reservation, ReservationResponse>
                 .NewConfig();
 
             #endregion

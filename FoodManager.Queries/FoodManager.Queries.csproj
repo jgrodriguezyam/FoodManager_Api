@@ -67,6 +67,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Regions\IRegionQuery.cs" />
     <Compile Include="Regions\RegionQuery.cs" />
+    <Compile Include="Reservations\IReservationQuery.cs" />
+    <Compile Include="Reservations\ReservationQuery.cs" />
     <Compile Include="SaucerConfigurations\ISaucerConfigurationQuery.cs" />
     <Compile Include="SaucerConfigurations\SaucerConfigurationQuery.cs" />
     <Compile Include="SaucerMultimedias\ISaucerMultimediaQuery.cs" />

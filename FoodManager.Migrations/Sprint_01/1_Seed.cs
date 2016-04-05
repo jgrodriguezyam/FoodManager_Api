@@ -384,6 +384,33 @@ namespace FoodManager.Migrations.Sprint_01
 
             #endregion
 
+            #region Reservation
+
+            Create.Table("Reservation").InSchema("dbo")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Date").AsDateTime().NotNullable()
+                .WithColumn("KiloCalorie").AsInt32().NotNullable()
+                .WithColumn("Protein").AsInt32().NotNullable()
+                .WithColumn("Lipid").AsInt32().NotNullable()
+                .WithColumn("Hdec").AsInt32().NotNullable()
+                .WithColumn("Sodium").AsInt32().NotNullable()
+                .WithColumn("WorkerId").AsInt32().NotNullable()
+                .WithColumn("SaucerId").AsInt32().NotNullable()
+
+                .WithColumn("CreatedBy").AsInt32().NotNullable()
+                .WithColumn("ModifiedBy").AsInt32().NotNullable()
+                .WithColumn("CreatedOn").AsDateTime().NotNullable()
+                .WithColumn("ModifiedOn").AsDateTime().NotNullable()
+                .WithColumn("Status").AsBoolean().NotNullable()
+                .WithColumn("IsActive").AsBoolean();
+
+            Create.ForeignKey("FK_Reservation_Worker").FromTable("Reservation").InSchema("dbo").ForeignColumn("WorkerId")
+                 .ToTable("Worker").InSchema("dbo").PrimaryColumn("Id");
+            Create.ForeignKey("FK_Reservation_Saucer").FromTable("Reservation").InSchema("dbo").ForeignColumn("SaucerId")
+                 .ToTable("Saucer").InSchema("dbo").PrimaryColumn("Id");
+
+            #endregion
+
             Init();
         }
 
@@ -394,6 +421,14 @@ namespace FoodManager.Migrations.Sprint_01
             Delete.ForeignKey("FK_BranchDealer_Branch").OnTable("BranchDealer").InSchema("dbo");
             Delete.ForeignKey("FK_BranchDealer_Dealer").OnTable("BranchDealer").InSchema("dbo");
             Delete.Table("BranchDealer").InSchema("dbo");
+
+            #endregion
+
+            #region Reservation
+
+            Delete.ForeignKey("FK_Reservation_Worker").OnTable("Reservation").InSchema("dbo");
+            Delete.ForeignKey("FK_Reservation_Saucer").OnTable("Reservation").InSchema("dbo");
+            Delete.Table("Reservation").InSchema("dbo");
 
             #endregion
 

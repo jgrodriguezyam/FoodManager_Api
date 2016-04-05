@@ -65,9 +65,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\NutritionInformation.cs" />
     <Compile Include="Bulks\IBulkQuery.cs" />
     <Compile Include="Collections\CollectionExtensions.cs" />
     <Compile Include="Constants\GlobalConstants.cs" />
+    <Compile Include="Application\INutritionInformation.cs" />
     <Compile Include="DataBase\ConnectionSettings.cs" />
     <Compile Include="Dates\DateConvert.cs" />
     <Compile Include="Enums\Enumerator.cs" />

@@ -122,6 +122,12 @@
     <Compile Include="Message\Regions\FindRegionsRequest.cs" />
     <Compile Include="Message\Regions\FindRegionsResponse.cs" />
     <Compile Include="Message\Regions\GetRegionRequest.cs" />
+    <Compile Include="Message\Reservations\DeleteReservationRequest.cs" />
+    <Compile Include="Message\Reservations\FindReservationsRequest.cs" />
+    <Compile Include="Message\Reservations\FindReservationsResponse.cs" />
+    <Compile Include="Message\Reservations\GetReservationRequest.cs" />
+    <Compile Include="Message\Reservations\ReservationRequest.cs" />
+    <Compile Include="Message\Reservations\ReservationResponse.cs" />
     <Compile Include="Message\SaucerConfigurations\DeleteSaucerConfigurationRequest.cs" />
     <Compile Include="Message\SaucerConfigurations\FindSaucerConfigurationsRequest.cs" />
     <Compile Include="Message\SaucerConfigurations\FindSaucerConfigurationsResponse.cs" />
@@ -175,6 +181,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Message\Regions\RegionRequest.cs" />
     <Compile Include="Message\Regions\RegionResponse.cs" />
+    <Compile Include="Reservation.cs" />
     <Compile Include="Saucer.cs" />
     <Compile Include="SaucerConfiguration.cs" />
     <Compile Include="SaucerMultimedia.cs" />
