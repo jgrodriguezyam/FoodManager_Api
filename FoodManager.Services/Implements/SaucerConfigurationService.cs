@@ -59,7 +59,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var saucerConfiguration = TypeAdapter.Adapt<SaucerConfiguration>(request);
-                _saucerConfigurationValidator.ValidateAndThrowException(saucerConfiguration, "Base");
+                _saucerConfigurationValidator.ValidateAndThrowException(saucerConfiguration, "Base,Create");
                 _saucerConfigurationRepository.Add(saucerConfiguration);
                 return new CreateResponse(saucerConfiguration.Id);
             }
@@ -77,7 +77,7 @@ namespace FoodManager.Services.Implements
                 currentSaucerConfiguration.ThrowExceptionIfRecordIsNull();
                 var saucerConfigurationToCopy = TypeAdapter.Adapt<SaucerConfiguration>(request);
                 TypeAdapter.Adapt(saucerConfigurationToCopy, currentSaucerConfiguration);
-                _saucerConfigurationValidator.ValidateAndThrowException(currentSaucerConfiguration, "Base");
+                _saucerConfigurationValidator.ValidateAndThrowException(currentSaucerConfiguration, "Base,Update");
                 _saucerConfigurationRepository.Update(currentSaucerConfiguration);
                 return new SuccessResponse { IsSuccess = true };
             }

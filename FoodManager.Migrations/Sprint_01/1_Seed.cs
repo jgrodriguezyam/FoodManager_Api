@@ -319,9 +319,6 @@ namespace FoodManager.Migrations.Sprint_01
             Create.ForeignKey("FK_SaucerConfiguration_Ingredient").FromTable("SaucerConfiguration").InSchema("dbo").ForeignColumn("IngredientId")
                  .ToTable("Ingredient").InSchema("dbo").PrimaryColumn("Id");
 
-            Create.Index("IX_SaucerConfiguration").OnTable("SaucerConfiguration").InSchema("dbo")
-                .OnColumn("SaucerId").Ascending().OnColumn("IngredientId").Ascending().WithOptions().Unique();
-
             #endregion
 
             #region Worker

@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using FoodManager.Infrastructure.Collections;
 using FoodManager.Infrastructure.Constants;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Objects;
@@ -14,11 +15,13 @@ namespace FoodManager.Services.Validators.Implements
     {
         private readonly ISaucerRepository _saucerRepository;
         private readonly IIngredientRepository _ingredientRepository;
+        private readonly ISaucerConfigurationRepository _saucerConfigurationRepository;
 
-        public SaucerConfigurationValidator(ISaucerRepository saucerRepository, IIngredientRepository ingredientRepository)
+        public SaucerConfigurationValidator(ISaucerRepository saucerRepository, IIngredientRepository ingredientRepository, ISaucerConfigurationRepository saucerConfigurationRepository)
         {
             _saucerRepository = saucerRepository;
             _ingredientRepository = ingredientRepository;
+            _saucerConfigurationRepository = saucerConfigurationRepository;
 
             RuleSet("Base", () =>
             {
@@ -26,6 +29,16 @@ namespace FoodManager.Services.Validators.Implements
                 RuleFor(saucerConfiguration => saucerConfiguration.IngredientId).Must(ingredientId => ingredientId.IsNotZero()).WithMessage("Tienes que elegir un ingrediente");
                 RuleFor(saucerConfiguration => saucerConfiguration.Amount).Must(amount => amount.IsNotZero()).WithMessage("Tienes que elegir una cantidad");
                 Custom(ReferencesValidate);
+            });
+
+            RuleSet("Create", () =>
+            {
+                Custom(CreateConfigurationValidate);
+            });
+
+            RuleSet("Update", () =>
+            {
+                Custom(UpdateConfigurationValidate);
             });
         }
 
@@ -38,6 +51,24 @@ namespace FoodManager.Services.Validators.Implements
             var ingredient = _ingredientRepository.FindBy(saucerConfiguration.IngredientId);
             if (ingredient.IsNull() || ingredient.Status.Equals(GlobalConstants.StatusDeactivated))
                 return new ValidationFailure("SaucerConfiguration", "El ingrediente esta desactivado o no existe");
+
+            return null;
+        }
+
+        public ValidationFailure CreateConfigurationValidate(SaucerConfiguration saucerConfiguration, ValidationContext<SaucerConfiguration> context)
+        {
+            var saucerConfigurationsRetrieved = _saucerConfigurationRepository.FindBy(saucerConfig => saucerConfig.SaucerId == saucerConfiguration.SaucerId && saucerConfig.IngredientId == saucerConfiguration.IngredientId && saucerConfig.IsActive);
+            if (saucerConfigurationsRetrieved.IsNotEmpty())
+                return new ValidationFailure("SaucerConfiguration", "Ya existe configuracion");
+
+            return null;
+        }
+
+        public ValidationFailure UpdateConfigurationValidate(SaucerConfiguration saucerConfiguration, ValidationContext<SaucerConfiguration> context)
+        {
+            var saucerConfigurationsRetrieved = _saucerConfigurationRepository.FindBy(saucerConfig => saucerConfig.SaucerId == saucerConfiguration.SaucerId && saucerConfig.IngredientId == saucerConfiguration.IngredientId && saucerConfig.Id != saucerConfiguration.Id && saucerConfig.IsActive);
+            if (saucerConfigurationsRetrieved.IsNotEmpty())
+                return new ValidationFailure("SaucerConfiguration", "Ya existe configuracion");
 
             return null;
         }
