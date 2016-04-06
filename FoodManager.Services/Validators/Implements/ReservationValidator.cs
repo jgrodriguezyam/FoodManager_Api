@@ -25,12 +25,6 @@ namespace FoodManager.Services.Validators.Implements
             RuleSet("Base", () =>
             {
                 RuleFor(reservation => reservation.Date).NotNull().NotEmpty();
-                RuleFor(reservation => reservation.Energy).NotNull().NotEmpty();
-                RuleFor(reservation => reservation.Protein).NotNull().NotEmpty();
-                RuleFor(reservation => reservation.Carbohydrate).NotNull().NotEmpty();
-                RuleFor(reservation => reservation.Sugar).NotNull().NotEmpty();
-                RuleFor(reservation => reservation.Lipid).NotNull().NotEmpty();
-                RuleFor(reservation => reservation.Sodium).NotNull().NotEmpty();
                 RuleFor(reservation => reservation.WorkerId).Must(workerId => workerId.IsNotZero()).WithMessage("Tienes que elegir un trabajador");
                 RuleFor(reservation => reservation.SaucerId).Must(saucerId => saucerId.IsNotZero()).WithMessage("Tienes que elegir un platillo");
                 Custom(ReferencesValidate);
