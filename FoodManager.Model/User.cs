@@ -14,7 +14,8 @@ namespace FoodManager.Model
         public string Password { get; set; }
         public string PublicKey { get; set; }
         public string Time { get; set; }
-        public int DealerId { get; set; }
+        public int? DealerId { get; set; }
+        public int RoleId { get; set; }
 
         public bool IsActive { get; set; }
 

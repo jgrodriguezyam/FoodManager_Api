@@ -18,7 +18,8 @@ namespace FoodManager.Services.Factories.Implements
         public DTO.User Execute(User user)
         {
             var userDto = TypeAdapter.Adapt<DTO.User>(user);
-            var dealer = _dealerRepository.FindBy(user.DealerId);
+            var dealerId = user.DealerId ?? 0;
+            var dealer = _dealerRepository.FindBy(dealerId);
             if (dealer.IsNotNull())
                 userDto.Dealer = TypeAdapter.Adapt<DTO.Dealer>(dealer);
             return userDto;
