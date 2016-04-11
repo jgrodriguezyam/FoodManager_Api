@@ -54,7 +54,7 @@ namespace FoodManager.Queries.Users
         public void WithUserName(string userName)
         {
             if (userName.IsNotNullOrEmpty())
-                _query.Where(user => user.UserName.Contains(userName));
+                _query.Where(user => user.UserName == userName);
         }
 
         public void Sort(string sort, string sortBy)
