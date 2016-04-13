@@ -7,5 +7,6 @@ namespace FoodManager.DTO.Message.Menus
         public int DealerId { get; set; }
         public int SaucerId { get; set; }
         public bool OnlyToday { get; set; }
+        public string DaysWeek { get; set; }
     }
 }

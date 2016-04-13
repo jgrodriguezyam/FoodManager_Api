@@ -5,9 +5,11 @@ using FoodManager.Infrastructure.Dates.Enums;
 using FoodManager.Infrastructure.Enums;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Queries;
+using FoodManager.Infrastructure.Strings;
 using FoodManager.Model;
 using FoodManager.OrmLite.DataBase;
 using FoodManager.OrmLite.Utils;
+using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.SqlServer;
 
 namespace FoodManager.Queries.Menus
@@ -62,6 +64,12 @@ namespace FoodManager.Queries.Menus
                 var dayOfWeek = (int) today.DayOfWeek;
                 _query.Where(menu => menu.DayWeek == DayWeek.All.GetValue() || menu.DayWeek == dayOfWeek);
             }
+        }
+
+        public void WithDaysWeek(string daysWeek)
+        {
+            if(daysWeek.IsNotNullOrEmpty())
+                _query.Where(menu => Sql.In(menu.DayWeek, daysWeek.Split(',')));
         }
 
         public void Sort(string sort, string sortBy)
