@@ -358,7 +358,7 @@ namespace FoodManager.Migrations.Sprint_01
 
             Create.Table("Menu").InSchema("dbo")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("Name").AsString(250).NotNullable()
+                .WithColumn("Comment").AsString(250).Nullable()
                 .WithColumn("DayWeek").AsInt32().NotNullable()
                 .WithColumn("Type").AsInt32().Nullable()
                 .WithColumn("Limit").AsInt32().Nullable()

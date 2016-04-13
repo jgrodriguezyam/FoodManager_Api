@@ -3,6 +3,7 @@ using System.Linq;
 using FluentValidation;
 using FluentValidation.Results;
 using FoodManager.Infrastructure.Constants;
+using FoodManager.Infrastructure.Dates.Enums;
 using FoodManager.Infrastructure.Enums;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Objects;
@@ -27,7 +28,6 @@ namespace FoodManager.Services.Validators.Implements
 
             RuleSet("Base", () =>
             {
-                RuleFor(menu => menu.Name).NotNull().NotEmpty();
                 RuleFor(menu => menu.DayWeek).NotNull().NotEmpty();
                 RuleFor(menu => menu.Type).NotNull().NotEmpty();
                 RuleFor(menu => menu.Limit).NotNull().NotEmpty();
@@ -65,6 +65,10 @@ namespace FoodManager.Services.Validators.Implements
 
             if (menu.StartDate.Date < _today.Date)
                 return new ValidationFailure("Menu", "La fecha de inicio es menor a fecha de hoy");
+
+            var dayWeek = new DayWeek().ConvertToCollection().FirstOrDefault(dayWee => dayWee.Value == menu.DayWeek);
+            if (dayWeek.IsNull())
+                return new ValidationFailure("Menu", "El dia de la semana no existe");
 
             return null;
         }

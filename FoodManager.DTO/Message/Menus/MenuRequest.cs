@@ -3,7 +3,7 @@
     public class MenuRequest
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Comment { get; set; }
         public int DayWeek { get; set; }
         public int Type { get; set; }
         public int Limit { get; set; }

@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FoodManager.Infrastructure.Constants;
+using FoodManager.Infrastructure.Dates.Enums;
+using FoodManager.Infrastructure.Enums;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Queries;
-using FoodManager.Infrastructure.Strings;
 using FoodManager.Model;
 using FoodManager.OrmLite.DataBase;
 using FoodManager.OrmLite.Utils;
@@ -39,12 +41,6 @@ namespace FoodManager.Queries.Menus
                 _query.Where(menu => menu.Status == GlobalConstants.StatusDeactivated);
         }
 
-        public void WithName(string name)
-        {
-            if (name.IsNotNullOrEmpty())
-                _query.Where(menu => menu.Name.Contains(name));
-        }
-
         public void WithDealer(int dealerId)
         {
             if (dealerId.IsNotZero())
@@ -55,6 +51,17 @@ namespace FoodManager.Queries.Menus
         {
             if (saucerId.IsNotZero())
                 _query.Where(menu => menu.SaucerId == saucerId);
+        }
+
+        public void WithOnlyToday(bool onlyToday)
+        {
+            if (onlyToday)
+            {
+                var today = DateTime.Now.Date;
+                _query.Where(menu => menu.StartDate <= today && menu.EndDate >= today);
+                var dayOfWeek = (int) today.DayOfWeek;
+                _query.Where(menu => menu.DayWeek == DayWeek.All.GetValue() || menu.DayWeek == dayOfWeek);
+            }
         }
 
         public void Sort(string sort, string sortBy)

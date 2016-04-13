@@ -35,9 +35,9 @@ namespace FoodManager.Services.Implements
                 _menuQuery.WithOnlyActivated(true);
                 _menuQuery.WithOnlyStatusActivated(request.OnlyStatusActivated);
                 _menuQuery.WithOnlyStatusDeactivated(request.OnlyStatusDeactivated);
-                _menuQuery.WithName(request.Name);
                 _menuQuery.WithDealer(request.DealerId);
                 _menuQuery.WithSaucer(request.SaucerId);
+                _menuQuery.WithOnlyToday(request.OnlyToday);
                 _menuQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _menuQuery.TotalRecords();
                 _menuQuery.Paginate(request.StartPage, request.EndPage);

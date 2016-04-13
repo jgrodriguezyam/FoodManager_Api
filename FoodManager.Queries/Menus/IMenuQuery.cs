@@ -9,9 +9,9 @@ namespace FoodManager.Queries.Menus
         void WithOnlyActivated(bool onlyActivated);
         void WithOnlyStatusActivated(bool onlyStatusActivated);
         void WithOnlyStatusDeactivated(bool onlyStatusDeactivated);
-        void WithName(string name);
         void WithDealer(int dealerId);
         void WithSaucer(int saucerId);
+        void WithOnlyToday(bool onlyToday);
         IEnumerable<Menu> Execute();
     }
 }
