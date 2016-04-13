@@ -51,6 +51,12 @@ namespace FoodManager.Queries.Branches
                 _query.Where(branch => branch.Name.Contains(name));
         }
 
+        public void WithCode(string code)
+        {
+            if (code.IsNotNullOrEmpty())
+                _query.Where(branch => branch.Code == code);
+        }
+
         public void Sort(string sort, string sortBy)
         {
             sort = sort.SortResolver();

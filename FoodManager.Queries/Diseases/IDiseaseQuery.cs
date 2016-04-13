@@ -10,6 +10,7 @@ namespace FoodManager.Queries.Diseases
         void WithOnlyStatusActivated(bool onlyStatusActivated);
         void WithOnlyStatusDeactivated(bool onlyStatusDeactivated);
         void WithName(string name);
+        void WithCode(string code);
         IEnumerable<Disease> Execute();
     }
 }

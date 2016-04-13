@@ -6,5 +6,6 @@ namespace FoodManager.DTO.Message.Warnings
     {
         public int DiseaseId { get; set; }
         public string Name { get; set; }
+        public string Code { get; set; }
     }
 }

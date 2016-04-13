@@ -51,6 +51,12 @@ namespace FoodManager.Queries.Warnings
                 _query.Where(warning => warning.Name.Contains(name));
         }
 
+        public void WithCode(string code)
+        {
+            if (code.IsNotNullOrEmpty())
+                _query.Where(warning => warning.Code == code);
+        }
+
         public void Sort(string sort, string sortBy)
         {
             sort = sort.SortResolver();

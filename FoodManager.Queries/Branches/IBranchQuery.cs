@@ -11,6 +11,7 @@ namespace FoodManager.Queries.Branches
         void WithOnlyStatusDeactivated(bool onlyStatusDeactivated);
         void WithCompany(int companyId);
         void WithName(string name);
+        void WithCode(string code);
         IEnumerable<Branch> Execute();
     }
 }
