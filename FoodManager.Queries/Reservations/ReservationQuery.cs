@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FoodManager.Infrastructure.Constants;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Queries;
@@ -48,6 +49,12 @@ namespace FoodManager.Queries.Reservations
         {
             if (saucerId.IsNotZero())
                 _query.Where(reservation => reservation.SaucerId == saucerId);
+        }
+
+        public void WithOnlyToday(bool onlyToday)
+        {
+            if (onlyToday)
+                _query.Where(reservation => reservation.Date == DateTime.Now.Date);
         }
 
         public void Sort(string sort, string sortBy)

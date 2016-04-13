@@ -11,6 +11,7 @@ namespace FoodManager.Queries.Reservations
         void WithOnlyStatusDeactivated(bool onlyStatusDeactivated);
         void WithWorker(int workerId);
         void WithSaucer(int saucerId);
+        void WithOnlyToday(bool onlyToday);
         IEnumerable<Reservation> Execute();
     }
 }
