@@ -60,13 +60,25 @@ namespace FoodManager.Queries.Workers
         public void WithCode(string code)
         {
             if (code.IsNotNullOrEmpty())
-                _query.Where(worker => worker.Code.Contains(code));
+                _query.Where(worker => worker.Code == code);
         }
 
         public void WithEmail(string email)
         {
             if (email.IsNotNullOrEmpty())
-                _query.Where(worker => worker.Email.Contains(email));
+                _query.Where(worker => worker.Email == email);
+        }
+
+        public void WithBadge(string badge)
+        {
+            if (badge.IsNotNullOrEmpty())
+                _query.Where(worker => worker.Badge == badge);
+        }
+
+        public void WithImss(string imss)
+        {
+            if (imss.IsNotNullOrEmpty())
+                _query.Where(worker => worker.Imss == imss);
         }
 
         public void Sort(string sort, string sortBy)

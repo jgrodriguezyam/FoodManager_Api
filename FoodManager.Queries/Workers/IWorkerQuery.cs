@@ -14,6 +14,8 @@ namespace FoodManager.Queries.Workers
         void WithDealer(int dealerId);
         void WithCode(string code);
         void WithEmail(string email);
+        void WithBadge(string badge);
+        void WithImss(string imss); 
         IEnumerable<Worker> Execute();
     }
 }
