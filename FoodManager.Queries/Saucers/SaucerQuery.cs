@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using FoodManager.Infrastructure.Constants;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Queries;
@@ -6,6 +7,7 @@ using FoodManager.Infrastructure.Strings;
 using FoodManager.Model;
 using FoodManager.OrmLite.DataBase;
 using FoodManager.OrmLite.Utils;
+using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.SqlServer;
 
 namespace FoodManager.Queries.Saucers
@@ -43,6 +45,18 @@ namespace FoodManager.Queries.Saucers
         {
             if (name.IsNotNullOrEmpty())
                 _query.Where(saucer => saucer.Name.Contains(name));
+        }
+
+        public void WithDealer(int dealerId)
+        {
+            if (dealerId.IsNotZero())
+            {
+                var dealerSaucerQuery = new SqlServerExpressionVisitor<DealerSaucer>();
+                dealerSaucerQuery.Where(dealerSaucer => dealerSaucer.DealerId == dealerId);
+                var saucerIds = _dataBaseSqlServerOrmLite.FindExpressionVisitor(dealerSaucerQuery).Select(dealerSaucer => dealerSaucer.SaucerId);
+                saucerIds = saucerIds.Count().IsNotZero() ? saucerIds : new[] { int.MinValue };
+                _query.Where(saucer => Sql.In(saucer.Id, saucerIds));
+            }
         }
 
         public void Sort(string sort, string sortBy)

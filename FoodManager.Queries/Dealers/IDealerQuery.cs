@@ -10,6 +10,7 @@ namespace FoodManager.Queries.Dealers
         void WithOnlyStatusActivated(bool onlyStatusActivated);
         void WithOnlyStatusDeactivated(bool onlyStatusDeactivated);
         void WithName(string name);
+        void WithBranch(int branchId);
         IEnumerable<Dealer> Execute();
     }
 }
