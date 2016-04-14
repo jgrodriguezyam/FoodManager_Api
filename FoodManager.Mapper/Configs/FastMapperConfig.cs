@@ -18,6 +18,7 @@ using FoodManager.DTO.Message.Tips;
 using FoodManager.DTO.Message.Users;
 using FoodManager.DTO.Message.Warnings;
 using FoodManager.DTO.Message.Workers;
+using FoodManager.Infrastructure.Dates;
 using FoodManager.Mapper.Resolvers;
 
 namespace FoodManager.Mapper.Configs
@@ -564,7 +565,9 @@ namespace FoodManager.Mapper.Configs
             #region Menu
 
             TypeAdapterConfig<Model.Menu, DTO.Menu>
-                .NewConfig();
+                .NewConfig()
+                .MapFrom(dest => dest.StartDate, src => src.StartDate.ToDateString())
+                .MapFrom(dest => dest.EndDate, src => src.EndDate.ToDateString());
 
             TypeAdapterConfig<DTO.Menu, Model.Menu>
                 .NewConfig()
@@ -589,14 +592,17 @@ namespace FoodManager.Mapper.Configs
                 .NewConfig();
 
             TypeAdapterConfig<Model.Menu, MenuResponse>
-                .NewConfig();
+                .NewConfig()
+                .MapFrom(dest => dest.StartDate, src => src.StartDate.ToDateString())
+                .MapFrom(dest => dest.EndDate, src => src.EndDate.ToDateString());
 
             #endregion
 
             #region Reservation
 
             TypeAdapterConfig<Model.Reservation, DTO.Reservation>
-                .NewConfig();
+                .NewConfig()
+                .MapFrom(dest => dest.Date, src => src.Date.ToDateString());
 
             TypeAdapterConfig<DTO.Reservation, Model.Reservation>
                 .NewConfig()
@@ -621,7 +627,8 @@ namespace FoodManager.Mapper.Configs
                 .NewConfig();
 
             TypeAdapterConfig<Model.Reservation, ReservationResponse>
-                .NewConfig();
+                .NewConfig()
+                .MapFrom(dest => dest.Date, src => src.Date.ToDateString());
 
             #endregion
         }
