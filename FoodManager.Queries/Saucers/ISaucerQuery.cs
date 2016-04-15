@@ -11,6 +11,7 @@ namespace FoodManager.Queries.Saucers
         void WithOnlyStatusDeactivated(bool onlyStatusDeactivated);
         void WithName(string name);
         void WithDealer(int dealerId);
+        void WithoutDealer(int dealerId);
         IEnumerable<Saucer> Execute();
     }
 }

@@ -6,5 +6,6 @@ namespace FoodManager.DTO.Message.Saucers
     {
         public string Name { get; set; }
         public int DealerId { get; set; }
+        public int WithoutDealerId { get; set; }
     }
 }

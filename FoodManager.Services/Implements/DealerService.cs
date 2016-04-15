@@ -39,6 +39,7 @@ namespace FoodManager.Services.Implements
                 _dealerQuery.WithOnlyStatusDeactivated(request.OnlyStatusDeactivated);
                 _dealerQuery.WithName(request.Name);
                 _dealerQuery.WithBranch(request.BranchId);
+                _dealerQuery.WithoutBranch(request.WithoutBranchId);
                 _dealerQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _dealerQuery.TotalRecords();
                 _dealerQuery.Paginate(request.StartPage, request.EndPage);

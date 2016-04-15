@@ -59,6 +59,18 @@ namespace FoodManager.Queries.Saucers
             }
         }
 
+        public void WithoutDealer(int dealerId)
+        {
+            if (dealerId.IsNotZero())
+            {
+                var dealerSaucerQuery = new SqlServerExpressionVisitor<DealerSaucer>();
+                dealerSaucerQuery.Where(dealerSaucer => dealerSaucer.DealerId != dealerId);
+                var saucerIds = _dataBaseSqlServerOrmLite.FindExpressionVisitor(dealerSaucerQuery).Select(dealerSaucer => dealerSaucer.SaucerId);
+                saucerIds = saucerIds.Count().IsNotZero() ? saucerIds : new[] { int.MinValue };
+                _query.Where(saucer => Sql.In(saucer.Id, saucerIds));
+            }
+        }
+
         public void Sort(string sort, string sortBy)
         {
             sort = sort.SortResolver();
