@@ -30,7 +30,6 @@ namespace FoodManager.Services.Validators.Implements
             {
                 RuleFor(menu => menu.DayWeek).NotNull().NotEmpty();
                 RuleFor(menu => menu.Type).NotNull().NotEmpty();
-                RuleFor(menu => menu.Limit).NotNull().NotEmpty();
                 RuleFor(menu => menu.StartDate).NotNull().NotEmpty();
                 RuleFor(menu => menu.EndDate).NotNull().NotEmpty();
                 RuleFor(menu => menu.MaxAmount).NotNull().NotEmpty();
@@ -38,6 +37,7 @@ namespace FoodManager.Services.Validators.Implements
                 RuleFor(menu => menu.SaucerId).Must(saucerId => saucerId.IsNotZero()).WithMessage("Tienes que elegir un platillo");
                 Custom(ReferencesValidate);
                 Custom(DatesValidate);
+                Custom(MaxAmountValidate);
             });
         }
 
@@ -69,6 +69,14 @@ namespace FoodManager.Services.Validators.Implements
             var dayWeek = new DayWeek().ConvertToCollection().FirstOrDefault(dayWee => dayWee.Value == menu.DayWeek);
             if (dayWeek.IsNull())
                 return new ValidationFailure("Menu", "El dia de la semana no existe");
+
+            return null;
+        }
+
+        public ValidationFailure MaxAmountValidate(Menu menu, ValidationContext<Menu> context)
+        {
+            if (menu.MaxAmount < menu.Limit)
+                return new ValidationFailure("Menu", "El limite es mayor a cantidad maxima");
 
             return null;
         }
