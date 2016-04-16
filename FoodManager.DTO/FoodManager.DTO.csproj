@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessLevel.cs" />
     <Compile Include="BaseRequest\ChangeStatusRequest.cs" />
     <Compile Include="BaseRequest\FindBaseRequest.cs" />
     <Compile Include="BaseRequest\FindStatusRequest.cs" />
@@ -128,6 +129,18 @@
     <Compile Include="Message\Reservations\GetReservationRequest.cs" />
     <Compile Include="Message\Reservations\ReservationRequest.cs" />
     <Compile Include="Message\Reservations\ReservationResponse.cs" />
+    <Compile Include="Message\RoleConfigurations\DeleteRoleConfigurationRequest.cs" />
+    <Compile Include="Message\RoleConfigurations\FindRoleConfigurationsResponse.cs" />
+    <Compile Include="Message\RoleConfigurations\FindRoleConfigurationsRequest.cs" />
+    <Compile Include="Message\RoleConfigurations\GetRoleConfigurationRequest.cs" />
+    <Compile Include="Message\RoleConfigurations\RoleConfigurationRequest.cs" />
+    <Compile Include="Message\RoleConfigurations\RoleConfigurationResponse.cs" />
+    <Compile Include="Message\Roles\DeleteRoleRequest.cs" />
+    <Compile Include="Message\Roles\FindRolesRequest.cs" />
+    <Compile Include="Message\Roles\FindRolesResponse.cs" />
+    <Compile Include="Message\Roles\GetRoleRequest.cs" />
+    <Compile Include="Message\Roles\RoleRequest.cs" />
+    <Compile Include="Message\Roles\RoleResponse.cs" />
     <Compile Include="Message\SaucerConfigurations\DeleteSaucerConfigurationRequest.cs" />
     <Compile Include="Message\SaucerConfigurations\FindSaucerConfigurationsRequest.cs" />
     <Compile Include="Message\SaucerConfigurations\FindSaucerConfigurationsResponse.cs" />
@@ -177,11 +190,14 @@
     <Compile Include="Message\Workers\LogoutWorkerRequest.cs" />
     <Compile Include="Message\Workers\WorkerRequest.cs" />
     <Compile Include="Message\Workers\WorkerResponse.cs" />
+    <Compile Include="Permission.cs" />
     <Compile Include="Region.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Message\Regions\RegionRequest.cs" />
     <Compile Include="Message\Regions\RegionResponse.cs" />
     <Compile Include="Reservation.cs" />
+    <Compile Include="Role.cs" />
+    <Compile Include="RoleConfiguration.cs" />
     <Compile Include="Saucer.cs" />
     <Compile Include="SaucerConfiguration.cs" />
     <Compile Include="SaucerMultimedia.cs" />

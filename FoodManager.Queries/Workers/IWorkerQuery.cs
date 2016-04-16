@@ -12,6 +12,7 @@ namespace FoodManager.Queries.Workers
         void WithDepartment(int departmentId);
         void WithJob(int jobId);
         void WithDealer(int dealerId);
+        void WithRole(int roleId);
         void WithCode(string code);
         void WithEmail(string email);
         void WithBadge(string badge);

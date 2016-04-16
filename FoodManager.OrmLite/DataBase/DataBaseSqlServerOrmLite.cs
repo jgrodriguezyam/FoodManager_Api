@@ -125,5 +125,12 @@ namespace FoodManager.OrmLite.DataBase
             var fieldsToUpdate = string.Format("PublicKey = '{0}', Time = '{1}'", publicKey, time);
             DbConnection.Update<T>(fieldsToUpdate, "Id = {0}".Params(id));
         }
+
+        public T GetByIdOrDefault<T>(int id) where T : new()
+        {
+            var filter = string.Format("Id = {1}", RegisterActivate, id);
+            var item = DbConnection.SingleOrDefault<T>(filter);
+            return item;
+        }
     }
 }

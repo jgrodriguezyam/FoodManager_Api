@@ -69,6 +69,10 @@
     <Compile Include="Regions\RegionQuery.cs" />
     <Compile Include="Reservations\IReservationQuery.cs" />
     <Compile Include="Reservations\ReservationQuery.cs" />
+    <Compile Include="RoleConfigurations\IRoleConfigurationQuery.cs" />
+    <Compile Include="RoleConfigurations\RoleConfigurationQuery.cs" />
+    <Compile Include="Roles\IRoleQuery.cs" />
+    <Compile Include="Roles\RoleQuery.cs" />
     <Compile Include="SaucerConfigurations\ISaucerConfigurationQuery.cs" />
     <Compile Include="SaucerConfigurations\SaucerConfigurationQuery.cs" />
     <Compile Include="SaucerMultimedias\ISaucerMultimediaQuery.cs" />

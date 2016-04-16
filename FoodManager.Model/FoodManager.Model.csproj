@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessLevel.cs" />
     <Compile Include="Base\EntityBase.cs" />
     <Compile Include="Base\IAuditInfo.cs" />
     <Compile Include="Base\IDeletable.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="IHmac\IHmacHelper.cs" />
     <Compile Include="Ingredient.cs" />
     <Compile Include="IngredientGroup.cs" />
+    <Compile Include="IRepositories\IAccessLevelRepository.cs" />
     <Compile Include="IRepositories\IBranchDealerRepository.cs" />
     <Compile Include="IRepositories\IBranchRepository.cs" />
     <Compile Include="IRepositories\ICompanyRepository.cs" />
@@ -68,9 +70,13 @@
     <Compile Include="IRepositories\IIngredientRepository.cs" />
     <Compile Include="IRepositories\IJobRepository.cs" />
     <Compile Include="IRepositories\IMenuRepository.cs" />
+    <Compile Include="IRepositories\IPermissionAccessLevelRepository.cs" />
+    <Compile Include="IRepositories\IPermissionRepository.cs" />
     <Compile Include="IRepositories\IRegionRepository.cs" />
     <Compile Include="IRepositories\IDealerSaucerRepository.cs" />
     <Compile Include="IRepositories\IReservationRepository.cs" />
+    <Compile Include="IRepositories\IRoleConfigurationRepository.cs" />
+    <Compile Include="IRepositories\IRoleRepository.cs" />
     <Compile Include="IRepositories\ISaucerConfigurationRepository.cs" />
     <Compile Include="IRepositories\ISaucerMultimediaRepository.cs" />
     <Compile Include="IRepositories\ISaucerRepository.cs" />
@@ -80,9 +86,13 @@
     <Compile Include="IRepositories\IWorkerRepository.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="Menu.cs" />
+    <Compile Include="Permission.cs" />
+    <Compile Include="PermissionAccessLevel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Region.cs" />
     <Compile Include="Reservation.cs" />
+    <Compile Include="Role.cs" />
+    <Compile Include="RoleConfiguration.cs" />
     <Compile Include="Saucer.cs" />
     <Compile Include="DealerSaucer.cs" />
     <Compile Include="SaucerConfiguration.cs" />

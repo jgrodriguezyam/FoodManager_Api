@@ -158,6 +158,8 @@
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\RegionController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
+    <Compile Include="Controllers\RoleConfigurationController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SaucerConfiguracionController.cs" />
     <Compile Include="Controllers\SaucerController.cs" />
     <Compile Include="Controllers\SaucerMultimediaController.cs" />

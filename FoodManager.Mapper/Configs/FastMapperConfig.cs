@@ -11,6 +11,8 @@ using FoodManager.DTO.Message.Jobs;
 using FoodManager.DTO.Message.Menus;
 using FoodManager.DTO.Message.Regions;
 using FoodManager.DTO.Message.Reservations;
+using FoodManager.DTO.Message.RoleConfigurations;
+using FoodManager.DTO.Message.Roles;
 using FoodManager.DTO.Message.SaucerConfigurations;
 using FoodManager.DTO.Message.SaucerMultimedias;
 using FoodManager.DTO.Message.Saucers;
@@ -629,6 +631,98 @@ namespace FoodManager.Mapper.Configs
             TypeAdapterConfig<Model.Reservation, ReservationResponse>
                 .NewConfig()
                 .MapFrom(dest => dest.Date, src => src.Date.ToDateString());
+
+            #endregion
+
+            #region Role
+
+            TypeAdapterConfig<Model.Role, DTO.Role>
+                .NewConfig();
+
+            TypeAdapterConfig<DTO.Role, Model.Role>
+                .NewConfig()
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<Model.Role, Model.Role>
+                .NewConfig()
+                .IgnoreMember(dest => dest.Id)
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<RoleRequest, Model.Role>
+                .NewConfig();
+
+            TypeAdapterConfig<Model.Role, RoleResponse>
+                .NewConfig();
+
+            #endregion
+
+            #region RoleConfiguration
+
+            TypeAdapterConfig<Model.RoleConfiguration, DTO.RoleConfiguration>
+                .NewConfig();
+
+            TypeAdapterConfig<DTO.RoleConfiguration, Model.RoleConfiguration>
+                .NewConfig()
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<Model.RoleConfiguration, Model.RoleConfiguration>
+                .NewConfig()
+                .IgnoreMember(dest => dest.Id)
+                .IgnoreMember(dest => dest.CreatedBy)
+                .IgnoreMember(dest => dest.CreatedOn)
+                .IgnoreMember(dest => dest.ModifiedBy)
+                .IgnoreMember(dest => dest.ModifiedOn)
+                .IgnoreMember(dest => dest.IsActive)
+                .IgnoreMember(dest => dest.Status);
+
+            TypeAdapterConfig<RoleConfigurationRequest, Model.RoleConfiguration>
+                .NewConfig();
+
+            TypeAdapterConfig<Model.RoleConfiguration, RoleConfigurationResponse>
+                .NewConfig();
+
+            #endregion
+
+            #region Permission
+
+            TypeAdapterConfig<Model.Permission, DTO.Permission>
+                .NewConfig();
+
+            TypeAdapterConfig<DTO.Permission, Model.Permission>
+                .NewConfig();
+
+            TypeAdapterConfig<Model.Permission, Model.Permission>
+                .NewConfig()
+                .IgnoreMember(dest => dest.Id);
+
+            #endregion
+
+            #region AccessLevel
+
+            TypeAdapterConfig<Model.AccessLevel, DTO.AccessLevel>
+                .NewConfig();
+
+            TypeAdapterConfig<DTO.AccessLevel, Model.AccessLevel>
+                .NewConfig();
+
+            TypeAdapterConfig<Model.AccessLevel, Model.AccessLevel>
+                .NewConfig()
+                .IgnoreMember(dest => dest.Id);
 
             #endregion
         }

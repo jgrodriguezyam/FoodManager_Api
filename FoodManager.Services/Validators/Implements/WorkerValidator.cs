@@ -18,12 +18,14 @@ namespace FoodManager.Services.Validators.Implements
         private readonly IDepartmentRepository _departmentRepository;
         private readonly IJobRepository _jobRepository;
         private readonly IDealerRepository _dealerRepository;
+        private readonly IRoleRepository _roleRepository;
 
-        public WorkerValidator(IDepartmentRepository departmentRepository, IJobRepository jobRepository, IDealerRepository dealerRepository)
+        public WorkerValidator(IDepartmentRepository departmentRepository, IJobRepository jobRepository, IDealerRepository dealerRepository, IRoleRepository roleRepository)
         {
             _departmentRepository = departmentRepository;
             _jobRepository = jobRepository;
             _dealerRepository = dealerRepository;
+            _roleRepository = roleRepository;
 
             RuleSet("Base", () =>
             {
@@ -37,6 +39,7 @@ namespace FoodManager.Services.Validators.Implements
                 RuleFor(worker => worker.DepartmentId).Must(departmentId => departmentId.IsNotZero()).WithMessage("Tienes que elegir un departamento");
                 RuleFor(worker => worker.JobId).Must(jobId => jobId.IsNotZero()).WithMessage("Tienes que elegir un puesto");
                 RuleFor(worker => worker.DealerId).Must(dealerId => dealerId.IsNotZero()).WithMessage("Tienes que elegir un distribuidor");
+                RuleFor(worker => worker.RoleId).Must(roleId => roleId.IsNotZero()).WithMessage("Tienes que elegir un rol");
                 Custom(ReferencesValidate);
             });
         }
@@ -58,6 +61,10 @@ namespace FoodManager.Services.Validators.Implements
             var dealer = _dealerRepository.FindBy(worker.DealerId);
             if (dealer.IsNull() || dealer.Status.Equals(GlobalConstants.StatusDeactivated))
                 return new ValidationFailure("Worker", "El distribuidor esta desactivado o no existe");
+
+            var role = _roleRepository.FindBy(worker.RoleId);
+            if (role.IsNull() || role.Status.Equals(GlobalConstants.StatusDeactivated))
+                return new ValidationFailure("Worker", "El rol esta desactivado o no existe");
 
             return null;
         }

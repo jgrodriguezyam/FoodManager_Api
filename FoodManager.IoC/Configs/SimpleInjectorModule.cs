@@ -18,6 +18,8 @@ using FoodManager.Queries.Jobs;
 using FoodManager.Queries.Menus;
 using FoodManager.Queries.Regions;
 using FoodManager.Queries.Reservations;
+using FoodManager.Queries.RoleConfigurations;
+using FoodManager.Queries.Roles;
 using FoodManager.Queries.SaucerConfigurations;
 using FoodManager.Queries.SaucerMultimedias;
 using FoodManager.Queries.Saucers;
@@ -177,6 +179,22 @@ namespace FoodManager.IoC.Configs
             _container.Register<IReservationValidator, ReservationValidator>();
             _container.Register<IReservationService, ReservationService>();
             _container.Register<IReservationFactory, ReservationFactory>();
+
+            _container.Register<IRoleRepository, RoleRepositoryOrmLite>();
+            _container.Register<IRoleQuery, RoleQuery>();
+            _container.Register<IRoleValidator, RoleValidator>();
+            _container.Register<IRoleService, RoleService>();
+
+            _container.Register<IRoleConfigurationRepository, RoleConfigurationRepositoryOrmLite>();
+            _container.Register<IRoleConfigurationQuery, RoleConfigurationQuery>();
+            _container.Register<IRoleConfigurationValidator, RoleConfigurationValidator>();
+            _container.Register<IRoleConfigurationService, RoleConfigurationService>();
+            _container.Register<IRoleConfigurationFactory, RoleConfigurationFactory>();
+
+            _container.Register<IAccessLevelRepository, AccessLevelRepositoryOrmLite>();
+            _container.Register<IPermissionRepository, PermissionRepositoryOrmLite>();
+            _container.Register<IPermissionAccessLevelRepository, PermissionAccessLevelRepositoryOrmLite>();
+
         }
     }
 }

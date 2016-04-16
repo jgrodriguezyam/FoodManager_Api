@@ -1,8 +1,11 @@
-﻿namespace FoodManager.Infrastructure.Constants
+﻿using System;
+using FoodManager.Infrastructure.Dates;
+
+namespace FoodManager.Infrastructure.Constants
 {
     public static class GlobalConstants
     {
-        public static readonly string AdminRoleId = "1";
+        public static readonly int AdminRoleId = 1;
         public static readonly string AdminRoleName = "Administrador";
 
         public static readonly int SystemUserId = 1;
@@ -25,5 +28,7 @@
 
         public static readonly bool StatusActivated = true;
         public static readonly bool StatusDeactivated = false;
+
+        public static readonly string CreatedBySystemUser =  SystemUserId + ", " + SystemUserId + ", '" + DateTime.Now.ToDateTimeStringDb() + "', '" + DateTime.Now.ToDateTimeStringDb() + "', " + StatusActivatedMigration + ", " + ActivatedMigration;
     }
 }
