@@ -26,8 +26,7 @@ namespace FoodManager.Sessions
                 var headerLoginType = actionContext.Request.Headers.GetValues(GlobalConstants.LoginType).First();
 
                 var loginType = new LoginType().ConvertToCollection().FirstOrDefault(loginTp => loginTp.Value == int.Parse(headerLoginType));
-                if (loginType.IsNull())
-                    ExceptionExtensions.ThrowCustomException(HttpStatusCode.ExpectationFailed, "El tipo de login no existe");
+                loginType.ThrowExceptionIfIsNull(HttpStatusCode.ExpectationFailed, "El tipo de login no existe");
 
                 if (loginType.Value == LoginType.User.GetValue())
                     LoginValidator.UserHeaderValidation(headerTimespan, headerPublicKey, headerPrivateKey, actionContext);

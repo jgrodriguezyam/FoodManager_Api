@@ -15,6 +15,7 @@ namespace FoodManager
         {
             var configuration = new HttpConfiguration(GlobalConfiguration.Configuration.Routes);
             SwaggerConfig.Register(configuration);
+            FilterConfig.Register(configuration);
             GlobalConfiguration.Configure(WebApiConfig.Register);
             appBuilder.UseCors(CorsOptions.AllowAll);
             appBuilder.UseWebApi(configuration);

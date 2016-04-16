@@ -9,7 +9,6 @@ namespace FoodManager
     {
         public static void Register(HttpConfiguration configuration)
         {
-            FilterConfig.Register(configuration);
             configuration.EnableCors(new EnableCorsAttribute("*", "*", "*"));
             configuration.MapHttpAttributeRoutes();
             configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
