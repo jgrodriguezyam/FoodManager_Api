@@ -30,10 +30,10 @@ namespace FoodManager.Sessions
                     ExceptionExtensions.ThrowCustomException(HttpStatusCode.ExpectationFailed, "El tipo de login no existe");
 
                 if (loginType.Value == LoginType.User.GetValue())
-                    LoginValidator.UserHeaderValidation(headerTimespan, headerPublicKey, headerPrivateKey);
+                    LoginValidator.UserHeaderValidation(headerTimespan, headerPublicKey, headerPrivateKey, actionContext);
 
                 if (loginType.Value == LoginType.Worker.GetValue())
-                    LoginValidator.WorkerHeaderValidation(headerTimespan, headerPublicKey, headerPrivateKey);
+                    LoginValidator.WorkerHeaderValidation(headerTimespan, headerPublicKey, headerPrivateKey, actionContext);
             }
         }
 
