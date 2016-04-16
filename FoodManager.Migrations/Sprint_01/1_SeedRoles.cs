@@ -167,6 +167,7 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + PermissionType.AccessLevel.GetValue() + ", '" + PermissionType.AccessLevel + "', 'Niveles de acceso')," +
                         "(" + PermissionType.Permission.GetValue() + ", '" + PermissionType.Permission + "', 'Permisos')," +
                         "(" + PermissionType.Role.GetValue() + ", '" + PermissionType.Role + "', 'Roles')," +
+                        "(" + PermissionType.RoleConfiguration.GetValue() + ", '" + PermissionType.RoleConfiguration + "', 'Configuracion de roles')," +
                         "(" + PermissionType.User.GetValue() + ", '" + PermissionType.User + "', 'Usuarios')," +
                         "(" + PermissionType.Worker.GetValue() + ", '" + PermissionType.Worker + "', 'Trabajadores')," +
                         "(" + PermissionType.Region.GetValue() + ", '" + PermissionType.Region + "', 'Regiones')," +
@@ -198,6 +199,11 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + PermissionType.Role.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.Role.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
                         "(" + PermissionType.Role.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
+
+                        "(" + PermissionType.RoleConfiguration.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
+                        "(" + PermissionType.RoleConfiguration.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
+                        "(" + PermissionType.RoleConfiguration.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
+                        "(" + PermissionType.RoleConfiguration.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
 
                         "(" + PermissionType.User.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.User.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
@@ -299,6 +305,11 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Role.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Role.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Role.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.RoleConfiguration.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.RoleConfiguration.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.RoleConfiguration.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.RoleConfiguration.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.User.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.User.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
