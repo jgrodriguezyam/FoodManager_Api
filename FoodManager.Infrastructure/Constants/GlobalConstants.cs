@@ -8,6 +8,12 @@ namespace FoodManager.Infrastructure.Constants
         public static readonly int AdminRoleId = 1;
         public static readonly string AdminRoleName = "Administrador";
 
+        public static readonly int DealerRoleId = 2;
+        public static readonly string DealerRoleName = "Concesionario";
+
+        public static readonly int WorkerRoleId = 3;
+        public static readonly string WorkerRoleName = "Empleado";
+
         public static readonly int SystemUserId = 1;
 
         public static readonly string AdminUserName = "admin";
