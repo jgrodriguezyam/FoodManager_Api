@@ -61,7 +61,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var menu = TypeAdapter.Adapt<Menu>(request);
-                _menuValidator.ValidateAndThrowException(menu, "Base");
+                _menuValidator.ValidateAndThrowException(menu, "Base,Create");
                 _menuRepository.Add(menu);
                 return new CreateResponse(menu.Id);
             }
@@ -79,7 +79,7 @@ namespace FoodManager.Services.Implements
                 currentMenu.ThrowExceptionIfRecordIsNull();
                 var menuToCopy = TypeAdapter.Adapt<Menu>(request);
                 TypeAdapter.Adapt(menuToCopy, currentMenu);
-                _menuValidator.ValidateAndThrowException(currentMenu, "Base");
+                _menuValidator.ValidateAndThrowException(currentMenu, "Base,Update");
                 _menuRepository.Update(currentMenu);
                 return new SuccessResponse { IsSuccess = true };
             }

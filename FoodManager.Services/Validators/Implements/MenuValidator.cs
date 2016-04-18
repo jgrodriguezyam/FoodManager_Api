@@ -19,12 +19,14 @@ namespace FoodManager.Services.Validators.Implements
     {
         private readonly IDealerRepository _dealerRepository;
         private readonly ISaucerRepository _saucerRepository;
+        private readonly IMenuRepository _menuRepository;
         private readonly DateTime _today = DateTime.Now;
 
-        public MenuValidator(IDealerRepository dealerRepository, ISaucerRepository saucerRepository)
+        public MenuValidator(IDealerRepository dealerRepository, ISaucerRepository saucerRepository, IMenuRepository menuRepository)
         {
             _dealerRepository = dealerRepository;
             _saucerRepository = saucerRepository;
+            _menuRepository = menuRepository;
 
             RuleSet("Base", () =>
             {
@@ -38,6 +40,16 @@ namespace FoodManager.Services.Validators.Implements
                 Custom(ReferencesValidate);
                 Custom(DatesValidate);
                 Custom(MaxAmountValidate);
+            });
+
+            RuleSet("Create", () =>
+            {
+                Custom(TodayValidate);
+            });
+
+            RuleSet("Update", () =>
+            {
+                Custom(EditStartDateValidate);
             });
         }
 
@@ -63,9 +75,6 @@ namespace FoodManager.Services.Validators.Implements
             if (menu.StartDate > menu.EndDate)
                 return new ValidationFailure("Menu", "La fecha de inicio es mayor a fecha de fin");
 
-            if (menu.StartDate.Date < _today.Date)
-                return new ValidationFailure("Menu", "La fecha de inicio es menor a fecha de hoy");
-
             var dayWeek = new DayWeek().ConvertToCollection().FirstOrDefault(dayWee => dayWee.Value == menu.DayWeek);
             if (dayWeek.IsNull())
                 return new ValidationFailure("Menu", "El dia de la semana no existe");
@@ -77,6 +86,23 @@ namespace FoodManager.Services.Validators.Implements
         {
             if (menu.MaxAmount < menu.Limit)
                 return new ValidationFailure("Menu", "El limite es mayor a cantidad maxima");
+
+            return null;
+        }
+
+        public ValidationFailure TodayValidate(Menu menu, ValidationContext<Menu> context)
+        {
+            if (menu.StartDate.Date < _today.Date)
+                return new ValidationFailure("Menu", "La fecha de inicio es menor a fecha de hoy");
+
+            return null;
+        }
+
+        public ValidationFailure EditStartDateValidate(Menu menu, ValidationContext<Menu> context)
+        {
+            var currentMenu = _menuRepository.FindBy(menu.Id);
+            if (menu.StartDate.Date < _today.Date && currentMenu.StartDate.Date != menu.StartDate.Date)
+                return new ValidationFailure("Menu", "La fecha de inicio es menor a fecha de hoy");
 
             return null;
         }
