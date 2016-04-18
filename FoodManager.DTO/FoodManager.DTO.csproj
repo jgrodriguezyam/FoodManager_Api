@@ -159,6 +159,7 @@
     <Compile Include="Message\Saucers\DeleteSaucerRequest.cs" />
     <Compile Include="Message\Saucers\FindSaucersRequest.cs" />
     <Compile Include="Message\Saucers\FindSaucersResponse.cs" />
+    <Compile Include="BaseRequest\GetNutritionInformationRequest.cs" />
     <Compile Include="Message\Saucers\GetSaucerRequest.cs" />
     <Compile Include="Message\Saucers\SaucerRequest.cs" />
     <Compile Include="Message\Saucers\SaucerResponse.cs" />

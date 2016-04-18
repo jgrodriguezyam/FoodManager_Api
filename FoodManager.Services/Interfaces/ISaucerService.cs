@@ -2,6 +2,7 @@
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Saucers;
+using FoodManager.Infrastructure.Application;
 
 namespace FoodManager.Services.Interfaces
 {
@@ -14,5 +15,6 @@ namespace FoodManager.Services.Interfaces
         SuccessResponse Delete(DeleteSaucerRequest request);
         SuccessResponse ChangeStatus(ChangeStatusRequest request);
         SuccessResponse IsReference(IsReferenceRequest request);
+        NutritionInformation GetNutritionInformation(GetNutritionInformationRequest request);
     }
 }

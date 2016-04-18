@@ -3,10 +3,12 @@ using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Saucers;
+using FoodManager.Infrastructure.Application;
 using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Queries.Saucers;
+using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Interfaces;
 
@@ -17,12 +19,14 @@ namespace FoodManager.Services.Implements
         private readonly ISaucerQuery _saucerQuery;
         private readonly ISaucerRepository _saucerRepository;
         private readonly ISaucerValidator _saucerValidator;
+        private readonly INutritionInformationFactory _nutritionInformationFactory;
 
-        public SaucerService(ISaucerQuery saucerQuery, ISaucerRepository saucerRepository, ISaucerValidator saucerValidator)
+        public SaucerService(ISaucerQuery saucerQuery, ISaucerRepository saucerRepository, ISaucerValidator saucerValidator, INutritionInformationFactory nutritionInformationFactory)
         {
             _saucerQuery = saucerQuery;
             _saucerRepository = saucerRepository;
             _saucerValidator = saucerValidator;
+            _nutritionInformationFactory = nutritionInformationFactory;
         }
 
         public FindSaucersResponse Find(FindSaucersRequest request)
@@ -139,6 +143,18 @@ namespace FoodManager.Services.Implements
             {
                 var isReference = _saucerRepository.IsReference(request.Id);
                 return new SuccessResponse { IsSuccess = isReference };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public NutritionInformation GetNutritionInformation(GetNutritionInformationRequest request)
+        {
+            try
+            {
+                return _nutritionInformationFactory.FindBySaucer(request.Id);
             }
             catch (DataAccessException)
             {

@@ -3,6 +3,7 @@ using FoodManager.DTO;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Saucers;
+using FoodManager.Infrastructure.Application;
 using FoodManager.Infrastructure.Enums;
 using FoodManager.Model.Enums;
 using FoodManager.Services.Interfaces;
@@ -64,6 +65,12 @@ namespace FoodManager.Controllers
         public EnumeratorResponse Get()
         {
             return new EnumeratorResponse { Enumerator = new SaucerType().ConvertToCollection() };
+        }
+
+        [HttpGet, Route("saucers/{Id}/nutrition-informations")]
+        public NutritionInformation Get(GetNutritionInformationRequest request)
+        {
+            return _saucerService.GetNutritionInformation(request);
         }
     }
 }
