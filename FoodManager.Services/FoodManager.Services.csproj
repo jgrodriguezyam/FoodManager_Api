@@ -56,6 +56,7 @@
     <Compile Include="Factories\Implements\CompanyFactory.cs" />
     <Compile Include="Factories\Implements\IngredientFactory.cs" />
     <Compile Include="Factories\Implements\MenuFactory.cs" />
+    <Compile Include="Factories\Implements\NutritionInformationFactory.cs" />
     <Compile Include="Factories\Implements\ReservationFactory.cs" />
     <Compile Include="Factories\Implements\RoleConfigurationFactory.cs" />
     <Compile Include="Factories\Implements\SaucerConfigurationFactory.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Factories\Interfaces\ICompanyFactory.cs" />
     <Compile Include="Factories\Interfaces\IIngredientFactory.cs" />
     <Compile Include="Factories\Interfaces\IMenuFactory.cs" />
+    <Compile Include="Factories\Interfaces\INutritionInformationFactory.cs" />
     <Compile Include="Factories\Interfaces\IReservationFactory.cs" />
     <Compile Include="Factories\Interfaces\IRoleConfigurationFactory.cs" />
     <Compile Include="Factories\Interfaces\ISaucerConfigurationFactory.cs" />

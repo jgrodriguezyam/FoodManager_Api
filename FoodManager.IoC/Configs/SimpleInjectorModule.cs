@@ -197,7 +197,8 @@ namespace FoodManager.IoC.Configs
 
             _container.Register<IPermissionRepository, PermissionRepositoryOrmLite>();
             _container.Register<IPermissionAccessLevelRepository, PermissionAccessLevelRepositoryOrmLite>();
-
+            
+            _container.Register<INutritionInformationFactory, NutritionInformationFactory>();
         }
     }
 }

@@ -627,7 +627,13 @@ namespace FoodManager.Mapper.Configs
                 .IgnoreMember(dest => dest.Status);
 
             TypeAdapterConfig<ReservationRequest, Model.Reservation>
-                .NewConfig();
+                .NewConfig()
+                .IgnoreMember(dest => dest.Energy)
+                .IgnoreMember(dest => dest.Protein)
+                .IgnoreMember(dest => dest.Carbohydrate)
+                .IgnoreMember(dest => dest.Sugar)
+                .IgnoreMember(dest => dest.Lipid)
+                .IgnoreMember(dest => dest.Sodium);
 
             TypeAdapterConfig<Model.Reservation, ReservationResponse>
                 .NewConfig()

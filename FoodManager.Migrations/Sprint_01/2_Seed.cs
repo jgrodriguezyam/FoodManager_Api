@@ -366,11 +366,11 @@ namespace FoodManager.Migrations.Sprint_01
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Comment").AsString(250).Nullable()
                 .WithColumn("DayWeek").AsInt32().NotNullable()
-                .WithColumn("Type").AsInt32().Nullable()
+                .WithColumn("Type").AsInt32().NotNullable()
                 .WithColumn("Limit").AsInt32().Nullable()
                 .WithColumn("StartDate").AsDateTime().NotNullable()
                 .WithColumn("EndDate").AsDateTime().NotNullable()
-                .WithColumn("MaxAmount").AsInt32().Nullable()
+                .WithColumn("MaxAmount").AsInt32().NotNullable()
                 .WithColumn("DealerId").AsInt32().NotNullable()
                 .WithColumn("SaucerId").AsInt32().NotNullable()
 
