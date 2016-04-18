@@ -65,6 +65,9 @@
     <Compile Include="IngredientGroup.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="Menu.cs" />
+    <Compile Include="Message\AccessLevels\AccessLevelResponse.cs" />
+    <Compile Include="Message\AccessLevels\FindAccessLevelsRequest.cs" />
+    <Compile Include="Message\AccessLevels\FindAccessLevelsResponse.cs" />
     <Compile Include="Message\Branches\BranchRequest.cs" />
     <Compile Include="Message\Branches\BranchResponse.cs" />
     <Compile Include="Message\Branches\DeleteBranchRequest.cs" />

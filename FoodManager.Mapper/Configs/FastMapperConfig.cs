@@ -1,5 +1,6 @@
 ﻿using FastMapper;
 using FoodManager.DTO.BaseRequest;
+using FoodManager.DTO.Message.AccessLevels;
 using FoodManager.DTO.Message.Branches;
 using FoodManager.DTO.Message.Companies;
 using FoodManager.DTO.Message.Dealers;
@@ -723,6 +724,9 @@ namespace FoodManager.Mapper.Configs
             TypeAdapterConfig<Model.AccessLevel, Model.AccessLevel>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id);
+
+            TypeAdapterConfig<Model.AccessLevel, AccessLevelResponse>
+                .NewConfig();
 
             #endregion
         }

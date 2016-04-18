@@ -7,6 +7,7 @@ using FoodManager.Model.IRepositories;
 using FoodManager.OrmLite.DataBase;
 using FoodManager.OrmLite.Hmac;
 using FoodManager.OrmLite.Repositories;
+using FoodManager.Queries.AccessLevels;
 using FoodManager.Queries.Branches;
 using FoodManager.Queries.Companies;
 using FoodManager.Queries.Dealers;
@@ -192,6 +193,8 @@ namespace FoodManager.IoC.Configs
             _container.Register<IRoleConfigurationFactory, RoleConfigurationFactory>();
 
             _container.Register<IAccessLevelRepository, AccessLevelRepositoryOrmLite>();
+            _container.Register<IAccessLevelQuery, AccessLevelQuery>();
+
             _container.Register<IPermissionRepository, PermissionRepositoryOrmLite>();
             _container.Register<IPermissionAccessLevelRepository, PermissionAccessLevelRepositoryOrmLite>();
 

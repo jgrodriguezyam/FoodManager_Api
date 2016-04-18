@@ -1,7 +1,10 @@
 ﻿using System.Web.Http;
 using FoodManager.DTO;
 using FoodManager.DTO.BaseResponse;
+using FoodManager.DTO.Message.AccessLevels;
 using FoodManager.DTO.Message.RoleConfigurations;
+using FoodManager.Infrastructure.Enums;
+using FoodManager.Infrastructure.Roles;
 using FoodManager.Services.Interfaces;
 
 namespace FoodManager.Controllers
@@ -43,6 +46,18 @@ namespace FoodManager.Controllers
         public SuccessResponse Delete(DeleteRoleConfigurationRequest request)
         {
             return _roleConfigurationService.Delete(request);
+        }
+
+        [HttpGet, Route("role-configurations/permissions")]
+        public EnumeratorResponse Get()
+        {
+            return new EnumeratorResponse { Enumerator = new PermissionType().ConvertToCollection() };
+        }
+
+        [HttpGet, Route("role-configurations/access-levels")]
+        public FindAccessLevelsResponse Get(FindAccessLevelsRequest request)
+        {
+            return _roleConfigurationService.Find(request);
         }
     }
 }

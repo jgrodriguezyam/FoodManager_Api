@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessLevels\IAccessLevelQuery.cs" />
+    <Compile Include="AccessLevels\AccessLevelQuery.cs" />
     <Compile Include="Branches\BranchQuery.cs" />
     <Compile Include="Branches\IBranchQuery.cs" />
     <Compile Include="Companies\CompanyQuery.cs" />

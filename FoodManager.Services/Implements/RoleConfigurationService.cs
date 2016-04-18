@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using FastMapper;
-using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
+using FoodManager.DTO.Message.AccessLevels;
 using FoodManager.DTO.Message.RoleConfigurations;
 using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
+using FoodManager.Queries.AccessLevels;
 using FoodManager.Queries.RoleConfigurations;
 using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
@@ -19,13 +20,15 @@ namespace FoodManager.Services.Implements
         private readonly IRoleConfigurationRepository _roleConfigurationRepository;
         private readonly IRoleConfigurationValidator _roleConfigurationValidator;
         private readonly IRoleConfigurationFactory _roleConfigurationFactory;
+        private readonly IAccessLevelQuery _accessLevelQuery;
 
-        public RoleConfigurationService(IRoleConfigurationQuery roleConfigurationQuery, IRoleConfigurationRepository roleConfigurationRepository, IRoleConfigurationValidator roleConfigurationValidator, IRoleConfigurationFactory roleConfigurationFactory)
+        public RoleConfigurationService(IRoleConfigurationQuery roleConfigurationQuery, IRoleConfigurationRepository roleConfigurationRepository, IRoleConfigurationValidator roleConfigurationValidator, IRoleConfigurationFactory roleConfigurationFactory, IAccessLevelQuery accessLevelQuery)
         {
             _roleConfigurationQuery = roleConfigurationQuery;
             _roleConfigurationRepository = roleConfigurationRepository;
             _roleConfigurationValidator = roleConfigurationValidator;
             _roleConfigurationFactory = roleConfigurationFactory;
+            _accessLevelQuery = accessLevelQuery;
         }
 
         public FindRoleConfigurationsResponse Find(FindRoleConfigurationsRequest request)
@@ -73,8 +76,8 @@ namespace FoodManager.Services.Implements
             {
                 var currentRoleConfiguration = _roleConfigurationRepository.FindBy(request.Id);
                 currentRoleConfiguration.ThrowExceptionIfRecordIsNull();
-                var RoleConfigurstionToCopy = TypeAdapter.Adapt<RoleConfiguration>(request);
-                TypeAdapter.Adapt(RoleConfigurstionToCopy, currentRoleConfiguration);
+                var roleConfigurstionToCopy = TypeAdapter.Adapt<RoleConfiguration>(request);
+                TypeAdapter.Adapt(roleConfigurstionToCopy, currentRoleConfiguration);
                 _roleConfigurationValidator.ValidateAndThrowException(currentRoleConfiguration, "Base,Update");
                 _roleConfigurationRepository.Update(currentRoleConfiguration);
                 return new SuccessResponse { IsSuccess = true };
@@ -107,6 +110,24 @@ namespace FoodManager.Services.Implements
                 roleConfiguration.ThrowExceptionIfRecordIsNull();
                 _roleConfigurationRepository.Remove(roleConfiguration);
                 return new SuccessResponse { IsSuccess = true };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public FindAccessLevelsResponse Find(FindAccessLevelsRequest request)
+        {
+            try
+            {
+                _accessLevelQuery.WithPermission(request.PermissionId);
+                var accessLevels = _accessLevelQuery.Execute();
+
+                return new FindAccessLevelsResponse
+                {
+                    AccessLevels = TypeAdapter.Adapt<List<AccessLevelResponse>>(accessLevels)
+                };
             }
             catch (DataAccessException)
             {
