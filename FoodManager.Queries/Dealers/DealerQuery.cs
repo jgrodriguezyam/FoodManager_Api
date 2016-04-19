@@ -64,10 +64,10 @@ namespace FoodManager.Queries.Dealers
             if (branchId.IsNotZero())
             {
                 var branchDealerQuery = new SqlServerExpressionVisitor<BranchDealer>();
-                branchDealerQuery.Where(branchDealer => branchDealer.BranchId != branchId);
+                branchDealerQuery.Where(branchDealer => branchDealer.BranchId == branchId);
                 var dealerIds = _dataBaseSqlServerOrmLite.FindExpressionVisitor(branchDealerQuery).Select(branchDealer => branchDealer.DealerId);
                 dealerIds = dealerIds.Count().IsNotZero() ? dealerIds : new[] { int.MinValue };
-                _query.Where(dealer => Sql.In(dealer.Id, dealerIds));
+                _query.Where(dealer => !Sql.In(dealer.Id, dealerIds));
             }
         }
 
