@@ -7,11 +7,11 @@ using FoodManager.Services.Interfaces;
 
 namespace FoodManager.Controllers
 {
-    public class SaucerConfiguracionController : ApiController
+    public class SaucerConfigurationController : ApiController
     {
         private readonly ISaucerConfigurationService _saucerConfigurationService;
 
-        public SaucerConfiguracionController(ISaucerConfigurationService saucerConfigurationService)
+        public SaucerConfigurationController(ISaucerConfigurationService saucerConfigurationService)
         {
             _saucerConfigurationService = saucerConfigurationService;
         }

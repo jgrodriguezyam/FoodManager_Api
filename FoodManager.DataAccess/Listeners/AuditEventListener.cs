@@ -50,7 +50,7 @@ namespace FoodManager.DataAccess.Listeners
             if (loginType.Value == LoginType.Worker.GetValue())
                 id = _hmacHelper.FindWorkerByPublicKey(headerPublicKey).Id;
 
-            //const int userId = 1;
+            //const int id = 1;
             var entityToAudit = entity as IAuditInfo;
             var today = DateTime.Now.ToDateTimeString().DateTimeStringToDateTime();
 
