@@ -160,7 +160,7 @@
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\RoleConfigurationController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
-    <Compile Include="Controllers\SaucerConfiguracionController.cs" />
+    <Compile Include="Controllers\SaucerConfigurationController.cs" />
     <Compile Include="Controllers\SaucerController.cs" />
     <Compile Include="Controllers\SaucerMultimediaController.cs" />
     <Compile Include="Controllers\TipController.cs" />
