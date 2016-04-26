@@ -6,6 +6,7 @@ using FoodManager.Infrastructure.Strings;
 using FoodManager.Model;
 using FoodManager.OrmLite.DataBase;
 using FoodManager.OrmLite.Utils;
+using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.SqlServer;
 
 namespace FoodManager.Queries.Ingredients
@@ -49,6 +50,12 @@ namespace FoodManager.Queries.Ingredients
         {
             if (name.IsNotNullOrEmpty())
                 _query.Where(ingredient => ingredient.Name.Contains(name));
+        }
+
+        public void WithoutIds(string ids)
+        {
+            if (ids.IsNotNullOrEmpty())
+                _query.Where(ingredient => !Sql.In(ingredient.Id, ids.Split(',')));
         }
 
         public void Sort(string sort, string sortBy)

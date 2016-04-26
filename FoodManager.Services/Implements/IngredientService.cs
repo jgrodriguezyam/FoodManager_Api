@@ -37,6 +37,7 @@ namespace FoodManager.Services.Implements
                 _ingredientQuery.WithOnlyStatusDeactivated(request.OnlyStatusDeactivated);
                 _ingredientQuery.WithIngredientGroup(request.IngredientGroupId);
                 _ingredientQuery.WithName(request.Name);
+                _ingredientQuery.WithoutIds(request.WithoutIds);
                 _ingredientQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _ingredientQuery.TotalRecords();
                 _ingredientQuery.Paginate(request.StartPage, request.EndPage);

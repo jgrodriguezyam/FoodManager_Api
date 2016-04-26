@@ -11,6 +11,7 @@ namespace FoodManager.Queries.Ingredients
         void WithOnlyStatusDeactivated(bool onlyStatusDeactivated);
         void WithIngredientGroup(int ingredientGroupId);
         void WithName(string name);
+        void WithoutIds(string ids);
         IEnumerable<Ingredient> Execute();
     }
 }

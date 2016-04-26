@@ -6,5 +6,6 @@ namespace FoodManager.DTO.Message.Ingredients
     {
         public int IngredientGroupId { get; set; }
         public string Name { get; set; }
+        public string WithoutIds { get; set; }
     }
 }
