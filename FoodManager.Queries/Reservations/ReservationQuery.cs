@@ -54,7 +54,7 @@ namespace FoodManager.Queries.Reservations
         public void WithOnlyToday(bool onlyToday)
         {
             if (onlyToday)
-                _query.Where(reservation => reservation.Date.Date == DateTime.Now.Date);
+                _query.Where(reservation => reservation.Date == DateTime.Now.Date);
         }
 
         public void Sort(string sort, string sortBy)
