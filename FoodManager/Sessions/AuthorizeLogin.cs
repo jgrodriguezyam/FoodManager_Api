@@ -100,11 +100,8 @@ namespace FoodManager.Sessions
             var serialDecrypt = Cryptography.Decrypt(SerialSettings.Serial).Split(' ');
             var date = serialDecrypt[0].DateStringToDateTime();
             var company = serialDecrypt[1];
-            if (date < DateTime.Now.Date)
-                ExceptionExtensions.ThrowCustomException(HttpStatusCode.ExpectationFailed, "Ya vencio el serial");
-
-            if (company.IsNotEqualTo(GlobalConstants.CompanyKey))
-                ExceptionExtensions.ThrowCustomException(HttpStatusCode.ExpectationFailed, "El serial no pernece a la compania");
+            if (date < DateTime.Now.Date || company.IsNotEqualTo(GlobalConstants.CompanyKey))
+                ExceptionExtensions.ThrowCustomException(HttpStatusCode.ExpectationFailed, "El serial no es valido favor de renovarlo");
         }
     }
 }
