@@ -25,6 +25,7 @@ namespace FoodManager.Infrastructure.Constants
         public static readonly string LoginType = "LoginType";
 
         public static readonly string CryptographyKey = "FoodManagerKey";
+        public static readonly string CompanyKey = "BEPENSA";
 
         public static readonly int ActivatedMigration = 1;
         public static readonly int StatusActivatedMigration = 1;

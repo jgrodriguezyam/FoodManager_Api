@@ -1,13 +1,17 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using FoodManager.Infrastructure.Constants;
+using FoodManager.Infrastructure.Dates;
 using FoodManager.Infrastructure.Enums;
 using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Infrastructure.Objects;
 using FoodManager.Infrastructure.Strings;
+using FoodManager.Infrastructure.Utils;
 using FoodManager.Infrastructure.Validators.Enums;
+using FoodManager.Infrastructure.Validators.Serials;
 using FoodManager.IoC.Configs;
 using FoodManager.Model.IHmac;
 using FoodManager.OrmLite.DataBase;
@@ -18,6 +22,7 @@ namespace FoodManager.Sessions
     {
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
+            SerialValidator();
             if (LoginValidator.ActionValidationHmac(actionContext))
             {
                 var headerTimespan = actionContext.Request.Headers.GetValues(GlobalConstants.Timespan).First();
@@ -88,6 +93,18 @@ namespace FoodManager.Sessions
             }
 
             return string.Empty;
+        }
+
+        private void SerialValidator()
+        {
+            var serialDecrypt = Cryptography.Decrypt(SerialSettings.Serial).Split(' ');
+            var date = serialDecrypt[0].DateStringToDateTime();
+            var company = serialDecrypt[1];
+            if (date < DateTime.Now.Date)
+                ExceptionExtensions.ThrowCustomException(HttpStatusCode.ExpectationFailed, "Ya vencio el serial");
+
+            if (company.IsNotEqualTo(GlobalConstants.CompanyKey))
+                ExceptionExtensions.ThrowCustomException(HttpStatusCode.ExpectationFailed, "El serial no pernece a la compania");
         }
     }
 }

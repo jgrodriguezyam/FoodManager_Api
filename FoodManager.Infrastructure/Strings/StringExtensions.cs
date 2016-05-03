@@ -22,5 +22,15 @@ namespace FoodManager.Infrastructure.Strings
             }
             return null;
         }
+
+        public static bool IsEqualTo(this string value, string valueToCompare)
+        {
+            return value == valueToCompare;
+        }
+
+        public static bool IsNotEqualTo(this string value, string valueToCompare)
+        {
+            return !IsEqualTo(value, valueToCompare);
+        }
     }
 }
