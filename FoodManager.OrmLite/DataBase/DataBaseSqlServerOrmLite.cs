@@ -128,7 +128,7 @@ namespace FoodManager.OrmLite.DataBase
 
         public T GetByIdOrDefault<T>(int id) where T : new()
         {
-            var filter = string.Format("Id = {1}", RegisterActivate, id);
+            var filter = string.Format("Id = {0}", id);
             var item = DbConnection.SingleOrDefault<T>(filter);
             return item;
         }

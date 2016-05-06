@@ -63,7 +63,7 @@ namespace FoodManager.Services.Implements
             {
                 var saucerMultimedia = TypeAdapter.Adapt<SaucerMultimedia>(request);
                 _saucerMultimediaValidator.ValidateAndThrowException(saucerMultimedia, "Base");
-                _fileValidator.ValidateAndThrowException(file, "Base");
+                //_fileValidator.ValidateAndThrowException(file, "Base");
                 var savedFilePath = _storageProvider.Save(file);
                 saucerMultimedia.Path = savedFilePath;
                 _saucerMultimediaRepository.Add(saucerMultimedia);
