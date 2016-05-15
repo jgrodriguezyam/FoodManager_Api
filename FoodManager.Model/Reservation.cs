@@ -18,6 +18,7 @@ namespace FoodManager.Model
         public decimal Sodium { get; set; }
         public int WorkerId { get; set; }
         public int SaucerId { get; set; }
+        public int DealerId { get; set; }
 
         public bool IsActive { get; set; }
     }

@@ -37,6 +37,7 @@ namespace FoodManager.Services.Implements
                 _reservationQuery.WithOnlyStatusDeactivated(request.OnlyStatusDeactivated);
                 _reservationQuery.WithWorker(request.WorkerId);
                 _reservationQuery.WithSaucer(request.SaucerId);
+                _reservationQuery.WithDealer(request.DealerId);
                 _reservationQuery.WithOnlyToday(request.OnlyToday);
                 _reservationQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _reservationQuery.TotalRecords();

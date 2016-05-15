@@ -15,18 +15,21 @@ namespace FoodManager.Services.Validators.Implements
     {
         private readonly IWorkerRepository _workerRepository;
         private readonly ISaucerRepository _saucerRepository;
+        private readonly IDealerRepository _dealerRepository;
         private readonly DateTime _today = DateTime.Now;
 
-        public ReservationValidator(IWorkerRepository workerRepository, ISaucerRepository saucerRepository)
+        public ReservationValidator(IWorkerRepository workerRepository, ISaucerRepository saucerRepository, IDealerRepository dealerRepository)
         {
             _workerRepository = workerRepository;
             _saucerRepository = saucerRepository;
+            _dealerRepository = dealerRepository;
 
             RuleSet("Base", () =>
             {
                 RuleFor(reservation => reservation.Date).NotNull().NotEmpty();
                 RuleFor(reservation => reservation.WorkerId).Must(workerId => workerId.IsNotZero()).WithMessage("Tienes que elegir un trabajador");
                 RuleFor(reservation => reservation.SaucerId).Must(saucerId => saucerId.IsNotZero()).WithMessage("Tienes que elegir un platillo");
+                RuleFor(reservation => reservation.DealerId).Must(dealerId => dealerId.IsNotZero()).WithMessage("Tienes que elegir un distribuidor");
                 Custom(ReferencesValidate);
                 Custom(DateValidate);
             });
@@ -41,6 +44,10 @@ namespace FoodManager.Services.Validators.Implements
             var saucer = _saucerRepository.FindBy(reservation.SaucerId);
             if (saucer.IsNull() || saucer.Status.Equals(GlobalConstants.StatusDeactivated))
                 return new ValidationFailure("Reservation", "El platillo esta desactivado o no existe");
+
+            var dealer = _dealerRepository.FindBy(reservation.DealerId);
+            if (dealer.IsNull() || dealer.Status.Equals(GlobalConstants.StatusDeactivated))
+                return new ValidationFailure("Reservation", "El distribuidor esta desactivado o no existe");
 
             return null;
         }

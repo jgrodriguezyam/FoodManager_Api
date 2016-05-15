@@ -1,7 +1,5 @@
-﻿using System;
-using FluentMigrator;
+﻿using FluentMigrator;
 using FoodManager.Infrastructure.Constants;
-using FoodManager.Infrastructure.Dates;
 using FoodManager.Infrastructure.Enums;
 using FoodManager.Infrastructure.Utils;
 using FoodManager.Model.Enums;
@@ -397,6 +395,7 @@ namespace FoodManager.Migrations.Sprint_01
                 .WithColumn("Sodium").AsDecimal().NotNullable()
                 .WithColumn("WorkerId").AsInt32().NotNullable()
                 .WithColumn("SaucerId").AsInt32().NotNullable()
+                .WithColumn("DealerId").AsInt32().NotNullable()
 
                 .WithColumn("CreatedBy").AsInt32().NotNullable()
                 .WithColumn("ModifiedBy").AsInt32().NotNullable()
@@ -409,6 +408,8 @@ namespace FoodManager.Migrations.Sprint_01
                  .ToTable("Worker").InSchema("dbo").PrimaryColumn("Id");
             Create.ForeignKey("FK_Reservation_Saucer").FromTable("Reservation").InSchema("dbo").ForeignColumn("SaucerId")
                  .ToTable("Saucer").InSchema("dbo").PrimaryColumn("Id");
+            Create.ForeignKey("FK_Reservation_Dealer").FromTable("Reservation").InSchema("dbo").ForeignColumn("DealerId")
+                 .ToTable("Dealer").InSchema("dbo").PrimaryColumn("Id");
 
             #endregion
 
@@ -429,6 +430,7 @@ namespace FoodManager.Migrations.Sprint_01
 
             Delete.ForeignKey("FK_Reservation_Worker").OnTable("Reservation").InSchema("dbo");
             Delete.ForeignKey("FK_Reservation_Saucer").OnTable("Reservation").InSchema("dbo");
+            Delete.ForeignKey("FK_Reservation_Dealer").OnTable("Reservation").InSchema("dbo");
             Delete.Table("Reservation").InSchema("dbo");
 
             #endregion

@@ -51,6 +51,12 @@ namespace FoodManager.Queries.Reservations
                 _query.Where(reservation => reservation.SaucerId == saucerId);
         }
 
+        public void WithDealer(int dealerId)
+        {
+            if (dealerId.IsNotZero())
+                _query.Where(reservation => reservation.DealerId == dealerId);
+        }
+
         public void WithOnlyToday(bool onlyToday)
         {
             if (onlyToday)
