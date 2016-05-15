@@ -13,6 +13,7 @@ namespace FoodManager.Queries.Reservations
         void WithSaucer(int saucerId);
         void WithDealer(int dealerId);
         void WithOnlyToday(bool onlyToday);
+        void WithDate(string date);
         IEnumerable<Reservation> Execute();
     }
 }

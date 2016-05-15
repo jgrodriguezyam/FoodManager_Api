@@ -8,5 +8,6 @@ namespace FoodManager.DTO.Message.Reservations
         public int SaucerId { get; set; }
         public int DealerId { get; set; }
         public bool OnlyToday { get; set; }
+        public string Date { get; set; }
     }
 }

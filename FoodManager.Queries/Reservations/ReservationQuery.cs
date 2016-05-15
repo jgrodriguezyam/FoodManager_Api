@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using FoodManager.Infrastructure.Constants;
+using FoodManager.Infrastructure.Dates;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Queries;
+using FoodManager.Infrastructure.Strings;
 using FoodManager.Model;
 using FoodManager.OrmLite.DataBase;
 using FoodManager.OrmLite.Utils;
@@ -61,6 +63,12 @@ namespace FoodManager.Queries.Reservations
         {
             if (onlyToday)
                 _query.Where(reservation => reservation.Date == DateTime.Now.Date);
+        }
+
+        public void WithDate(string date)
+        {
+            if (date.IsNotNullOrEmpty())
+                _query.Where(reservation => reservation.Date == date.DateStringToDateTime());
         }
 
         public void Sort(string sort, string sortBy)
