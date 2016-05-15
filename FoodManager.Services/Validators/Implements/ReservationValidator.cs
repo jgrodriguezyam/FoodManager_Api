@@ -1,6 +1,7 @@
 ﻿using System;
 using FluentValidation;
 using FluentValidation.Results;
+using FoodManager.Infrastructure.Collections;
 using FoodManager.Infrastructure.Constants;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Objects;
@@ -16,13 +17,15 @@ namespace FoodManager.Services.Validators.Implements
         private readonly IWorkerRepository _workerRepository;
         private readonly ISaucerRepository _saucerRepository;
         private readonly IDealerRepository _dealerRepository;
+        private readonly IReservationRepository _reservationRepository;
         private readonly DateTime _today = DateTime.Now;
 
-        public ReservationValidator(IWorkerRepository workerRepository, ISaucerRepository saucerRepository, IDealerRepository dealerRepository)
+        public ReservationValidator(IWorkerRepository workerRepository, ISaucerRepository saucerRepository, IDealerRepository dealerRepository, IReservationRepository reservationRepository)
         {
             _workerRepository = workerRepository;
             _saucerRepository = saucerRepository;
             _dealerRepository = dealerRepository;
+            _reservationRepository = reservationRepository;
 
             RuleSet("Base", () =>
             {
@@ -32,6 +35,16 @@ namespace FoodManager.Services.Validators.Implements
                 RuleFor(reservation => reservation.DealerId).Must(dealerId => dealerId.IsNotZero()).WithMessage("Tienes que elegir un distribuidor");
                 Custom(ReferencesValidate);
                 Custom(DateValidate);
+            });
+
+            RuleSet("Create", () =>
+            {
+                Custom(CreateReservationValidate);
+            });
+
+            RuleSet("Update", () =>
+            {
+                Custom(UpdateReservationValidate);
             });
         }
 
@@ -54,8 +67,33 @@ namespace FoodManager.Services.Validators.Implements
 
         public ValidationFailure DateValidate(Reservation reservation, ValidationContext<Reservation> context)
         {
-            if (reservation.Date.Date != _today.Date)
-                return new ValidationFailure("Menu", "La fecha de inicio es menor o mayor a la fecha de hoy");
+            if (reservation.Date.Date < _today.Date)
+                return new ValidationFailure("Reservation", "La fecha de reservacion es menor a la fecha de hoy");
+
+            return null;
+        }
+
+        public ValidationFailure CreateReservationValidate(Reservation reservation, ValidationContext<Reservation> context)
+        {
+            var reservationRetrieved = _reservationRepository.FindBy(reservatio => reservatio.Date == reservation.Date &&
+                                                                                   reservatio.SaucerId == reservation.SaucerId &&
+                                                                                   reservatio.WorkerId == reservation.WorkerId &&
+                                                                                   reservatio.DealerId == reservation.DealerId);
+            if (reservationRetrieved.IsNotEmpty())
+                return new ValidationFailure("Reservation", "Ya existe una reservacion para ese platillo");
+
+            return null;
+        }
+
+        public ValidationFailure UpdateReservationValidate(Reservation reservation, ValidationContext<Reservation> context)
+        {
+            var reservationRetrieved = _reservationRepository.FindBy(reservatio => reservatio.Date == reservation.Date &&
+                                                                                   reservatio.SaucerId == reservation.SaucerId &&
+                                                                                   reservatio.WorkerId == reservation.WorkerId &&
+                                                                                   reservatio.DealerId == reservation.DealerId &&
+                                                                                   reservatio.Id != reservation.Id);
+            if (reservationRetrieved.IsNotEmpty())
+                return new ValidationFailure("Reservation", "Ya existe una reservacion para ese platillo");
 
             return null;
         }

@@ -62,7 +62,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var reservation = TypeAdapter.Adapt<Reservation>(request);
-                _reservationValidator.ValidateAndThrowException(reservation, "Base");
+                _reservationValidator.ValidateAndThrowException(reservation, "Base,Create");
                 _reservationFactory.SetNutritionInformation(reservation);
                 _reservationRepository.Add(reservation);
                 return new CreateResponse(reservation.Id);
@@ -81,7 +81,7 @@ namespace FoodManager.Services.Implements
                 currentReservation.ThrowExceptionIfRecordIsNull();
                 var reservationToCopy = TypeAdapter.Adapt<Reservation>(request);
                 TypeAdapter.Adapt(reservationToCopy, currentReservation);
-                _reservationValidator.ValidateAndThrowException(currentReservation, "Base");
+                _reservationValidator.ValidateAndThrowException(currentReservation, "Base,Update");
                 _reservationFactory.SetNutritionInformation(currentReservation);
                 _reservationRepository.Update(currentReservation);
                 return new SuccessResponse { IsSuccess = true };
