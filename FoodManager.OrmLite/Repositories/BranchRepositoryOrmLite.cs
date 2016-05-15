@@ -51,6 +51,7 @@ namespace FoodManager.OrmLite.Repositories
         public bool IsReference(int branchId)
         {
             var amountOfReferences = _dataBaseSqlServerOrmLite.Count<BranchDealer>(branchDealer => branchDealer.BranchId == branchId);
+            amountOfReferences += _dataBaseSqlServerOrmLite.Count<Worker>(worker => worker.BranchId == branchId && worker.IsActive);
             return amountOfReferences.IsNotZero();
         }
     }

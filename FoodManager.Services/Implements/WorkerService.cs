@@ -44,6 +44,7 @@ namespace FoodManager.Services.Implements
                 _workerQuery.WithJob(request.JobId);
                 _workerQuery.WithDealer(request.DealerId);
                 _workerQuery.WithRole(request.RoleId);
+                _workerQuery.WithBranch(request.BranchId);
                 _workerQuery.WithCode(request.Code);
                 _workerQuery.WithEmail(request.Email);
                 _workerQuery.WithBadge(request.Badge);

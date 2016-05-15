@@ -63,6 +63,12 @@ namespace FoodManager.Queries.Workers
                 _query.Where(worker => worker.RoleId == roleId);
         }
 
+        public void WithBranch(int branchId)
+        {
+            if (branchId.IsNotZero())
+                _query.Where(worker => worker.BranchId == branchId);
+        }
+
         public void WithCode(string code)
         {
             if (code.IsNotNullOrEmpty())
