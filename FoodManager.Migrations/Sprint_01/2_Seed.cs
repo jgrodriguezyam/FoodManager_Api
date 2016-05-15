@@ -335,7 +335,6 @@ namespace FoodManager.Migrations.Sprint_01
                 .WithColumn("Time").AsString(250).Nullable()
                 .WithColumn("DepartmentId").AsInt32().NotNullable()
                 .WithColumn("JobId").AsInt32().NotNullable()
-                .WithColumn("DealerId").AsInt32().NotNullable()
                 .WithColumn("RoleId").AsInt32().NotNullable()
                 .WithColumn("BranchId").AsInt32().NotNullable()
 
@@ -350,8 +349,6 @@ namespace FoodManager.Migrations.Sprint_01
                  .ToTable("Department").InSchema("dbo").PrimaryColumn("Id");
             Create.ForeignKey("FK_Worker_Job").FromTable("Worker").InSchema("dbo").ForeignColumn("JobId")
                  .ToTable("Job").InSchema("dbo").PrimaryColumn("Id");
-            Create.ForeignKey("FK_Worker_Dealer").FromTable("Worker").InSchema("dbo").ForeignColumn("DealerId")
-                 .ToTable("Dealer").InSchema("dbo").PrimaryColumn("Id");
             Create.ForeignKey("FK_Worker_Role").FromTable("Worker").InSchema("dbo").ForeignColumn("RoleId")
                 .ToTable("Role").InSchema("dbo").PrimaryColumn("Id");
             Create.ForeignKey("FK_Worker_Branch").FromTable("Worker").InSchema("dbo").ForeignColumn("BranchId")
@@ -440,7 +437,6 @@ namespace FoodManager.Migrations.Sprint_01
 
             Delete.ForeignKey("FK_Worker_Department").OnTable("Worker").InSchema("dbo");
             Delete.ForeignKey("FK_Worker_Job").OnTable("Worker").InSchema("dbo");
-            Delete.ForeignKey("FK_Worker_Dealer").OnTable("Worker").InSchema("dbo");
             Delete.ForeignKey("FK_Worker_Role").OnTable("Worker").InSchema("dbo");
             Delete.ForeignKey("FK_Worker_Branch").OnTable("Worker").InSchema("dbo");
             Delete.Table("Worker").InSchema("dbo");
@@ -628,9 +624,9 @@ namespace FoodManager.Migrations.Sprint_01
                         "(1, 1, 3, " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(1, 2, 3, " + GlobalConstants.CreatedBySystemUser + ")");
 
-            Execute.Sql("INSERT INTO Worker (Code, FirstName, LastName, Email, Imss, Gender, Badge, DepartmentId, JobId, DealerId, BranchId, RoleId, " + GlobalConstants.AuditFields + ") VALUES " +
-                        "('1122', 'Juan', 'Martinez', 'juan@gmail.com', 'WV12H78', 1, '010107002113774', 1, 1, 1, 1, " + GlobalConstants.WorkerRoleId + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "('3344', 'Luis', 'Hernandez', 'luis@gmail.com', 'kV34H23', 1, '010107002112355', 1, 1, 1, 1, " + GlobalConstants.WorkerRoleId + ", " + GlobalConstants.CreatedBySystemUser + ")");
+            Execute.Sql("INSERT INTO Worker (Code, FirstName, LastName, Email, Imss, Gender, Badge, DepartmentId, JobId, BranchId, RoleId, " + GlobalConstants.AuditFields + ") VALUES " +
+                        "('1122', 'Juan', 'Martinez', 'juan@gmail.com', 'WV12H78', 1, '010107002113774', 1, 1, 1, " + GlobalConstants.WorkerRoleId + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "('3344', 'Luis', 'Hernandez', 'luis@gmail.com', 'kV34H23', 1, '010107002112355', 1, 1, 1, " + GlobalConstants.WorkerRoleId + ", " + GlobalConstants.CreatedBySystemUser + ")");
         }
     }
 }

@@ -9,15 +9,13 @@ namespace FoodManager.Services.Factories.Implements
     {
         private readonly IDepartmentRepository _departmentRepository;
         private readonly IJobRepository _jobRepository;
-        private readonly IDealerRepository _dealerRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly IBranchRepository _branchRepository;
 
-        public WorkerFactory(IDepartmentRepository departmentRepository, IJobRepository jobRepository, IDealerRepository dealerRepository, IRoleRepository roleRepository, IBranchRepository branchRepository)
+        public WorkerFactory(IDepartmentRepository departmentRepository, IJobRepository jobRepository, IRoleRepository roleRepository, IBranchRepository branchRepository)
         {
             _departmentRepository = departmentRepository;
             _jobRepository = jobRepository;
-            _dealerRepository = dealerRepository;
             _roleRepository = roleRepository;
             _branchRepository = branchRepository;
         }
@@ -29,8 +27,6 @@ namespace FoodManager.Services.Factories.Implements
             workerDto.Department = TypeAdapter.Adapt<DTO.Department>(department);
             var job = _jobRepository.FindBy(worker.JobId);
             workerDto.Job = TypeAdapter.Adapt<DTO.Job>(job);
-            var dealer = _dealerRepository.FindBy(worker.DealerId);
-            workerDto.Dealer = TypeAdapter.Adapt<DTO.Dealer>(dealer);
             var role = _roleRepository.FindBy(worker.RoleId);
             workerDto.Role = TypeAdapter.Adapt<DTO.Role>(role);
             var branch = _branchRepository.FindBy(worker.BranchId);

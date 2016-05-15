@@ -17,15 +17,13 @@ namespace FoodManager.Services.Validators.Implements
     {
         private readonly IDepartmentRepository _departmentRepository;
         private readonly IJobRepository _jobRepository;
-        private readonly IDealerRepository _dealerRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly IBranchRepository _branchRepository;
 
-        public WorkerValidator(IDepartmentRepository departmentRepository, IJobRepository jobRepository, IDealerRepository dealerRepository, IRoleRepository roleRepository, IBranchRepository branchRepository)
+        public WorkerValidator(IDepartmentRepository departmentRepository, IJobRepository jobRepository, IRoleRepository roleRepository, IBranchRepository branchRepository)
         {
             _departmentRepository = departmentRepository;
             _jobRepository = jobRepository;
-            _dealerRepository = dealerRepository;
             _roleRepository = roleRepository;
             _branchRepository = branchRepository;
 
@@ -40,7 +38,6 @@ namespace FoodManager.Services.Validators.Implements
                 RuleFor(worker => worker.Badge).NotNull().NotEmpty();
                 RuleFor(worker => worker.DepartmentId).Must(departmentId => departmentId.IsNotZero()).WithMessage("Tienes que elegir un departamento");
                 RuleFor(worker => worker.JobId).Must(jobId => jobId.IsNotZero()).WithMessage("Tienes que elegir un puesto");
-                RuleFor(worker => worker.DealerId).Must(dealerId => dealerId.IsNotZero()).WithMessage("Tienes que elegir un distribuidor");
                 RuleFor(worker => worker.RoleId).Must(roleId => roleId.IsNotZero()).WithMessage("Tienes que elegir un rol");
                 RuleFor(worker => worker.BranchId).Must(branchId => branchId.IsNotZero()).WithMessage("Tienes que elegir una sucursal");
                 Custom(ReferencesValidate);
@@ -60,10 +57,6 @@ namespace FoodManager.Services.Validators.Implements
             var job = _jobRepository.FindBy(worker.JobId);
             if (job.IsNull() || job.Status.Equals(GlobalConstants.StatusDeactivated))
                 return new ValidationFailure("Worker", "El puesto esta desactivado o no existe");
-
-            var dealer = _dealerRepository.FindBy(worker.DealerId);
-            if (dealer.IsNull() || dealer.Status.Equals(GlobalConstants.StatusDeactivated))
-                return new ValidationFailure("Worker", "El distribuidor esta desactivado o no existe");
 
             var role = _roleRepository.FindBy(worker.RoleId);
             if (role.IsNull() || role.Status.Equals(GlobalConstants.StatusDeactivated))

@@ -51,12 +51,6 @@ namespace FoodManager.Queries.Workers
                 _query.Where(worker => worker.JobId == jobId);
         }
 
-        public void WithDealer(int dealerId)
-        {
-            if (dealerId.IsNotZero())
-                _query.Where(worker => worker.DealerId == dealerId);
-        }
-
         public void WithRole(int roleId)
         {
             if (roleId.IsNotZero())

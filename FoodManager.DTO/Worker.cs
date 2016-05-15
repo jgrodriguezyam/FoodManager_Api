@@ -12,7 +12,6 @@
         public string Badge { get; set; }
         public Department Department { get; set; }
         public Job Job { get; set; }
-        public Dealer Dealer { get; set; }
         public Role Role { get; set; }
         public Branch Branch { get; set; }
         public bool Status { get; set; }
