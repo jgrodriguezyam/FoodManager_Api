@@ -37,5 +37,6 @@ namespace FoodManager.Infrastructure.Constants
         public static readonly bool StatusDeactivated = false;
 
         public static readonly string CreatedBySystemUser =  SystemUserId + ", " + SystemUserId + ", '" + DateTime.Now.ToDateTimeStringDb() + "', '" + DateTime.Now.ToDateTimeStringDb() + "', " + StatusActivatedMigration + ", " + ActivatedMigration;
+        public static readonly string AuditFields = "CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive";
     }
 }

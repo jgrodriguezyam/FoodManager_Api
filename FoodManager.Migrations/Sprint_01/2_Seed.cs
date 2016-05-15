@@ -72,17 +72,13 @@ namespace FoodManager.Migrations.Sprint_01
             Create.Table("Department").InSchema("dbo")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(250).NotNullable()
-                .WithColumn("BranchId").AsInt32().NotNullable()
-
+                
                 .WithColumn("CreatedBy").AsInt32().NotNullable()
                 .WithColumn("ModifiedBy").AsInt32().NotNullable()
                 .WithColumn("CreatedOn").AsDateTime().NotNullable()
                 .WithColumn("ModifiedOn").AsDateTime().NotNullable()
                 .WithColumn("Status").AsBoolean().NotNullable()
                 .WithColumn("IsActive").AsBoolean();
-
-            Create.ForeignKey("FK_Department_Branch").FromTable("Department").InSchema("dbo").ForeignColumn("BranchId")
-                 .ToTable("Branch").InSchema("dbo").PrimaryColumn("Id");
 
             #endregion
 
@@ -449,7 +445,6 @@ namespace FoodManager.Migrations.Sprint_01
 
             #region Department
 
-            Delete.ForeignKey("FK_Department_Branch").OnTable("Department").InSchema("dbo");
             Delete.Table("Department").InSchema("dbo");
 
             #endregion
@@ -566,70 +561,70 @@ namespace FoodManager.Migrations.Sprint_01
 
         private void Init()
         {
-            Execute.Sql("INSERT INTO Region (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+            Execute.Sql("INSERT INTO Region (Name, "+ GlobalConstants.AuditFields + ") VALUES " +
                         "('Yucatan', " + GlobalConstants.CreatedBySystemUser + ")," +
                         "('Campeche', " + GlobalConstants.CreatedBySystemUser + ")");
 
-            Execute.Sql("INSERT INTO Company (Name, RegionId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+            Execute.Sql("INSERT INTO Company (Name, RegionId, " + GlobalConstants.AuditFields + ") VALUES " +
                         "('Bepensa Industria', 1, " + GlobalConstants.CreatedBySystemUser + ")," +
                         "('Bepensa Bebidas', 1, " + GlobalConstants.CreatedBySystemUser + ")");
 
-            Execute.Sql("INSERT INTO Branch (Name, Code, CompanyId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+            Execute.Sql("INSERT INTO Branch (Name, Code, CompanyId, " + GlobalConstants.AuditFields + ") VALUES " +
                         "('Opesystem', 'CODE1', 1, " + GlobalConstants.CreatedBySystemUser + ")," +
                         "('Finbe', 'CODE2', 1, " + GlobalConstants.CreatedBySystemUser + ")");
 
-            Execute.Sql("INSERT INTO Department (Name, BranchId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
-                        "('Desarrollo', 1, " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "('HelpDesk', 1, " + GlobalConstants.CreatedBySystemUser + ")");
+            Execute.Sql("INSERT INTO Department (Name, " + GlobalConstants.AuditFields + ") VALUES " +
+                        "('Desarrollo', " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "('HelpDesk', " + GlobalConstants.CreatedBySystemUser + ")");
 
-            Execute.Sql("INSERT INTO [User] (Name, UserName, Password, RoleId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+            Execute.Sql("INSERT INTO [User] (Name, UserName, Password, RoleId, " + GlobalConstants.AuditFields + ") VALUES " +
                         "('" + GlobalConstants.AdminUserName + "', '" + GlobalConstants.AdminUserName + "', '" + Cryptography.Encrypt(GlobalConstants.AdminPassword) + "', "+ GlobalConstants.AdminRoleId + ", " + GlobalConstants.CreatedBySystemUser + ")");
 
-            Execute.Sql("INSERT INTO Disease (Name, Code, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+            Execute.Sql("INSERT INTO Disease (Name, Code, " + GlobalConstants.AuditFields + ") VALUES " +
                         "('Enfermedad cardiaca', 'CODE1', " + GlobalConstants.CreatedBySystemUser + ")," +
                         "('Diabetes', 'CODE2', " + GlobalConstants.CreatedBySystemUser + ")");
 
-            Execute.Sql("INSERT INTO Warning (Name, Code, DiseaseId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+            Execute.Sql("INSERT INTO Warning (Name, Code, DiseaseId, " + GlobalConstants.AuditFields + ") VALUES " +
                         "('Te estas pasando de calorias', 'CODE1', 1, " + GlobalConstants.CreatedBySystemUser + ")," +
                         "('Cuidado con tu alimentacion', 'CODE2', 1, " + GlobalConstants.CreatedBySystemUser + ")");
 
-            Execute.Sql("INSERT INTO Job (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+            Execute.Sql("INSERT INTO Job (Name, " + GlobalConstants.AuditFields + ") VALUES " +
                         "('Secretaria', " + GlobalConstants.CreatedBySystemUser + ")," +
                         "('Programador', " + GlobalConstants.CreatedBySystemUser + ")");
 
-            Execute.Sql("INSERT INTO Tip (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+            Execute.Sql("INSERT INTO Tip (Name, " + GlobalConstants.AuditFields + ") VALUES " +
                         "('Nunca olvides que el desayuno es primordial', " + GlobalConstants.CreatedBySystemUser + ")," +
                         "('Evita catalogar los alimentos', " + GlobalConstants.CreatedBySystemUser + ")");
 
-            Execute.Sql("INSERT INTO Dealer (Name, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+            Execute.Sql("INSERT INTO Dealer (Name, " + GlobalConstants.AuditFields + ") VALUES " +
                         "('Areca', " + GlobalConstants.CreatedBySystemUser + ")," +
                         "('Cocina Walter', " + GlobalConstants.CreatedBySystemUser + ")");
 
             Execute.Sql("INSERT INTO BranchDealer (BranchId, DealerId) VALUES (1,1), (1,2)");
 
-            Execute.Sql("INSERT INTO Saucer (Name, Type, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+            Execute.Sql("INSERT INTO Saucer (Name, Type, " + GlobalConstants.AuditFields + ") VALUES " +
                         "('Frijol con puerco', " + SaucerType.Main.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "('Pechuga asada', " + SaucerType.Main.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")");
 
             Execute.Sql("INSERT INTO DealerSaucer (DealerId, SaucerId) VALUES (1,1), (1,2)");
 
-            Execute.Sql("INSERT INTO SaucerMultimedia (Path, SaucerId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+            Execute.Sql("INSERT INTO SaucerMultimedia (Path, SaucerId, " + GlobalConstants.AuditFields + ") VALUES " +
                         "('Frijol1.jpg', 1, " + GlobalConstants.CreatedBySystemUser + ")," +
                         "('Frijol2.jpg', 1, " + GlobalConstants.CreatedBySystemUser + ")");
 
-            Execute.Sql("INSERT INTO IngredientGroup (Name, Color, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+            Execute.Sql("INSERT INTO IngredientGroup (Name, Color, " + GlobalConstants.AuditFields + ") VALUES " +
                         "('Carnes y Pescado', 'Rojo', " + GlobalConstants.CreatedBySystemUser + ")," +
                         "('Verduras y Frutas', 'Verde', " + GlobalConstants.CreatedBySystemUser + ")");
 
-            Execute.Sql("INSERT INTO Ingredient (Name, Amount, Energy, Protein, Carbohydrate, Sugar, Lipid, Sodium, IngredientGroupId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+            Execute.Sql("INSERT INTO Ingredient (Name, Amount, Energy, Protein, Carbohydrate, Sugar, Lipid, Sodium, IngredientGroupId, " + GlobalConstants.AuditFields + ") VALUES " +
                         "('Frijol', 100, 10, 10, 10, 10, 10, 10, 1, " + GlobalConstants.CreatedBySystemUser + ")," +
                         "('Puerco', 100, 10, 10, 10, 10, 10, 10, 1, " + GlobalConstants.CreatedBySystemUser + ")");
 
-            Execute.Sql("INSERT INTO SaucerConfiguration (SaucerId, IngredientId, Amount, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+            Execute.Sql("INSERT INTO SaucerConfiguration (SaucerId, IngredientId, Amount, " + GlobalConstants.AuditFields + ") VALUES " +
                         "(1, 1, 3, " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(1, 2, 3, " + GlobalConstants.CreatedBySystemUser + ")");
 
-            Execute.Sql("INSERT INTO Worker (Code, FirstName, LastName, Email, Imss, Gender, Badge, DepartmentId, JobId, DealerId, RoleId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+            Execute.Sql("INSERT INTO Worker (Code, FirstName, LastName, Email, Imss, Gender, Badge, DepartmentId, JobId, DealerId, RoleId, " + GlobalConstants.AuditFields + ") VALUES " +
                         "('1122', 'Juan', 'Martinez', 'juan@gmail.com', 'WV12H78', 1, '010107002113774', 1, 1, 1, " + GlobalConstants.WorkerRoleId + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "('3344', 'Luis', 'Hernandez', 'luis@gmail.com', 'kV34H23', 1, '010107002112355', 1, 1, 1, " + GlobalConstants.WorkerRoleId + ", " + GlobalConstants.CreatedBySystemUser + ")");
         }

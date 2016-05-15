@@ -39,12 +39,6 @@ namespace FoodManager.Queries.Departments
                 _query.Where(department => department.Status == GlobalConstants.StatusDeactivated);
         }
 
-        public void WithBranch(int branchId)
-        {
-            if (branchId.IsNotZero())
-                _query.Where(department => department.BranchId == branchId);
-        }
-
         public void WithName(string name)
         {
             if (name.IsNotNullOrEmpty())

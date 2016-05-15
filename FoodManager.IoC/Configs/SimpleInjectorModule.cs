@@ -96,8 +96,7 @@ namespace FoodManager.IoC.Configs
             _container.Register<IDepartmentQuery, DepartmentQuery>();
             _container.Register<IDepartmentValidator, DepartmentValidator>();
             _container.Register<IDepartmentService, DepartmentService>();
-            _container.Register<IDepartmentFactory, DepartmentFactory>();
-
+            
             _container.Register<IUserRepository, UserRepositoryOrmLite>();
             _container.Register<IUserQuery, UserQuery>();
             _container.Register<IUserValidator, UserValidator>();
