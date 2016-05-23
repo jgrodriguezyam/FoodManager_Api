@@ -58,6 +58,12 @@ namespace FoodManager.Queries.Ingredients
                 _query.Where(ingredient => !Sql.In(ingredient.Id, ids.Split(',')));
         }
 
+        public void WithUnit(int unit)
+        {
+            if (unit.IsNotZero())
+                _query.Where(ingredient => ingredient.Unit == unit);
+        }
+
         public void Sort(string sort, string sortBy)
         {
             sort = sort.SortResolver();

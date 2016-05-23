@@ -30,7 +30,6 @@ namespace FoodManager.Services.Validators.Implements
 
             RuleSet("Base", () =>
             {
-                RuleFor(menu => menu.DayWeek).NotNull().NotEmpty();
                 RuleFor(menu => menu.Type).NotNull().NotEmpty();
                 RuleFor(menu => menu.StartDate).NotNull().NotEmpty();
                 RuleFor(menu => menu.EndDate).NotNull().NotEmpty();

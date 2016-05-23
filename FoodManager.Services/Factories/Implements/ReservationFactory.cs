@@ -9,14 +9,12 @@ namespace FoodManager.Services.Factories.Implements
     {
         private readonly IWorkerRepository _workerRepository;
         private readonly ISaucerRepository _saucerRepository;
-        private readonly INutritionInformationFactory _nutritionInformationFactory;
         private readonly IDealerRepository _dealerRepository;
 
-        public ReservationFactory(IWorkerRepository workerRepository, ISaucerRepository saucerRepository, INutritionInformationFactory nutritionInformationFactory, IDealerRepository dealerRepository)
+        public ReservationFactory(IWorkerRepository workerRepository, ISaucerRepository saucerRepository, IDealerRepository dealerRepository)
         {
             _workerRepository = workerRepository;
             _saucerRepository = saucerRepository;
-            _nutritionInformationFactory = nutritionInformationFactory;
             _dealerRepository = dealerRepository;
         }
 
@@ -30,17 +28,6 @@ namespace FoodManager.Services.Factories.Implements
             var dealer = _dealerRepository.FindBy(reservation.DealerId);
             reservationDto.Dealer = TypeAdapter.Adapt<DTO.Dealer>(dealer);
             return reservationDto;
-        }
-
-        public void SetNutritionInformation(Reservation reservation)
-        {
-            var nutritionInformation = _nutritionInformationFactory.FindBySaucer(reservation.SaucerId);
-            reservation.Energy = nutritionInformation.Energy;
-            reservation.Protein = nutritionInformation.Protein;
-            reservation.Carbohydrate = nutritionInformation.Carbohydrate;
-            reservation.Sugar = nutritionInformation.Sugar;
-            reservation.Lipid = nutritionInformation.Lipid;
-            reservation.Sodium = nutritionInformation.Sodium;
         }
     }
 }

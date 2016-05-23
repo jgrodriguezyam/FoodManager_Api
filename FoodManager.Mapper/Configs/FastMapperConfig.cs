@@ -628,13 +628,7 @@ namespace FoodManager.Mapper.Configs
 
             TypeAdapterConfig<ReservationRequest, Model.Reservation>
                 .NewConfig()
-                .MapFrom(dest => dest.Date, src => src.Date.DateStringToDateTime())
-                .IgnoreMember(dest => dest.Energy)
-                .IgnoreMember(dest => dest.Protein)
-                .IgnoreMember(dest => dest.Carbohydrate)
-                .IgnoreMember(dest => dest.Sugar)
-                .IgnoreMember(dest => dest.Lipid)
-                .IgnoreMember(dest => dest.Sodium);
+                .MapFrom(dest => dest.Date, src => src.Date.DateStringToDateTime());
 
             TypeAdapterConfig<Model.Reservation, ReservationResponse>
                 .NewConfig()

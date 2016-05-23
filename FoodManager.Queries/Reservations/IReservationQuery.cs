@@ -14,6 +14,7 @@ namespace FoodManager.Queries.Reservations
         void WithDealer(int dealerId);
         void WithOnlyToday(bool onlyToday);
         void WithDate(string date);
+        void WithPortion(decimal portion);
         IEnumerable<Reservation> Execute();
     }
 }
