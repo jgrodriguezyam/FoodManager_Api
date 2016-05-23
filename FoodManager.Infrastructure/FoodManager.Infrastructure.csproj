@@ -73,6 +73,7 @@
     <Compile Include="DataBase\ConnectionSettings.cs" />
     <Compile Include="Dates\DateConvert.cs" />
     <Compile Include="Dates\Enums\DayWeek.cs" />
+    <Compile Include="Decimals\DecimalExtensions.cs" />
     <Compile Include="Enums\Enumerator.cs" />
     <Compile Include="Enums\EnumExtensions.cs" />
     <Compile Include="Exceptions\ApplicationException.cs" />

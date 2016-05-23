@@ -3,6 +3,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using FoodManager.Infrastructure.Collections;
 using FoodManager.Infrastructure.Constants;
+using FoodManager.Infrastructure.Decimals;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Objects;
 using FoodManager.Infrastructure.Validators;
@@ -33,6 +34,7 @@ namespace FoodManager.Services.Validators.Implements
                 RuleFor(reservation => reservation.WorkerId).Must(workerId => workerId.IsNotZero()).WithMessage("Tienes que elegir un trabajador");
                 RuleFor(reservation => reservation.SaucerId).Must(saucerId => saucerId.IsNotZero()).WithMessage("Tienes que elegir un platillo");
                 RuleFor(reservation => reservation.DealerId).Must(dealerId => dealerId.IsNotZero()).WithMessage("Tienes que elegir un distribuidor");
+                RuleFor(reservation => reservation.Portion).Must(portion => portion.IsNotZero()).WithMessage("Tienes que elegir una porcion");
                 Custom(ReferencesValidate);
                 Custom(DateValidate);
             });

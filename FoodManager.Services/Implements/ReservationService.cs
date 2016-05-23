@@ -40,6 +40,7 @@ namespace FoodManager.Services.Implements
                 _reservationQuery.WithDealer(request.DealerId);
                 _reservationQuery.WithOnlyToday(request.OnlyToday);
                 _reservationQuery.WithDate(request.Date);
+                _reservationQuery.WithPortion(request.Portion);
                 _reservationQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _reservationQuery.TotalRecords();
                 _reservationQuery.Paginate(request.StartPage, request.EndPage);
@@ -63,7 +64,6 @@ namespace FoodManager.Services.Implements
             {
                 var reservation = TypeAdapter.Adapt<Reservation>(request);
                 _reservationValidator.ValidateAndThrowException(reservation, "Base,Create");
-                _reservationFactory.SetNutritionInformation(reservation);
                 _reservationRepository.Add(reservation);
                 return new CreateResponse(reservation.Id);
             }
@@ -82,7 +82,6 @@ namespace FoodManager.Services.Implements
                 var reservationToCopy = TypeAdapter.Adapt<Reservation>(request);
                 TypeAdapter.Adapt(reservationToCopy, currentReservation);
                 _reservationValidator.ValidateAndThrowException(currentReservation, "Base,Update");
-                _reservationFactory.SetNutritionInformation(currentReservation);
                 _reservationRepository.Update(currentReservation);
                 return new SuccessResponse { IsSuccess = true };
             }
