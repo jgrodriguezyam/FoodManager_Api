@@ -3,6 +3,8 @@ using FoodManager.DTO;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Ingredients;
+using FoodManager.Infrastructure.Enums;
+using FoodManager.Model.Enums;
 using FoodManager.Services.Interfaces;
 
 namespace FoodManager.Controllers
@@ -56,6 +58,12 @@ namespace FoodManager.Controllers
         public SuccessResponse Get(IsReferenceRequest request)
         {
             return _ingredientService.IsReference(request);
+        }
+
+        [HttpGet, Route("ingredients/units")]
+        public EnumeratorResponse Get()
+        {
+            return new EnumeratorResponse { Enumerator = new UnitType().ConvertToCollection() };
         }
     }
 }

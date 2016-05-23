@@ -56,6 +56,7 @@
     <Compile Include="Enums\GenderType.cs" />
     <Compile Include="Enums\MenuType.cs" />
     <Compile Include="Enums\SaucerType.cs" />
+    <Compile Include="Enums\UnitType.cs" />
     <Compile Include="IHmac\IHmacHelper.cs" />
     <Compile Include="Ingredient.cs" />
     <Compile Include="IngredientGroup.cs" />

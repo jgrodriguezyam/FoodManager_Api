@@ -101,7 +101,7 @@ namespace FoodManager.Sessions
             var date = serialDecrypt[0].DateStringToDateTime();
             var company = serialDecrypt[1];
             if (date < DateTime.Now.Date || company.IsNotEqualTo(GlobalConstants.CompanyKey))
-                ExceptionExtensions.ThrowCustomException(HttpStatusCode.ExpectationFailed, "El serial no es valido favor de renovarlo");
+                ExceptionExtensions.ThrowCustomException(HttpStatusCode.NotAcceptable, "El serial no es valido favor de renovarlo");
         }
     }
 }

@@ -12,6 +12,7 @@ namespace FoodManager.Queries.Ingredients
         void WithIngredientGroup(int ingredientGroupId);
         void WithName(string name);
         void WithoutIds(string ids);
+        void WithUnit(int unit);
         IEnumerable<Ingredient> Execute();
     }
 }

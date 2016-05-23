@@ -282,6 +282,7 @@ namespace FoodManager.Migrations.Sprint_01
                 .WithColumn("Sugar").AsDecimal().NotNullable()
                 .WithColumn("Lipid").AsDecimal().NotNullable()
                 .WithColumn("Sodium").AsDecimal().NotNullable()
+                .WithColumn("Unit").AsInt32().NotNullable()
                 .WithColumn("IngredientGroupId").AsInt32().NotNullable()
 
                 .WithColumn("CreatedBy").AsInt32().NotNullable()
@@ -613,9 +614,9 @@ namespace FoodManager.Migrations.Sprint_01
                         "('Carnes y Pescado', 'Rojo', " + GlobalConstants.CreatedBySystemUser + ")," +
                         "('Verduras y Frutas', 'Verde', " + GlobalConstants.CreatedBySystemUser + ")");
 
-            Execute.Sql("INSERT INTO Ingredient (Name, Amount, Energy, Protein, Carbohydrate, Sugar, Lipid, Sodium, IngredientGroupId, " + GlobalConstants.AuditFields + ") VALUES " +
-                        "('Frijol', 100, 10, 10, 10, 10, 10, 10, 1, " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "('Puerco', 100, 10, 10, 10, 10, 10, 10, 1, " + GlobalConstants.CreatedBySystemUser + ")");
+            Execute.Sql("INSERT INTO Ingredient (Name, Amount, Energy, Protein, Carbohydrate, Sugar, Lipid, Sodium, IngredientGroupId, Unit, " + GlobalConstants.AuditFields + ") VALUES " +
+                        "('Frijol', 100, 10, 10, 10, 10, 10, 10, 1, " + UnitType.Grams.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "('Puerco', 100, 10, 10, 10, 10, 10, 10, 1, " + UnitType.Grams.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")");
 
             Execute.Sql("INSERT INTO SaucerConfiguration (SaucerId, IngredientId, Amount, " + GlobalConstants.AuditFields + ") VALUES " +
                         "(1, 1, 3, " + GlobalConstants.CreatedBySystemUser + ")," +
