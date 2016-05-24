@@ -619,6 +619,7 @@ namespace FoodManager.Mapper.Configs
             TypeAdapterConfig<Model.Reservation, Model.Reservation>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id)
+                .IgnoreMember(dest => dest.SaucerId)
                 .IgnoreMember(dest => dest.CreatedBy)
                 .IgnoreMember(dest => dest.CreatedOn)
                 .IgnoreMember(dest => dest.ModifiedBy)
