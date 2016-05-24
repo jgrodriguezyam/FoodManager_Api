@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.Results;
 using FoodManager.Infrastructure.Collections;
 using FoodManager.Infrastructure.Constants;

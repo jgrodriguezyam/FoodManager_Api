@@ -77,6 +77,8 @@ namespace FoodManager.Services.Implements
             {
                 var currentIngredient = _ingredientRepository.FindBy(request.Id);
                 currentIngredient.ThrowExceptionIfRecordIsNull();
+                var isReference = _ingredientRepository.IsReference(request.Id);
+                isReference.ThrowExceptionIfIsReference();
                 var ingredientToCopy = TypeAdapter.Adapt<Ingredient>(request);
                 TypeAdapter.Adapt(ingredientToCopy, currentIngredient);
                 _ingredientValidator.ValidateAndThrowException(currentIngredient, "Base");
