@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Net;
 using FluentValidation;
 using FoodManager.Infrastructure.Exceptions;
 
@@ -17,7 +18,7 @@ namespace FoodManager.Infrastructure.Validators
             catch (ValidationException exception)
             {
                 var message = string.Join(" ", exception.Errors.Select(error => error.ErrorMessage));
-                throw new InvalidRequestException(message, exception);
+                ExceptionExtensions.ThrowCustomException(HttpStatusCode.Conflict, message);
             }
         }
 
