@@ -10,6 +10,7 @@ namespace FoodManager.Model
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public decimal Portion { get; set; }
+        public int MealType { get; set; }
         public int WorkerId { get; set; }
         public int SaucerId { get; set; }
         public int DealerId { get; set; }

@@ -23,14 +23,14 @@ namespace FoodManager.Services.Factories.Implements
             saucerConfigurations.ForEach(saucerConfiguration =>
                                         {
                                             var ingredient = _ingredientRepository.FindBy(saucerConfiguration.IngredientId);
-                                            var amount = saucerConfiguration.Amount;
+                                            var portion = saucerConfiguration.Portion;
 
-                                            nutritionInformation.Energy += (ingredient.Energy * amount);
-                                            nutritionInformation.Protein += (ingredient.Protein * amount);
-                                            nutritionInformation.Carbohydrate += (ingredient.Carbohydrate * amount);
-                                            nutritionInformation.Sugar += (ingredient.Sugar * amount);
-                                            nutritionInformation.Lipid += (ingredient.Lipid * amount);
-                                            nutritionInformation.Sodium += (ingredient.Sodium * amount);
+                                            nutritionInformation.Energy += (ingredient.Energy * portion);
+                                            nutritionInformation.Protein += (ingredient.Protein * portion);
+                                            nutritionInformation.Carbohydrate += (ingredient.Carbohydrate * portion);
+                                            nutritionInformation.Sugar += (ingredient.Sugar * portion);
+                                            nutritionInformation.Lipid += (ingredient.Lipid * portion);
+                                            nutritionInformation.Sodium += (ingredient.Sodium * portion);
                                         });
             return nutritionInformation;
         }

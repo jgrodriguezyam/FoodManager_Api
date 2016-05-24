@@ -1,6 +1,6 @@
 ﻿namespace FoodManager.Model.Enums
 {
-    public enum MenuType
+    public enum MealType
     {
         Breakfast = 1,
         Lunch = 2,

@@ -2,6 +2,7 @@
 using FluentValidation.Results;
 using FoodManager.Infrastructure.Collections;
 using FoodManager.Infrastructure.Constants;
+using FoodManager.Infrastructure.Decimals;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Objects;
 using FoodManager.Infrastructure.Validators;
@@ -27,7 +28,7 @@ namespace FoodManager.Services.Validators.Implements
             {
                 RuleFor(saucerConfiguration => saucerConfiguration.SaucerId).Must(saucerId => saucerId.IsNotZero()).WithMessage("Tienes que elegir un platillo");
                 RuleFor(saucerConfiguration => saucerConfiguration.IngredientId).Must(ingredientId => ingredientId.IsNotZero()).WithMessage("Tienes que elegir un ingrediente");
-                RuleFor(saucerConfiguration => saucerConfiguration.Amount).Must(amount => amount.IsNotZero()).WithMessage("Tienes que elegir una cantidad");
+                RuleFor(saucerConfiguration => saucerConfiguration.Portion).Must(portion => portion.IsNotZero()).WithMessage("Tienes que elegir una porcion");
                 Custom(ReferencesValidate);
             });
 

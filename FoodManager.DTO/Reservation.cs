@@ -8,6 +8,7 @@
         public Saucer Saucer { get; set; }
         public Dealer Dealer { get; set; }
         public decimal Portion { get; set; }
+        public int MealType { get; set; }
         public bool Status { get; set; }
     }
 }

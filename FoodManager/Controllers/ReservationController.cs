@@ -3,6 +3,8 @@ using FoodManager.DTO;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Reservations;
+using FoodManager.Infrastructure.Enums;
+using FoodManager.Model.Enums;
 using FoodManager.Services.Interfaces;
 
 namespace FoodManager.Controllers
@@ -50,6 +52,12 @@ namespace FoodManager.Controllers
         public SuccessResponse Put(ChangeStatusRequest request)
         {
             return _reservationService.ChangeStatus(request);
+        }
+
+        [HttpGet, Route("reservations/meal-types")]
+        public EnumeratorResponse Get()
+        {
+            return new EnumeratorResponse { Enumerator = new MealType().ConvertToCollection() };
         }
     }
 }

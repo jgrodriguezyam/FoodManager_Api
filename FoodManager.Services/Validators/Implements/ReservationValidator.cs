@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Linq;
 using FluentValidation;
 using FluentValidation.Results;
 using FoodManager.Infrastructure.Collections;
 using FoodManager.Infrastructure.Constants;
 using FoodManager.Infrastructure.Decimals;
+using FoodManager.Infrastructure.Enums;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Objects;
 using FoodManager.Infrastructure.Validators;
 using FoodManager.Model;
+using FoodManager.Model.Enums;
 using FoodManager.Model.IRepositories;
 using FoodManager.Services.Validators.Interfaces;
 
@@ -35,6 +38,7 @@ namespace FoodManager.Services.Validators.Implements
                 RuleFor(reservation => reservation.SaucerId).Must(saucerId => saucerId.IsNotZero()).WithMessage("Tienes que elegir un platillo");
                 RuleFor(reservation => reservation.DealerId).Must(dealerId => dealerId.IsNotZero()).WithMessage("Tienes que elegir un distribuidor");
                 RuleFor(reservation => reservation.Portion).Must(portion => portion.IsNotZero()).WithMessage("Tienes que elegir una porcion");
+                RuleFor(reservation => reservation.MealType).NotNull().NotEmpty();
                 Custom(ReferencesValidate);
                 Custom(DateValidate);
             });
@@ -63,6 +67,10 @@ namespace FoodManager.Services.Validators.Implements
             var dealer = _dealerRepository.FindBy(reservation.DealerId);
             if (dealer.IsNull() || dealer.Status.Equals(GlobalConstants.StatusDeactivated))
                 return new ValidationFailure("Reservation", "El distribuidor esta desactivado o no existe");
+
+            var mealType = new MealType().ConvertToCollection().FirstOrDefault(mealTp => mealTp.Value == reservation.MealType);
+            if (mealType.IsNull())
+                return new ValidationFailure("Reservation", "El tipo de comida no existe");
 
             return null;
         }

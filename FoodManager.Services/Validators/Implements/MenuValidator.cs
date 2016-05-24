@@ -30,7 +30,7 @@ namespace FoodManager.Services.Validators.Implements
 
             RuleSet("Base", () =>
             {
-                RuleFor(menu => menu.Type).NotNull().NotEmpty();
+                RuleFor(menu => menu.MealType).NotNull().NotEmpty();
                 RuleFor(menu => menu.StartDate).NotNull().NotEmpty();
                 RuleFor(menu => menu.EndDate).NotNull().NotEmpty();
                 RuleFor(menu => menu.MaxAmount).NotNull().NotEmpty();
@@ -62,9 +62,9 @@ namespace FoodManager.Services.Validators.Implements
             if (saucer.IsNull() || saucer.Status.Equals(GlobalConstants.StatusDeactivated))
                 return new ValidationFailure("Menu", "El platillo esta desactivado o no existe");
 
-            var menuType = new MenuType().ConvertToCollection().FirstOrDefault(menuTp => menuTp.Value == menu.Type);
-            if (menuType.IsNull())
-                return new ValidationFailure("Menu", "El tipo de menu no existe");
+            var mealType = new MealType().ConvertToCollection().FirstOrDefault(mealTp => mealTp.Value == menu.MealType);
+            if (mealType.IsNull())
+                return new ValidationFailure("Menu", "El tipo de comida no existe");
             
             return null;
         }

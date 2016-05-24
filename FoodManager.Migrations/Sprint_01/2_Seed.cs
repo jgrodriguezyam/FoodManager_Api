@@ -303,7 +303,7 @@ namespace FoodManager.Migrations.Sprint_01
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("SaucerId").AsInt32().NotNullable()
                 .WithColumn("IngredientId").AsInt32().NotNullable()
-                .WithColumn("Amount").AsInt32().NotNullable()
+                .WithColumn("Portion").AsDecimal().NotNullable()
 
                 .WithColumn("CreatedBy").AsInt32().NotNullable()
                 .WithColumn("ModifiedBy").AsInt32().NotNullable()
@@ -361,7 +361,7 @@ namespace FoodManager.Migrations.Sprint_01
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Comment").AsString(250).Nullable()
                 .WithColumn("DayWeek").AsInt32().NotNullable()
-                .WithColumn("Type").AsInt32().NotNullable()
+                .WithColumn("MealType").AsInt32().NotNullable()
                 .WithColumn("Limit").AsInt32().Nullable()
                 .WithColumn("StartDate").AsDateTime().NotNullable()
                 .WithColumn("EndDate").AsDateTime().NotNullable()
@@ -389,6 +389,7 @@ namespace FoodManager.Migrations.Sprint_01
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Date").AsDateTime().NotNullable()
                 .WithColumn("Portion").AsDecimal().NotNullable()
+                .WithColumn("MealType").AsInt32().NotNullable()
                 .WithColumn("WorkerId").AsInt32().NotNullable()
                 .WithColumn("SaucerId").AsInt32().NotNullable()
                 .WithColumn("DealerId").AsInt32().NotNullable()
@@ -618,7 +619,7 @@ namespace FoodManager.Migrations.Sprint_01
                         "('Frijol', 100, 10, 10, 10, 10, 10, 10, 1, " + UnitType.Grams.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "('Puerco', 100, 10, 10, 10, 10, 10, 10, 1, " + UnitType.Grams.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")");
 
-            Execute.Sql("INSERT INTO SaucerConfiguration (SaucerId, IngredientId, Amount, " + GlobalConstants.AuditFields + ") VALUES " +
+            Execute.Sql("INSERT INTO SaucerConfiguration (SaucerId, IngredientId, Portion, " + GlobalConstants.AuditFields + ") VALUES " +
                         "(1, 1, 3, " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(1, 2, 3, " + GlobalConstants.CreatedBySystemUser + ")");
 
