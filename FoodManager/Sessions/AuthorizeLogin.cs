@@ -1,14 +1,17 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
-using System.Security.Cryptography;
-using System.Text;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using FoodManager.Infrastructure.Constants;
+using FoodManager.Infrastructure.Dates;
+using FoodManager.Infrastructure.Enums;
 using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Infrastructure.Objects;
 using FoodManager.Infrastructure.Strings;
 using FoodManager.Infrastructure.Utils;
+using FoodManager.Infrastructure.Validators.Enums;
+using FoodManager.Infrastructure.Validators.Serials;
 using FoodManager.IoC.Configs;
 using FoodManager.Model.IHmac;
 using FoodManager.OrmLite.DataBase;
@@ -19,33 +22,41 @@ namespace FoodManager.Sessions
     {
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
-            //var hmacHelper = SimpleInjectorModule.GetContainer().GetInstance<IHmacHelper>();
-            //var headerTimespan = actionContext.Request.Headers.GetValues(GlobalConstants.Timespan).First();
-            //var headerPublicKey = actionContext.Request.Headers.GetValues(GlobalConstants.PublicKey).First();
-            //var headerPrivateKey = actionContext.Request.Headers.GetValues(GlobalConstants.PrivateKey).First();
+            SerialValidator();
+            if (LoginValidator.ActionValidationHmac(actionContext))
+            {
+                var headerTimespan = actionContext.Request.Headers.GetValues(GlobalConstants.Timespan).First();
+                var headerPublicKey = actionContext.Request.Headers.GetValues(GlobalConstants.PublicKey).First();
+                var headerPrivateKey = actionContext.Request.Headers.GetValues(GlobalConstants.PrivateKey).First();
+                var headerLoginType = actionContext.Request.Headers.GetValues(GlobalConstants.LoginType).First();
 
-            //var user = hmacHelper.FindUserByPublicKey(headerPublicKey);
-            //user.ThrowExceptionIfIsNull(HttpStatusCode.ExpectationFailed, "Llave publica invalida");
-            //TimeSpanValidation(headerTimespan, user.Time);
-            //PrivateKeyValidation(headerPrivateKey, headerTimespan, user.UserName, user.Password);
+                var loginType = new LoginType().ConvertToCollection().FirstOrDefault(loginTp => loginTp.Value == int.Parse(headerLoginType));
+                loginType.ThrowExceptionIfIsNull(HttpStatusCode.ExpectationFailed, "El tipo de login no existe");
+
+                if (loginType.Value == LoginType.User.GetValue())
+                    LoginValidator.UserHeaderValidation(headerTimespan, headerPublicKey, headerPrivateKey, actionContext);
+
+                if (loginType.Value == LoginType.Worker.GetValue())
+                    LoginValidator.WorkerHeaderValidation(headerTimespan, headerPublicKey, headerPrivateKey, actionContext);
+            }
         }
 
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
+            if (LoginValidator.ActionValidationHmac(actionExecutedContext.ActionContext) && actionExecutedContext.Exception.IsNull() && actionExecutedContext.Response.IsSuccessStatusCode)
+            {
+                var headerTimespan = actionExecutedContext.Request.Headers.GetValues(GlobalConstants.Timespan).First();
+                var headerPublicKey = actionExecutedContext.Request.Headers.GetValues(GlobalConstants.PublicKey).First();
+                var headerLoginType = actionExecutedContext.Request.Headers.GetValues(GlobalConstants.LoginType).First();
+
+                var newPublicKey = RefreshPublicKey(headerTimespan, headerPublicKey, headerLoginType);
+                if (newPublicKey.IsNotNullOrEmpty())
+                    actionExecutedContext.Response.Headers.Add(GlobalConstants.PublicKey, newPublicKey);
+            }
+
             var dataBaseSqlServerOrmLite = SimpleInjectorModule.GetContainer().GetInstance<IDataBaseSqlServerOrmLite>();
             if (actionExecutedContext.Exception.IsNull() && actionExecutedContext.Response.IsSuccessStatusCode)
             {
-                //var hmacHelper = SimpleInjectorModule.GetContainer().GetInstance<IHmacHelper>();
-                //var headerTimespan = actionExecutedContext.Request.Headers.GetValues(GlobalConstants.Timespan).First();
-                //var headerPublicKey = actionExecutedContext.Request.Headers.GetValues(GlobalConstants.PublicKey).First();
-                //var user = hmacHelper.FindUserByPublicKey(headerPublicKey);
-                //if (user.IsNotNull())
-                //{
-                //    user.RefreshAuthenticationHmac(headerTimespan);
-                //    hmacHelper.RefreshHmacOfUser(user);
-                //    actionExecutedContext.Response.Headers.Add(GlobalConstants.PublicKey, user.PublicKey);
-                //}
-
                 dataBaseSqlServerOrmLite.Commit();
             }
             else
@@ -54,36 +65,43 @@ namespace FoodManager.Sessions
             }
         }
 
-        #region Custom Methods
-
-        private static void TimeSpanValidation(string headerTimespan, string time)
+        private string RefreshPublicKey(string headerTimespan, string headerPublicKey, string headerLoginType)
         {
-            if (time == headerTimespan || time.IsNullOrEmpty() || headerTimespan.IsNullOrEmpty())
-                ExceptionExtensions.ThrowCustomException(HttpStatusCode.ExpectationFailed, "Espacio de tiempo invalido");
+            var loginType = new LoginType().ConvertToCollection().FirstOrDefault(loginTp => loginTp.Value == int.Parse(headerLoginType));
+            var hmacHelper = SimpleInjectorModule.GetContainer().GetInstance<IHmacHelper>();
+
+            if (loginType.Value == LoginType.User.GetValue())
+            {
+                var user = hmacHelper.FindUserByPublicKey(headerPublicKey);
+                if (user.IsNotNull())
+                {
+                    user.RefreshAuthenticationHmac(headerTimespan);
+                    hmacHelper.UpdateHmacOfUser(user);
+                    return user.PublicKey;
+                }
+            }
+
+            if (loginType.Value == LoginType.Worker.GetValue())
+            {
+                var worker = hmacHelper.FindWorkerByPublicKey(headerPublicKey);
+                if (worker.IsNotNull())
+                {
+                    worker.RefreshAuthenticationHmac(headerTimespan);
+                    hmacHelper.UpdateHmacOfWorker(worker);
+                    return worker.PublicKey;
+                }
+            }
+
+            return string.Empty;
         }
 
-        private void PrivateKeyValidation(string headerPrivateKey, string headerTimespan, string userName, string password)
+        private void SerialValidator()
         {
-            var key = GlobalConstants.CryptographyKey;
-            var message = userName + Cryptography.Decrypt(password) + headerTimespan;
-            var encoding = new ASCIIEncoding();
-            var keyByte = encoding.GetBytes(key);
-            var messageBytes = encoding.GetBytes(message);
-            var hmacsha256 = new HMACSHA256(keyByte);
-            var hash256Message = hmacsha256.ComputeHash(messageBytes);
-            var privateKey = ByteToString(hash256Message);
-            if (headerPrivateKey != privateKey)
-                ExceptionExtensions.ThrowCustomException(HttpStatusCode.ExpectationFailed, "Llave privada invalida");
+            var serialDecrypt = Cryptography.Decrypt(SerialSettings.Serial).Split(' ');
+            var date = serialDecrypt[0].DateStringToDateTime();
+            var company = serialDecrypt[1];
+            if (date < DateTime.Now.Date || company.IsNotEqualTo(GlobalConstants.CompanyKey))
+                ExceptionExtensions.ThrowCustomException(HttpStatusCode.NotAcceptable, "El serial no es valido favor de renovarlo");
         }
-
-        public string ByteToString(byte[] buff)
-        {
-            var sbinary = "";
-            for (var i = 0; i < buff.Length; i++)
-                sbinary += buff[i].ToString("X2");
-            return (sbinary);
-        }
-
-        #endregion
     }
 }

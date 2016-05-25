@@ -148,5 +148,10 @@ namespace FoodManager.Infrastructure.Queries
         {
             return string.Format("SELECT {0} from {1}", field, table);
         }
+        
+        public static Expression<Func<T, bool>> DeleteMiddleLambdaResolver<T>(this T entityToDelete) where T : class
+        {
+            return Translation<T>.MiddleEntityLambdaExpression(entityToDelete);
+        }
     }
 }

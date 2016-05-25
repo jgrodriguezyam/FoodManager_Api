@@ -11,7 +11,7 @@ namespace FoodManager.Services.Validators.Implements
         {
             RuleSet("Base", () =>
                             {
-                                RuleFor(user => user.Name).NotNull().NotEmpty();
+                                RuleFor(region => region.Name).NotNull().NotEmpty();
                             });
         }
     }

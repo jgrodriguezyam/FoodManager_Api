@@ -3,6 +3,8 @@
     public interface IHmacHelper
     {
         User FindUserByPublicKey(string publicKey);
-        void RefreshHmacOfUser(User user);
+        void UpdateHmacOfUser(User user);
+        Worker FindWorkerByPublicKey(string publicKey);
+        void UpdateHmacOfWorker(Worker worker);
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq.Expressions;
+using FoodManager.Infrastructure.Queries;
 using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.SqlServer;
 
@@ -47,6 +48,12 @@ namespace FoodManager.OrmLite.DataBase
             DbConnection.DeleteById<T>(id);
         }
 
+        public void RemoveMiddleEntity<T>(T objectToRemove) where T : class
+        {
+            var predicate = objectToRemove.DeleteMiddleLambdaResolver();
+            DbConnection.Delete<T>(predicate);
+        }
+
         public T GetById<T>(int id) where T : new()
         {
             var item = DbConnection.GetByIdOrDefault<T>(id);
@@ -56,6 +63,11 @@ namespace FoodManager.OrmLite.DataBase
         public void LogicRemoveById<T>(int id) where T : new()
         {
             DbConnection.Update<T>("IsActive = {0}".Params(RegisterDeactivate), "Id = {0}".Params(id));
+        }
+
+        public void LogicRemove<T>(T objectToRemove) where T : new()
+        {
+            DbConnection.Update(objectToRemove);
         }
 
         public T SingleById<T>(int id) where T : new()
@@ -90,6 +102,12 @@ namespace FoodManager.OrmLite.DataBase
             return Convert.ToInt32(totalCount);
         }
 
+        public int Count<T>(Expression<Func<T, bool>> predicate)
+        {
+            var totalCount = DbConnection.Count(predicate);
+            return Convert.ToInt32(totalCount);
+        }
+
         public void Commit()
         {
             DbTransaction.Commit();
@@ -100,6 +118,19 @@ namespace FoodManager.OrmLite.DataBase
         {
             DbTransaction.Rollback();
             DbConnection.Dispose();
+        }
+
+        public void UpdateHmac<T>(string publicKey, string time, int id) where T : new()
+        {
+            var fieldsToUpdate = string.Format("PublicKey = '{0}', Time = '{1}'", publicKey, time);
+            DbConnection.Update<T>(fieldsToUpdate, "Id = {0}".Params(id));
+        }
+
+        public T GetByIdOrDefault<T>(int id) where T : new()
+        {
+            var filter = string.Format("Id = {0}", id);
+            var item = DbConnection.SingleOrDefault<T>(filter);
+            return item;
         }
     }
 }

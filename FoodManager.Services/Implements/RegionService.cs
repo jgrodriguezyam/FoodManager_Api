@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using FastMapper;
+using FoodManager.DTO.BaseRequest;
 using FoodManager.Services.Interfaces;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Regions;
@@ -29,6 +30,9 @@ namespace FoodManager.Services.Implements
             try
             {
                 _regionQuery.WithOnlyActivated(true);
+                _regionQuery.WithOnlyStatusActivated(request.OnlyStatusActivated);
+                _regionQuery.WithOnlyStatusDeactivated(request.OnlyStatusDeactivated);
+                _regionQuery.WithName(request.Name);
                 _regionQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _regionQuery.TotalRecords();
                 _regionQuery.Paginate(request.StartPage, request.EndPage);
@@ -50,10 +54,10 @@ namespace FoodManager.Services.Implements
         {
             try
             {
-                var regionToCreate = TypeAdapter.Adapt<Region>(request);
-                _regionValidator.ValidateAndThrowException(regionToCreate, "Base");
-                _regionRepository.Add(regionToCreate);
-                return new CreateResponse(regionToCreate.Id);
+                var region = TypeAdapter.Adapt<Region>(request);
+                _regionValidator.ValidateAndThrowException(region, "Base");
+                _regionRepository.Add(region);
+                return new CreateResponse(region.Id);
             }
             catch (DataAccessException)
             {
@@ -66,7 +70,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var currentRegion = _regionRepository.FindBy(request.Id);
-                currentRegion.ThrowExceptionIfIsNull("Region no encontrada");
+                currentRegion.ThrowExceptionIfRecordIsNull();
                 var regionToCopy = TypeAdapter.Adapt<Region>(request);
                 TypeAdapter.Adapt(regionToCopy, currentRegion);
                 _regionValidator.ValidateAndThrowException(currentRegion, "Base");
@@ -84,7 +88,7 @@ namespace FoodManager.Services.Implements
             try
             {
                 var region = _regionRepository.FindBy(request.Id);
-                region.ThrowExceptionIfIsNull("Region no encontrada");
+                region.ThrowExceptionIfRecordIsNull();
                 return TypeAdapter.Adapt<DTO.Region>(region);
             }
             catch (DataAccessException)
@@ -98,9 +102,41 @@ namespace FoodManager.Services.Implements
             try
             {
                 var region = _regionRepository.FindBy(request.Id);
-                region.ThrowExceptionIfIsNull("Region no encontrada");
+                region.ThrowExceptionIfRecordIsNull();
+                var isReference = _regionRepository.IsReference(request.Id);
+                isReference.ThrowExceptionIfIsReference();
                 _regionRepository.Remove(region);
                 return new SuccessResponse { IsSuccess = true };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public SuccessResponse ChangeStatus(ChangeStatusRequest request)
+        {
+            try
+            {
+                var region = _regionRepository.FindBy(request.Id);
+                region.ThrowExceptionIfRecordIsNull();
+                region.Status.ThrowExceptionIfIsSameStatus(request.Status); ;
+                region.Status = request.Status;
+                _regionRepository.Update(region);
+                return new SuccessResponse { IsSuccess = true };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public SuccessResponse IsReference(IsReferenceRequest request)
+        {
+            try
+            {
+                var isReference = _regionRepository.IsReference(request.Id);
+                return new SuccessResponse { IsSuccess = isReference };
             }
             catch (DataAccessException)
             {

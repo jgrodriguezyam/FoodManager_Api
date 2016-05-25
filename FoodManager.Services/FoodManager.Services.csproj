@@ -52,17 +52,119 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\Implements\BranchFactory.cs" />
+    <Compile Include="Factories\Implements\CompanyFactory.cs" />
+    <Compile Include="Factories\Implements\IngredientFactory.cs" />
+    <Compile Include="Factories\Implements\MenuFactory.cs" />
+    <Compile Include="Factories\Implements\NutritionInformationFactory.cs" />
+    <Compile Include="Factories\Implements\ReservationDetailFactory.cs" />
+    <Compile Include="Factories\Implements\ReservationFactory.cs" />
+    <Compile Include="Factories\Implements\RoleConfigurationFactory.cs" />
+    <Compile Include="Factories\Implements\SaucerConfigurationFactory.cs" />
+    <Compile Include="Factories\Implements\UserFactory.cs" />
+    <Compile Include="Factories\Implements\WarningFactory.cs" />
+    <Compile Include="Factories\Implements\WorkerFactory.cs" />
+    <Compile Include="Factories\Interfaces\IBranchFactory.cs" />
+    <Compile Include="Factories\Interfaces\ICompanyFactory.cs" />
+    <Compile Include="Factories\Interfaces\IIngredientFactory.cs" />
+    <Compile Include="Factories\Interfaces\IMenuFactory.cs" />
+    <Compile Include="Factories\Interfaces\INutritionInformationFactory.cs" />
+    <Compile Include="Factories\Interfaces\IReservationDetailFactory.cs" />
+    <Compile Include="Factories\Interfaces\IReservationFactory.cs" />
+    <Compile Include="Factories\Interfaces\IRoleConfigurationFactory.cs" />
+    <Compile Include="Factories\Interfaces\ISaucerConfigurationFactory.cs" />
+    <Compile Include="Factories\Interfaces\IUserFactory.cs" />
+    <Compile Include="Factories\Interfaces\IWarningFactory.cs" />
+    <Compile Include="Factories\Interfaces\IWorkerFactory.cs" />
+    <Compile Include="Implements\BranchService.cs" />
+    <Compile Include="Implements\CompanyService.cs" />
+    <Compile Include="Implements\DealerService.cs" />
+    <Compile Include="Implements\DepartmentService.cs" />
+    <Compile Include="Implements\DiseaseService.cs" />
+    <Compile Include="Implements\IngredientGroupService.cs" />
+    <Compile Include="Implements\IngredientService.cs" />
+    <Compile Include="Implements\JobService.cs" />
+    <Compile Include="Implements\MenuService.cs" />
     <Compile Include="Implements\RegionService.cs" />
+    <Compile Include="Implements\ReservationDetailService.cs" />
+    <Compile Include="Implements\ReservationService.cs" />
+    <Compile Include="Implements\RoleConfigurationService.cs" />
+    <Compile Include="Implements\RoleService.cs" />
+    <Compile Include="Implements\SaucerConfigurationService.cs" />
+    <Compile Include="Implements\SaucerMultimediaService.cs" />
+    <Compile Include="Implements\SaucerService.cs" />
+    <Compile Include="Implements\TipService.cs" />
     <Compile Include="Implements\UserService.cs" />
+    <Compile Include="Implements\WarningService.cs" />
+    <Compile Include="Implements\WorkerService.cs" />
+    <Compile Include="Interfaces\IBranchService.cs" />
+    <Compile Include="Interfaces\ICompanyService.cs" />
+    <Compile Include="Interfaces\IDealerService.cs" />
+    <Compile Include="Interfaces\IDepartmentService.cs" />
+    <Compile Include="Interfaces\IDiseaseService.cs" />
+    <Compile Include="Interfaces\IIngredientGroupService.cs" />
+    <Compile Include="Interfaces\IIngredientService.cs" />
+    <Compile Include="Interfaces\IJobService.cs" />
+    <Compile Include="Interfaces\IMenuService.cs" />
     <Compile Include="Interfaces\IRegionService.cs" />
+    <Compile Include="Interfaces\IReservationDetailService.cs" />
+    <Compile Include="Interfaces\IReservationService.cs" />
+    <Compile Include="Interfaces\IRoleConfigurationService.cs" />
+    <Compile Include="Interfaces\IRoleService.cs" />
+    <Compile Include="Interfaces\ISaucerConfigurationService.cs" />
+    <Compile Include="Interfaces\ISaucerMultimediaService.cs" />
+    <Compile Include="Interfaces\ISaucerService.cs" />
+    <Compile Include="Interfaces\ITipService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Interfaces\IWarningService.cs" />
+    <Compile Include="Interfaces\IWorkerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validators\Implements\BranchDealerValidator.cs" />
+    <Compile Include="Validators\Implements\BranchValidator.cs" />
+    <Compile Include="Validators\Implements\CompanyValidator.cs" />
+    <Compile Include="Validators\Implements\DealerSaucerValidator.cs" />
+    <Compile Include="Validators\Implements\DealerValidator.cs" />
+    <Compile Include="Validators\Implements\DepartmentValidator.cs" />
+    <Compile Include="Validators\Implements\DiseaseValidator.cs" />
     <Compile Include="Validators\Implements\FileValidator.cs" />
+    <Compile Include="Validators\Implements\IngredientGroupValidator.cs" />
+    <Compile Include="Validators\Implements\IngredientValidator.cs" />
+    <Compile Include="Validators\Implements\JobValidator.cs" />
+    <Compile Include="Validators\Implements\MenuValidator.cs" />
     <Compile Include="Validators\Implements\RegionValidator.cs" />
+    <Compile Include="Validators\Implements\ReservationValidator.cs" />
+    <Compile Include="Validators\Implements\RoleConfigurationValidator.cs" />
+    <Compile Include="Validators\Implements\RoleValidator.cs" />
+    <Compile Include="Validators\Implements\SaucerConfigurationValidator.cs" />
+    <Compile Include="Validators\Implements\SaucerMultimediaValidator.cs" />
+    <Compile Include="Validators\Implements\SaucerValidator.cs" />
+    <Compile Include="Validators\Implements\TipValidator.cs" />
     <Compile Include="Validators\Implements\UserValidator.cs" />
+    <Compile Include="Validators\Implements\WarningValidator.cs" />
+    <Compile Include="Validators\Implements\WorkerValidator.cs" />
+    <Compile Include="Validators\Interfaces\IBranchDealerValidator.cs" />
+    <Compile Include="Validators\Interfaces\IBranchValidator.cs" />
+    <Compile Include="Validators\Interfaces\ICompanyValidator.cs" />
+    <Compile Include="Validators\Interfaces\IDealerSaucerValidator.cs" />
+    <Compile Include="Validators\Interfaces\IDealerValidator.cs" />
+    <Compile Include="Validators\Interfaces\IDepartmentValidator.cs" />
+    <Compile Include="Validators\Interfaces\IDiseaseValidator.cs" />
     <Compile Include="Validators\Interfaces\IFileValidator.cs" />
+    <Compile Include="Validators\Interfaces\IIngredientGroupValidator.cs" />
+    <Compile Include="Validators\Interfaces\IIngredientValidator.cs" />
+    <Compile Include="Validators\Interfaces\IJobValidator.cs" />
+    <Compile Include="Validators\Interfaces\IMenuValidator.cs" />
     <Compile Include="Validators\Interfaces\IRegionValidator.cs" />
+    <Compile Include="Validators\Interfaces\IReservationValidator.cs" />
+    <Compile Include="Validators\Interfaces\IRoleConfigurationValidator.cs" />
+    <Compile Include="Validators\Interfaces\IRoleValidator.cs" />
+    <Compile Include="Validators\Interfaces\ISaucerConfigurationValidator.cs" />
+    <Compile Include="Validators\Interfaces\ISaucerMultimediaValidator.cs" />
+    <Compile Include="Validators\Interfaces\ISaucerValidator.cs" />
+    <Compile Include="Validators\Interfaces\ITipValidator.cs" />
     <Compile Include="Validators\Interfaces\IUserValidator.cs" />
+    <Compile Include="Validators\Interfaces\IWarningValidator.cs" />
+    <Compile Include="Validators\Interfaces\IWorkerValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FoodManager.DTO\FoodManager.DTO.csproj">
@@ -82,10 +184,7 @@
       <Name>FoodManager.Queries</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Factories\Implements\" />
-    <Folder Include="Factories\Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

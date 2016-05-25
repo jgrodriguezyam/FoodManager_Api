@@ -63,10 +63,34 @@ namespace FoodManager.Infrastructure.Exceptions
             });
         }
 
-        public static void ThrowExceptionIfIsNull(this object objectValue, string message)
+        public static void ThrowExceptionIfIsSameStatus(this bool statusToChange, bool newStatus)
+        {
+            if (statusToChange.Equals(newStatus))
+            {
+                throw new HttpResponseException(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.Accepted,
+                    Content = new StringContent("{\"Message\": \"El registro ya se encuentra " + (newStatus ? "activo" : "inactivo") + "\"}", Encoding.Default, "application/json")
+                });
+            }
+        }
+
+        public static void ThrowExceptionIfIsReference(this bool isRefence)
+        {
+            if (isRefence)
+            {
+                throw new HttpResponseException(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.PreconditionFailed,
+                    Content = new StringContent("{\"Message\": \"Remover previamente las referencias\"}", Encoding.Default, "application/json")
+                });
+            }
+        }
+
+        public static void ThrowExceptionIfRecordIsNull(this object objectValue)
         {
             if (objectValue.IsNull())
-                ThrowCustomException(HttpStatusCode.NotFound, message);
+                ThrowCustomException(HttpStatusCode.NotFound, "Registro no encontrado");
         }
     }
 }

@@ -64,7 +64,32 @@
     <Compile Include="DataBase\IDataBaseSqlServerOrmLite.cs" />
     <Compile Include="Hmac\HmacHelperOrmLite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AccessLevelRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\BranchDealerRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\BranchRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\CompanyRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\DealerRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\DepartmentRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\DiseaseRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\IngredientGroupRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\IngredientRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\JobRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\MenuRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\PermissionAccessLevelRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\PermissionRepositoryOrmLite.cs" />
     <Compile Include="Repositories\RegionRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\DealerSaucerRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\ReservationDetailRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\ReservationRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\RoleConfigurationRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\RoleRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\SaucerConfigurationRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\SaucerMultimediaRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\SaucerRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\TipRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\UserRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\WarningRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\WorkerRepositoryOrmLite.cs" />
     <Compile Include="Utils\LimitResolver.cs" />
   </ItemGroup>
   <ItemGroup>

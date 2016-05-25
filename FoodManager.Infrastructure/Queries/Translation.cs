@@ -13,5 +13,27 @@ namespace FoodManager.Infrastructure.Queries
             var lambda = Expression.Lambda<Func<T, object>>(conversion, argParam);
             return lambda;
         }
+
+        public static Expression<Func<T, bool>> MiddleEntityLambdaExpression(T item)
+        {
+            var firstPropertyName = typeof(T).GetProperties()[0].Name;
+            var firstPropertyValue = item.GetType().GetProperty(firstPropertyName).GetValue(item, null);
+            var secondPropertyName = typeof(T).GetProperties()[1].Name;
+            var secondPropertyValue = item.GetType().GetProperty(secondPropertyName).GetValue(item, null);
+            var paramExpression = Expression.Parameter(typeof(T), "s");
+            
+            var firstProperty = Expression.Property(paramExpression, firstPropertyName);
+            var firstValue = Expression.Parameter(typeof(int), firstPropertyValue.ToString());
+            var firstConditionEqual = Expression.Equal(firstProperty, firstValue);
+
+            var secondProperty = Expression.Property(paramExpression, secondPropertyName);
+            var secondValue = Expression.Parameter(typeof(int), secondPropertyValue.ToString());
+            var secondConditionEqual = Expression.Equal(secondProperty, secondValue);
+
+            var concatConditions = Expression.And(firstConditionEqual, secondConditionEqual);
+            Expression conversion = Expression.Convert(concatConditions, typeof(bool));
+            var lambda = Expression.Lambda<Func<T, bool>>(conversion, paramExpression);
+            return lambda;
+        }
     }
 }

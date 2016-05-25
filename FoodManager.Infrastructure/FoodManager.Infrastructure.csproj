@@ -65,11 +65,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\NutritionInformation.cs" />
     <Compile Include="Bulks\IBulkQuery.cs" />
     <Compile Include="Collections\CollectionExtensions.cs" />
     <Compile Include="Constants\GlobalConstants.cs" />
+    <Compile Include="Application\INutritionInformation.cs" />
     <Compile Include="DataBase\ConnectionSettings.cs" />
     <Compile Include="Dates\DateConvert.cs" />
+    <Compile Include="Dates\Enums\DayWeek.cs" />
+    <Compile Include="Decimals\DecimalExtensions.cs" />
     <Compile Include="Enums\Enumerator.cs" />
     <Compile Include="Enums\EnumExtensions.cs" />
     <Compile Include="Exceptions\ApplicationException.cs" />
@@ -92,7 +96,9 @@
     <Compile Include="Files\ServerDomainResolver.cs" />
     <Compile Include="Files\StorageProvider.cs" />
     <Compile Include="Files\StreamReply.cs" />
-    <Compile Include="Hmac\DisableValidatorHmac.cs" />
+    <Compile Include="Roles\AccessLevelType.cs" />
+    <Compile Include="Roles\PermissionType.cs" />
+    <Compile Include="Validators\Enums\DisableValidatorHmac.cs" />
     <Compile Include="Hmac\HmacGenerator.cs" />
     <Compile Include="IGenericQuery\IQuery.cs" />
     <Compile Include="IGenericRepositories\IReadableRepository.cs" />
@@ -110,13 +116,17 @@
     <Compile Include="Strings\StringExtensions.cs" />
     <Compile Include="Utils\Cryptography.cs" />
     <Compile Include="Validators\BaseValidator.cs" />
+    <Compile Include="Validators\Enums\DisableValidatorRole.cs" />
+    <Compile Include="Validators\Enums\LoginType.cs" />
     <Compile Include="Validators\IValidator.cs" />
+    <Compile Include="Validators\Serials\SerialSettings.cs" />
     <Compile Include="Validators\Validate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

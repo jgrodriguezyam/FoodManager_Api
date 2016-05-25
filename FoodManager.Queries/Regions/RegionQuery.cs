@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using FoodManager.Infrastructure.Constants;
 using FoodManager.Model;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Queries;
+using FoodManager.Infrastructure.Strings;
 using FoodManager.OrmLite.DataBase;
 using FoodManager.OrmLite.Utils;
 using ServiceStack.OrmLite.SqlServer;
@@ -22,7 +24,25 @@ namespace FoodManager.Queries.Regions
         public void WithOnlyActivated(bool onlyActivated)
         {
             if (onlyActivated)
-                _query.Where(newCoolerMultimedia => newCoolerMultimedia.IsActive);
+                _query.Where(region => region.IsActive);
+        }
+
+        public void WithOnlyStatusActivated(bool onlyStatusActivated)
+        {
+            if (onlyStatusActivated)
+                _query.Where(region => region.Status);
+        }
+
+        public void WithOnlyStatusDeactivated(bool onlyStatusDeactivated)
+        {
+            if (onlyStatusDeactivated)
+                _query.Where(region => region.Status == GlobalConstants.StatusDeactivated);
+        }
+
+        public void WithName(string name)
+        {
+            if (name.IsNotNullOrEmpty())
+                _query.Where(region => region.Name.Contains(name));
         }
 
         public void Sort(string sort, string sortBy)
