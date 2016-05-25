@@ -410,11 +410,41 @@ namespace FoodManager.Migrations.Sprint_01
 
             #endregion
 
+            #region ReservationDetail
+
+            Create.Table("ReservationDetail").InSchema("dbo")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("ReservationId").AsInt32().NotNullable()
+                .WithColumn("IngredientId").AsInt32().NotNullable()
+                .WithColumn("Portion").AsDecimal(10,2).NotNullable()
+
+                .WithColumn("CreatedBy").AsInt32().NotNullable()
+                .WithColumn("ModifiedBy").AsInt32().NotNullable()
+                .WithColumn("CreatedOn").AsDateTime().NotNullable()
+                .WithColumn("ModifiedOn").AsDateTime().NotNullable()
+                .WithColumn("Status").AsBoolean().NotNullable()
+                .WithColumn("IsActive").AsBoolean();
+
+            Create.ForeignKey("FK_ReservationDetail_Reservation").FromTable("ReservationDetail").InSchema("dbo").ForeignColumn("ReservationId")
+                 .ToTable("Reservation").InSchema("dbo").PrimaryColumn("Id");
+            Create.ForeignKey("FK_ReservationDetail_Ingredient").FromTable("ReservationDetail").InSchema("dbo").ForeignColumn("IngredientId")
+                 .ToTable("Ingredient").InSchema("dbo").PrimaryColumn("Id");
+
+            #endregion
+
             Init();
         }
 
         public override void Down()
         {
+            #region ReservationDetail
+            
+            Delete.ForeignKey("FK_ReservationDetail_Reservation").OnTable("ReservationDetail").InSchema("dbo");
+            Delete.ForeignKey("FK_ReservationDetail_Ingredient").OnTable("ReservationDetail").InSchema("dbo");
+            Delete.Table("ReservationDetail").InSchema("dbo");
+
+            #endregion
+
             #region BranchDealer
 
             Delete.ForeignKey("FK_BranchDealer_Branch").OnTable("BranchDealer").InSchema("dbo");

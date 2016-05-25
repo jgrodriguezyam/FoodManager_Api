@@ -75,6 +75,7 @@
     <Compile Include="IRepositories\IPermissionRepository.cs" />
     <Compile Include="IRepositories\IRegionRepository.cs" />
     <Compile Include="IRepositories\IDealerSaucerRepository.cs" />
+    <Compile Include="IRepositories\IReservationDetailRepository.cs" />
     <Compile Include="IRepositories\IReservationRepository.cs" />
     <Compile Include="IRepositories\IRoleConfigurationRepository.cs" />
     <Compile Include="IRepositories\IRoleRepository.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Region.cs" />
     <Compile Include="Reservation.cs" />
+    <Compile Include="ReservationDetail.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="RoleConfiguration.cs" />
     <Compile Include="Saucer.cs" />
