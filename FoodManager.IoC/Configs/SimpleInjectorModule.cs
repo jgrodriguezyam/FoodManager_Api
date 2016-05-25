@@ -18,6 +18,7 @@ using FoodManager.Queries.Ingredients;
 using FoodManager.Queries.Jobs;
 using FoodManager.Queries.Menus;
 using FoodManager.Queries.Regions;
+using FoodManager.Queries.ReservationDetails;
 using FoodManager.Queries.Reservations;
 using FoodManager.Queries.RoleConfigurations;
 using FoodManager.Queries.Roles;
@@ -198,6 +199,11 @@ namespace FoodManager.IoC.Configs
             _container.Register<IPermissionAccessLevelRepository, PermissionAccessLevelRepositoryOrmLite>();
             
             _container.Register<INutritionInformationFactory, NutritionInformationFactory>();
+
+            _container.Register<IReservationDetailRepository, ReservationDetailRepositoryOrmLite>();
+            _container.Register<IReservationDetailQuery, ReservationDetailQuery>();
+            _container.Register<IReservationDetailService, ReservationDetailService>();
+            _container.Register<IReservationDetailFactory, ReservationDetailFactory>();
         }
     }
 }

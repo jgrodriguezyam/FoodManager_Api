@@ -275,13 +275,13 @@ namespace FoodManager.Migrations.Sprint_01
             Create.Table("Ingredient").InSchema("dbo")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(250).NotNullable()
-                .WithColumn("Amount").AsDecimal().NotNullable()
-                .WithColumn("Energy").AsDecimal().NotNullable()
-                .WithColumn("Protein").AsDecimal().NotNullable()
-                .WithColumn("Carbohydrate").AsDecimal().NotNullable()
-                .WithColumn("Sugar").AsDecimal().NotNullable()
-                .WithColumn("Lipid").AsDecimal().NotNullable()
-                .WithColumn("Sodium").AsDecimal().NotNullable()
+                .WithColumn("Amount").AsDecimal(10,2).NotNullable()
+                .WithColumn("Energy").AsDecimal(10,2).NotNullable()
+                .WithColumn("Protein").AsDecimal(10,2).NotNullable()
+                .WithColumn("Carbohydrate").AsDecimal(10,2).NotNullable()
+                .WithColumn("Sugar").AsDecimal(10,2).NotNullable()
+                .WithColumn("Lipid").AsDecimal(10,2).NotNullable()
+                .WithColumn("Sodium").AsDecimal(10,2).NotNullable()
                 .WithColumn("Unit").AsInt32().NotNullable()
                 .WithColumn("IngredientGroupId").AsInt32().NotNullable()
 
@@ -303,7 +303,7 @@ namespace FoodManager.Migrations.Sprint_01
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("SaucerId").AsInt32().NotNullable()
                 .WithColumn("IngredientId").AsInt32().NotNullable()
-                .WithColumn("Portion").AsDecimal().NotNullable()
+                .WithColumn("Portion").AsDecimal(10,2).NotNullable()
 
                 .WithColumn("CreatedBy").AsInt32().NotNullable()
                 .WithColumn("ModifiedBy").AsInt32().NotNullable()
@@ -388,7 +388,7 @@ namespace FoodManager.Migrations.Sprint_01
             Create.Table("Reservation").InSchema("dbo")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Date").AsDateTime().NotNullable()
-                .WithColumn("Portion").AsDecimal().NotNullable()
+                .WithColumn("Portion").AsDecimal(10,2).NotNullable()
                 .WithColumn("MealType").AsInt32().NotNullable()
                 .WithColumn("WorkerId").AsInt32().NotNullable()
                 .WithColumn("SaucerId").AsInt32().NotNullable()
@@ -410,11 +410,41 @@ namespace FoodManager.Migrations.Sprint_01
 
             #endregion
 
+            #region ReservationDetail
+
+            Create.Table("ReservationDetail").InSchema("dbo")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("ReservationId").AsInt32().NotNullable()
+                .WithColumn("IngredientId").AsInt32().NotNullable()
+                .WithColumn("Portion").AsDecimal(10,2).NotNullable()
+
+                .WithColumn("CreatedBy").AsInt32().NotNullable()
+                .WithColumn("ModifiedBy").AsInt32().NotNullable()
+                .WithColumn("CreatedOn").AsDateTime().NotNullable()
+                .WithColumn("ModifiedOn").AsDateTime().NotNullable()
+                .WithColumn("Status").AsBoolean().NotNullable()
+                .WithColumn("IsActive").AsBoolean();
+
+            Create.ForeignKey("FK_ReservationDetail_Reservation").FromTable("ReservationDetail").InSchema("dbo").ForeignColumn("ReservationId")
+                 .ToTable("Reservation").InSchema("dbo").PrimaryColumn("Id");
+            Create.ForeignKey("FK_ReservationDetail_Ingredient").FromTable("ReservationDetail").InSchema("dbo").ForeignColumn("IngredientId")
+                 .ToTable("Ingredient").InSchema("dbo").PrimaryColumn("Id");
+
+            #endregion
+
             Init();
         }
 
         public override void Down()
         {
+            #region ReservationDetail
+            
+            Delete.ForeignKey("FK_ReservationDetail_Reservation").OnTable("ReservationDetail").InSchema("dbo");
+            Delete.ForeignKey("FK_ReservationDetail_Ingredient").OnTable("ReservationDetail").InSchema("dbo");
+            Delete.Table("ReservationDetail").InSchema("dbo");
+
+            #endregion
+
             #region BranchDealer
 
             Delete.ForeignKey("FK_BranchDealer_Branch").OnTable("BranchDealer").InSchema("dbo");
@@ -616,12 +646,12 @@ namespace FoodManager.Migrations.Sprint_01
                         "('Verduras y Frutas', 'Verde', " + GlobalConstants.CreatedBySystemUser + ")");
 
             Execute.Sql("INSERT INTO Ingredient (Name, Amount, Energy, Protein, Carbohydrate, Sugar, Lipid, Sodium, IngredientGroupId, Unit, " + GlobalConstants.AuditFields + ") VALUES " +
-                        "('Frijol', 100, 10, 10, 10, 10, 10, 10, 1, " + UnitType.Grams.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "('Puerco', 100, 10, 10, 10, 10, 10, 10, 1, " + UnitType.Grams.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")");
+                        "('Frijol', 100.00, 10.00, 10.00, 10.00, 10.00, 10.00, 10.00, 1, " + UnitType.Grams.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "('Puerco', 100.00, 10.00, 10.00, 10.00, 10.00, 10.00, 10.00, 1, " + UnitType.Grams.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")");
 
             Execute.Sql("INSERT INTO SaucerConfiguration (SaucerId, IngredientId, Portion, " + GlobalConstants.AuditFields + ") VALUES " +
-                        "(1, 1, 3, " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(1, 2, 3, " + GlobalConstants.CreatedBySystemUser + ")");
+                        "(1, 1, 3.00, " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(1, 2, 3.00, " + GlobalConstants.CreatedBySystemUser + ")");
 
             Execute.Sql("INSERT INTO Worker (Code, FirstName, LastName, Email, Imss, Gender, Badge, DepartmentId, JobId, BranchId, RoleId, " + GlobalConstants.AuditFields + ") VALUES " +
                         "('1122', 'Juan', 'Martinez', 'juan@gmail.com', 'WV12H78', 1, '010107002113774', 1, 1, 1, " + GlobalConstants.WorkerRoleId + ", " + GlobalConstants.CreatedBySystemUser + ")," +

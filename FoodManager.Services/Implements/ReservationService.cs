@@ -19,13 +19,17 @@ namespace FoodManager.Services.Implements
         private readonly IReservationRepository _reservationRepository;
         private readonly IReservationValidator _reservationValidator;
         private readonly IReservationFactory _reservationFactory;
+        private readonly IReservationDetailFactory _reservationDetailFactory;
+        private readonly IReservationDetailRepository _reservationDetailRepository;
 
-        public ReservationService(IReservationQuery reservationQuery, IReservationRepository reservationRepository, IReservationValidator reservationValidator, IReservationFactory reservationFactory)
+        public ReservationService(IReservationQuery reservationQuery, IReservationRepository reservationRepository, IReservationValidator reservationValidator, IReservationFactory reservationFactory, IReservationDetailFactory reservationDetailFactory, IReservationDetailRepository reservationDetailRepository)
         {
             _reservationQuery = reservationQuery;
             _reservationRepository = reservationRepository;
             _reservationValidator = reservationValidator;
             _reservationFactory = reservationFactory;
+            _reservationDetailFactory = reservationDetailFactory;
+            _reservationDetailRepository = reservationDetailRepository;
         }
 
         public FindReservationsResponse Find(FindReservationsRequest request)
@@ -65,6 +69,12 @@ namespace FoodManager.Services.Implements
                 var reservation = TypeAdapter.Adapt<Reservation>(request);
                 _reservationValidator.ValidateAndThrowException(reservation, "Base,Create");
                 _reservationRepository.Add(reservation);
+                var reservationDetails = _reservationDetailFactory.BySaucer(reservation.SaucerId);
+                reservationDetails.ForEach(reservationDetail =>
+                                           {
+                                               reservationDetail.ReservationId = reservation.Id;
+                                               _reservationDetailRepository.Add(reservationDetail);
+                                           });
                 return new CreateResponse(reservation.Id);
             }
             catch (DataAccessException)

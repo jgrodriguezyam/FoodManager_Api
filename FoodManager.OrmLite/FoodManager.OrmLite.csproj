@@ -79,6 +79,7 @@
     <Compile Include="Repositories\PermissionRepositoryOrmLite.cs" />
     <Compile Include="Repositories\RegionRepositoryOrmLite.cs" />
     <Compile Include="Repositories\DealerSaucerRepositoryOrmLite.cs" />
+    <Compile Include="Repositories\ReservationDetailRepositoryOrmLite.cs" />
     <Compile Include="Repositories\ReservationRepositoryOrmLite.cs" />
     <Compile Include="Repositories\RoleConfigurationRepositoryOrmLite.cs" />
     <Compile Include="Repositories\RoleRepositoryOrmLite.cs" />

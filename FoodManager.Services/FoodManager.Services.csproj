@@ -57,6 +57,7 @@
     <Compile Include="Factories\Implements\IngredientFactory.cs" />
     <Compile Include="Factories\Implements\MenuFactory.cs" />
     <Compile Include="Factories\Implements\NutritionInformationFactory.cs" />
+    <Compile Include="Factories\Implements\ReservationDetailFactory.cs" />
     <Compile Include="Factories\Implements\ReservationFactory.cs" />
     <Compile Include="Factories\Implements\RoleConfigurationFactory.cs" />
     <Compile Include="Factories\Implements\SaucerConfigurationFactory.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Factories\Interfaces\IIngredientFactory.cs" />
     <Compile Include="Factories\Interfaces\IMenuFactory.cs" />
     <Compile Include="Factories\Interfaces\INutritionInformationFactory.cs" />
+    <Compile Include="Factories\Interfaces\IReservationDetailFactory.cs" />
     <Compile Include="Factories\Interfaces\IReservationFactory.cs" />
     <Compile Include="Factories\Interfaces\IRoleConfigurationFactory.cs" />
     <Compile Include="Factories\Interfaces\ISaucerConfigurationFactory.cs" />
@@ -84,6 +86,7 @@
     <Compile Include="Implements\JobService.cs" />
     <Compile Include="Implements\MenuService.cs" />
     <Compile Include="Implements\RegionService.cs" />
+    <Compile Include="Implements\ReservationDetailService.cs" />
     <Compile Include="Implements\ReservationService.cs" />
     <Compile Include="Implements\RoleConfigurationService.cs" />
     <Compile Include="Implements\RoleService.cs" />
@@ -104,6 +107,7 @@
     <Compile Include="Interfaces\IJobService.cs" />
     <Compile Include="Interfaces\IMenuService.cs" />
     <Compile Include="Interfaces\IRegionService.cs" />
+    <Compile Include="Interfaces\IReservationDetailService.cs" />
     <Compile Include="Interfaces\IReservationService.cs" />
     <Compile Include="Interfaces\IRoleConfigurationService.cs" />
     <Compile Include="Interfaces\IRoleService.cs" />

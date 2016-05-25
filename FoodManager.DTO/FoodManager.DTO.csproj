@@ -126,6 +126,10 @@
     <Compile Include="Message\Regions\FindRegionsRequest.cs" />
     <Compile Include="Message\Regions\FindRegionsResponse.cs" />
     <Compile Include="Message\Regions\GetRegionRequest.cs" />
+    <Compile Include="Message\ReservationDetails\FindReservationDetailsRequest.cs" />
+    <Compile Include="Message\ReservationDetails\FindReservationDetailsResponse.cs" />
+    <Compile Include="Message\ReservationDetails\GetReservationDetailRequest.cs" />
+    <Compile Include="Message\ReservationDetails\ReservationDetailResponse.cs" />
     <Compile Include="Message\Reservations\DeleteReservationRequest.cs" />
     <Compile Include="Message\Reservations\FindReservationsRequest.cs" />
     <Compile Include="Message\Reservations\FindReservationsResponse.cs" />
@@ -200,6 +204,7 @@
     <Compile Include="Message\Regions\RegionRequest.cs" />
     <Compile Include="Message\Regions\RegionResponse.cs" />
     <Compile Include="Reservation.cs" />
+    <Compile Include="ReservationDetail.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="RoleConfiguration.cs" />
     <Compile Include="Saucer.cs" />

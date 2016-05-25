@@ -11,6 +11,7 @@ using FoodManager.DTO.Message.Ingredients;
 using FoodManager.DTO.Message.Jobs;
 using FoodManager.DTO.Message.Menus;
 using FoodManager.DTO.Message.Regions;
+using FoodManager.DTO.Message.ReservationDetails;
 using FoodManager.DTO.Message.Reservations;
 using FoodManager.DTO.Message.RoleConfigurations;
 using FoodManager.DTO.Message.Roles;
@@ -619,6 +620,7 @@ namespace FoodManager.Mapper.Configs
             TypeAdapterConfig<Model.Reservation, Model.Reservation>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id)
+                .IgnoreMember(dest => dest.SaucerId)
                 .IgnoreMember(dest => dest.CreatedBy)
                 .IgnoreMember(dest => dest.CreatedOn)
                 .IgnoreMember(dest => dest.ModifiedBy)
@@ -727,6 +729,16 @@ namespace FoodManager.Mapper.Configs
                 .IgnoreMember(dest => dest.Id);
 
             TypeAdapterConfig<Model.AccessLevel, AccessLevelResponse>
+                .NewConfig();
+
+            #endregion
+
+            #region ReservationDetail
+
+            TypeAdapterConfig<Model.ReservationDetail, DTO.ReservationDetail>
+                .NewConfig();
+
+            TypeAdapterConfig<Model.ReservationDetail, ReservationDetailResponse>
                 .NewConfig();
 
             #endregion
