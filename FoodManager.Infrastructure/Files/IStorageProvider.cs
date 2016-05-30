@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 
 namespace FoodManager.Infrastructure.Files
 {
@@ -8,5 +9,6 @@ namespace FoodManager.Infrastructure.Files
         Stream Retrieve(string filePath);
         void Delete(string filePath);
         string DomainResolver();
+        IEnumerable<string> ReadAllLinesCsv(string filePath);
     }
 }

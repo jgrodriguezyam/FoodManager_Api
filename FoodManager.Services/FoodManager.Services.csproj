@@ -55,6 +55,7 @@
     <Compile Include="Factories\Implements\BranchFactory.cs" />
     <Compile Include="Factories\Implements\CompanyFactory.cs" />
     <Compile Include="Factories\Implements\IngredientFactory.cs" />
+    <Compile Include="Factories\Implements\IngredientGroupFactory.cs" />
     <Compile Include="Factories\Implements\MenuFactory.cs" />
     <Compile Include="Factories\Implements\NutritionInformationFactory.cs" />
     <Compile Include="Factories\Implements\ReservationDetailFactory.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Factories\Interfaces\IBranchFactory.cs" />
     <Compile Include="Factories\Interfaces\ICompanyFactory.cs" />
     <Compile Include="Factories\Interfaces\IIngredientFactory.cs" />
+    <Compile Include="Factories\Interfaces\IIngredientGroupFactory.cs" />
     <Compile Include="Factories\Interfaces\IMenuFactory.cs" />
     <Compile Include="Factories\Interfaces\INutritionInformationFactory.cs" />
     <Compile Include="Factories\Interfaces\IReservationDetailFactory.cs" />

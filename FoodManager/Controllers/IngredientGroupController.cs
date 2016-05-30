@@ -4,6 +4,7 @@ using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.IngredientGroups;
 using FoodManager.Services.Interfaces;
+using FoodManager.Helpers;
 
 namespace FoodManager.Controllers
 {
@@ -56,6 +57,12 @@ namespace FoodManager.Controllers
         public SuccessResponse Get(IsReferenceRequest request)
         {
             return _ingredientGroupService.IsReference(request);
+        }
+
+        [HttpPost, Route("ingredient-groups/csv")]
+        public SuccessResponse Post(CsvRequest request)
+        {
+            return _ingredientGroupService.Csv(request, Request.GetFile());
         }
     }
 }

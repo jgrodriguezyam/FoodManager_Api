@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace FoodManager.Infrastructure.Files
 {
@@ -44,6 +46,13 @@ namespace FoodManager.Infrastructure.Files
         {
             var appPath = string.Format("{0}{1}", ServerDomainResolver.GetCurrentDomain(), _destinationPath);
             return appPath;
+        }
+
+        public IEnumerable<string> ReadAllLinesCsv(string filePath)
+        {
+            var physicalPath = string.Concat(_fileResolver.Resolve(_destinationPath), filePath);
+            var csvLines = System.IO.File.ReadAllLines(physicalPath).Skip(1);
+            return csvLines;
         }
     }
 }

@@ -150,6 +150,7 @@ namespace FoodManager.IoC.Configs
             _container.Register<IIngredientGroupQuery, IngredientGroupQuery>();
             _container.Register<IIngredientGroupValidator, IngredientGroupValidator>();
             _container.Register<IIngredientGroupService, IngredientGroupService>();
+            _container.Register<IIngredientGroupFactory, IngredientGroupFactory>();
 
             _container.Register<IIngredientRepository, IngredientRepositoryOrmLite>();
             _container.Register<IIngredientQuery, IngredientQuery>();
