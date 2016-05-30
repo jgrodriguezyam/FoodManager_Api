@@ -47,7 +47,7 @@ namespace FoodManager.Controllers
         }
 
         [HttpPut, Route("dealers/{Id}/status/{Status}")]
-        public SuccessResponse Put(ChangeStatusRequest request)
+        public SuccessResponse ChangeStatus(ChangeStatusRequest request)
         {
             return _dealerService.ChangeStatus(request);
         }
@@ -59,13 +59,13 @@ namespace FoodManager.Controllers
         }
 
         [HttpPost, Route("dealers/{FirstReference}/saucers/{SecondReference}")]
-        public SuccessResponse Post(RelationRequest request)
+        public SuccessResponse Assign(RelationRequest request)
         {
             return _dealerService.AddSaucer(request);
         }
 
         [HttpDelete, Route("dealers/{FirstReference}/saucers/{SecondReference}")]
-        public SuccessResponse Delete(RelationRequest request)
+        public SuccessResponse Unassign(RelationRequest request)
         {
             return _dealerService.RemoveSaucer(request);
         }

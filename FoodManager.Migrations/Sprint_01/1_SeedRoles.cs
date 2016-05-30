@@ -184,7 +184,11 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + AccessLevelType.Post.GetValue() + ", '" + AccessLevelType.Post + "', 'Crear')," +
                         "(" + AccessLevelType.Put.GetValue() + ", '" + AccessLevelType.Put + "', 'Actualizar')," +
                         "(" + AccessLevelType.Get.GetValue() + ", '" + AccessLevelType.Get + "', 'Ver')," +
-                        "(" + AccessLevelType.Delete.GetValue() + ", '" + AccessLevelType.Delete + "', 'Eliminar')");
+                        "(" + AccessLevelType.Delete.GetValue() + ", '" + AccessLevelType.Delete + "', 'Eliminar')," +
+                        "(" + AccessLevelType.ChangeStatus.GetValue() + ", '" + AccessLevelType.ChangeStatus + "', 'Actualizar Estado')," +
+                        "(" + AccessLevelType.Assign.GetValue() + ", '" + AccessLevelType.Assign + "', 'Asignar')," +
+                        "(" + AccessLevelType.Unassign.GetValue() + ", '" + AccessLevelType.Unassign + "', 'Desasignar')," +
+                        "(" + AccessLevelType.ChangePassword.GetValue() + ", '" + AccessLevelType.ChangePassword + "', 'Actualizar Contraseña')");
         }
 
         private void InsertPermission()
@@ -225,6 +229,7 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + PermissionType.Role.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.Role.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
                         "(" + PermissionType.Role.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
+                        "(" + PermissionType.Role.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
 
                         "(" + PermissionType.RoleConfiguration.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.RoleConfiguration.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
@@ -234,90 +239,113 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + PermissionType.User.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.User.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.User.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
+                        "(" + PermissionType.User.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
+                        "(" + PermissionType.User.GetValue() + ", " + AccessLevelType.ChangePassword.GetValue() + ")," +
 
                         "(" + PermissionType.Worker.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.Worker.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.Worker.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
+                        "(" + PermissionType.Worker.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
 
                         "(" + PermissionType.Region.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.Region.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.Region.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
                         "(" + PermissionType.Region.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
+                        "(" + PermissionType.Region.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
 
                         "(" + PermissionType.Company.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.Company.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.Company.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
                         "(" + PermissionType.Company.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
+                        "(" + PermissionType.Company.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
 
                         "(" + PermissionType.Branch.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.Branch.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.Branch.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
                         "(" + PermissionType.Branch.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
+                        "(" + PermissionType.Branch.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
+                        "(" + PermissionType.Branch.GetValue() + ", " + AccessLevelType.Assign.GetValue() + ")," +
+                        "(" + PermissionType.Branch.GetValue() + ", " + AccessLevelType.Unassign.GetValue() + ")," +
 
                         "(" + PermissionType.Department.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.Department.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.Department.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
                         "(" + PermissionType.Department.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
+                        "(" + PermissionType.Department.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
 
                         "(" + PermissionType.Disease.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.Disease.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.Disease.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
                         "(" + PermissionType.Disease.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
+                        "(" + PermissionType.Disease.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
 
                         "(" + PermissionType.Warning.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.Warning.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.Warning.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
                         "(" + PermissionType.Warning.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
+                        "(" + PermissionType.Warning.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
 
                         "(" + PermissionType.Tip.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.Tip.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.Tip.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
                         "(" + PermissionType.Tip.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
+                        "(" + PermissionType.Tip.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
 
                         "(" + PermissionType.Job.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.Job.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.Job.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
                         "(" + PermissionType.Job.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
+                        "(" + PermissionType.Job.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
 
                         "(" + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
                         "(" + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
+                        "(" + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
+                        "(" + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Assign.GetValue() + ")," +
+                        "(" + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Unassign.GetValue() + ")," +
 
                         "(" + PermissionType.Menu.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.Menu.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.Menu.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
                         "(" + PermissionType.Menu.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
+                        "(" + PermissionType.Menu.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
 
                         "(" + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
                         "(" + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
+                        "(" + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
 
                         "(" + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
                         "(" + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
+                        "(" + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
 
                         "(" + PermissionType.SaucerConfiguration.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.SaucerConfiguration.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.SaucerConfiguration.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
                         "(" + PermissionType.SaucerConfiguration.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
+                        "(" + PermissionType.SaucerConfiguration.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
 
                         "(" + PermissionType.Ingredient.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.Ingredient.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.Ingredient.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
                         "(" + PermissionType.Ingredient.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
+                        "(" + PermissionType.Ingredient.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
 
                         "(" + PermissionType.IngredientGroup.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.IngredientGroup.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.IngredientGroup.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
                         "(" + PermissionType.IngredientGroup.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
+                        "(" + PermissionType.IngredientGroup.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
 
                         "(" + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
-                        "(" + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")");
+                        "(" + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
+                        "(" + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")");
         }
 
         private void InsertAdminRoleConfiguration()
@@ -331,6 +359,7 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Role.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Role.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Role.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Role.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.RoleConfiguration.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.RoleConfiguration.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
@@ -340,90 +369,113 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.User.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.User.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.User.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.User.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.User.GetValue() + ", " + AccessLevelType.ChangePassword.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Worker.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Worker.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Worker.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Worker.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Region.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Region.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Region.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Region.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Region.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Company.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Company.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Company.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Company.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Company.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Branch.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Branch.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Branch.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Branch.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Branch.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Branch.GetValue() + ", " + AccessLevelType.Assign.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Branch.GetValue() + ", " + AccessLevelType.Unassign.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Department.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Department.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Department.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Department.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Department.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Disease.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Disease.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Disease.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Disease.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Disease.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Warning.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Warning.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Warning.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Warning.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Warning.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Tip.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Tip.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Tip.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Tip.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Tip.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Job.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Job.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Job.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Job.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Job.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Assign.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Unassign.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Menu.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Menu.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Menu.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Menu.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Menu.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.SaucerConfiguration.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.SaucerConfiguration.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.SaucerConfiguration.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.SaucerConfiguration.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.SaucerConfiguration.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Ingredient.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Ingredient.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Ingredient.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Ingredient.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Ingredient.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.IngredientGroup.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.IngredientGroup.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.IngredientGroup.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.IngredientGroup.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.IngredientGroup.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")");
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")");
         }
 
         private void InsertDealerRoleConfiguration()

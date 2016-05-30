@@ -50,7 +50,7 @@ namespace FoodManager.Controllers
         }
 
         [HttpPut, Route("saucer-multimedias/{Id}/status/{Status}")]
-        public SuccessResponse Put(ChangeStatusRequest request)
+        public SuccessResponse ChangeStatus(ChangeStatusRequest request)
         {
             return _saucerMultimediaService.ChangeStatus(request);
         }

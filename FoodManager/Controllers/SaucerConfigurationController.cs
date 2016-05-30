@@ -47,7 +47,7 @@ namespace FoodManager.Controllers
         }
 
         [HttpPut, Route("saucer-configurations/{Id}/status/{Status}")]
-        public SuccessResponse Put(ChangeStatusRequest request)
+        public SuccessResponse ChangeStatus(ChangeStatusRequest request)
         {
             return _saucerConfigurationService.ChangeStatus(request);
         }

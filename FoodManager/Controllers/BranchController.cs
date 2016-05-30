@@ -47,7 +47,7 @@ namespace FoodManager.Controllers
         }
 
         [HttpPut, Route("branches/{Id}/status/{Status}")]
-        public SuccessResponse Put(ChangeStatusRequest request)
+        public SuccessResponse ChangeStatus(ChangeStatusRequest request)
         {
             return _branchService.ChangeStatus(request);
         }
@@ -59,13 +59,13 @@ namespace FoodManager.Controllers
         }
 
         [HttpPost, Route("branches/{FirstReference}/dealers/{SecondReference}")]
-        public SuccessResponse Post(RelationRequest request)
+        public SuccessResponse Assign(RelationRequest request)
         {
             return _branchService.AddDealer(request);
         }
 
         [HttpDelete, Route("branches/{FirstReference}/dealers/{SecondReference}")]
-        public SuccessResponse Delete(RelationRequest request)
+        public SuccessResponse Unassign(RelationRequest request)
         {
             return _branchService.RemoveDealer(request);
         }

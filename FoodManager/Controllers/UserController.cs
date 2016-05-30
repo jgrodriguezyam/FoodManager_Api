@@ -59,13 +59,13 @@ namespace FoodManager.Controllers
         }
 
         [HttpPost, Route("users/change-password")]
-        public SuccessResponse Put(ChangeUserPasswordRequest request)
+        public SuccessResponse ChangePassword(ChangeUserPasswordRequest request)
         {
             return _userService.ChangePassword(request);
         }
 
         [HttpPut, Route("users/{Id}/status/{Status}")]
-        public SuccessResponse Put(ChangeStatusRequest request)
+        public SuccessResponse ChangeStatus(ChangeStatusRequest request)
         {
             return _userService.ChangeStatus(request);
         }

@@ -59,7 +59,7 @@ namespace FoodManager.Controllers
         }
 
         [HttpPut, Route("workers/{Id}/status/{Status}")]
-        public SuccessResponse Put(ChangeStatusRequest request)
+        public SuccessResponse ChangeStatus(ChangeStatusRequest request)
         {
             return _workerService.ChangeStatus(request);
         }
