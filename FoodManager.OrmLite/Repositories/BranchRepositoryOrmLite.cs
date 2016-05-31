@@ -46,12 +46,12 @@ namespace FoodManager.OrmLite.Repositories
         {
             _auditEventListener.OnPreDelete(item);
             _dataBaseSqlServerOrmLite.LogicRemove(item);
+            _dataBaseSqlServerOrmLite.Remove<BranchDealer>(branchDealer => branchDealer.BranchId == item.Id);
         }
 
         public bool IsReference(int branchId)
         {
-            var amountOfReferences = _dataBaseSqlServerOrmLite.Count<BranchDealer>(branchDealer => branchDealer.BranchId == branchId);
-            amountOfReferences += _dataBaseSqlServerOrmLite.Count<Worker>(worker => worker.BranchId == branchId && worker.IsActive);
+            var amountOfReferences = _dataBaseSqlServerOrmLite.Count<Worker>(worker => worker.BranchId == branchId && worker.IsActive);
             return amountOfReferences.IsNotZero();
         }
     }

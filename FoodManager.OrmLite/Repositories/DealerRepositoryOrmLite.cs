@@ -46,13 +46,13 @@ namespace FoodManager.OrmLite.Repositories
         {
             _auditEventListener.OnPreDelete(item);
             _dataBaseSqlServerOrmLite.LogicRemove(item);
+            _dataBaseSqlServerOrmLite.Remove<DealerSaucer>(dealerSaucer => dealerSaucer.DealerId == item.Id);
         }
 
         public bool IsReference(int dealerId)
         {
             var amountOfReferences = _dataBaseSqlServerOrmLite.Count<BranchDealer>(branchDealer => branchDealer.DealerId == dealerId);
             amountOfReferences += _dataBaseSqlServerOrmLite.Count<User>(user => user.DealerId == dealerId && user.IsActive);
-            amountOfReferences += _dataBaseSqlServerOrmLite.Count<DealerSaucer>(dealerSaucer => dealerSaucer.DealerId == dealerId);
             amountOfReferences += _dataBaseSqlServerOrmLite.Count<Menu>(menu => menu.DealerId == dealerId && menu.IsActive);
             amountOfReferences += _dataBaseSqlServerOrmLite.Count<Reservation>(reservation => reservation.DealerId == dealerId && reservation.IsActive);
             return amountOfReferences.IsNotZero();
