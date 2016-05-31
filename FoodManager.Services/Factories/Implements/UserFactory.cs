@@ -9,10 +9,12 @@ namespace FoodManager.Services.Factories.Implements
     public class UserFactory : IUserFactory
     {
         private readonly IDealerRepository _dealerRepository;
+        private readonly IRoleRepository _roleRepository;
 
-        public UserFactory(IDealerRepository dealerRepository)
+        public UserFactory(IDealerRepository dealerRepository, IRoleRepository roleRepository)
         {
             _dealerRepository = dealerRepository;
+            _roleRepository = roleRepository;
         }
 
         public DTO.User Execute(User user)
@@ -22,6 +24,8 @@ namespace FoodManager.Services.Factories.Implements
             var dealer = _dealerRepository.FindBy(dealerId);
             if (dealer.IsNotNull())
                 userDto.Dealer = TypeAdapter.Adapt<DTO.Dealer>(dealer);
+            var role = _roleRepository.FindBy(user.RoleId);
+            userDto.Role = TypeAdapter.Adapt<DTO.Role>(role);
             return userDto;
         }
     }
