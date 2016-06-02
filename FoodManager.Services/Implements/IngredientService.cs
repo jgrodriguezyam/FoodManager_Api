@@ -4,6 +4,7 @@ using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Ingredients;
 using FoodManager.Infrastructure.Exceptions;
+using FoodManager.Infrastructure.Files;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Queries.Ingredients;
@@ -19,13 +20,15 @@ namespace FoodManager.Services.Implements
         private readonly IIngredientRepository _ingredientRepository;
         private readonly IIngredientValidator _ingredientValidator;
         private readonly IIngredientFactory _ingredientFactory;
+        private readonly IStorageProvider _storageProvider;
 
-        public IngredientService(IIngredientQuery ingredientQuery, IIngredientRepository ingredientRepository, IIngredientValidator ingredientValidator, IIngredientFactory ingredientFactory)
+        public IngredientService(IIngredientQuery ingredientQuery, IIngredientRepository ingredientRepository, IIngredientValidator ingredientValidator, IIngredientFactory ingredientFactory, IStorageProvider storageProvider)
         {
             _ingredientQuery = ingredientQuery;
             _ingredientRepository = ingredientRepository;
             _ingredientValidator = ingredientValidator;
             _ingredientFactory = ingredientFactory;
+            _storageProvider = storageProvider;
         }
 
         public FindIngredientsResponse Find(FindIngredientsRequest request)
@@ -145,6 +148,25 @@ namespace FoodManager.Services.Implements
             {
                 var isReference = _ingredientRepository.IsReference(request.Id);
                 return new SuccessResponse { IsSuccess = isReference };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public SuccessResponse Csv(CsvRequest request, File file)
+        {
+            try
+            {
+                var fileName = _storageProvider.Save(file);
+                var ingredients = _ingredientFactory.FromCsv(fileName);
+                ingredients.ForEach(ingredient =>
+                                    {
+                                        _ingredientValidator.ValidateAndThrowException(ingredient, "Base");
+                                        _ingredientRepository.Add(ingredient);
+                                    });
+                return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)
             {

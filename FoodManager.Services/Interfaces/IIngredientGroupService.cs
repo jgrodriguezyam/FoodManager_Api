@@ -2,7 +2,7 @@
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.IngredientGroups;
-using File = FoodManager.Infrastructure.Files.File;
+using FoodManager.Infrastructure.Files;
 
 namespace FoodManager.Services.Interfaces
 {

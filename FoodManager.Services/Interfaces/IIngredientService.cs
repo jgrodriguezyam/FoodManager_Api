@@ -2,6 +2,7 @@
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Ingredients;
+using FoodManager.Infrastructure.Files;
 
 namespace FoodManager.Services.Interfaces
 {
@@ -14,5 +15,6 @@ namespace FoodManager.Services.Interfaces
         SuccessResponse Delete(DeleteIngredientRequest request);
         SuccessResponse ChangeStatus(ChangeStatusRequest request);
         SuccessResponse IsReference(IsReferenceRequest request);
+        SuccessResponse Csv(CsvRequest request, File file);
     }
 }

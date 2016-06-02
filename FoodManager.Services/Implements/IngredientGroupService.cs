@@ -11,7 +11,6 @@ using FoodManager.Queries.IngredientGroups;
 using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Interfaces;
-using File = FoodManager.Infrastructure.Files.File;
 
 namespace FoodManager.Services.Implements
 {
@@ -157,7 +156,11 @@ namespace FoodManager.Services.Implements
             {
                 var fileName = _storageProvider.Save(file);
                 var ingredientGroups = _ingredientGroupFactory.FromCsv(fileName);
-                ingredientGroups.ForEach(ingredientGroup => _ingredientGroupRepository.Add(ingredientGroup));
+                ingredientGroups.ForEach(ingredientGroup =>
+                                         {
+                                             _ingredientGroupValidator.ValidateAndThrowException(ingredientGroup, "Base");
+                                             _ingredientGroupRepository.Add(ingredientGroup);
+                                         });
                 return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)

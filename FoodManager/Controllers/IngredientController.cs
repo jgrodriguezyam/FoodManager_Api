@@ -3,6 +3,7 @@ using FoodManager.DTO;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Ingredients;
+using FoodManager.Helpers;
 using FoodManager.Infrastructure.Enums;
 using FoodManager.Model.Enums;
 using FoodManager.Services.Interfaces;
@@ -64,6 +65,12 @@ namespace FoodManager.Controllers
         public EnumeratorResponse Get()
         {
             return new EnumeratorResponse { Enumerator = new UnitType().ConvertToCollection() };
+        }
+
+        [HttpPost, Route("ingredients/csv")]
+        public SuccessResponse Post(CsvRequest request)
+        {
+            return _ingredientService.Csv(request, Request.GetFile());
         }
     }
 }
