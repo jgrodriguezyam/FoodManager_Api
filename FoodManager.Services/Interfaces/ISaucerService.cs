@@ -2,6 +2,7 @@
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Saucers;
 using FoodManager.Infrastructure.Application;
+using FoodManager.Infrastructure.Files;
 
 namespace FoodManager.Services.Interfaces
 {
@@ -15,5 +16,6 @@ namespace FoodManager.Services.Interfaces
         SuccessResponse ChangeStatus(ChangeStatusRequest request);
         SuccessResponse IsReference(IsReferenceRequest request);
         NutritionInformation GetNutritionInformation(GetNutritionInformationRequest request);
+        SuccessResponse Csv(CsvRequest request, File file);
     }
 }

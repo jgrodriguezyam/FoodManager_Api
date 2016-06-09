@@ -6,6 +6,7 @@ using FoodManager.Infrastructure.Application;
 using FoodManager.Infrastructure.Enums;
 using FoodManager.Model.Enums;
 using FoodManager.Services.Interfaces;
+using FoodManager.Helpers;
 
 namespace FoodManager.Controllers
 {
@@ -70,6 +71,12 @@ namespace FoodManager.Controllers
         public NutritionInformation Get(GetNutritionInformationRequest request)
         {
             return _saucerService.GetNutritionInformation(request);
+        }
+
+        [HttpPost, Route("saucers/csv")]
+        public SuccessResponse Post(CsvRequest request)
+        {
+            return _saucerService.Csv(request, Request.GetFile());
         }
     }
 }

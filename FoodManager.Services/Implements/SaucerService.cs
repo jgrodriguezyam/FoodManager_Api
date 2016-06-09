@@ -5,6 +5,7 @@ using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Saucers;
 using FoodManager.Infrastructure.Application;
 using FoodManager.Infrastructure.Exceptions;
+using FoodManager.Infrastructure.Files;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Queries.Saucers;
@@ -20,13 +21,17 @@ namespace FoodManager.Services.Implements
         private readonly ISaucerRepository _saucerRepository;
         private readonly ISaucerValidator _saucerValidator;
         private readonly INutritionInformationFactory _nutritionInformationFactory;
+        private readonly ISaucerFactory _saucerFactory;
+        private readonly IStorageProvider _storageProvider;
 
-        public SaucerService(ISaucerQuery saucerQuery, ISaucerRepository saucerRepository, ISaucerValidator saucerValidator, INutritionInformationFactory nutritionInformationFactory)
+        public SaucerService(ISaucerQuery saucerQuery, ISaucerRepository saucerRepository, ISaucerValidator saucerValidator, INutritionInformationFactory nutritionInformationFactory, ISaucerFactory saucerFactory, IStorageProvider storageProvider)
         {
             _saucerQuery = saucerQuery;
             _saucerRepository = saucerRepository;
             _saucerValidator = saucerValidator;
             _nutritionInformationFactory = nutritionInformationFactory;
+            _saucerFactory = saucerFactory;
+            _storageProvider = storageProvider;
         }
 
         public FindSaucersResponse Find(FindSaucersRequest request)
@@ -155,6 +160,25 @@ namespace FoodManager.Services.Implements
             try
             {
                 return _nutritionInformationFactory.FindBySaucer(request.Id);
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public SuccessResponse Csv(CsvRequest request, File file)
+        {
+            try
+            {
+                var fileName = _storageProvider.Save(file);
+                var saucers = _saucerFactory.FromCsv(fileName);
+                saucers.ForEach(ingredient =>
+                {
+                    _saucerValidator.ValidateAndThrowException(ingredient, "Base");
+                    _saucerRepository.Add(ingredient);
+                });
+                return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)
             {
