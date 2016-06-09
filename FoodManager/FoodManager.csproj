@@ -197,6 +197,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Multimedia\Ingredient.csv" />
+    <Content Include="Content\Multimedia\IngredientGroup.csv" />
+    <Content Include="Content\Multimedia\Saucer.csv" />
+    <Content Include="Content\Multimedia\Tip.csv" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
   </ItemGroup>
   <ItemGroup>
