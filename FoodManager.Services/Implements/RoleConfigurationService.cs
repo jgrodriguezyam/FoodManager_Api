@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using FastMapper;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.AccessLevels;
@@ -45,7 +46,7 @@ namespace FoodManager.Services.Implements
 
                 return new FindRoleConfigurationsResponse
                 {
-                    RoleConfigurations = TypeAdapter.Adapt<List<RoleConfigurationResponse>>(roleConfigurations),
+                    RoleConfigurations = _roleConfigurationFactory.Execute(roleConfigurations).ToList(),
                     TotalRecords = totalRecords
                 };
             }
@@ -88,7 +89,7 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public DTO.RoleConfiguration Get(GetRoleConfigurationRequest request)
+        public RoleConfigurationResponse Get(GetRoleConfigurationRequest request)
         {
             try
             {

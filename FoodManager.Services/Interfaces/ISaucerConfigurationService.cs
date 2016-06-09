@@ -1,5 +1,4 @@
-﻿using FoodManager.DTO;
-using FoodManager.DTO.BaseRequest;
+﻿using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.SaucerConfigurations;
 
@@ -10,7 +9,7 @@ namespace FoodManager.Services.Interfaces
         FindSaucerConfigurationsResponse Find(FindSaucerConfigurationsRequest request);
         CreateResponse Create(SaucerConfigurationRequest request);
         SuccessResponse Update(SaucerConfigurationRequest request);
-        SaucerConfiguration Get(GetSaucerConfigurationRequest request);
+        SaucerConfigurationResponse Get(GetSaucerConfigurationRequest request);
         SuccessResponse Delete(DeleteSaucerConfigurationRequest request);
         SuccessResponse ChangeStatus(ChangeStatusRequest request);
     }

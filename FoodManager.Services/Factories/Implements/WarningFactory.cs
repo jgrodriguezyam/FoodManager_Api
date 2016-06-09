@@ -1,4 +1,8 @@
-﻿using FastMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using FastMapper;
+using FoodManager.DTO.Message.Diseases;
+using FoodManager.DTO.Message.Warnings;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Services.Factories.Interfaces;
@@ -14,12 +18,17 @@ namespace FoodManager.Services.Factories.Implements
             _diseaseRepository = diseaseRepository;
         }
 
-        public DTO.Warning Execute(Warning warning)
+        public WarningResponse Execute(Warning warning)
         {
-            var warningDto = TypeAdapter.Adapt<DTO.Warning>(warning);
+            var warningResponse = TypeAdapter.Adapt<WarningResponse>(warning);
             var disease = _diseaseRepository.FindBy(warning.DiseaseId);
-            warningDto.Disease = TypeAdapter.Adapt<DTO.Disease>(disease);
-            return warningDto;
+            warningResponse.Disease = TypeAdapter.Adapt<DiseaseResponse>(disease);
+            return warningResponse;
+        }
+
+        public IEnumerable<WarningResponse> Execute(IEnumerable<Warning> warnings)
+        {
+            return warnings.Select(Execute);
         }
     }
 }

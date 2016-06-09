@@ -1,6 +1,6 @@
-﻿namespace FoodManager.DTO
+﻿namespace FoodManager.DTO.Message.Permissions
 {
-    public class AccessLevel
+    public class PermissionResponse
     {
         public int Id { get; set; }
         public string Name { get; set; }

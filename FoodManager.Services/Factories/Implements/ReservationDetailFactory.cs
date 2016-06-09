@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using FastMapper;
+using FoodManager.DTO.Message.Ingredients;
+using FoodManager.DTO.Message.ReservationDetails;
+using FoodManager.DTO.Message.Reservations;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Services.Factories.Interfaces;
@@ -19,14 +23,19 @@ namespace FoodManager.Services.Factories.Implements
             _saucerConfigurationRepository = saucerConfigurationRepository;
         }
 
-        public DTO.ReservationDetail Execute(ReservationDetail reservationDetail)
+        public ReservationDetailResponse Execute(ReservationDetail reservationDetail)
         {
-            var reservationDetailDto = TypeAdapter.Adapt<DTO.ReservationDetail>(reservationDetail);
+            var reservationDetailResponse = TypeAdapter.Adapt<ReservationDetailResponse>(reservationDetail);
             var reservation = _reservationRepository.FindBy(reservationDetail.ReservationId);
-            reservationDetailDto.Reservation = TypeAdapter.Adapt<DTO.Reservation>(reservation);
+            reservationDetailResponse.Reservation = TypeAdapter.Adapt<ReservationResponse>(reservation);
             var ingredient = _ingredientRepository.FindBy(reservationDetail.IngredientId);
-            reservationDetailDto.Ingredient = TypeAdapter.Adapt<DTO.Ingredient>(ingredient);
-            return reservationDetailDto;
+            reservationDetailResponse.Ingredient = TypeAdapter.Adapt<IngredientResponse>(ingredient);
+            return reservationDetailResponse;
+        }
+
+        public IEnumerable<ReservationDetailResponse> Execute(IEnumerable<ReservationDetail> reservationDetails)
+        {
+            return reservationDetails.Select(Execute);
         }
 
         public List<ReservationDetail> BySaucer(int saucerId)

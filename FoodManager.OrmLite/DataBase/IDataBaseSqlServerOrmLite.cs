@@ -27,5 +27,6 @@ namespace FoodManager.OrmLite.DataBase
         void Rollback();
         void UpdateHmac<T>(string publicKey, string time, int id) where T : new();
         T GetByIdOrDefault<T>(int id) where T : new();
+        IEnumerable<T> FindAll<T>();
     }
 }

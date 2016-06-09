@@ -1,4 +1,9 @@
-﻿using FastMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using FastMapper;
+using FoodManager.DTO.Message.Dealers;
+using FoodManager.DTO.Message.Menus;
+using FoodManager.DTO.Message.Saucers;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Services.Factories.Interfaces;
@@ -16,14 +21,19 @@ namespace FoodManager.Services.Factories.Implements
             _saucerRepository = saucerRepository;
         }
 
-        public DTO.Menu Execute(Menu menu)
+        public MenuResponse Execute(Menu menu)
         {
-            var menuDto = TypeAdapter.Adapt<DTO.Menu>(menu);
+            var menuResponse = TypeAdapter.Adapt<MenuResponse>(menu);
             var dealer = _dealerRepository.FindBy(menu.DealerId);
-            menuDto.Dealer = TypeAdapter.Adapt<DTO.Dealer>(dealer);
+            menuResponse.Dealer = TypeAdapter.Adapt<DealerResponse>(dealer);
             var saucer = _saucerRepository.FindBy(menu.SaucerId);
-            menuDto.Saucer = TypeAdapter.Adapt<DTO.Saucer>(saucer);
-            return menuDto;
+            menuResponse.Saucer = TypeAdapter.Adapt<SaucerResponse>(saucer);
+            return menuResponse;
+        }
+
+        public IEnumerable<MenuResponse> Execute(IEnumerable<Menu> menus)
+        {
+            return menus.Select(Execute);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using FoodManager.DTO;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Branches;
@@ -35,7 +34,7 @@ namespace FoodManager.Controllers
         }
 
         [HttpGet, Route("branches/{Id}")]
-        public Branch Get(GetBranchRequest request)
+        public BranchResponse Get(GetBranchRequest request)
         {
             return _branchService.Get(request);
         }

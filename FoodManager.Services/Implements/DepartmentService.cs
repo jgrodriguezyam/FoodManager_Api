@@ -83,13 +83,13 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public DTO.Department Get(GetDepartmentRequest request)
+        public DepartmentResponse Get(GetDepartmentRequest request)
         {
             try
             {
                 var department = _departmentRepository.FindBy(request.Id);
                 department.ThrowExceptionIfRecordIsNull();
-                return TypeAdapter.Adapt<DTO.Department>(department);
+                return TypeAdapter.Adapt<DepartmentResponse>(department);
             }
             catch (DataAccessException)
             {

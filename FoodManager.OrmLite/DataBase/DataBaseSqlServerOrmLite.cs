@@ -132,5 +132,11 @@ namespace FoodManager.OrmLite.DataBase
             var item = DbConnection.SingleOrDefault<T>(filter);
             return item;
         }
+
+        public IEnumerable<T> FindAll<T>()
+        {
+            var items = DbConnection.Select<T>();
+            return items;
+        }
     }
 }

@@ -1,6 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using FastMapper;
+using FoodManager.DTO.Message.IngredientGroups;
+using FoodManager.DTO.Message.Ingredients;
 using FoodManager.Infrastructure.Files;
 using FoodManager.Infrastructure.Strings;
 using FoodManager.Model;
@@ -21,12 +23,17 @@ namespace FoodManager.Services.Factories.Implements
             _storageProvider = storageProvider;
         }
 
-        public DTO.Ingredient Execute(Ingredient ingredient)
+        public IngredientResponse Execute(Ingredient ingredient)
         {
-            var ingredientDto = TypeAdapter.Adapt<DTO.Ingredient>(ingredient);
+            var ingredientResponse = TypeAdapter.Adapt<IngredientResponse>(ingredient);
             var ingredientGroup = _ingredientGroupRepository.FindBy(ingredient.IngredientGroupId);
-            ingredientDto.IngredientGroup = TypeAdapter.Adapt<DTO.IngredientGroup>(ingredientGroup);
-            return ingredientDto;
+            ingredientResponse.IngredientGroup = TypeAdapter.Adapt<IngredientGroupResponse>(ingredientGroup);
+            return ingredientResponse;
+        }
+
+        public IEnumerable<IngredientResponse> Execute(IEnumerable<Ingredient> ingredients)
+        {
+            return ingredients.Select(Execute);
         }
 
         public List<Ingredient> FromCsv(string fileName)

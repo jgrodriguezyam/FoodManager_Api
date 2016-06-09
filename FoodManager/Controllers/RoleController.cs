@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using FoodManager.DTO;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Roles;
@@ -35,7 +34,7 @@ namespace FoodManager.Controllers
         }
 
         [HttpGet, Route("roles/{Id}")]
-        public Role Get(GetRoleRequest request)
+        public RoleResponse Get(GetRoleRequest request)
         {
             return _roleService.Get(request);
         }

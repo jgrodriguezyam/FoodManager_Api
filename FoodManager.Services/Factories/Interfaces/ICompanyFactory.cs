@@ -1,9 +1,12 @@
-﻿using FoodManager.Model;
+﻿using System.Collections.Generic;
+using FoodManager.DTO.Message.Companies;
+using FoodManager.Model;
 
 namespace FoodManager.Services.Factories.Interfaces
 {
     public interface ICompanyFactory
     {
-        DTO.Company Execute(Company company);
+        CompanyResponse Execute(Company company);
+        IEnumerable<CompanyResponse> Execute(IEnumerable<Company> companies);
     }
 }

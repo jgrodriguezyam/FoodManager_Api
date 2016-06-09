@@ -90,13 +90,13 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public DTO.Dealer Get(GetDealerRequest request)
+        public DealerResponse Get(GetDealerRequest request)
         {
             try
             {
                 var dealer = _dealerRepository.FindBy(request.Id);
                 dealer.ThrowExceptionIfRecordIsNull();
-                return TypeAdapter.Adapt<DTO.Dealer>(dealer);
+                return TypeAdapter.Adapt<DealerResponse>(dealer);
             }
             catch (DataAccessException)
             {

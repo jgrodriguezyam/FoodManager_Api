@@ -84,13 +84,13 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public DTO.Disease Get(GetDiseaseRequest request)
+        public DiseaseResponse Get(GetDiseaseRequest request)
         {
             try
             {
                 var disease = _diseaseRepository.FindBy(request.Id);
                 disease.ThrowExceptionIfRecordIsNull();
-                return TypeAdapter.Adapt<DTO.Disease>(disease);
+                return TypeAdapter.Adapt<DiseaseResponse>(disease);
             }
             catch (DataAccessException)
             {

@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using FoodManager.DTO;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Regions;
@@ -35,7 +34,7 @@ namespace FoodManager.Controllers
         }
 
         [HttpGet, Route("regions/{Id}")]
-        public Region Get(GetRegionRequest request)
+        public RegionResponse Get(GetRegionRequest request)
         {
             return _regionService.Get(request);
         }

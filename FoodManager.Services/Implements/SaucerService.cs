@@ -89,13 +89,13 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public DTO.Saucer Get(GetSaucerRequest request)
+        public SaucerResponse Get(GetSaucerRequest request)
         {
             try
             {
                 var saucer = _saucerRepository.FindBy(request.Id);
                 saucer.ThrowExceptionIfRecordIsNull();
-                return TypeAdapter.Adapt<DTO.Saucer>(saucer);
+                return TypeAdapter.Adapt<SaucerResponse>(saucer);
             }
             catch (DataAccessException)
             {

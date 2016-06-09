@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using FoodManager.DTO;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.AccessLevels;
 using FoodManager.DTO.Message.RoleConfigurations;
@@ -37,7 +36,7 @@ namespace FoodManager.Controllers
         }
 
         [HttpGet, Route("role-configurations/{Id}")]
-        public RoleConfiguration Get(GetRoleConfigurationRequest request)
+        public RoleConfigurationResponse Get(GetRoleConfigurationRequest request)
         {
             return _roleConfigurationService.Get(request);
         }

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -44,7 +44,7 @@ namespace FoodManager.Services.Implements
 
                 return new FindCompaniesResponse
                 {
-                    Companies = TypeAdapter.Adapt<List<CompanyResponse>>(companies),
+                    Companies = _companyFactory.Execute(companies).ToList(),
                     TotalRecords = totalRecords
                 };
             }
@@ -87,7 +87,7 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public DTO.Company Get(GetCompanyRequest request)
+        public CompanyResponse Get(GetCompanyRequest request)
         {
             try
             {

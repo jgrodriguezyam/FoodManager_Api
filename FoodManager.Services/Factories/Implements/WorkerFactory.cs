@@ -1,4 +1,11 @@
-﻿using FastMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using FastMapper;
+using FoodManager.DTO.Message.Branches;
+using FoodManager.DTO.Message.Departments;
+using FoodManager.DTO.Message.Jobs;
+using FoodManager.DTO.Message.Roles;
+using FoodManager.DTO.Message.Workers;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Services.Factories.Interfaces;
@@ -20,18 +27,23 @@ namespace FoodManager.Services.Factories.Implements
             _branchRepository = branchRepository;
         }
 
-        public DTO.Worker Execute(Worker worker)
+        public WorkerResponse Execute(Worker worker)
         {
-            var workerDto = TypeAdapter.Adapt<DTO.Worker>(worker);
+            var workerResponse = TypeAdapter.Adapt<WorkerResponse>(worker);
             var department = _departmentRepository.FindBy(worker.DepartmentId);
-            workerDto.Department = TypeAdapter.Adapt<DTO.Department>(department);
+            workerResponse.Department = TypeAdapter.Adapt<DepartmentResponse>(department);
             var job = _jobRepository.FindBy(worker.JobId);
-            workerDto.Job = TypeAdapter.Adapt<DTO.Job>(job);
+            workerResponse.Job = TypeAdapter.Adapt<JobResponse>(job);
             var role = _roleRepository.FindBy(worker.RoleId);
-            workerDto.Role = TypeAdapter.Adapt<DTO.Role>(role);
+            workerResponse.Role = TypeAdapter.Adapt<RoleResponse>(role);
             var branch = _branchRepository.FindBy(worker.BranchId);
-            workerDto.Branch = TypeAdapter.Adapt<DTO.Branch>(branch);
-            return workerDto;
+            workerResponse.Branch = TypeAdapter.Adapt<BranchResponse>(branch);
+            return workerResponse;
+        }
+
+        public IEnumerable<WorkerResponse> Execute(IEnumerable<Worker> workers)
+        {
+            return workers.Select(Execute);
         }
     }
 }

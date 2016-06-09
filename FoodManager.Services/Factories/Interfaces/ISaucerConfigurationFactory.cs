@@ -1,9 +1,12 @@
-﻿using FoodManager.Model;
+﻿using System.Collections.Generic;
+using FoodManager.DTO.Message.SaucerConfigurations;
+using FoodManager.Model;
 
 namespace FoodManager.Services.Factories.Interfaces
 {
     public interface ISaucerConfigurationFactory
     {
-        DTO.SaucerConfiguration Execute(SaucerConfiguration saucerConfiguration);
+        SaucerConfigurationResponse Execute(SaucerConfiguration saucerConfiguration);
+        IEnumerable<SaucerConfigurationResponse> Execute(IEnumerable<SaucerConfiguration> saucerConfigurations);
     }
 }

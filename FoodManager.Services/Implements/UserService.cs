@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
@@ -51,7 +50,7 @@ namespace FoodManager.Services.Implements
 
                 return new FindUsersResponse
                 {
-                    Users = TypeAdapter.Adapt<List<UserResponse>>(users),
+                    Users = _userFactory.Execute(users).ToList(),
                     TotalRecords = totalRecords
                 };
             }
@@ -95,7 +94,7 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public DTO.User Get(GetUserRequest request)
+        public UserResponse Get(GetUserRequest request)
         {
             try
             {

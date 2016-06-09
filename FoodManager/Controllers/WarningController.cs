@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using FoodManager.DTO;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Warnings;
@@ -35,7 +34,7 @@ namespace FoodManager.Controllers
         }
 
         [HttpGet, Route("warnings/{Id}")]
-        public Warning Get(GetWarningRequest request)
+        public WarningResponse Get(GetWarningRequest request)
         {
             return _warningService.Get(request);
         }

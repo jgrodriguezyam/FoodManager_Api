@@ -1,11 +1,9 @@
 ﻿using System.Web.Http;
-using FoodManager.DTO;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Menus;
 using FoodManager.Infrastructure.Dates.Enums;
 using FoodManager.Infrastructure.Enums;
-using FoodManager.Model.Enums;
 using FoodManager.Services.Interfaces;
 
 namespace FoodManager.Controllers
@@ -38,7 +36,7 @@ namespace FoodManager.Controllers
         }
 
         [HttpGet, Route("menus/{Id}")]
-        public Menu Get(GetMenuRequest request)
+        public MenuResponse Get(GetMenuRequest request)
         {
             return _menuService.Get(request);
         }

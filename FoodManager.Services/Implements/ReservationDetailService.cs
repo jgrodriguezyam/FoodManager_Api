@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using FastMapper;
-using FoodManager.DTO;
+﻿using System.Linq;
 using FoodManager.DTO.Message.ReservationDetails;
 using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Model.IRepositories;
@@ -35,7 +33,7 @@ namespace FoodManager.Services.Implements
 
                 return new FindReservationDetailsResponse
                 {
-                    ReservationDetails = TypeAdapter.Adapt<List<ReservationDetailResponse>>(reservationDetails),
+                    ReservationDetails = _reservationDetailFactory.Execute(reservationDetails).ToList(),
                     TotalRecords = totalRecords
                 };
             }
@@ -45,7 +43,7 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public ReservationDetail Get(GetReservationDetailRequest request)
+        public ReservationDetailResponse Get(GetReservationDetailRequest request)
         {
             try
             {

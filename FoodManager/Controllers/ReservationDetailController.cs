@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using FoodManager.DTO;
 using FoodManager.DTO.Message.ReservationDetails;
 using FoodManager.Services.Interfaces;
 
@@ -21,7 +20,7 @@ namespace FoodManager.Controllers
         }
 
         [HttpGet, Route("reservation-details/{Id}")]
-        public ReservationDetail Get(GetReservationDetailRequest request)
+        public ReservationDetailResponse Get(GetReservationDetailRequest request)
         {
             return _reservationDetailService.Get(request);
         }

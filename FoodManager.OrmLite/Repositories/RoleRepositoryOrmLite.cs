@@ -55,5 +55,10 @@ namespace FoodManager.OrmLite.Repositories
             amountOfReferences += _dataBaseSqlServerOrmLite.Count<RoleConfiguration>(roleConfiguration => roleConfiguration.RoleId == roleId);
             return amountOfReferences.IsNotZero();
         }
+
+        public IEnumerable<Role> FindAll()
+        {
+            return _dataBaseSqlServerOrmLite.FindAll<Role>();
+        }
     }
 }

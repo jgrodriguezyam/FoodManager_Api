@@ -62,6 +62,7 @@
     <Compile Include="Factories\Implements\ReservationFactory.cs" />
     <Compile Include="Factories\Implements\RoleConfigurationFactory.cs" />
     <Compile Include="Factories\Implements\SaucerConfigurationFactory.cs" />
+    <Compile Include="Factories\Implements\SaucerMultimediaFactory.cs" />
     <Compile Include="Factories\Implements\UserFactory.cs" />
     <Compile Include="Factories\Implements\WarningFactory.cs" />
     <Compile Include="Factories\Implements\WorkerFactory.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Factories\Interfaces\IReservationFactory.cs" />
     <Compile Include="Factories\Interfaces\IRoleConfigurationFactory.cs" />
     <Compile Include="Factories\Interfaces\ISaucerConfigurationFactory.cs" />
+    <Compile Include="Factories\Interfaces\ISaucerMultimediaFactory.cs" />
     <Compile Include="Factories\Interfaces\IUserFactory.cs" />
     <Compile Include="Factories\Interfaces\IWarningFactory.cs" />
     <Compile Include="Factories\Interfaces\IWorkerFactory.cs" />

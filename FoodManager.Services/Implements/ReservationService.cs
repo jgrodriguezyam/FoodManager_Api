@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -52,7 +52,7 @@ namespace FoodManager.Services.Implements
 
                 return new FindReservationsResponse
                 {
-                    Reservations = TypeAdapter.Adapt<List<ReservationResponse>>(reservations),
+                    Reservations = _reservationFactory.Execute(reservations).ToList(),
                     TotalRecords = totalRecords
                 };
             }
@@ -101,7 +101,7 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public DTO.Reservation Get(GetReservationRequest request)
+        public ReservationResponse Get(GetReservationRequest request)
         {
             try
             {

@@ -1,4 +1,10 @@
-﻿using FastMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using FastMapper;
+using FoodManager.DTO.Message.Dealers;
+using FoodManager.DTO.Message.Reservations;
+using FoodManager.DTO.Message.Saucers;
+using FoodManager.DTO.Message.Workers;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Services.Factories.Interfaces;
@@ -18,16 +24,21 @@ namespace FoodManager.Services.Factories.Implements
             _dealerRepository = dealerRepository;
         }
 
-        public DTO.Reservation Execute(Reservation reservation)
+        public ReservationResponse Execute(Reservation reservation)
         {
-            var reservationDto = TypeAdapter.Adapt<DTO.Reservation>(reservation);
+            var reservationResponse = TypeAdapter.Adapt<ReservationResponse>(reservation);
             var worker = _workerRepository.FindBy(reservation.WorkerId);
-            reservationDto.Worker = TypeAdapter.Adapt<DTO.Worker>(worker);
+            reservationResponse.Worker = TypeAdapter.Adapt<WorkerResponse>(worker);
             var saucer = _saucerRepository.FindBy(reservation.SaucerId);
-            reservationDto.Saucer = TypeAdapter.Adapt<DTO.Saucer>(saucer);
+            reservationResponse.Saucer = TypeAdapter.Adapt<SaucerResponse>(saucer);
             var dealer = _dealerRepository.FindBy(reservation.DealerId);
-            reservationDto.Dealer = TypeAdapter.Adapt<DTO.Dealer>(dealer);
-            return reservationDto;
+            reservationResponse.Dealer = TypeAdapter.Adapt<DealerResponse>(dealer);
+            return reservationResponse;
+        }
+
+        public IEnumerable<ReservationResponse> Execute(IEnumerable<Reservation> reservations)
+        {
+            return reservations.Select(Execute);
         }
     }
 }

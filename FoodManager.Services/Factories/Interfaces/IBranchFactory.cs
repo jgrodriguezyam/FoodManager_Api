@@ -1,9 +1,12 @@
-﻿using FoodManager.Model;
+﻿using System.Collections.Generic;
+using FoodManager.DTO.Message.Branches;
+using FoodManager.Model;
 
 namespace FoodManager.Services.Factories.Interfaces
 {
     public interface IBranchFactory
     {
-        DTO.Branch Execute(Branch branch);
+        BranchResponse Execute(Branch branch);
+        IEnumerable<BranchResponse> Execute(IEnumerable<Branch> branches);
     }
 }

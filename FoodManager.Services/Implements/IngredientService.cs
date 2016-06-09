@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -49,7 +49,7 @@ namespace FoodManager.Services.Implements
 
                 return new FindIngredientsResponse
                 {
-                    Ingredients = TypeAdapter.Adapt<List<IngredientResponse>>(ingredients),
+                    Ingredients = _ingredientFactory.Execute(ingredients).ToList(),
                     TotalRecords = totalRecords
                 };
             }
@@ -94,7 +94,7 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public DTO.Ingredient Get(GetIngredientRequest request)
+        public IngredientResponse Get(GetIngredientRequest request)
         {
             try
             {

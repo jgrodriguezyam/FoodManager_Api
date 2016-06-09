@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessLevel.cs" />
     <Compile Include="BaseRequest\ChangeStatusRequest.cs" />
     <Compile Include="BaseRequest\CsvRequest.cs" />
     <Compile Include="BaseRequest\FindBaseRequest.cs" />
@@ -57,15 +56,6 @@
     <Compile Include="BaseResponse\FindBaseResponse.cs" />
     <Compile Include="BaseResponse\LoginResponse.cs" />
     <Compile Include="BaseResponse\SuccessResponse.cs" />
-    <Compile Include="Branch.cs" />
-    <Compile Include="Company.cs" />
-    <Compile Include="Dealer.cs" />
-    <Compile Include="Department.cs" />
-    <Compile Include="Disease.cs" />
-    <Compile Include="Ingredient.cs" />
-    <Compile Include="IngredientGroup.cs" />
-    <Compile Include="Job.cs" />
-    <Compile Include="Menu.cs" />
     <Compile Include="Message\AccessLevels\AccessLevelResponse.cs" />
     <Compile Include="Message\AccessLevels\FindAccessLevelsRequest.cs" />
     <Compile Include="Message\AccessLevels\FindAccessLevelsResponse.cs" />
@@ -123,6 +113,7 @@
     <Compile Include="Message\Menus\GetMenuRequest.cs" />
     <Compile Include="Message\Menus\MenuRequest.cs" />
     <Compile Include="Message\Menus\MenuResponse.cs" />
+    <Compile Include="Message\Permissions\PermissionResponse.cs" />
     <Compile Include="Message\Regions\DeleteRegionRequest.cs" />
     <Compile Include="Message\Regions\FindRegionsRequest.cs" />
     <Compile Include="Message\Regions\FindRegionsResponse.cs" />
@@ -199,22 +190,9 @@
     <Compile Include="Message\Workers\LogoutWorkerRequest.cs" />
     <Compile Include="Message\Workers\WorkerRequest.cs" />
     <Compile Include="Message\Workers\WorkerResponse.cs" />
-    <Compile Include="Permission.cs" />
-    <Compile Include="Region.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Message\Regions\RegionRequest.cs" />
     <Compile Include="Message\Regions\RegionResponse.cs" />
-    <Compile Include="Reservation.cs" />
-    <Compile Include="ReservationDetail.cs" />
-    <Compile Include="Role.cs" />
-    <Compile Include="RoleConfiguration.cs" />
-    <Compile Include="Saucer.cs" />
-    <Compile Include="SaucerConfiguration.cs" />
-    <Compile Include="SaucerMultimedia.cs" />
-    <Compile Include="Tip.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="Warning.cs" />
-    <Compile Include="Worker.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

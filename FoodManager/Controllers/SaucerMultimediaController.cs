@@ -1,6 +1,5 @@
 ﻿using System.Net.Http;
 using System.Web.Http;
-using FoodManager.DTO;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.SaucerMultimedias;
@@ -38,7 +37,7 @@ namespace FoodManager.Controllers
         }
 
         [HttpGet, Route("saucer-multimedias/{Id}")]
-        public SaucerMultimedia Get(GetSaucerMultimediaRequest request)
+        public SaucerMultimediaResponse Get(GetSaucerMultimediaRequest request)
         {
             return _saucerMultimediaService.Get(request);
         }

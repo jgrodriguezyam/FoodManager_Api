@@ -145,6 +145,7 @@ namespace FoodManager.IoC.Configs
             _container.Register<ISaucerMultimediaQuery, SaucerMultimediaQuery>();
             _container.Register<ISaucerMultimediaValidator, SaucerMultimediaValidator>();
             _container.Register<ISaucerMultimediaService, SaucerMultimediaService>();
+            _container.Register<ISaucerMultimediaFactory, SaucerMultimediaFactory>();
 
             _container.Register<IIngredientGroupRepository, IngredientGroupRepositoryOrmLite>();
             _container.Register<IIngredientGroupQuery, IngredientGroupQuery>();

@@ -89,13 +89,13 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public DTO.IngredientGroup Get(GetIngredientGroupRequest request)
+        public IngredientGroupResponse Get(GetIngredientGroupRequest request)
         {
             try
             {
                 var ingredientGroup = _ingredientGroupRepository.FindBy(request.Id);
                 ingredientGroup.ThrowExceptionIfRecordIsNull();
-                return TypeAdapter.Adapt<DTO.IngredientGroup>(ingredientGroup);
+                return TypeAdapter.Adapt<IngredientGroupResponse>(ingredientGroup);
             }
             catch (DataAccessException)
             {

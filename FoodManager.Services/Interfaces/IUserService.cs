@@ -1,5 +1,4 @@
-﻿using FoodManager.DTO;
-using FoodManager.DTO.BaseRequest;
+﻿using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Users;
 
@@ -10,7 +9,7 @@ namespace FoodManager.Services.Interfaces
         FindUsersResponse Find(FindUsersRequest request);
         CreateResponse Create(UserRequest request);
         SuccessResponse Update(UserRequest request);
-        User Get(GetUserRequest request);
+        UserResponse Get(GetUserRequest request);
         SuccessResponse Delete(DeleteUserRequest request);
         LoginUserResponse Login(LoginUserRequest request);
         SuccessResponse Logout(LogoutUserRequest request);

@@ -83,13 +83,13 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public DTO.Role Get(GetRoleRequest request)
+        public RoleResponse Get(GetRoleRequest request)
         {
             try
             {
                 var role = _roleRepository.FindBy(request.Id);
                 role.ThrowExceptionIfRecordIsNull();
-                return TypeAdapter.Adapt<DTO.Role>(role);
+                return TypeAdapter.Adapt<RoleResponse>(role);
             }
             catch (DataAccessException)
             {

@@ -1,4 +1,8 @@
-﻿using FastMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using FastMapper;
+using FoodManager.DTO.Message.Branches;
+using FoodManager.DTO.Message.Companies;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Services.Factories.Interfaces;
@@ -14,12 +18,17 @@ namespace FoodManager.Services.Factories.Implements
             _companyRepository = companyRepository;
         }
 
-        public DTO.Branch Execute(Branch branch)
+        public BranchResponse Execute(Branch branch)
         {
-            var branchDto = TypeAdapter.Adapt<DTO.Branch>(branch);
+            var branchResponse = TypeAdapter.Adapt<BranchResponse>(branch);
             var company = _companyRepository.FindBy(branch.CompanyId);
-            branchDto.Company = TypeAdapter.Adapt<DTO.Company>(company);
-            return branchDto;
+            branchResponse.Company = TypeAdapter.Adapt<CompanyResponse>(company);
+            return branchResponse;
+        }
+
+        public IEnumerable<BranchResponse> Execute(IEnumerable<Branch> branches)
+        {
+            return branches.Select(Execute);
         }
     }
 }

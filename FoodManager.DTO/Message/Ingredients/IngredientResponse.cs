@@ -1,4 +1,5 @@
-﻿using FoodManager.Infrastructure.Application;
+﻿using FoodManager.DTO.Message.IngredientGroups;
+using FoodManager.Infrastructure.Application;
 
 namespace FoodManager.DTO.Message.Ingredients
 {
@@ -8,7 +9,7 @@ namespace FoodManager.DTO.Message.Ingredients
         public string Name { get; set; }
         public decimal Amount { get; set; }
         public int Unit { get; set; }
-        public int IngredientGroupId { get; set; }
+        public IngredientGroupResponse IngredientGroup { get; set; }
         public bool Status { get; set; }
     }
 }

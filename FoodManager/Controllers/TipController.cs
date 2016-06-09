@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using FoodManager.DTO;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Tips;
@@ -35,7 +34,7 @@ namespace FoodManager.Controllers
         }
 
         [HttpGet, Route("tips/{Id}")]
-        public Tip Get(GetTipRequest request)
+        public TipResponse Get(GetTipRequest request)
         {
             return _tipService.Get(request);
         }

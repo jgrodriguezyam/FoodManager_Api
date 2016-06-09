@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using FoodManager.DTO;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.SaucerConfigurations;
@@ -35,7 +34,7 @@ namespace FoodManager.Controllers
         }
 
         [HttpGet, Route("saucer-configurations/{Id}")]
-        public SaucerConfiguration Get(GetSaucerConfigurationRequest request)
+        public SaucerConfigurationResponse Get(GetSaucerConfigurationRequest request)
         {
             return _saucerConfigurationService.Get(request);
         }

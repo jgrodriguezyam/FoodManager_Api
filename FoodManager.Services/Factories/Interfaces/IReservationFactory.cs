@@ -1,9 +1,12 @@
-﻿using FoodManager.Model;
+﻿using System.Collections.Generic;
+using FoodManager.DTO.Message.Reservations;
+using FoodManager.Model;
 
 namespace FoodManager.Services.Factories.Interfaces
 {
     public interface IReservationFactory
     {
-        DTO.Reservation Execute(Reservation reservation);
+        ReservationResponse Execute(Reservation reservation);
+        IEnumerable<ReservationResponse> Execute(IEnumerable<Reservation> reservations);
     }
 }

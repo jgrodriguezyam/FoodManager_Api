@@ -1,4 +1,7 @@
-﻿namespace FoodManager.DTO.Message.Users
+﻿using FoodManager.DTO.Message.Dealers;
+using FoodManager.DTO.Message.Roles;
+
+namespace FoodManager.DTO.Message.Users
 {
     public class UserResponse
     {
@@ -6,8 +9,8 @@
         public string Name { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-        public int? DealerId { get; set; }
-        public int RoleId { get; set; }
+        public DealerResponse Dealer { get; set; }
+        public RoleResponse Role { get; set; }
         public bool Status { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using FoodManager.DTO;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Saucers;
@@ -38,7 +37,7 @@ namespace FoodManager.Controllers
         }
 
         [HttpGet, Route("saucers/{Id}")]
-        public Saucer Get(GetSaucerRequest request)
+        public SaucerResponse Get(GetSaucerRequest request)
         {
             return _saucerService.Get(request);
         }

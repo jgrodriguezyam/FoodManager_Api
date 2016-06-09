@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using FoodManager.DTO;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.IngredientGroups;
@@ -36,7 +35,7 @@ namespace FoodManager.Controllers
         }
 
         [HttpGet, Route("ingredient-groups/{Id}")]
-        public IngredientGroup Get(GetIngredientGroupRequest request)
+        public IngredientGroupResponse Get(GetIngredientGroupRequest request)
         {
             return _ingredientGroupService.Get(request);
         }

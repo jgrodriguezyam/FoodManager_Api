@@ -1,4 +1,8 @@
-﻿using FastMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using FastMapper;
+using FoodManager.DTO.Message.Companies;
+using FoodManager.DTO.Message.Regions;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Services.Factories.Interfaces;
@@ -14,12 +18,17 @@ namespace FoodManager.Services.Factories.Implements
             _regionRepository = regionRepository;
         }
 
-        public DTO.Company Execute(Company company)
+        public CompanyResponse Execute(Company company)
         {
-            var companyDto = TypeAdapter.Adapt<DTO.Company>(company);
+            var companyResponse = TypeAdapter.Adapt<CompanyResponse>(company);
             var region = _regionRepository.FindBy(company.RegionId);
-            companyDto.Region = TypeAdapter.Adapt<DTO.Region>(region);
-            return companyDto;
+            companyResponse.Region = TypeAdapter.Adapt<RegionResponse>(region);
+            return companyResponse;
+        }
+
+        public IEnumerable<CompanyResponse> Execute(IEnumerable<Company> companies)
+        {
+            return companies.Select(Execute);
         }
     }
 }

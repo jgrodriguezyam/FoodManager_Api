@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -50,7 +49,7 @@ namespace FoodManager.Services.Implements
 
                 return new FindBranchesResponse
                 {
-                    Branches = TypeAdapter.Adapt<List<BranchResponse>>(branches),
+                    Branches = _branchFactory.Execute(branches).ToList(),
                     TotalRecords = totalRecords
                 };
             }
@@ -93,7 +92,7 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public DTO.Branch Get(GetBranchRequest request)
+        public BranchResponse Get(GetBranchRequest request)
         {
             try
             {

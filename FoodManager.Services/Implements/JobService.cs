@@ -83,13 +83,13 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public DTO.Job Get(GetJobRequest request)
+        public JobResponse Get(GetJobRequest request)
         {
             try
             {
                 var job = _jobRepository.FindBy(request.Id);
                 job.ThrowExceptionIfRecordIsNull();
-                return TypeAdapter.Adapt<DTO.Job>(job);
+                return TypeAdapter.Adapt<JobResponse>(job);
             }
             catch (DataAccessException)
             {

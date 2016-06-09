@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using FoodManager.DTO;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Workers;
@@ -35,7 +34,7 @@ namespace FoodManager.Controllers
         }
 
         [HttpGet, Route("workers/{Id}")]
-        public Worker Get(GetWorkerRequest request)
+        public WorkerResponse Get(GetWorkerRequest request)
         {
             return _workerService.Get(request);
         }

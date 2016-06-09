@@ -1,5 +1,4 @@
-﻿using FoodManager.DTO;
-using FoodManager.DTO.BaseRequest;
+﻿using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Departments;
 
@@ -10,7 +9,7 @@ namespace FoodManager.Services.Interfaces
         FindDepartmentsResponse Find(FindDepartmentsRequest request);
         CreateResponse Create(DepartmentRequest request);
         SuccessResponse Update(DepartmentRequest request);
-        Department Get(GetDepartmentRequest request);
+        DepartmentResponse Get(GetDepartmentRequest request);
         SuccessResponse Delete(DeleteDepartmentRequest request);
         SuccessResponse ChangeStatus(ChangeStatusRequest request);
         SuccessResponse IsReference(IsReferenceRequest request);

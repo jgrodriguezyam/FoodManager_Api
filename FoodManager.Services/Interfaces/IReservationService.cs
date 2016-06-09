@@ -1,5 +1,4 @@
-﻿using FoodManager.DTO;
-using FoodManager.DTO.BaseRequest;
+﻿using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Reservations;
 
@@ -10,7 +9,7 @@ namespace FoodManager.Services.Interfaces
         FindReservationsResponse Find(FindReservationsRequest request);
         CreateResponse Create(ReservationRequest request);
         SuccessResponse Update(ReservationRequest request);
-        Reservation Get(GetReservationRequest request);
+        ReservationResponse Get(GetReservationRequest request);
         SuccessResponse Delete(DeleteReservationRequest request);
         SuccessResponse ChangeStatus(ChangeStatusRequest request);
     }

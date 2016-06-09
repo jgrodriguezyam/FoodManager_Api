@@ -83,13 +83,13 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public DTO.Region Get(GetRegionRequest request)
+        public RegionResponse Get(GetRegionRequest request)
         {
             try
             {
                 var region = _regionRepository.FindBy(request.Id);
                 region.ThrowExceptionIfRecordIsNull();
-                return TypeAdapter.Adapt<DTO.Region>(region);
+                return TypeAdapter.Adapt<RegionResponse>(region);
             }
             catch (DataAccessException)
             {
@@ -120,7 +120,7 @@ namespace FoodManager.Services.Implements
             {
                 var region = _regionRepository.FindBy(request.Id);
                 region.ThrowExceptionIfRecordIsNull();
-                region.Status.ThrowExceptionIfIsSameStatus(request.Status); ;
+                region.Status.ThrowExceptionIfIsSameStatus(request.Status);
                 region.Status = request.Status;
                 _regionRepository.Update(region);
                 return new SuccessResponse { IsSuccess = true };

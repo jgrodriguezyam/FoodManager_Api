@@ -83,13 +83,13 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public DTO.Tip Get(GetTipRequest request)
+        public TipResponse Get(GetTipRequest request)
         {
             try
             {
                 var tip = _tipRepository.FindBy(request.Id);
                 tip.ThrowExceptionIfRecordIsNull();
-                return TypeAdapter.Adapt<DTO.Tip>(tip);
+                return TypeAdapter.Adapt<TipResponse>(tip);
             }
             catch (DataAccessException)
             {

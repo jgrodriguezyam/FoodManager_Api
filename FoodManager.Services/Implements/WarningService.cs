@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -45,7 +45,7 @@ namespace FoodManager.Services.Implements
 
                 return new FindWarningsResponse
                 {
-                    Warnings = TypeAdapter.Adapt<List<WarningResponse>>(warnings),
+                    Warnings = _warningFactory.Execute(warnings).ToList(),
                     TotalRecords = totalRecords
                 };
             }
@@ -88,7 +88,7 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public DTO.Warning Get(GetWarningRequest request)
+        public WarningResponse Get(GetWarningRequest request)
         {
             try
             {

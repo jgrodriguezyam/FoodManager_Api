@@ -1,4 +1,9 @@
-﻿namespace FoodManager.DTO.Message.Workers
+﻿using FoodManager.DTO.Message.Branches;
+using FoodManager.DTO.Message.Departments;
+using FoodManager.DTO.Message.Jobs;
+using FoodManager.DTO.Message.Roles;
+
+namespace FoodManager.DTO.Message.Workers
 {
     public class WorkerResponse
     {
@@ -10,10 +15,10 @@
         public string Imss { get; set; }
         public int Gender { get; set; }
         public string Badge { get; set; }
-        public int DepartmentId { get; set; }
-        public int JobId { get; set; }
-        public int RoleId { get; set; }
-        public int BranchId { get; set; }
+        public DepartmentResponse Department { get; set; }
+        public JobResponse Job { get; set; }
+        public RoleResponse Role { get; set; }
+        public BranchResponse Branch { get; set; }
         public bool Status { get; set; }
     }
 }

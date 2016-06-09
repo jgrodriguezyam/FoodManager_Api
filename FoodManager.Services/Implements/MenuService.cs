@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -46,7 +46,7 @@ namespace FoodManager.Services.Implements
 
                 return new FindMenusResponse
                 {
-                    Menus = TypeAdapter.Adapt<List<MenuResponse>>(menus),
+                    Menus = _menuFactory.Execute(menus).ToList(),
                     TotalRecords = totalRecords
                 };
             }
@@ -89,7 +89,7 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public DTO.Menu Get(GetMenuRequest request)
+        public MenuResponse Get(GetMenuRequest request)
         {
             try
             {

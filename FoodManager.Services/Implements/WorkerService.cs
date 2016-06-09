@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
@@ -55,7 +54,7 @@ namespace FoodManager.Services.Implements
 
                 return new FindWorkersResponse
                 {
-                    Workers = TypeAdapter.Adapt<List<WorkerResponse>>(workers),
+                    Workers = _workerFactory.Execute(workers).ToList(),
                     TotalRecords = totalRecords
                 };
             }
@@ -98,7 +97,7 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public DTO.Worker Get(GetWorkerRequest request)
+        public WorkerResponse Get(GetWorkerRequest request)
         {
             try
             {

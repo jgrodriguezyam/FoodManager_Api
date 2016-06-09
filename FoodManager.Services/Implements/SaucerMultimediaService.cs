@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
+using System.Linq;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -9,6 +9,7 @@ using FoodManager.Infrastructure.Files;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Queries.SaucerMultimedias;
+using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Interfaces;
 using File = FoodManager.Infrastructure.Files.File;
@@ -22,14 +23,16 @@ namespace FoodManager.Services.Implements
         private readonly ISaucerMultimediaValidator _saucerMultimediaValidator;
         private readonly IStorageProvider _storageProvider;
         private readonly IFileValidator _fileValidator;
+        private readonly ISaucerMultimediaFactory _saucerMultimediaFactory;
 
-        public SaucerMultimediaService(ISaucerMultimediaQuery saucerMultimediaQuery, ISaucerMultimediaRepository saucerMultimediaRepository, ISaucerMultimediaValidator saucerMultimediaValidator, IStorageProvider storageProvider, IFileValidator fileValidator)
+        public SaucerMultimediaService(ISaucerMultimediaQuery saucerMultimediaQuery, ISaucerMultimediaRepository saucerMultimediaRepository, ISaucerMultimediaValidator saucerMultimediaValidator, IStorageProvider storageProvider, IFileValidator fileValidator, ISaucerMultimediaFactory saucerMultimediaFactory)
         {
             _saucerMultimediaQuery = saucerMultimediaQuery;
             _saucerMultimediaRepository = saucerMultimediaRepository;
             _saucerMultimediaValidator = saucerMultimediaValidator;
             _storageProvider = storageProvider;
             _fileValidator = fileValidator;
+            _saucerMultimediaFactory = saucerMultimediaFactory;
         }
 
         public FindSaucerMultimediasResponse Find(FindSaucerMultimediasRequest request)
@@ -47,7 +50,7 @@ namespace FoodManager.Services.Implements
 
                 return new FindSaucerMultimediasResponse
                 {
-                    SaucerMultimedias = TypeAdapter.Adapt<List<SaucerMultimediaResponse>>(saucerMultimedias),
+                    SaucerMultimedias = _saucerMultimediaFactory.Execute(saucerMultimedias).ToList(),
                     TotalRecords = totalRecords
                 };
             }
@@ -93,13 +96,13 @@ namespace FoodManager.Services.Implements
             }
         }
 
-        public DTO.SaucerMultimedia Get(GetSaucerMultimediaRequest request)
+        public SaucerMultimediaResponse Get(GetSaucerMultimediaRequest request)
         {
             try
             {
                 var saucerMultimedia = _saucerMultimediaRepository.FindBy(request.Id);
                 saucerMultimedia.ThrowExceptionIfRecordIsNull();
-                return TypeAdapter.Adapt<DTO.SaucerMultimedia>(saucerMultimedia);
+                return _saucerMultimediaFactory.Execute(saucerMultimedia);
             }
             catch (DataAccessException)
             {

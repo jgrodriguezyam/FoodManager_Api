@@ -10,6 +10,7 @@ using FoodManager.DTO.Message.IngredientGroups;
 using FoodManager.DTO.Message.Ingredients;
 using FoodManager.DTO.Message.Jobs;
 using FoodManager.DTO.Message.Menus;
+using FoodManager.DTO.Message.Permissions;
 using FoodManager.DTO.Message.Regions;
 using FoodManager.DTO.Message.ReservationDetails;
 using FoodManager.DTO.Message.Reservations;
@@ -33,18 +34,6 @@ namespace FoodManager.Mapper.Configs
         {
             #region Region
 
-            TypeAdapterConfig<Model.Region, DTO.Region>
-                .NewConfig();
-
-            TypeAdapterConfig<DTO.Region, Model.Region>
-                .NewConfig()
-                .IgnoreMember(dest => dest.CreatedBy)
-                .IgnoreMember(dest => dest.CreatedOn)
-                .IgnoreMember(dest => dest.ModifiedBy)
-                .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive)
-                .IgnoreMember(dest => dest.Status);
-
             TypeAdapterConfig<Model.Region, Model.Region>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id)
@@ -64,19 +53,7 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region Company
-
-            TypeAdapterConfig<Model.Company, DTO.Company>
-                .NewConfig();
-
-            TypeAdapterConfig<DTO.Company, Model.Company>
-                .NewConfig()
-                .IgnoreMember(dest => dest.CreatedBy)
-                .IgnoreMember(dest => dest.CreatedOn)
-                .IgnoreMember(dest => dest.ModifiedBy)
-                .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive)
-                .IgnoreMember(dest => dest.Status);
-
+            
             TypeAdapterConfig<Model.Company, Model.Company>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id)
@@ -96,19 +73,7 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region Branch
-
-            TypeAdapterConfig<Model.Branch, DTO.Branch>
-                .NewConfig();
-
-            TypeAdapterConfig<DTO.Branch, Model.Branch>
-                .NewConfig()
-                .IgnoreMember(dest => dest.CreatedBy)
-                .IgnoreMember(dest => dest.CreatedOn)
-                .IgnoreMember(dest => dest.ModifiedBy)
-                .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive)
-                .IgnoreMember(dest => dest.Status);
-
+            
             TypeAdapterConfig<Model.Branch, Model.Branch>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id)
@@ -128,19 +93,7 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region Department
-
-            TypeAdapterConfig<Model.Department, DTO.Department>
-                .NewConfig();
-
-            TypeAdapterConfig<DTO.Department, Model.Department>
-                .NewConfig()
-                .IgnoreMember(dest => dest.CreatedBy)
-                .IgnoreMember(dest => dest.CreatedOn)
-                .IgnoreMember(dest => dest.ModifiedBy)
-                .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive)
-                .IgnoreMember(dest => dest.Status);
-
+            
             TypeAdapterConfig<Model.Department, Model.Department>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id)
@@ -160,19 +113,7 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region User
-
-            TypeAdapterConfig<Model.User, DTO.User>
-                .NewConfig();
-
-            TypeAdapterConfig<DTO.User, Model.User>
-                .NewConfig()
-                .IgnoreMember(dest => dest.CreatedBy)
-                .IgnoreMember(dest => dest.CreatedOn)
-                .IgnoreMember(dest => dest.ModifiedBy)
-                .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive)
-                .IgnoreMember(dest => dest.Status);
-
+            
             TypeAdapterConfig<Model.User, Model.User>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id)
@@ -196,19 +137,7 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region Disease
-
-            TypeAdapterConfig<Model.Disease, DTO.Disease>
-                .NewConfig();
-
-            TypeAdapterConfig<DTO.Disease, Model.Disease>
-                .NewConfig()
-                .IgnoreMember(dest => dest.CreatedBy)
-                .IgnoreMember(dest => dest.CreatedOn)
-                .IgnoreMember(dest => dest.ModifiedBy)
-                .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive)
-                .IgnoreMember(dest => dest.Status);
-
+            
             TypeAdapterConfig<Model.Disease, Model.Disease>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id)
@@ -228,19 +157,7 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region Warning
-
-            TypeAdapterConfig<Model.Warning, DTO.Warning>
-                .NewConfig();
-
-            TypeAdapterConfig<DTO.Warning, Model.Warning>
-                .NewConfig()
-                .IgnoreMember(dest => dest.CreatedBy)
-                .IgnoreMember(dest => dest.CreatedOn)
-                .IgnoreMember(dest => dest.ModifiedBy)
-                .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive)
-                .IgnoreMember(dest => dest.Status);
-
+            
             TypeAdapterConfig<Model.Warning, Model.Warning>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id)
@@ -260,19 +177,7 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region Job
-
-            TypeAdapterConfig<Model.Job, DTO.Job>
-                .NewConfig();
-
-            TypeAdapterConfig<DTO.Job, Model.Job>
-                .NewConfig()
-                .IgnoreMember(dest => dest.CreatedBy)
-                .IgnoreMember(dest => dest.CreatedOn)
-                .IgnoreMember(dest => dest.ModifiedBy)
-                .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive)
-                .IgnoreMember(dest => dest.Status);
-
+            
             TypeAdapterConfig<Model.Job, Model.Job>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id)
@@ -292,19 +197,7 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region Tip
-
-            TypeAdapterConfig<Model.Tip, DTO.Tip>
-                .NewConfig();
-
-            TypeAdapterConfig<DTO.Tip, Model.Tip>
-                .NewConfig()
-                .IgnoreMember(dest => dest.CreatedBy)
-                .IgnoreMember(dest => dest.CreatedOn)
-                .IgnoreMember(dest => dest.ModifiedBy)
-                .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive)
-                .IgnoreMember(dest => dest.Status);
-
+            
             TypeAdapterConfig<Model.Tip, Model.Tip>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id)
@@ -324,19 +217,7 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region Dealer
-
-            TypeAdapterConfig<Model.Dealer, DTO.Dealer>
-                .NewConfig();
-
-            TypeAdapterConfig<DTO.Dealer, Model.Dealer>
-                .NewConfig()
-                .IgnoreMember(dest => dest.CreatedBy)
-                .IgnoreMember(dest => dest.CreatedOn)
-                .IgnoreMember(dest => dest.ModifiedBy)
-                .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive)
-                .IgnoreMember(dest => dest.Status);
-
+            
             TypeAdapterConfig<Model.Dealer, Model.Dealer>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id)
@@ -356,19 +237,7 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region Saucer
-
-            TypeAdapterConfig<Model.Saucer, DTO.Saucer>
-                .NewConfig();
-
-            TypeAdapterConfig<DTO.Saucer, Model.Saucer>
-                .NewConfig()
-                .IgnoreMember(dest => dest.CreatedBy)
-                .IgnoreMember(dest => dest.CreatedOn)
-                .IgnoreMember(dest => dest.ModifiedBy)
-                .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive)
-                .IgnoreMember(dest => dest.Status);
-
+            
             TypeAdapterConfig<Model.Saucer, Model.Saucer>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id)
@@ -388,20 +257,7 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region SaucerMultimedia
-
-            TypeAdapterConfig<Model.SaucerMultimedia, DTO.SaucerMultimedia>
-                .NewConfig()
-                .MapFrom(dest => dest.Path, src => MapperResolver.MultimediaPath(src.Path));
-
-            TypeAdapterConfig<DTO.SaucerMultimedia, Model.SaucerMultimedia>
-                .NewConfig()
-                .IgnoreMember(dest => dest.CreatedBy)
-                .IgnoreMember(dest => dest.CreatedOn)
-                .IgnoreMember(dest => dest.ModifiedBy)
-                .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive)
-                .IgnoreMember(dest => dest.Status);
-
+            
             TypeAdapterConfig<Model.SaucerMultimedia, Model.SaucerMultimedia>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Path)
@@ -423,19 +279,7 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region IngredientGroup
-
-            TypeAdapterConfig<Model.IngredientGroup, DTO.IngredientGroup>
-                .NewConfig();
-
-            TypeAdapterConfig<DTO.IngredientGroup, Model.IngredientGroup>
-                .NewConfig()
-                .IgnoreMember(dest => dest.CreatedBy)
-                .IgnoreMember(dest => dest.CreatedOn)
-                .IgnoreMember(dest => dest.ModifiedBy)
-                .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive)
-                .IgnoreMember(dest => dest.Status);
-
+            
             TypeAdapterConfig<Model.IngredientGroup, Model.IngredientGroup>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id)
@@ -455,19 +299,7 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region Ingredient
-
-            TypeAdapterConfig<Model.Ingredient, DTO.Ingredient>
-                .NewConfig();
-
-            TypeAdapterConfig<DTO.Ingredient, Model.Ingredient>
-                .NewConfig()
-                .IgnoreMember(dest => dest.CreatedBy)
-                .IgnoreMember(dest => dest.CreatedOn)
-                .IgnoreMember(dest => dest.ModifiedBy)
-                .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive)
-                .IgnoreMember(dest => dest.Status);
-
+            
             TypeAdapterConfig<Model.Ingredient, Model.Ingredient>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id)
@@ -501,19 +333,7 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region SaucerConfiguration
-
-            TypeAdapterConfig<Model.SaucerConfiguration, DTO.SaucerConfiguration>
-                .NewConfig();
-
-            TypeAdapterConfig<DTO.SaucerConfiguration, Model.SaucerConfiguration>
-                .NewConfig()
-                .IgnoreMember(dest => dest.CreatedBy)
-                .IgnoreMember(dest => dest.CreatedOn)
-                .IgnoreMember(dest => dest.ModifiedBy)
-                .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive)
-                .IgnoreMember(dest => dest.Status);
-
+            
             TypeAdapterConfig<Model.SaucerConfiguration, Model.SaucerConfiguration>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id)
@@ -533,19 +353,7 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region Worker
-
-            TypeAdapterConfig<Model.Worker, DTO.Worker>
-                .NewConfig();
-
-            TypeAdapterConfig<DTO.Worker, Model.Worker>
-                .NewConfig()
-                .IgnoreMember(dest => dest.CreatedBy)
-                .IgnoreMember(dest => dest.CreatedOn)
-                .IgnoreMember(dest => dest.ModifiedBy)
-                .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive)
-                .IgnoreMember(dest => dest.Status);
-
+            
             TypeAdapterConfig<Model.Worker, Model.Worker>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id)
@@ -567,21 +375,7 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region Menu
-
-            TypeAdapterConfig<Model.Menu, DTO.Menu>
-                .NewConfig()
-                .MapFrom(dest => dest.StartDate, src => src.StartDate.ToDateString())
-                .MapFrom(dest => dest.EndDate, src => src.EndDate.ToDateString());
-
-            TypeAdapterConfig<DTO.Menu, Model.Menu>
-                .NewConfig()
-                .IgnoreMember(dest => dest.CreatedBy)
-                .IgnoreMember(dest => dest.CreatedOn)
-                .IgnoreMember(dest => dest.ModifiedBy)
-                .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive)
-                .IgnoreMember(dest => dest.Status);
-
+            
             TypeAdapterConfig<Model.Menu, Model.Menu>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id)
@@ -603,20 +397,7 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region Reservation
-
-            TypeAdapterConfig<Model.Reservation, DTO.Reservation>
-                .NewConfig()
-                .MapFrom(dest => dest.Date, src => src.Date.ToDateString());
-
-            TypeAdapterConfig<DTO.Reservation, Model.Reservation>
-                .NewConfig()
-                .IgnoreMember(dest => dest.CreatedBy)
-                .IgnoreMember(dest => dest.CreatedOn)
-                .IgnoreMember(dest => dest.ModifiedBy)
-                .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive)
-                .IgnoreMember(dest => dest.Status);
-
+            
             TypeAdapterConfig<Model.Reservation, Model.Reservation>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id)
@@ -639,19 +420,7 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region Role
-
-            TypeAdapterConfig<Model.Role, DTO.Role>
-                .NewConfig();
-
-            TypeAdapterConfig<DTO.Role, Model.Role>
-                .NewConfig()
-                .IgnoreMember(dest => dest.CreatedBy)
-                .IgnoreMember(dest => dest.CreatedOn)
-                .IgnoreMember(dest => dest.ModifiedBy)
-                .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive)
-                .IgnoreMember(dest => dest.Status);
-
+            
             TypeAdapterConfig<Model.Role, Model.Role>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id)
@@ -671,19 +440,7 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region RoleConfiguration
-
-            TypeAdapterConfig<Model.RoleConfiguration, DTO.RoleConfiguration>
-                .NewConfig();
-
-            TypeAdapterConfig<DTO.RoleConfiguration, Model.RoleConfiguration>
-                .NewConfig()
-                .IgnoreMember(dest => dest.CreatedBy)
-                .IgnoreMember(dest => dest.CreatedOn)
-                .IgnoreMember(dest => dest.ModifiedBy)
-                .IgnoreMember(dest => dest.ModifiedOn)
-                .IgnoreMember(dest => dest.IsActive)
-                .IgnoreMember(dest => dest.Status);
-
+            
             TypeAdapterConfig<Model.RoleConfiguration, Model.RoleConfiguration>
                 .NewConfig()
                 .IgnoreMember(dest => dest.Id)
@@ -703,11 +460,8 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region Permission
-
-            TypeAdapterConfig<Model.Permission, DTO.Permission>
-                .NewConfig();
-
-            TypeAdapterConfig<DTO.Permission, Model.Permission>
+            
+            TypeAdapterConfig<Model.Permission, PermissionResponse>
                 .NewConfig();
 
             TypeAdapterConfig<Model.Permission, Model.Permission>
@@ -717,12 +471,6 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region AccessLevel
-
-            TypeAdapterConfig<Model.AccessLevel, DTO.AccessLevel>
-                .NewConfig();
-
-            TypeAdapterConfig<DTO.AccessLevel, Model.AccessLevel>
-                .NewConfig();
 
             TypeAdapterConfig<Model.AccessLevel, Model.AccessLevel>
                 .NewConfig()
@@ -734,10 +482,7 @@ namespace FoodManager.Mapper.Configs
             #endregion
 
             #region ReservationDetail
-
-            TypeAdapterConfig<Model.ReservationDetail, DTO.ReservationDetail>
-                .NewConfig();
-
+            
             TypeAdapterConfig<Model.ReservationDetail, ReservationDetailResponse>
                 .NewConfig();
 

@@ -40,5 +40,10 @@ namespace FoodManager.OrmLite.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<Permission> FindAll()
+        {
+            return _dataBaseSqlServerOrmLite.FindAll<Permission>();
+        }
     }
 }
