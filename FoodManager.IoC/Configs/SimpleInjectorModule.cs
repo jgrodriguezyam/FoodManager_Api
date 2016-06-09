@@ -124,6 +124,7 @@ namespace FoodManager.IoC.Configs
             _container.Register<ITipQuery, TipQuery>();
             _container.Register<ITipValidator, TipValidator>();
             _container.Register<ITipService, TipService>();
+            _container.Register<ITipFactory, TipFactory>();
 
             _container.Register<IDealerRepository, DealerRepositoryOrmLite>();
             _container.Register<IDealerQuery, DealerQuery>();

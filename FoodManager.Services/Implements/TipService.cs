@@ -4,9 +4,11 @@ using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Tips;
 using FoodManager.Infrastructure.Exceptions;
+using FoodManager.Infrastructure.Files;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Queries.Tips;
+using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Interfaces;
 
@@ -17,12 +19,16 @@ namespace FoodManager.Services.Implements
         private readonly ITipQuery _tipQuery;
         private readonly ITipRepository _tipRepository;
         private readonly ITipValidator _tipValidator;
+        private readonly ITipFactory _tipFactory;
+        private readonly IStorageProvider _storageProvider;
 
-        public TipService(ITipQuery tipQuery, ITipRepository tipRepository, ITipValidator tipValidator)
+        public TipService(ITipQuery tipQuery, ITipRepository tipRepository, ITipValidator tipValidator, ITipFactory tipFactory, IStorageProvider storageProvider)
         {
             _tipQuery = tipQuery;
             _tipRepository = tipRepository;
             _tipValidator = tipValidator;
+            _tipFactory = tipFactory;
+            _storageProvider = storageProvider;
         }
 
         public FindTipsResponse Find(FindTipsRequest request)
@@ -121,6 +127,25 @@ namespace FoodManager.Services.Implements
                 tip.Status.ThrowExceptionIfIsSameStatus(request.Status);
                 tip.Status = request.Status;
                 _tipRepository.Update(tip);
+                return new SuccessResponse { IsSuccess = true };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public SuccessResponse Csv(CsvRequest request, File file)
+        {
+            try
+            {
+                var fileName = _storageProvider.Save(file);
+                var tips = _tipFactory.FromCsv(fileName);
+                tips.ForEach(tip =>
+                {
+                    _tipValidator.ValidateAndThrowException(tip, "Base");
+                    _tipRepository.Add(tip);
+                });
                 return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)

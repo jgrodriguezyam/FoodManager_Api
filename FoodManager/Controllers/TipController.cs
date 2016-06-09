@@ -2,6 +2,7 @@
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Tips;
+using FoodManager.Helpers;
 using FoodManager.Services.Interfaces;
 
 namespace FoodManager.Controllers
@@ -49,6 +50,12 @@ namespace FoodManager.Controllers
         public SuccessResponse ChangeStatus(ChangeStatusRequest request)
         {
             return _tipService.ChangeStatus(request);
+        }
+
+        [HttpPost, Route("tips/csv")]
+        public SuccessResponse Post(CsvRequest request)
+        {
+            return _tipService.Csv(request, Request.GetFile());
         }
     }
 }
