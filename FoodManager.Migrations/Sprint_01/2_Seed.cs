@@ -642,8 +642,8 @@ namespace FoodManager.Migrations.Sprint_01
                         "('Frijol2.jpg', 1, " + GlobalConstants.CreatedBySystemUser + ")");
 
             Execute.Sql("INSERT INTO IngredientGroup (Name, Color, " + GlobalConstants.AuditFields + ") VALUES " +
-                        "('Carnes y Pescado', 'Rojo', " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "('Verduras y Frutas', 'Verde', " + GlobalConstants.CreatedBySystemUser + ")");
+                        "('Carnes y Pescado', '#FF1002', " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "('Verduras y Frutas', '#14FF24', " + GlobalConstants.CreatedBySystemUser + ")");
 
             Execute.Sql("INSERT INTO Ingredient (Name, Amount, Energy, Protein, Carbohydrate, Sugar, Lipid, Sodium, IngredientGroupId, Unit, " + GlobalConstants.AuditFields + ") VALUES " +
                         "('Frijol', 100.00, 10.00, 10.00, 10.00, 10.00, 10.00, 10.00, 1, " + UnitType.Grams.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
