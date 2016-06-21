@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -7,6 +7,7 @@ using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Queries.Roles;
+using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Interfaces;
 
@@ -17,12 +18,14 @@ namespace FoodManager.Services.Implements
         private readonly IRoleQuery _roleQuery;
         private readonly IRoleRepository _roleRepository;
         private readonly IRoleValidator _roleValidator;
+        private readonly IRoleFactory _roleFactory;
 
-        public RoleService(IRoleQuery roleQuery, IRoleRepository roleRepository, IRoleValidator roleValidator)
+        public RoleService(IRoleQuery roleQuery, IRoleRepository roleRepository, IRoleValidator roleValidator, IRoleFactory roleFactory)
         {
             _roleQuery = roleQuery;
             _roleRepository = roleRepository;
             _roleValidator = roleValidator;
+            _roleFactory = roleFactory;
         }
 
         public FindRolesResponse Find(FindRolesRequest request)
@@ -40,7 +43,7 @@ namespace FoodManager.Services.Implements
 
                 return new FindRolesResponse
                 {
-                    Roles = TypeAdapter.Adapt<List<RoleResponse>>(roles),
+                    Roles = _roleFactory.Execute(roles).ToList(),
                     TotalRecords = totalRecords
                 };
             }
@@ -89,7 +92,7 @@ namespace FoodManager.Services.Implements
             {
                 var role = _roleRepository.FindBy(request.Id);
                 role.ThrowExceptionIfRecordIsNull();
-                return TypeAdapter.Adapt<RoleResponse>(role);
+                return _roleFactory.Execute(role);
             }
             catch (DataAccessException)
             {

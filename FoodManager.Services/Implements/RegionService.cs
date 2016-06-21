@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.Services.Interfaces;
@@ -8,6 +9,7 @@ using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Queries.Regions;
+using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Validators.Interfaces;
 
 namespace FoodManager.Services.Implements
@@ -17,12 +19,14 @@ namespace FoodManager.Services.Implements
         private readonly IRegionQuery _regionQuery;
         private readonly IRegionRepository _regionRepository;
         private readonly IRegionValidator _regionValidator;
+        private readonly IRegionFactory _regionFactory;
 
-        public RegionService(IRegionQuery regionQuery, IRegionRepository regionRepository, IRegionValidator regionValidator)
+        public RegionService(IRegionQuery regionQuery, IRegionRepository regionRepository, IRegionValidator regionValidator, IRegionFactory regionFactory)
         {
             _regionQuery = regionQuery;
             _regionRepository = regionRepository;
             _regionValidator = regionValidator;
+            _regionFactory = regionFactory;
         }
         
         public FindRegionsResponse Find(FindRegionsRequest request)
@@ -40,7 +44,7 @@ namespace FoodManager.Services.Implements
 
                 return new FindRegionsResponse
                 {
-                    Regions = TypeAdapter.Adapt<List<RegionResponse>>(regions),
+                    Regions = _regionFactory.Execute(regions).ToList(),
                     TotalRecords = totalRecords
                 };
             }
@@ -89,7 +93,7 @@ namespace FoodManager.Services.Implements
             {
                 var region = _regionRepository.FindBy(request.Id);
                 region.ThrowExceptionIfRecordIsNull();
-                return TypeAdapter.Adapt<RegionResponse>(region);
+                return _regionFactory.Execute(region);
             }
             catch (DataAccessException)
             {

@@ -9,5 +9,6 @@ namespace FoodManager.DTO.Message.Branches
         public string Code { get; set; }
         public CompanyResponse Company { get; set; }
         public bool Status { get; set; }
+        public bool IsReference { get; set; }
     }
 }

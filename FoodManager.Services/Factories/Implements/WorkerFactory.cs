@@ -18,13 +18,15 @@ namespace FoodManager.Services.Factories.Implements
         private readonly IJobRepository _jobRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly IBranchRepository _branchRepository;
+        private readonly IWorkerRepository _workerRepository;
 
-        public WorkerFactory(IDepartmentRepository departmentRepository, IJobRepository jobRepository, IRoleRepository roleRepository, IBranchRepository branchRepository)
+        public WorkerFactory(IDepartmentRepository departmentRepository, IJobRepository jobRepository, IRoleRepository roleRepository, IBranchRepository branchRepository, IWorkerRepository workerRepository)
         {
             _departmentRepository = departmentRepository;
             _jobRepository = jobRepository;
             _roleRepository = roleRepository;
             _branchRepository = branchRepository;
+            _workerRepository = workerRepository;
         }
 
         public WorkerResponse Execute(Worker worker)
@@ -38,6 +40,7 @@ namespace FoodManager.Services.Factories.Implements
             workerResponse.Role = TypeAdapter.Adapt<RoleResponse>(role);
             var branch = _branchRepository.FindBy(worker.BranchId);
             workerResponse.Branch = TypeAdapter.Adapt<BranchResponse>(branch);
+            workerResponse.IsReference = _workerRepository.IsReference(worker.Id);
             return workerResponse;
         }
 

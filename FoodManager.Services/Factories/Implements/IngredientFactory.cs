@@ -16,11 +16,13 @@ namespace FoodManager.Services.Factories.Implements
     {
         private readonly IIngredientGroupRepository _ingredientGroupRepository;
         private readonly IStorageProvider _storageProvider;
+        private readonly IIngredientRepository _ingredientRepository;
 
-        public IngredientFactory(IIngredientGroupRepository ingredientGroupRepository, IStorageProvider storageProvider)
+        public IngredientFactory(IIngredientGroupRepository ingredientGroupRepository, IStorageProvider storageProvider, IIngredientRepository ingredientRepository)
         {
             _ingredientGroupRepository = ingredientGroupRepository;
             _storageProvider = storageProvider;
+            _ingredientRepository = ingredientRepository;
         }
 
         public IngredientResponse Execute(Ingredient ingredient)
@@ -28,6 +30,7 @@ namespace FoodManager.Services.Factories.Implements
             var ingredientResponse = TypeAdapter.Adapt<IngredientResponse>(ingredient);
             var ingredientGroup = _ingredientGroupRepository.FindBy(ingredient.IngredientGroupId);
             ingredientResponse.IngredientGroup = TypeAdapter.Adapt<IngredientGroupResponse>(ingredientGroup);
+            ingredientResponse.IsReference = _ingredientRepository.IsReference(ingredient.Id);
             return ingredientResponse;
         }
 

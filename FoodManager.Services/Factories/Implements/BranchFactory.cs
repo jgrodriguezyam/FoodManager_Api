@@ -12,10 +12,12 @@ namespace FoodManager.Services.Factories.Implements
     public class BranchFactory : IBranchFactory
     {
         private readonly ICompanyRepository _companyRepository;
+        private readonly IBranchRepository _branchRepository;
 
-        public BranchFactory(ICompanyRepository companyRepository)
+        public BranchFactory(ICompanyRepository companyRepository, IBranchRepository branchRepository)
         {
             _companyRepository = companyRepository;
+            _branchRepository = branchRepository;
         }
 
         public BranchResponse Execute(Branch branch)
@@ -23,6 +25,7 @@ namespace FoodManager.Services.Factories.Implements
             var branchResponse = TypeAdapter.Adapt<BranchResponse>(branch);
             var company = _companyRepository.FindBy(branch.CompanyId);
             branchResponse.Company = TypeAdapter.Adapt<CompanyResponse>(company);
+            branchResponse.IsReference = _branchRepository.IsReference(branch.Id);
             return branchResponse;
         }
 

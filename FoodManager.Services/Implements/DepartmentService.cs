@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -7,6 +7,7 @@ using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Queries.Departments;
+using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Interfaces;
 
@@ -17,12 +18,14 @@ namespace FoodManager.Services.Implements
         private readonly IDepartmentQuery _departmentQuery;
         private readonly IDepartmentRepository _departmentRepository;
         private readonly IDepartmentValidator _departmentValidator;
-        
-        public DepartmentService(IDepartmentQuery departmentQuery, IDepartmentRepository departmentRepository, IDepartmentValidator departmentValidator)
+        private readonly IDepartmentFactory _departmentFactory;
+
+        public DepartmentService(IDepartmentQuery departmentQuery, IDepartmentRepository departmentRepository, IDepartmentValidator departmentValidator, IDepartmentFactory departmentFactory)
         {
             _departmentQuery = departmentQuery;
             _departmentRepository = departmentRepository;
             _departmentValidator = departmentValidator;
+            _departmentFactory = departmentFactory;
         }
 
         public FindDepartmentsResponse Find(FindDepartmentsRequest request)
@@ -40,7 +43,7 @@ namespace FoodManager.Services.Implements
 
                 return new FindDepartmentsResponse
                 {
-                    Departments = TypeAdapter.Adapt<List<DepartmentResponse>>(departments),
+                    Departments = _departmentFactory.Execute(departments).ToList(),
                     TotalRecords = totalRecords
                 };
             }
@@ -89,7 +92,7 @@ namespace FoodManager.Services.Implements
             {
                 var department = _departmentRepository.FindBy(request.Id);
                 department.ThrowExceptionIfRecordIsNull();
-                return TypeAdapter.Adapt<DepartmentResponse>(department);
+                return _departmentFactory.Execute(department);
             }
             catch (DataAccessException)
             {

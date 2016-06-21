@@ -8,5 +8,6 @@ namespace FoodManager.DTO.Message.Companies
         public string Name { get; set; }
         public RegionResponse Region { get; set; }
         public bool Status { get; set; }
+        public bool IsReference { get; set; }
     }
 }

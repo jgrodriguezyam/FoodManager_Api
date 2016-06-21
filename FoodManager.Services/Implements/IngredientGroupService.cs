@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -46,7 +46,7 @@ namespace FoodManager.Services.Implements
 
                 return new FindIngredientGroupsResponse
                 {
-                    IngredientGroups = TypeAdapter.Adapt<List<IngredientGroupResponse>>(ingredientGroups),
+                    IngredientGroups = _ingredientGroupFactory.Execute(ingredientGroups).ToList(),
                     TotalRecords = totalRecords
                 };
             }
@@ -95,7 +95,7 @@ namespace FoodManager.Services.Implements
             {
                 var ingredientGroup = _ingredientGroupRepository.FindBy(request.Id);
                 ingredientGroup.ThrowExceptionIfRecordIsNull();
-                return TypeAdapter.Adapt<IngredientGroupResponse>(ingredientGroup);
+                return _ingredientGroupFactory.Execute(ingredientGroup);
             }
             catch (DataAccessException)
             {

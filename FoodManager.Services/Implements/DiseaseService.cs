@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -7,6 +7,7 @@ using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Queries.Diseases;
+using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Interfaces;
 
@@ -17,12 +18,14 @@ namespace FoodManager.Services.Implements
         private readonly IDiseaseQuery _diseaseQuery;
         private readonly IDiseaseRepository _diseaseRepository;
         private readonly IDiseaseValidator _diseaseValidator;
+        private readonly IDiseaseFactory _diseaseFactory;
 
-        public DiseaseService(IDiseaseQuery diseaseQuery, IDiseaseRepository diseaseRepository, IDiseaseValidator diseaseValidator)
+        public DiseaseService(IDiseaseQuery diseaseQuery, IDiseaseRepository diseaseRepository, IDiseaseValidator diseaseValidator, IDiseaseFactory diseaseFactory)
         {
             _diseaseQuery = diseaseQuery;
             _diseaseRepository = diseaseRepository;
             _diseaseValidator = diseaseValidator;
+            _diseaseFactory = diseaseFactory;
         }
 
         public FindDiseasesResponse Find(FindDiseasesRequest request)
@@ -41,7 +44,7 @@ namespace FoodManager.Services.Implements
 
                 return new FindDiseasesResponse
                 {
-                    Diseases = TypeAdapter.Adapt<List<DiseaseResponse>>(regions),
+                    Diseases = _diseaseFactory.Execute(regions).ToList(),
                     TotalRecords = totalRecords
                 };
             }
@@ -90,7 +93,7 @@ namespace FoodManager.Services.Implements
             {
                 var disease = _diseaseRepository.FindBy(request.Id);
                 disease.ThrowExceptionIfRecordIsNull();
-                return TypeAdapter.Adapt<DiseaseResponse>(disease);
+                return _diseaseFactory.Execute(disease);
             }
             catch (DataAccessException)
             {

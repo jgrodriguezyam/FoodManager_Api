@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -7,6 +7,7 @@ using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Queries.Jobs;
+using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Interfaces;
 
@@ -17,12 +18,14 @@ namespace FoodManager.Services.Implements
         private readonly IJobQuery _jobQuery;
         private readonly IJobRepository _jobRepository;
         private readonly IJobValidator _jobValidator;
+        private readonly IJobFactory _jobFactory;
 
-        public JobService(IJobQuery jobQuery, IJobRepository jobRepository, IJobValidator jobValidator)
+        public JobService(IJobQuery jobQuery, IJobRepository jobRepository, IJobValidator jobValidator, IJobFactory jobFactory)
         {
             _jobQuery = jobQuery;
             _jobRepository = jobRepository;
             _jobValidator = jobValidator;
+            _jobFactory = jobFactory;
         }
 
         public FindJobsResponse Find(FindJobsRequest request)
@@ -40,7 +43,7 @@ namespace FoodManager.Services.Implements
 
                 return new FindJobsResponse
                 {
-                    Jobs = TypeAdapter.Adapt<List<JobResponse>>(jobs),
+                    Jobs = _jobFactory.Execute(jobs).ToList(),
                     TotalRecords = totalRecords
                 };
             }
@@ -89,7 +92,7 @@ namespace FoodManager.Services.Implements
             {
                 var job = _jobRepository.FindBy(request.Id);
                 job.ThrowExceptionIfRecordIsNull();
-                return TypeAdapter.Adapt<JobResponse>(job);
+                return _jobFactory.Execute(job);
             }
             catch (DataAccessException)
             {

@@ -11,5 +11,6 @@ namespace FoodManager.DTO.Message.Ingredients
         public int Unit { get; set; }
         public IngredientGroupResponse IngredientGroup { get; set; }
         public bool Status { get; set; }
+        public bool IsReference { get; set; }
     }
 }

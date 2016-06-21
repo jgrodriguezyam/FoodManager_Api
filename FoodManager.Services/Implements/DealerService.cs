@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -8,6 +7,7 @@ using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Queries.Dealers;
+using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Interfaces;
 
@@ -20,14 +20,16 @@ namespace FoodManager.Services.Implements
         private readonly IDealerValidator _dealerValidator;
         private readonly IDealerSaucerRepository _dealerSaucerRepository;
         private readonly IDealerSaucerValidator _dealerSaucerValidator;
+        private readonly IDealerFactory _dealerFactory;
 
-        public DealerService(IDealerQuery dealerQuery, IDealerRepository dealerRepository, IDealerValidator dealerValidator, IDealerSaucerRepository dealerSaucerRepository, IDealerSaucerValidator dealerSaucerValidator)
+        public DealerService(IDealerQuery dealerQuery, IDealerRepository dealerRepository, IDealerValidator dealerValidator, IDealerSaucerRepository dealerSaucerRepository, IDealerSaucerValidator dealerSaucerValidator, IDealerFactory dealerFactory)
         {
             _dealerQuery = dealerQuery;
             _dealerRepository = dealerRepository;
             _dealerValidator = dealerValidator;
             _dealerSaucerRepository = dealerSaucerRepository;
             _dealerSaucerValidator = dealerSaucerValidator;
+            _dealerFactory = dealerFactory;
         }
 
         public FindDealersResponse Find(FindDealersRequest request)
@@ -47,7 +49,7 @@ namespace FoodManager.Services.Implements
 
                 return new FindDealersResponse
                 {
-                    Dealers = TypeAdapter.Adapt<List<DealerResponse>>(dealers),
+                    Dealers = _dealerFactory.Execute(dealers).ToList(),
                     TotalRecords = totalRecords
                 };
             }
@@ -96,7 +98,7 @@ namespace FoodManager.Services.Implements
             {
                 var dealer = _dealerRepository.FindBy(request.Id);
                 dealer.ThrowExceptionIfRecordIsNull();
-                return TypeAdapter.Adapt<DealerResponse>(dealer);
+                return _dealerFactory.Execute(dealer);
             }
             catch (DataAccessException)
             {

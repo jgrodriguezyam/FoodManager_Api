@@ -20,5 +20,6 @@ namespace FoodManager.DTO.Message.Workers
         public RoleResponse Role { get; set; }
         public BranchResponse Branch { get; set; }
         public bool Status { get; set; }
+        public bool IsReference { get; set; }
     }
 }

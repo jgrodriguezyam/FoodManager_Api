@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using FastMapper;
 using FoodManager.DTO.BaseRequest;
 using FoodManager.DTO.BaseResponse;
@@ -51,7 +51,7 @@ namespace FoodManager.Services.Implements
 
                 return new FindSaucersResponse
                 {
-                    Saucers = TypeAdapter.Adapt<List<SaucerResponse>>(saucers),
+                    Saucers = _saucerFactory.Execute(saucers).ToList(),
                     TotalRecords = totalRecords
                 };
             }
@@ -100,7 +100,7 @@ namespace FoodManager.Services.Implements
             {
                 var saucer = _saucerRepository.FindBy(request.Id);
                 saucer.ThrowExceptionIfRecordIsNull();
-                return TypeAdapter.Adapt<SaucerResponse>(saucer);
+                return _saucerFactory.Execute(saucer);
             }
             catch (DataAccessException)
             {

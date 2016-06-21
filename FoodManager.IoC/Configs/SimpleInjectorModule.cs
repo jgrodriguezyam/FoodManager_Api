@@ -80,6 +80,7 @@ namespace FoodManager.IoC.Configs
             _container.Register<IRegionQuery, RegionQuery>();
             _container.Register<IRegionValidator, RegionValidator>();
             _container.Register<IRegionService, RegionService>();
+            _container.Register<IRegionFactory, RegionFactory>();
 
             _container.Register<ICompanyRepository, CompanyRepositoryOrmLite>();
             _container.Register<ICompanyQuery, CompanyQuery>();
@@ -97,6 +98,7 @@ namespace FoodManager.IoC.Configs
             _container.Register<IDepartmentQuery, DepartmentQuery>();
             _container.Register<IDepartmentValidator, DepartmentValidator>();
             _container.Register<IDepartmentService, DepartmentService>();
+            _container.Register<IDepartmentFactory, DepartmentFactory>();
             
             _container.Register<IUserRepository, UserRepositoryOrmLite>();
             _container.Register<IUserQuery, UserQuery>();
@@ -108,6 +110,7 @@ namespace FoodManager.IoC.Configs
             _container.Register<IDiseaseQuery, DiseaseQuery>();
             _container.Register<IDiseaseValidator, DiseaseValidator>();
             _container.Register<IDiseaseService, DiseaseService>();
+            _container.Register<IDiseaseFactory, DiseaseFactory>();
 
             _container.Register<IWarningRepository, WarningRepositoryOrmLite>();
             _container.Register<IWarningQuery, WarningQuery>();
@@ -119,6 +122,7 @@ namespace FoodManager.IoC.Configs
             _container.Register<IJobQuery, JobQuery>();
             _container.Register<IJobValidator, JobValidator>();
             _container.Register<IJobService, JobService>();
+            _container.Register<IJobFactory, JobFactory>();
 
             _container.Register<ITipRepository, TipRepositoryOrmLite>();
             _container.Register<ITipQuery, TipQuery>();
@@ -130,6 +134,7 @@ namespace FoodManager.IoC.Configs
             _container.Register<IDealerQuery, DealerQuery>();
             _container.Register<IDealerValidator, DealerValidator>();
             _container.Register<IDealerService, DealerService>();
+            _container.Register<IDealerFactory, DealerFactory>();
 
             _container.Register<IBranchDealerRepository, BranchDealerRepositoryOrmLite>();
             _container.Register<IBranchDealerValidator, BranchDealerValidator>();
@@ -189,6 +194,7 @@ namespace FoodManager.IoC.Configs
             _container.Register<IRoleQuery, RoleQuery>();
             _container.Register<IRoleValidator, RoleValidator>();
             _container.Register<IRoleService, RoleService>();
+            _container.Register<IRoleFactory, RoleFactory>();
 
             _container.Register<IRoleConfigurationRepository, RoleConfigurationRepositoryOrmLite>();
             _container.Register<IRoleConfigurationQuery, RoleConfigurationQuery>();
