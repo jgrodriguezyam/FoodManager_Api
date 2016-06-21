@@ -14,5 +14,6 @@ namespace FoodManager.DTO.Message.Reservations
         public decimal Portion { get; set; }
         public int MealType { get; set; }
         public bool Status { get; set; }
+        public bool IsReference { get; set; }
     }
 }

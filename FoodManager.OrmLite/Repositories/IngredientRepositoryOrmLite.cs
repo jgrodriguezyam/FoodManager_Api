@@ -51,6 +51,7 @@ namespace FoodManager.OrmLite.Repositories
         public bool IsReference(int ingredientId)
         {
             var amountOfReferences = _dataBaseSqlServerOrmLite.Count<SaucerConfiguration>(saucerConfiguration => saucerConfiguration.IngredientId == ingredientId && saucerConfiguration.IsActive);
+            amountOfReferences += _dataBaseSqlServerOrmLite.Count<ReservationDetail>(reservationDetail => reservationDetail.IngredientId == ingredientId && reservationDetail.IsActive);
             return amountOfReferences.IsNotZero();
         }
     }

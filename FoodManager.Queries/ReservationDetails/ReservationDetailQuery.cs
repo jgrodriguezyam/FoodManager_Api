@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using FoodManager.Infrastructure.Constants;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Queries;
 using FoodManager.Model;

@@ -12,5 +12,6 @@ namespace FoodManager.Services.Interfaces
         ReservationResponse Get(GetReservationRequest request);
         SuccessResponse Delete(DeleteReservationRequest request);
         SuccessResponse ChangeStatus(ChangeStatusRequest request);
+        SuccessResponse IsReference(IsReferenceRequest request);
     }
 }

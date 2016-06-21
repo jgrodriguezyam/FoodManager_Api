@@ -16,12 +16,14 @@ namespace FoodManager.Services.Factories.Implements
         private readonly IWorkerRepository _workerRepository;
         private readonly ISaucerRepository _saucerRepository;
         private readonly IDealerRepository _dealerRepository;
+        private readonly IReservationRepository _reservationRepository;
 
-        public ReservationFactory(IWorkerRepository workerRepository, ISaucerRepository saucerRepository, IDealerRepository dealerRepository)
+        public ReservationFactory(IWorkerRepository workerRepository, ISaucerRepository saucerRepository, IDealerRepository dealerRepository, IReservationRepository reservationRepository)
         {
             _workerRepository = workerRepository;
             _saucerRepository = saucerRepository;
             _dealerRepository = dealerRepository;
+            _reservationRepository = reservationRepository;
         }
 
         public ReservationResponse Execute(Reservation reservation)
@@ -33,6 +35,7 @@ namespace FoodManager.Services.Factories.Implements
             reservationResponse.Saucer = TypeAdapter.Adapt<SaucerResponse>(saucer);
             var dealer = _dealerRepository.FindBy(reservation.DealerId);
             reservationResponse.Dealer = TypeAdapter.Adapt<DealerResponse>(dealer);
+            reservationResponse.IsReference = _reservationRepository.IsReference(reservation.Id);
             return reservationResponse;
         }
 

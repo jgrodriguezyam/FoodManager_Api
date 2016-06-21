@@ -121,6 +121,8 @@ namespace FoodManager.Services.Implements
             {
                 var reservation = _reservationRepository.FindBy(request.Id);
                 reservation.ThrowExceptionIfRecordIsNull();
+                var isReference = _reservationRepository.IsReference(request.Id);
+                isReference.ThrowExceptionIfIsReference();
                 _reservationRepository.Remove(reservation);
                 return new SuccessResponse { IsSuccess = true };
             }
@@ -140,6 +142,19 @@ namespace FoodManager.Services.Implements
                 reservation.Status = request.Status;
                 _reservationRepository.Update(reservation);
                 return new SuccessResponse { IsSuccess = true };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public SuccessResponse IsReference(IsReferenceRequest request)
+        {
+            try
+            {
+                var isReference = _reservationRepository.IsReference(request.Id);
+                return new SuccessResponse { IsSuccess = isReference };
             }
             catch (DataAccessException)
             {
