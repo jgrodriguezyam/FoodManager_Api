@@ -10,6 +10,7 @@ using FoodManager.Queries.SaucerConfigurations;
 using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Interfaces;
+using ServiceStack.Common.Extensions;
 
 namespace FoodManager.Services.Implements
 {
@@ -125,6 +126,20 @@ namespace FoodManager.Services.Implements
                 saucerConfiguration.Status.ThrowExceptionIfIsSameStatus(request.Status);
                 saucerConfiguration.Status = request.Status;
                 _saucerConfigurationRepository.Update(saucerConfiguration);
+                return new SuccessResponse { IsSuccess = true };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public SuccessResponse DeleteByParent(DeleteByParentRequest request)
+        {
+            try
+            {
+                var saucerConfigurations = _saucerConfigurationRepository.FindBy(saucerConfiguration => saucerConfiguration.SaucerId == request.Id && saucerConfiguration.IsActive);
+                saucerConfigurations.ForEach(saucerConfiguration => { _saucerConfigurationRepository.Remove(saucerConfiguration); });
                 return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)

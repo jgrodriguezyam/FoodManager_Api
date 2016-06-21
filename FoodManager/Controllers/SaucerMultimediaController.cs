@@ -60,5 +60,11 @@ namespace FoodManager.Controllers
             var stream = _saucerMultimediaService.GetFile(request);
             return StreamReply.ConvertToHttpResponse(stream);
         }
+
+        [HttpDelete, Route("saucer-multimedias/saucer/{Id}")]
+        public SuccessResponse Delete(DeleteByParentRequest request)
+        {
+            return _saucerMultimediaService.DeleteByParent(request);
+        }
     }
 }

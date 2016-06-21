@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="BaseRequest\ChangeStatusRequest.cs" />
     <Compile Include="BaseRequest\CsvRequest.cs" />
+    <Compile Include="BaseRequest\DeleteByParentRequest.cs" />
     <Compile Include="BaseRequest\FindBaseRequest.cs" />
     <Compile Include="BaseRequest\FindStatusRequest.cs" />
     <Compile Include="BaseRequest\GetFileRequest.cs" />

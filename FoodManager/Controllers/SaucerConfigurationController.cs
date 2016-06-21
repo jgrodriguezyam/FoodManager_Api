@@ -50,5 +50,11 @@ namespace FoodManager.Controllers
         {
             return _saucerConfigurationService.ChangeStatus(request);
         }
+
+        [HttpDelete, Route("saucer-configurations/saucer/{Id}")]
+        public SuccessResponse Delete(DeleteByParentRequest request)
+        {
+            return _saucerConfigurationService.DeleteByParent(request);
+        }
     }
 }

@@ -12,6 +12,7 @@ using FoodManager.Queries.SaucerMultimedias;
 using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Interfaces;
+using ServiceStack.Common.Extensions;
 using File = FoodManager.Infrastructure.Files.File;
 
 namespace FoodManager.Services.Implements
@@ -150,6 +151,20 @@ namespace FoodManager.Services.Implements
                 saucerMultimedia.ThrowExceptionIfRecordIsNull();
                 var stream = _storageProvider.Retrieve(saucerMultimedia.Path);
                 return stream;
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public SuccessResponse DeleteByParent(DeleteByParentRequest request)
+        {
+            try
+            {
+                var saucerMultimedias = _saucerMultimediaRepository.FindBy(saucerMultimedia => saucerMultimedia.SaucerId == request.Id && saucerMultimedia.IsActive);
+                saucerMultimedias.ForEach(saucerMultimedia => { _saucerMultimediaRepository.Remove(saucerMultimedia); });
+                return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)
             {

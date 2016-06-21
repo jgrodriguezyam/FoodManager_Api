@@ -12,5 +12,6 @@ namespace FoodManager.Services.Interfaces
         SaucerConfigurationResponse Get(GetSaucerConfigurationRequest request);
         SuccessResponse Delete(DeleteSaucerConfigurationRequest request);
         SuccessResponse ChangeStatus(ChangeStatusRequest request);
+        SuccessResponse DeleteByParent(DeleteByParentRequest request);
     }
 }

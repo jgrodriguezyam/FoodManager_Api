@@ -15,5 +15,6 @@ namespace FoodManager.Services.Interfaces
         SuccessResponse Delete(DeleteSaucerMultimediaRequest request);
         SuccessResponse ChangeStatus(ChangeStatusRequest request);
         Stream GetFile(GetFileRequest request);
+        SuccessResponse DeleteByParent(DeleteByParentRequest request);
     }
 }
