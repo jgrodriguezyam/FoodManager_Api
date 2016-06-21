@@ -42,7 +42,8 @@ namespace FoodManager.OrmLite.Repositories
 
         public void Remove(ReservationDetail item)
         {
-            throw new NotImplementedException();
+            _auditEventListener.OnPreDelete(item);
+            _dataBaseSqlServerOrmLite.LogicRemove(item);
         }
     }
 }
