@@ -6,6 +6,7 @@ using FoodManager.Infrastructure.Integers;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.OrmLite.DataBase;
+using ServiceStack.Common.Extensions;
 
 namespace FoodManager.OrmLite.Repositories
 {
@@ -13,11 +14,15 @@ namespace FoodManager.OrmLite.Repositories
     {
         private readonly IDataBaseSqlServerOrmLite _dataBaseSqlServerOrmLite;
         private readonly IAuditEventListener _auditEventListener;
+        private readonly ISaucerConfigurationRepository _saucerConfigurationRepository;
+        private readonly ISaucerMultimediaRepository _saucerMultimediaRepository;
 
-        public SaucerRepositoryOrmLite(IDataBaseSqlServerOrmLite dataBaseSqlServerOrmLite, IAuditEventListener auditEventListener)
+        public SaucerRepositoryOrmLite(IDataBaseSqlServerOrmLite dataBaseSqlServerOrmLite, IAuditEventListener auditEventListener, ISaucerConfigurationRepository saucerConfigurationRepository, ISaucerMultimediaRepository saucerMultimediaRepository)
         {
             _dataBaseSqlServerOrmLite = dataBaseSqlServerOrmLite;
             _auditEventListener = auditEventListener;
+            _saucerConfigurationRepository = saucerConfigurationRepository;
+            _saucerMultimediaRepository = saucerMultimediaRepository;
         }
 
         public Saucer FindBy(int id)
@@ -46,13 +51,15 @@ namespace FoodManager.OrmLite.Repositories
         {
             _auditEventListener.OnPreDelete(item);
             _dataBaseSqlServerOrmLite.LogicRemove(item);
+            var saucerConfigurations = _saucerConfigurationRepository.FindBy(saucerConfiguration => saucerConfiguration.SaucerId == item.Id && saucerConfiguration.IsActive);
+            saucerConfigurations.ForEach(saucerConfiguration => { _saucerConfigurationRepository.Remove(saucerConfiguration); });
+            var saucerMultimedias = _saucerMultimediaRepository.FindBy(saucerMultimedia => saucerMultimedia.SaucerId == item.Id && saucerMultimedia.IsActive);
+            saucerMultimedias.ForEach(saucerMultimedia => { _saucerMultimediaRepository.Remove(saucerMultimedia); });
         }
 
         public bool IsReference(int saucerId)
         {
-            var amountOfReferences = _dataBaseSqlServerOrmLite.Count<SaucerConfiguration>(saucerConfiguration => saucerConfiguration.SaucerId == saucerId && saucerConfiguration.IsActive);
-            amountOfReferences += _dataBaseSqlServerOrmLite.Count<SaucerMultimedia>(saucerMultimedia => saucerMultimedia.SaucerId == saucerId && saucerMultimedia.IsActive);
-            amountOfReferences += _dataBaseSqlServerOrmLite.Count<DealerSaucer>(dealerSaucer => dealerSaucer.SaucerId == saucerId);
+            var amountOfReferences = _dataBaseSqlServerOrmLite.Count<DealerSaucer>(dealerSaucer => dealerSaucer.SaucerId == saucerId);
             amountOfReferences += _dataBaseSqlServerOrmLite.Count<Menu>(menu => menu.SaucerId == saucerId && menu.IsActive);
             amountOfReferences += _dataBaseSqlServerOrmLite.Count<Reservation>(reservation => reservation.SaucerId == saucerId && reservation.IsActive);
             return amountOfReferences.IsNotZero();

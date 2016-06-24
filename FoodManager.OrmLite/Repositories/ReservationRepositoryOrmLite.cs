@@ -48,8 +48,8 @@ namespace FoodManager.OrmLite.Repositories
         {
             _auditEventListener.OnPreDelete(item);
             _dataBaseSqlServerOrmLite.LogicRemove(item);
-            var reservationDetails = _dataBaseSqlServerOrmLite.FindBy<ReservationDetail>(reservationDetail => reservationDetail.ReservationId == item.Id && reservationDetail.IsActive);
-            reservationDetails.ForEach(reservationDetail => { _reservationDetailRepository.Remove(reservationDetail);});
+            var reservationDetails = _reservationDetailRepository.FindBy(reservationDetail => reservationDetail.ReservationId == item.Id && reservationDetail.IsActive);
+            reservationDetails.ForEach(reservationDetail => { _reservationDetailRepository.Remove(reservationDetail); });
         }
     }
 }
