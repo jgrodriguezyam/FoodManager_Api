@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using FoodManager.DataAccess.Listeners;
-using FoodManager.Infrastructure.Integers;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.OrmLite.DataBase;
+using ServiceStack.Common.Extensions;
 
 namespace FoodManager.OrmLite.Repositories
 {
@@ -13,11 +13,13 @@ namespace FoodManager.OrmLite.Repositories
     {
         private readonly IDataBaseSqlServerOrmLite _dataBaseSqlServerOrmLite;
         private readonly IAuditEventListener _auditEventListener;
+        private readonly IReservationDetailRepository _reservationDetailRepository;
 
-        public ReservationRepositoryOrmLite(IDataBaseSqlServerOrmLite dataBaseSqlServerOrmLite, IAuditEventListener auditEventListener)
+        public ReservationRepositoryOrmLite(IDataBaseSqlServerOrmLite dataBaseSqlServerOrmLite, IAuditEventListener auditEventListener, IReservationDetailRepository reservationDetailRepository)
         {
             _dataBaseSqlServerOrmLite = dataBaseSqlServerOrmLite;
             _auditEventListener = auditEventListener;
+            _reservationDetailRepository = reservationDetailRepository;
         }
 
         public Reservation FindBy(int id)
@@ -46,12 +48,8 @@ namespace FoodManager.OrmLite.Repositories
         {
             _auditEventListener.OnPreDelete(item);
             _dataBaseSqlServerOrmLite.LogicRemove(item);
-        }
-
-        public bool IsReference(int reservationId)
-        {
-            var amountOfReferences = _dataBaseSqlServerOrmLite.Count<ReservationDetail>(reservationDetail => reservationDetail.ReservationId == reservationId && reservationDetail.IsActive);
-            return amountOfReferences.IsNotZero();
+            var reservationDetails = _dataBaseSqlServerOrmLite.FindBy<ReservationDetail>(reservationDetail => reservationDetail.ReservationId == item.Id && reservationDetail.IsActive);
+            reservationDetails.ForEach(reservationDetail => { _reservationDetailRepository.Remove(reservationDetail);});
         }
     }
 }

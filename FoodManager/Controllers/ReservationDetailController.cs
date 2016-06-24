@@ -1,6 +1,4 @@
 ﻿using System.Web.Http;
-using FoodManager.DTO.BaseRequest;
-using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.ReservationDetails;
 using FoodManager.Services.Interfaces;
 
@@ -25,12 +23,6 @@ namespace FoodManager.Controllers
         public ReservationDetailResponse Get(GetReservationDetailRequest request)
         {
             return _reservationDetailService.Get(request);
-        }
-
-        [HttpDelete, Route("reservation-details/reservation/{Id}")]
-        public SuccessResponse Delete(DeleteByParentRequest request)
-        {
-            return _reservationDetailService.DeleteByParent(request);
         }
     }
 }

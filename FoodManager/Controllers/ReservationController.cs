@@ -58,11 +58,5 @@ namespace FoodManager.Controllers
         {
             return new EnumeratorResponse { Enumerator = new MealType().ConvertToCollection() };
         }
-
-        [HttpGet, Route("reservations/is-reference/{Id}")]
-        public SuccessResponse Get(IsReferenceRequest request)
-        {
-            return _reservationService.IsReference(request);
-        }
     }
 }

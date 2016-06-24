@@ -1,13 +1,10 @@
 ﻿using System.Linq;
-using FoodManager.DTO.BaseRequest;
-using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.ReservationDetails;
 using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Model.IRepositories;
 using FoodManager.Queries.ReservationDetails;
 using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
-using ServiceStack.Common.Extensions;
 
 namespace FoodManager.Services.Implements
 {
@@ -53,20 +50,6 @@ namespace FoodManager.Services.Implements
                 var reservationDetail = _reservationDetailRepository.FindBy(request.Id);
                 reservationDetail.ThrowExceptionIfRecordIsNull();
                 return _reservationDetailFactory.Execute(reservationDetail);
-            }
-            catch (DataAccessException)
-            {
-                throw new ApplicationException();
-            }
-        }
-
-        public SuccessResponse DeleteByParent(DeleteByParentRequest request)
-        {
-            try
-            {
-                var reservationDetails = _reservationDetailRepository.FindBy(reservationDetail => reservationDetail.ReservationId == request.Id && reservationDetail.IsActive);
-                reservationDetails.ForEach(reservationDetail => { _reservationDetailRepository.Remove(reservationDetail); });
-                return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)
             {
