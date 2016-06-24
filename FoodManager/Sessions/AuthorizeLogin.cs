@@ -15,6 +15,7 @@ using FoodManager.Infrastructure.Validators.Serials;
 using FoodManager.IoC.Configs;
 using FoodManager.Model.IHmac;
 using FoodManager.OrmLite.DataBase;
+using FoodManager.Infrastructure.Http;
 
 namespace FoodManager.Sessions
 {
@@ -25,10 +26,10 @@ namespace FoodManager.Sessions
             SerialValidator();
             if (LoginValidator.ActionValidationHmac(actionContext))
             {
-                var headerTimespan = actionContext.Request.Headers.GetValues(GlobalConstants.Timespan).First();
-                var headerPublicKey = actionContext.Request.Headers.GetValues(GlobalConstants.PublicKey).First();
-                var headerPrivateKey = actionContext.Request.Headers.GetValues(GlobalConstants.PrivateKey).First();
-                var headerLoginType = actionContext.Request.Headers.GetValues(GlobalConstants.LoginType).First();
+                var headerTimespan = actionContext.GetValue(GlobalConstants.Timespan);
+                var headerPublicKey = actionContext.GetValue(GlobalConstants.PublicKey);
+                var headerPrivateKey = actionContext.GetValue(GlobalConstants.PrivateKey);
+                var headerLoginType = actionContext.GetValue(GlobalConstants.LoginType);
 
                 var loginType = new LoginType().ConvertToCollection().FirstOrDefault(loginTp => loginTp.Value == int.Parse(headerLoginType));
                 loginType.ThrowExceptionIfIsNull(HttpStatusCode.ExpectationFailed, "El tipo de login no existe");
@@ -45,9 +46,9 @@ namespace FoodManager.Sessions
         {
             if (LoginValidator.ActionValidationHmac(actionExecutedContext.ActionContext) && actionExecutedContext.Exception.IsNull() && actionExecutedContext.Response.IsSuccessStatusCode)
             {
-                var headerTimespan = actionExecutedContext.Request.Headers.GetValues(GlobalConstants.Timespan).First();
-                var headerPublicKey = actionExecutedContext.Request.Headers.GetValues(GlobalConstants.PublicKey).First();
-                var headerLoginType = actionExecutedContext.Request.Headers.GetValues(GlobalConstants.LoginType).First();
+                var headerTimespan = actionExecutedContext.GetValue(GlobalConstants.Timespan);
+                var headerPublicKey = actionExecutedContext.GetValue(GlobalConstants.PublicKey);
+                var headerLoginType = actionExecutedContext.GetValue(GlobalConstants.LoginType);
 
                 var newPublicKey = RefreshPublicKey(headerTimespan, headerPublicKey, headerLoginType);
                 if (newPublicKey.IsNotNullOrEmpty())

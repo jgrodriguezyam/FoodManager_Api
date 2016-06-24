@@ -96,6 +96,7 @@
     <Compile Include="Files\ServerDomainResolver.cs" />
     <Compile Include="Files\StorageProvider.cs" />
     <Compile Include="Files\StreamReply.cs" />
+    <Compile Include="Http\HttpActionExtensions.cs" />
     <Compile Include="Roles\AccessLevelType.cs" />
     <Compile Include="Roles\PermissionType.cs" />
     <Compile Include="Validators\Enums\DisableValidatorHmac.cs" />
