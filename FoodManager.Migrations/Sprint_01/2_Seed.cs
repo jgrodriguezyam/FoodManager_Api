@@ -43,6 +43,8 @@ namespace FoodManager.Migrations.Sprint_01
             Create.ForeignKey("FK_Company_Region").FromTable("Company").InSchema("dbo").ForeignColumn("RegionId")
                  .ToTable("Region").InSchema("dbo").PrimaryColumn("Id");
 
+            Create.Index("IX_Region").OnTable("Company").InSchema("dbo").OnColumn("RegionId").Ascending();
+
             #endregion
 
             #region Branch
@@ -62,6 +64,8 @@ namespace FoodManager.Migrations.Sprint_01
 
             Create.ForeignKey("FK_Branch_Company").FromTable("Branch").InSchema("dbo").ForeignColumn("CompanyId")
                  .ToTable("Company").InSchema("dbo").PrimaryColumn("Id");
+
+            Create.Index("IX_Company").OnTable("Branch").InSchema("dbo").OnColumn("CompanyId").Ascending();
 
             #endregion
 
@@ -113,6 +117,8 @@ namespace FoodManager.Migrations.Sprint_01
 
             Create.ForeignKey("FK_Warning_Disease").FromTable("Warning").InSchema("dbo").ForeignColumn("DiseaseId")
                  .ToTable("Disease").InSchema("dbo").PrimaryColumn("Id");
+
+            Create.Index("IX_Disease").OnTable("Warning").InSchema("dbo").OnColumn("DiseaseId").Ascending();
 
             #endregion
 
@@ -201,6 +207,9 @@ namespace FoodManager.Migrations.Sprint_01
             Create.ForeignKey("FK_User_Role").FromTable("User").InSchema("dbo").ForeignColumn("RoleId")
                 .ToTable("Role").InSchema("dbo").PrimaryColumn("Id");
 
+            Create.Index("IX_Dealer").OnTable("User").InSchema("dbo").OnColumn("DealerId").Ascending();
+            Create.Index("IX_Role").OnTable("User").InSchema("dbo").OnColumn("RoleId").Ascending();
+
             #endregion
 
             #region Saucer
@@ -252,6 +261,8 @@ namespace FoodManager.Migrations.Sprint_01
             Create.ForeignKey("FK_SaucerMultimedia_Saucer").FromTable("SaucerMultimedia").InSchema("dbo").ForeignColumn("SaucerId")
                  .ToTable("Saucer").InSchema("dbo").PrimaryColumn("Id");
 
+            Create.Index("IX_Saucer").OnTable("SaucerMultimedia").InSchema("dbo").OnColumn("SaucerId").Ascending();
+
             #endregion
 
             #region IngredientGroup
@@ -295,6 +306,8 @@ namespace FoodManager.Migrations.Sprint_01
             Create.ForeignKey("FK_Ingredient_IngredientGroup").FromTable("Ingredient").InSchema("dbo").ForeignColumn("IngredientGroupId")
                  .ToTable("IngredientGroup").InSchema("dbo").PrimaryColumn("Id");
 
+            Create.Index("IX_IngredientGroup").OnTable("Ingredient").InSchema("dbo").OnColumn("IngredientGroupId").Ascending();
+
             #endregion
 
             #region SaucerConfiguration
@@ -316,6 +329,9 @@ namespace FoodManager.Migrations.Sprint_01
                  .ToTable("Saucer").InSchema("dbo").PrimaryColumn("Id");
             Create.ForeignKey("FK_SaucerConfiguration_Ingredient").FromTable("SaucerConfiguration").InSchema("dbo").ForeignColumn("IngredientId")
                  .ToTable("Ingredient").InSchema("dbo").PrimaryColumn("Id");
+
+            Create.Index("IX_Saucer").OnTable("SaucerConfiguration").InSchema("dbo").OnColumn("SaucerId").Ascending();
+            Create.Index("IX_Ingredient").OnTable("SaucerConfiguration").InSchema("dbo").OnColumn("IngredientId").Ascending();
 
             #endregion
 
@@ -353,6 +369,11 @@ namespace FoodManager.Migrations.Sprint_01
             Create.ForeignKey("FK_Worker_Branch").FromTable("Worker").InSchema("dbo").ForeignColumn("BranchId")
                 .ToTable("Branch").InSchema("dbo").PrimaryColumn("Id");
 
+            Create.Index("IX_Department").OnTable("Worker").InSchema("dbo").OnColumn("DepartmentId").Ascending();
+            Create.Index("IX_Job").OnTable("Worker").InSchema("dbo").OnColumn("JobId").Ascending();
+            Create.Index("IX_Role").OnTable("Worker").InSchema("dbo").OnColumn("RoleId").Ascending();
+            Create.Index("IX_Branch").OnTable("Worker").InSchema("dbo").OnColumn("BranchId").Ascending();
+
             #endregion
 
             #region Menu
@@ -381,6 +402,9 @@ namespace FoodManager.Migrations.Sprint_01
             Create.ForeignKey("FK_Menu_Saucer").FromTable("Menu").InSchema("dbo").ForeignColumn("SaucerId")
                  .ToTable("Saucer").InSchema("dbo").PrimaryColumn("Id");
 
+            Create.Index("IX_Dealer").OnTable("Menu").InSchema("dbo").OnColumn("DealerId").Ascending();
+            Create.Index("IX_Saucer").OnTable("Menu").InSchema("dbo").OnColumn("SaucerId").Ascending();
+
             #endregion
 
             #region Reservation
@@ -408,6 +432,10 @@ namespace FoodManager.Migrations.Sprint_01
             Create.ForeignKey("FK_Reservation_Dealer").FromTable("Reservation").InSchema("dbo").ForeignColumn("DealerId")
                  .ToTable("Dealer").InSchema("dbo").PrimaryColumn("Id");
 
+            Create.Index("IX_Worker").OnTable("Reservation").InSchema("dbo").OnColumn("WorkerId").Ascending();
+            Create.Index("IX_Saucer").OnTable("Reservation").InSchema("dbo").OnColumn("SaucerId").Ascending();
+            Create.Index("IX_Dealer").OnTable("Reservation").InSchema("dbo").OnColumn("DealerId").Ascending();
+
             #endregion
 
             #region ReservationDetail
@@ -429,6 +457,9 @@ namespace FoodManager.Migrations.Sprint_01
                  .ToTable("Reservation").InSchema("dbo").PrimaryColumn("Id");
             Create.ForeignKey("FK_ReservationDetail_Ingredient").FromTable("ReservationDetail").InSchema("dbo").ForeignColumn("IngredientId")
                  .ToTable("Ingredient").InSchema("dbo").PrimaryColumn("Id");
+
+            Create.Index("IX_Reservation").OnTable("ReservationDetail").InSchema("dbo").OnColumn("ReservationId").Ascending();
+            Create.Index("IX_Ingredient").OnTable("ReservationDetail").InSchema("dbo").OnColumn("IngredientId").Ascending();
 
             #endregion
 
