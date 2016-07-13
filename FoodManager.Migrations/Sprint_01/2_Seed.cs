@@ -416,7 +416,8 @@ namespace FoodManager.Migrations.Sprint_01
                 .WithColumn("MealType").AsInt32().NotNullable()
                 .WithColumn("WorkerId").AsInt32().NotNullable()
                 .WithColumn("SaucerId").AsInt32().NotNullable()
-                .WithColumn("DealerId").AsInt32().NotNullable()
+                .WithColumn("DealerId").AsInt32().Nullable()
+                .WithColumn("IsPaid").AsBoolean().NotNullable()
 
                 .WithColumn("CreatedBy").AsInt32().NotNullable()
                 .WithColumn("ModifiedBy").AsInt32().NotNullable()

@@ -13,6 +13,7 @@ namespace FoodManager.DTO.Message.Reservations
         public DealerResponse Dealer { get; set; }
         public decimal Portion { get; set; }
         public int MealType { get; set; }
+        public bool IsPaid { get; set; }
         public bool Status { get; set; }
     }
 }

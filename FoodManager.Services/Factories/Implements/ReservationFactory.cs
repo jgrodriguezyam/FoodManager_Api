@@ -5,6 +5,7 @@ using FoodManager.DTO.Message.Dealers;
 using FoodManager.DTO.Message.Reservations;
 using FoodManager.DTO.Message.Saucers;
 using FoodManager.DTO.Message.Workers;
+using FoodManager.Infrastructure.Objects;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Services.Factories.Interfaces;
@@ -31,8 +32,10 @@ namespace FoodManager.Services.Factories.Implements
             reservationResponse.Worker = TypeAdapter.Adapt<WorkerResponse>(worker);
             var saucer = _saucerRepository.FindBy(reservation.SaucerId);
             reservationResponse.Saucer = TypeAdapter.Adapt<SaucerResponse>(saucer);
-            var dealer = _dealerRepository.FindBy(reservation.DealerId);
-            reservationResponse.Dealer = TypeAdapter.Adapt<DealerResponse>(dealer);
+            var dealerId = reservation.DealerId ?? 0;
+            var dealer = _dealerRepository.FindBy(dealerId);
+            if (dealer.IsNotNull())
+                reservationResponse.Dealer = TypeAdapter.Adapt<DealerResponse>(dealer);
             return reservationResponse;
         }
 

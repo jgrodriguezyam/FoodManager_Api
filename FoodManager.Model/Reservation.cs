@@ -13,7 +13,8 @@ namespace FoodManager.Model
         public int MealType { get; set; }
         public int WorkerId { get; set; }
         public int SaucerId { get; set; }
-        public int DealerId { get; set; }
+        public int? DealerId { get; set; }
+        public bool IsPaid { get; set; }
 
         public bool IsActive { get; set; }
     }
