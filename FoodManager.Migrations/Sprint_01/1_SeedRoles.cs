@@ -103,6 +103,30 @@ namespace FoodManager.Migrations.Sprint_01
                     IsActive = GlobalConstants.ActivatedMigration
                 });
 
+            Insert.IntoTable("Role").InSchema("dbo").Row(
+                new
+                {
+                    Name = GlobalConstants.DoctorRoleName,
+                    CreatedBy = GlobalConstants.SystemUserId,
+                    ModifiedBy = GlobalConstants.SystemUserId,
+                    CreatedOn = _today,
+                    ModifiedOn = _today,
+                    Status = GlobalConstants.StatusActivatedMigration,
+                    IsActive = GlobalConstants.ActivatedMigration
+                });
+
+            Insert.IntoTable("Role").InSchema("dbo").Row(
+                new
+                {
+                    Name = GlobalConstants.NutritionistRoleName,
+                    CreatedBy = GlobalConstants.SystemUserId,
+                    ModifiedBy = GlobalConstants.SystemUserId,
+                    CreatedOn = _today,
+                    ModifiedOn = _today,
+                    Status = GlobalConstants.StatusActivatedMigration,
+                    IsActive = GlobalConstants.ActivatedMigration
+                });
+
             #endregion
 
             #region RoleConfiguration
@@ -133,6 +157,8 @@ namespace FoodManager.Migrations.Sprint_01
             InsertAdminRoleConfiguration();
             InsertDealerRoleConfiguration();
             InsertWorkerRoleConfiguration();
+            InsertDoctorRoleConfiguration();
+            InsertNutritionistRoleConfiguration();
 
             #endregion
 
@@ -489,56 +515,24 @@ namespace FoodManager.Migrations.Sprint_01
 
                         "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.RoleConfiguration.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Worker.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.User.GetValue() + ", " + AccessLevelType.ChangePassword.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Disease.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Disease.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Disease.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Disease.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Warning.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Warning.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Warning.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Warning.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Tip.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Tip.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Tip.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Tip.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        
                         "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Menu.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Menu.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Menu.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Menu.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.SaucerConfiguration.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.SaucerConfiguration.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.SaucerConfiguration.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.SaucerConfiguration.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Ingredient.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Ingredient.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Ingredient.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Ingredient.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.IngredientGroup.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.IngredientGroup.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.IngredientGroup.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.IngredientGroup.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         
-                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")");
+                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        
+                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        
+                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.SaucerConfiguration.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        
+                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Ingredient.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        
+                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.IngredientGroup.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")");
         }
 
         private void InsertWorkerRoleConfiguration()
@@ -584,6 +578,60 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + GlobalConstants.WorkerRoleId + ", " + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")");
         }
 
+        private void InsertDoctorRoleConfiguration()
+        {
+            Execute.Sql("INSERT INTO RoleConfiguration (RoleId, PermissionId, AccessLevelId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+                        "(" + GlobalConstants.DoctorRoleId + ", " + PermissionType.AccessLevel.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+
+                        "(" + GlobalConstants.DoctorRoleId + ", " + PermissionType.Permission.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+
+                        "(" + GlobalConstants.DoctorRoleId + ", " + PermissionType.Role.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+
+                        "(" + GlobalConstants.DoctorRoleId + ", " + PermissionType.RoleConfiguration.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        
+                        "(" + GlobalConstants.DoctorRoleId + ", " + PermissionType.User.GetValue() + ", " + AccessLevelType.ChangePassword.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        
+                        "(" + GlobalConstants.DoctorRoleId + ", " + PermissionType.Department.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        
+                        "(" + GlobalConstants.DoctorRoleId + ", " + PermissionType.Disease.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        
+                        "(" + GlobalConstants.DoctorRoleId + ", " + PermissionType.Job.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        
+                        "(" + GlobalConstants.DoctorRoleId + ", " + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")");
+        }
+
+        private void InsertNutritionistRoleConfiguration()
+        {
+            Execute.Sql("INSERT INTO RoleConfiguration (RoleId, PermissionId, AccessLevelId, CreatedBy, ModifiedBy, CreatedOn, ModifiedOn, Status, IsActive) VALUES " +
+                        "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.AccessLevel.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+
+                        "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.Permission.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        
+                        "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.Role.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        
+                        "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.RoleConfiguration.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        
+                        "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.User.GetValue() + ", " + AccessLevelType.ChangePassword.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        
+                        "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.Worker.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        
+                        "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.Branch.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        
+                        "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        
+                        "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.Menu.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        
+                        "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        
+                        "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        
+                        "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.SaucerConfiguration.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        
+                        "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.Ingredient.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        
+                        "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.IngredientGroup.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")");
+        }
+        
         #endregion
     }
 }

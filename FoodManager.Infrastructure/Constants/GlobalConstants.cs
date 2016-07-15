@@ -14,6 +14,12 @@ namespace FoodManager.Infrastructure.Constants
         public static readonly int WorkerRoleId = 3;
         public static readonly string WorkerRoleName = "Empleado";
 
+        public static readonly int DoctorRoleId = 4;
+        public static readonly string DoctorRoleName = "Médico";
+
+        public static readonly int NutritionistRoleId = 5;
+        public static readonly string NutritionistRoleName = "Nutriólogo";
+
         public static readonly int SystemUserId = 1;
 
         public static readonly string AdminUserName = "admin";
