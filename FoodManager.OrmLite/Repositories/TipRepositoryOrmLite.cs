@@ -5,6 +5,7 @@ using FoodManager.DataAccess.Listeners;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.OrmLite.DataBase;
+using ServiceStack.Common.Extensions;
 
 namespace FoodManager.OrmLite.Repositories
 {
@@ -45,6 +46,12 @@ namespace FoodManager.OrmLite.Repositories
         {
             _auditEventListener.OnPreDelete(item);
             _dataBaseSqlServerOrmLite.LogicRemove(item);
+        }
+
+        public void AddAll(IEnumerable<Tip> items)
+        {
+            items.ForEach(item => { _auditEventListener.OnPreInsert(item); });
+            _dataBaseSqlServerOrmLite.InsertAll(items);
         }
     }
 }

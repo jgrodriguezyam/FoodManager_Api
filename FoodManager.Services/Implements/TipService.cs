@@ -141,11 +141,8 @@ namespace FoodManager.Services.Implements
             {
                 var fileName = _storageProvider.Save(file);
                 var tips = _tipFactory.FromCsv(fileName);
-                tips.ForEach(tip =>
-                {
-                    _tipValidator.ValidateAndThrowException(tip, "Base");
-                    _tipRepository.Add(tip);
-                });
+                tips.ForEach(tip => { _tipValidator.ValidateAndThrowException(tip, "Base"); });
+                _tipRepository.AddAll(tips);
                 return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)

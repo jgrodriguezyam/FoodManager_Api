@@ -64,5 +64,11 @@ namespace FoodManager.OrmLite.Repositories
             amountOfReferences += _dataBaseSqlServerOrmLite.Count<Reservation>(reservation => reservation.SaucerId == saucerId && reservation.IsActive);
             return amountOfReferences.IsNotZero();
         }
+
+        public void AddAll(IEnumerable<Saucer> items)
+        {
+            items.ForEach(item => { _auditEventListener.OnPreInsert(item); });
+            _dataBaseSqlServerOrmLite.InsertAll(items);
+        }
     }
 }

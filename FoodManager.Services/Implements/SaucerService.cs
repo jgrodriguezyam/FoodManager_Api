@@ -173,11 +173,8 @@ namespace FoodManager.Services.Implements
             {
                 var fileName = _storageProvider.Save(file);
                 var saucers = _saucerFactory.FromCsv(fileName);
-                saucers.ForEach(saucer =>
-                {
-                    _saucerValidator.ValidateAndThrowException(saucer, "Base");
-                    _saucerRepository.Add(saucer);
-                });
+                saucers.ForEach(saucer => { _saucerValidator.ValidateAndThrowException(saucer, "Base"); });
+                _saucerRepository.AddAll(saucers);
                 return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)

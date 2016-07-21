@@ -293,6 +293,7 @@ namespace FoodManager.Migrations.Sprint_01
                 .WithColumn("Sugar").AsDecimal(10,2).NotNullable()
                 .WithColumn("Lipid").AsDecimal(10,2).NotNullable()
                 .WithColumn("Sodium").AsDecimal(10,2).NotNullable()
+                .WithColumn("NetWeight").AsDecimal(10,2).NotNullable()
                 .WithColumn("Unit").AsInt32().NotNullable()
                 .WithColumn("IngredientGroupId").AsInt32().NotNullable()
 
@@ -653,37 +654,11 @@ namespace FoodManager.Migrations.Sprint_01
                         "('Secretaria', " + GlobalConstants.CreatedBySystemUser + ")," +
                         "('Programador', " + GlobalConstants.CreatedBySystemUser + ")");
 
-            Execute.Sql("INSERT INTO Tip (Name, " + GlobalConstants.AuditFields + ") VALUES " +
-                        "('Nunca olvides que el desayuno es primordial', " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "('Evita catalogar los alimentos', " + GlobalConstants.CreatedBySystemUser + ")");
-
             Execute.Sql("INSERT INTO Dealer (Name, " + GlobalConstants.AuditFields + ") VALUES " +
                         "('Areca', " + GlobalConstants.CreatedBySystemUser + ")," +
                         "('Cocina Walter', " + GlobalConstants.CreatedBySystemUser + ")");
 
             Execute.Sql("INSERT INTO BranchDealer (BranchId, DealerId) VALUES (1,1), (1,2)");
-
-            Execute.Sql("INSERT INTO Saucer (Name, Type, " + GlobalConstants.AuditFields + ") VALUES " +
-                        "('Frijol con puerco', " + SaucerType.Main.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "('Pechuga asada', " + SaucerType.Main.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")");
-
-            Execute.Sql("INSERT INTO DealerSaucer (DealerId, SaucerId) VALUES (1,1), (1,2)");
-
-            Execute.Sql("INSERT INTO SaucerMultimedia (Path, SaucerId, " + GlobalConstants.AuditFields + ") VALUES " +
-                        "('Frijol1.jpg', 1, " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "('Frijol2.jpg', 1, " + GlobalConstants.CreatedBySystemUser + ")");
-
-            Execute.Sql("INSERT INTO IngredientGroup (Name, Color, " + GlobalConstants.AuditFields + ") VALUES " +
-                        "('Carnes y Pescado', '#FF1002', " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "('Verduras y Frutas', '#14FF24', " + GlobalConstants.CreatedBySystemUser + ")");
-
-            Execute.Sql("INSERT INTO Ingredient (Name, Amount, Energy, Protein, Carbohydrate, Sugar, Lipid, Sodium, IngredientGroupId, Unit, " + GlobalConstants.AuditFields + ") VALUES " +
-                        "('Frijol', 100.00, 10.00, 10.00, 10.00, 10.00, 10.00, 10.00, 1, " + UnitType.Grams.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "('Puerco', 100.00, 10.00, 10.00, 10.00, 10.00, 10.00, 10.00, 1, " + UnitType.Grams.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")");
-
-            Execute.Sql("INSERT INTO SaucerConfiguration (SaucerId, IngredientId, Portion, " + GlobalConstants.AuditFields + ") VALUES " +
-                        "(1, 1, 3.00, " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(1, 2, 3.00, " + GlobalConstants.CreatedBySystemUser + ")");
 
             Execute.Sql("INSERT INTO Worker (Code, FirstName, LastName, Email, Imss, Gender, Badge, DepartmentId, JobId, BranchId, RoleId, " + GlobalConstants.AuditFields + ") VALUES " +
                         "('1122', 'Juan', 'Martinez', 'juan@gmail.com', 'WV12H78', 1, '010107002113774', 1, 1, 1, " + GlobalConstants.WorkerRoleId + ", " + GlobalConstants.CreatedBySystemUser + ")," +

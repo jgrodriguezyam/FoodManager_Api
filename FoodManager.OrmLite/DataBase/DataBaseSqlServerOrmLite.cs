@@ -138,5 +138,10 @@ namespace FoodManager.OrmLite.DataBase
             var items = DbConnection.Select<T>();
             return items;
         }
+
+        public void InsertAll<T>(IEnumerable<T> objectsToInsert) where T : new()
+        {
+            DbConnection.InsertAll(objectsToInsert);
+        }
     }
 }

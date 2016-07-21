@@ -6,6 +6,7 @@ using FoodManager.Infrastructure.Integers;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.OrmLite.DataBase;
+using ServiceStack.Common.Extensions;
 
 namespace FoodManager.OrmLite.Repositories
 {
@@ -53,6 +54,12 @@ namespace FoodManager.OrmLite.Repositories
             var amountOfReferences = _dataBaseSqlServerOrmLite.Count<SaucerConfiguration>(saucerConfiguration => saucerConfiguration.IngredientId == ingredientId && saucerConfiguration.IsActive);
             amountOfReferences += _dataBaseSqlServerOrmLite.Count<ReservationDetail>(reservationDetail => reservationDetail.IngredientId == ingredientId && reservationDetail.IsActive);
             return amountOfReferences.IsNotZero();
+        }
+
+        public void AddAll(IEnumerable<Ingredient> items)
+        {
+            items.ForEach(item => { _auditEventListener.OnPreInsert(item); });
+            _dataBaseSqlServerOrmLite.InsertAll(items);
         }
     }
 }

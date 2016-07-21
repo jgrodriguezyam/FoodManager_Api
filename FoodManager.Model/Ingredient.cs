@@ -16,6 +16,7 @@ namespace FoodManager.Model
         public decimal Sugar { get; set; }
         public decimal Lipid { get; set; }
         public decimal Sodium { get; set; }
+        public decimal NetWeight { get; set; }
         public int Unit { get; set; }
         public int IngredientGroupId { get; set; }
 

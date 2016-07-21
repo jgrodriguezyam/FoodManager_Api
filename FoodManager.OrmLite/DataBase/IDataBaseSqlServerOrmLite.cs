@@ -28,5 +28,6 @@ namespace FoodManager.OrmLite.DataBase
         void UpdateHmac<T>(string publicKey, string time, int id) where T : new();
         T GetByIdOrDefault<T>(int id) where T : new();
         IEnumerable<T> FindAll<T>();
+        void InsertAll<T>(IEnumerable<T> objectsToInsert) where T : new();
     }
 }

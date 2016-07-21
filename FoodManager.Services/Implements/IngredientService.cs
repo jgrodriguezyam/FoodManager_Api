@@ -161,11 +161,8 @@ namespace FoodManager.Services.Implements
             {
                 var fileName = _storageProvider.Save(file);
                 var ingredients = _ingredientFactory.FromCsv(fileName);
-                ingredients.ForEach(ingredient =>
-                                    {
-                                        _ingredientValidator.ValidateAndThrowException(ingredient, "Base");
-                                        _ingredientRepository.Add(ingredient);
-                                    });
+                ingredients.ForEach(ingredient => { _ingredientValidator.ValidateAndThrowException(ingredient, "Base"); });
+                _ingredientRepository.AddAll(ingredients);
                 return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)
