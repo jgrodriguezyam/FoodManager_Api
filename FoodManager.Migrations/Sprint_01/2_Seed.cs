@@ -1,8 +1,6 @@
 ﻿using FluentMigrator;
 using FoodManager.Infrastructure.Constants;
-using FoodManager.Infrastructure.Enums;
 using FoodManager.Infrastructure.Utils;
-using FoodManager.Model.Enums;
 
 namespace FoodManager.Migrations.Sprint_01
 {
@@ -225,22 +223,6 @@ namespace FoodManager.Migrations.Sprint_01
                 .WithColumn("ModifiedOn").AsDateTime().NotNullable()
                 .WithColumn("Status").AsBoolean().NotNullable()
                 .WithColumn("IsActive").AsBoolean();
-
-            #endregion
-
-            #region DealerSaucer
-
-            Create.Table("DealerSaucer").InSchema("dbo")
-                .WithColumn("DealerId").AsInt32().NotNullable()
-                .WithColumn("SaucerId").AsInt32().NotNullable();
-
-            Create.ForeignKey("FK_DealerSaucer_Dealer").FromTable("DealerSaucer").InSchema("dbo").ForeignColumn("DealerId")
-                 .ToTable("Dealer").InSchema("dbo").PrimaryColumn("Id");
-            Create.ForeignKey("FK_DealerSaucer_Saucer").FromTable("DealerSaucer").InSchema("dbo").ForeignColumn("SaucerId")
-                 .ToTable("Saucer").InSchema("dbo").PrimaryColumn("Id");
-
-            Create.Index("IX_DealerSaucer").OnTable("DealerSaucer").InSchema("dbo")
-                .OnColumn("DealerId").Ascending().OnColumn("SaucerId").Ascending().WithOptions().Unique();
 
             #endregion
 
@@ -569,14 +551,6 @@ namespace FoodManager.Migrations.Sprint_01
             Delete.ForeignKey("FK_Menu_Dealer").OnTable("Menu").InSchema("dbo");
             Delete.ForeignKey("FK_Menu_Saucer").OnTable("Menu").InSchema("dbo");
             Delete.Table("Menu").InSchema("dbo");
-
-            #endregion
-
-            #region DealerSaucer
-
-            Delete.ForeignKey("FK_DealerSaucer_Dealer").OnTable("DealerSaucer").InSchema("dbo");
-            Delete.ForeignKey("FK_DealerSaucer_Saucer").OnTable("DealerSaucer").InSchema("dbo");
-            Delete.Table("DealerSaucer").InSchema("dbo");
 
             #endregion
 

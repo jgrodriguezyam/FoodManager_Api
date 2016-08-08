@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodManager.OrmLite", "Food
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodManager.Queries", "FoodManager.Queries\FoodManager.Queries.csproj", "{65E92C10-BFA4-42C3-AFE7-AD12023F1DB6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodManager.Client", "FoodManager.Client\FoodManager.Client.csproj", "{5C66F9AE-BE09-4D9B-8C25-0DC3A96D14E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{65E92C10-BFA4-42C3-AFE7-AD12023F1DB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65E92C10-BFA4-42C3-AFE7-AD12023F1DB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65E92C10-BFA4-42C3-AFE7-AD12023F1DB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C66F9AE-BE09-4D9B-8C25-0DC3A96D14E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C66F9AE-BE09-4D9B-8C25-0DC3A96D14E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C66F9AE-BE09-4D9B-8C25-0DC3A96D14E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C66F9AE-BE09-4D9B-8C25-0DC3A96D14E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,5 +104,6 @@ Global
 		{5F1B7EC6-AEC6-4F62-901A-8F558FFFEDB4} = {51952B1B-4256-4B9E-A7EC-6CA907CA9238}
 		{9F0E986D-7458-4F6E-8726-2A7EC11CB826} = {51952B1B-4256-4B9E-A7EC-6CA907CA9238}
 		{65E92C10-BFA4-42C3-AFE7-AD12023F1DB6} = {51952B1B-4256-4B9E-A7EC-6CA907CA9238}
+		{5C66F9AE-BE09-4D9B-8C25-0DC3A96D14E6} = {51952B1B-4256-4B9E-A7EC-6CA907CA9238}
 	EndGlobalSection
 EndGlobal

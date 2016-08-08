@@ -74,7 +74,6 @@
     <Compile Include="IRepositories\IPermissionAccessLevelRepository.cs" />
     <Compile Include="IRepositories\IPermissionRepository.cs" />
     <Compile Include="IRepositories\IRegionRepository.cs" />
-    <Compile Include="IRepositories\IDealerSaucerRepository.cs" />
     <Compile Include="IRepositories\IReservationDetailRepository.cs" />
     <Compile Include="IRepositories\IReservationRepository.cs" />
     <Compile Include="IRepositories\IRoleConfigurationRepository.cs" />
@@ -97,7 +96,6 @@
     <Compile Include="Role.cs" />
     <Compile Include="RoleConfiguration.cs" />
     <Compile Include="Saucer.cs" />
-    <Compile Include="DealerSaucer.cs" />
     <Compile Include="SaucerConfiguration.cs" />
     <Compile Include="SaucerMultimedia.cs" />
     <Compile Include="Tip.cs" />

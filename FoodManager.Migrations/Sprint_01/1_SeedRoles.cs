@@ -328,8 +328,6 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
                         "(" + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
                         "(" + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
-                        "(" + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Assign.GetValue() + ")," +
-                        "(" + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Unassign.GetValue() + ")," +
 
                         "(" + PermissionType.Menu.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.Menu.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
@@ -458,8 +456,6 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Assign.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Unassign.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Menu.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Menu.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +

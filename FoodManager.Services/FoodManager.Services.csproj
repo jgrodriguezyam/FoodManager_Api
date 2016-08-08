@@ -142,7 +142,6 @@
     <Compile Include="Validators\Implements\BranchDealerValidator.cs" />
     <Compile Include="Validators\Implements\BranchValidator.cs" />
     <Compile Include="Validators\Implements\CompanyValidator.cs" />
-    <Compile Include="Validators\Implements\DealerSaucerValidator.cs" />
     <Compile Include="Validators\Implements\DealerValidator.cs" />
     <Compile Include="Validators\Implements\DepartmentValidator.cs" />
     <Compile Include="Validators\Implements\DiseaseValidator.cs" />
@@ -165,7 +164,6 @@
     <Compile Include="Validators\Interfaces\IBranchDealerValidator.cs" />
     <Compile Include="Validators\Interfaces\IBranchValidator.cs" />
     <Compile Include="Validators\Interfaces\ICompanyValidator.cs" />
-    <Compile Include="Validators\Interfaces\IDealerSaucerValidator.cs" />
     <Compile Include="Validators\Interfaces\IDealerValidator.cs" />
     <Compile Include="Validators\Interfaces\IDepartmentValidator.cs" />
     <Compile Include="Validators\Interfaces\IDiseaseValidator.cs" />

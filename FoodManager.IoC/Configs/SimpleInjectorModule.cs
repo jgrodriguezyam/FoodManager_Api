@@ -144,10 +144,7 @@ namespace FoodManager.IoC.Configs
             _container.Register<ISaucerValidator, SaucerValidator>();
             _container.Register<ISaucerService, SaucerService>();
             _container.Register<ISaucerFactory, SaucerFactory>();
-
-            _container.Register<IDealerSaucerRepository, DealerSaucerRepositoryOrmLite>();
-            _container.Register<IDealerSaucerValidator, DealerSaucerValidator>();
-
+            
             _container.Register<ISaucerMultimediaRepository, SaucerMultimediaRepositoryOrmLite>();
             _container.Register<ISaucerMultimediaQuery, SaucerMultimediaQuery>();
             _container.Register<ISaucerMultimediaValidator, SaucerMultimediaValidator>();

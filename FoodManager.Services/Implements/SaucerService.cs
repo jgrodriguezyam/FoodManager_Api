@@ -42,8 +42,6 @@ namespace FoodManager.Services.Implements
                 _saucerQuery.WithOnlyStatusActivated(request.OnlyStatusActivated);
                 _saucerQuery.WithOnlyStatusDeactivated(request.OnlyStatusDeactivated);
                 _saucerQuery.WithName(request.Name);
-                _saucerQuery.WithDealer(request.DealerId);
-                _saucerQuery.WithoutDealer(request.WithoutDealerId);
                 _saucerQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _saucerQuery.TotalRecords();
                 _saucerQuery.Paginate(request.StartPage, request.EndPage);

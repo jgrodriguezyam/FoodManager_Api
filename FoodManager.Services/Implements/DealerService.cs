@@ -18,17 +18,13 @@ namespace FoodManager.Services.Implements
         private readonly IDealerQuery _dealerQuery;
         private readonly IDealerRepository _dealerRepository;
         private readonly IDealerValidator _dealerValidator;
-        private readonly IDealerSaucerRepository _dealerSaucerRepository;
-        private readonly IDealerSaucerValidator _dealerSaucerValidator;
         private readonly IDealerFactory _dealerFactory;
 
-        public DealerService(IDealerQuery dealerQuery, IDealerRepository dealerRepository, IDealerValidator dealerValidator, IDealerSaucerRepository dealerSaucerRepository, IDealerSaucerValidator dealerSaucerValidator, IDealerFactory dealerFactory)
+        public DealerService(IDealerQuery dealerQuery, IDealerRepository dealerRepository, IDealerValidator dealerValidator, IDealerFactory dealerFactory)
         {
             _dealerQuery = dealerQuery;
             _dealerRepository = dealerRepository;
             _dealerValidator = dealerValidator;
-            _dealerSaucerRepository = dealerSaucerRepository;
-            _dealerSaucerValidator = dealerSaucerValidator;
             _dealerFactory = dealerFactory;
         }
 
@@ -146,36 +142,6 @@ namespace FoodManager.Services.Implements
             {
                 var isReference = _dealerRepository.IsReference(request.Id);
                 return new SuccessResponse { IsSuccess = isReference };
-            }
-            catch (DataAccessException)
-            {
-                throw new ApplicationException();
-            }
-        }
-
-        public SuccessResponse AddSaucer(RelationRequest request)
-        {
-            try
-            {
-                var dealerSaucer = TypeAdapter.Adapt<DealerSaucer>(request);
-                _dealerSaucerValidator.ValidateAndThrowException(dealerSaucer, "Base");
-                _dealerSaucerRepository.Add(dealerSaucer);
-                return new SuccessResponse { IsSuccess = true };
-            }
-            catch (DataAccessException)
-            {
-                throw new ApplicationException();
-            }
-        }
-
-        public SuccessResponse RemoveSaucer(RelationRequest request)
-        {
-            try
-            {
-                var dealerSaucer = _dealerSaucerRepository.FindBy(dealerSaucerRe => dealerSaucerRe.DealerId == request.FirstReference && dealerSaucerRe.SaucerId == request.SecondReference).FirstOrDefault();
-                dealerSaucer.ThrowExceptionIfRecordIsNull();
-                _dealerSaucerRepository.Remove(dealerSaucer);
-                return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)
             {

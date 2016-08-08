@@ -182,13 +182,13 @@
   <ItemGroup>
     <Content Include="Content\LogFile.txt" />
     <Content Include="Content\Multimedia\Coca_Cola.jpg" />
-    <Content Include="Content\Multimedia\Frijol1.jpg" />
-    <Content Include="Content\Multimedia\Frijol2.jpg" />
     <Content Include="Content\ProjectImage\BG.png" />
     <Content Include="Content\ProjectImage\BGRed.png" />
     <Content Include="Content\ProjectImage\Logo.png" />
     <Content Include="Content\ProjectImage\Logo2.png" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -197,10 +197,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Multimedia\Ingredient.csv" />
-    <Content Include="Content\Multimedia\IngredientGroup.csv" />
-    <Content Include="Content\Multimedia\Saucer.csv" />
-    <Content Include="Content\Multimedia\Tip.csv" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
   </ItemGroup>
   <ItemGroup>

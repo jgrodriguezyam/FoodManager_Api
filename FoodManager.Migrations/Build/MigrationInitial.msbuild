@@ -6,7 +6,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)'==''">Debug</Configuration>
     <!--<ConnectionString Condition=" '$(ConnectionString)'==''">Server=adpecodes02; Database=FoodManager; User Id=sa; Password=desarrollo;</ConnectionString>-->
-    <ConnectionString Condition=" '$(ConnectionString)'==''">Server=localhost; Database=FoodManager; User Id=sa; Password=desarrollo;</ConnectionString>
+    <ConnectionString Condition=" '$(ConnectionString)'==''">Server=localhost; Database=FoodManager_Test; User Id=sa; Password=desarrollo;</ConnectionString>
     <ArtifactsPath Condition=" '$(ArtifactsPath)'==''">../artifacts</ArtifactsPath>
 
     <CoreAssembly Condition=" '$(CoreAssembly)'==''">../bin/$(Configuration)/FoodManager.Migrations.dll</CoreAssembly>

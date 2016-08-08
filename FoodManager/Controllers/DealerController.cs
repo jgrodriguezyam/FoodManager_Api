@@ -56,17 +56,5 @@ namespace FoodManager.Controllers
         {
             return _dealerService.IsReference(request);
         }
-
-        [HttpPost, Route("dealers/{FirstReference}/saucers/{SecondReference}")]
-        public SuccessResponse Assign(RelationRequest request)
-        {
-            return _dealerService.AddSaucer(request);
-        }
-
-        [HttpDelete, Route("dealers/{FirstReference}/saucers/{SecondReference}")]
-        public SuccessResponse Unassign(RelationRequest request)
-        {
-            return _dealerService.RemoveSaucer(request);
-        }
     }
 }

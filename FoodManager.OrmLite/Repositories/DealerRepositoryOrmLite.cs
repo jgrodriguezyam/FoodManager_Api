@@ -46,7 +46,6 @@ namespace FoodManager.OrmLite.Repositories
         {
             _auditEventListener.OnPreDelete(item);
             _dataBaseSqlServerOrmLite.LogicRemove(item);
-            _dataBaseSqlServerOrmLite.Remove<DealerSaucer>(dealerSaucer => dealerSaucer.DealerId == item.Id);
         }
 
         public bool IsReference(int dealerId)
