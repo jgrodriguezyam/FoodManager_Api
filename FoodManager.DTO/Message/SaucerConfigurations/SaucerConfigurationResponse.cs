@@ -8,7 +8,7 @@ namespace FoodManager.DTO.Message.SaucerConfigurations
         public int Id { get; set; }
         public SaucerResponse Saucer { get; set; }
         public IngredientResponse Ingredient { get; set; }
-        public decimal Portion { get; set; }
+        public decimal NetWeight { get; set; }
         public bool Status { get; set; }
     }
 }

@@ -268,7 +268,6 @@ namespace FoodManager.Migrations.Sprint_01
             Create.Table("Ingredient").InSchema("dbo")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(250).NotNullable()
-                .WithColumn("Amount").AsDecimal(10,2).NotNullable()
                 .WithColumn("Energy").AsDecimal(10,2).NotNullable()
                 .WithColumn("Protein").AsDecimal(10,2).NotNullable()
                 .WithColumn("Carbohydrate").AsDecimal(10,2).NotNullable()
@@ -299,7 +298,7 @@ namespace FoodManager.Migrations.Sprint_01
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("SaucerId").AsInt32().NotNullable()
                 .WithColumn("IngredientId").AsInt32().NotNullable()
-                .WithColumn("Portion").AsDecimal(10,2).NotNullable()
+                .WithColumn("NetWeight").AsDecimal(10,2).NotNullable()
 
                 .WithColumn("CreatedBy").AsInt32().NotNullable()
                 .WithColumn("ModifiedBy").AsInt32().NotNullable()
@@ -428,7 +427,7 @@ namespace FoodManager.Migrations.Sprint_01
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("ReservationId").AsInt32().NotNullable()
                 .WithColumn("IngredientId").AsInt32().NotNullable()
-                .WithColumn("Portion").AsDecimal(10,2).NotNullable()
+                .WithColumn("NetWeight").AsDecimal(10,2).NotNullable()
 
                 .WithColumn("CreatedBy").AsInt32().NotNullable()
                 .WithColumn("ModifiedBy").AsInt32().NotNullable()

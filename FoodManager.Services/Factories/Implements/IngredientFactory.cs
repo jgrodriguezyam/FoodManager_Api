@@ -49,16 +49,15 @@ namespace FoodManager.Services.Factories.Implements
                 ingredients.Add(new Ingredient
                 {
                     Name = values[0],
-                    Amount = values[1].ToDecimal(),
-                    Energy = values[2].ToDecimal(),
-                    Protein = values[3].ToDecimal(),
-                    Carbohydrate = values[4].ToDecimal(),
-                    Sugar = values[5].ToDecimal(),
-                    Lipid = values[6].ToDecimal(),
-                    Sodium = values[7].ToDecimal(),
-                    Unit = values[8].ToInt(),
-                    IngredientGroupId = values[9].ToInt(),
-                    NetWeight = values[10].ToDecimal()
+                    Energy = values[1].ToDecimal(),
+                    Protein = values[2].ToDecimal(),
+                    Carbohydrate = values[3].ToDecimal(),
+                    Sugar = values[4].ToDecimal(),
+                    Lipid = values[5].ToDecimal(),
+                    Sodium = values[6].ToDecimal(),
+                    Unit = values[7].ToInt(),
+                    IngredientGroupId = values[8].ToInt(),
+                    NetWeight = values[9].ToDecimal()
                 });
             });
 

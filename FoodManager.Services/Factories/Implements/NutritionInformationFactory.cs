@@ -23,14 +23,14 @@ namespace FoodManager.Services.Factories.Implements
             saucerConfigurations.ForEach(saucerConfiguration =>
                                         {
                                             var ingredient = _ingredientRepository.FindBy(saucerConfiguration.IngredientId);
-                                            var portion = saucerConfiguration.Portion;
+                                            var netWeight = saucerConfiguration.NetWeight;
 
-                                            nutritionInformation.Energy += (ingredient.Energy * portion);
-                                            nutritionInformation.Protein += (ingredient.Protein * portion);
-                                            nutritionInformation.Carbohydrate += (ingredient.Carbohydrate * portion);
-                                            nutritionInformation.Sugar += (ingredient.Sugar * portion);
-                                            nutritionInformation.Lipid += (ingredient.Lipid * portion);
-                                            nutritionInformation.Sodium += (ingredient.Sodium * portion);
+                                            nutritionInformation.Energy += (ingredient.Energy / ingredient.NetWeight) * netWeight;
+                                            nutritionInformation.Protein += (ingredient.Protein / ingredient.NetWeight) * netWeight;
+                                            nutritionInformation.Carbohydrate += (ingredient.Carbohydrate / ingredient.NetWeight) * netWeight;
+                                            nutritionInformation.Sugar += (ingredient.Sugar / ingredient.NetWeight) * netWeight;
+                                            nutritionInformation.Lipid += (ingredient.Lipid / ingredient.NetWeight) * netWeight;
+                                            nutritionInformation.Sodium += (ingredient.Sodium / ingredient.NetWeight) * netWeight;
                                         });
             return nutritionInformation;
         }

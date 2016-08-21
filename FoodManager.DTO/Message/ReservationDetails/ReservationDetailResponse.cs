@@ -8,6 +8,6 @@ namespace FoodManager.DTO.Message.ReservationDetails
         public int Id { get; set; }
         public ReservationResponse Reservation { get; set; }
         public IngredientResponse Ingredient { get; set; }
-        public decimal Portion { get; set; }
+        public decimal NetWeight { get; set; }
     }
 }

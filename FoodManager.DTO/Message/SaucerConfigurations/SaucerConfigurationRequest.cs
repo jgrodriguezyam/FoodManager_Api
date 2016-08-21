@@ -5,6 +5,6 @@
         public int Id { get; set; }
         public int SaucerId { get; set; }
         public int IngredientId { get; set; }
-        public decimal Portion { get; set; }
+        public decimal NetWeight { get; set; }
     }
 }

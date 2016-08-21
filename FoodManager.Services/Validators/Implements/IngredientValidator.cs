@@ -24,7 +24,6 @@ namespace FoodManager.Services.Validators.Implements
             RuleSet("Base", () =>
             {
                 RuleFor(ingredient => ingredient.Name).NotNull().NotEmpty();
-                RuleFor(ingredient => ingredient.Amount).NotNull().NotEmpty();
                 RuleFor(ingredient => ingredient.IngredientGroupId).Must(ingredientGroupId => ingredientGroupId.IsNotZero()).WithMessage("Tienes que elegir un grupo");
                 RuleFor(ingredient => ingredient.Unit).Must(unit => unit.IsNotZero()).WithMessage("Tienes que elegir un tipo de unidad");
                 Custom(ReferencesValidate);

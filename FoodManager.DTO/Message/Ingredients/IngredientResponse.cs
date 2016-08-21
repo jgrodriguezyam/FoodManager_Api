@@ -7,7 +7,6 @@ namespace FoodManager.DTO.Message.Ingredients
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public decimal Amount { get; set; }
         public decimal NetWeight { get; set; }
         public int Unit { get; set; }
         public IngredientGroupResponse IngredientGroup { get; set; }

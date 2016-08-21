@@ -28,7 +28,7 @@ namespace FoodManager.Services.Validators.Implements
             {
                 RuleFor(saucerConfiguration => saucerConfiguration.SaucerId).Must(saucerId => saucerId.IsNotZero()).WithMessage("Tienes que elegir un platillo");
                 RuleFor(saucerConfiguration => saucerConfiguration.IngredientId).Must(ingredientId => ingredientId.IsNotZero()).WithMessage("Tienes que elegir un ingrediente");
-                RuleFor(saucerConfiguration => saucerConfiguration.Portion).Must(portion => portion.IsNotZero()).WithMessage("Tienes que elegir una porcion");
+                RuleFor(saucerConfiguration => saucerConfiguration.NetWeight).Must(netWeight => netWeight.IsNotZero()).WithMessage("Tienes que elegir un peso neto");
                 Custom(ReferencesValidate);
             });
 
