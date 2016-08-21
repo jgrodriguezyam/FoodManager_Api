@@ -45,6 +45,12 @@ namespace FoodManager.Queries.Saucers
                 _query.Where(saucer => saucer.Name.Contains(name));
         }
 
+        public void WithType(int type)
+        {
+            if (type.IsNotZero())
+                _query.Where(saucer => saucer.Type == type);
+        }
+
         public void Sort(string sort, string sortBy)
         {
             sort = sort.SortResolver();
