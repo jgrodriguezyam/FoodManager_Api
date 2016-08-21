@@ -39,6 +39,7 @@ namespace FoodManager.Services.Implements
                 _menuQuery.WithSaucer(request.SaucerId);
                 _menuQuery.WithOnlyToday(request.OnlyToday);
                 _menuQuery.WithDaysWeek(request.DaysWeek);
+                _menuQuery.WithDate(request.Date);
                 _menuQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _menuQuery.TotalRecords();
                 _menuQuery.Paginate(request.StartPage, request.EndPage);

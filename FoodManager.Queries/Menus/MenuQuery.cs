@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using FoodManager.Infrastructure.Constants;
+using FoodManager.Infrastructure.Dates;
 using FoodManager.Infrastructure.Dates.Enums;
 using FoodManager.Infrastructure.Enums;
 using FoodManager.Infrastructure.Integers;
@@ -70,6 +71,17 @@ namespace FoodManager.Queries.Menus
         {
             if(daysWeek.IsNotNullOrEmpty())
                 _query.Where(menu => Sql.In(menu.DayWeek, daysWeek.Split(',')));
+        }
+
+        public void WithDate(string date)
+        {
+            if (date.IsNotNullOrEmpty())
+            {
+                var dateFilter = date.DateStringToDateTime().Date;
+                _query.Where(menu => menu.StartDate <= dateFilter && menu.EndDate >= dateFilter);
+                var dayOfWeek = (int)dateFilter.DayOfWeek;
+                _query.Where(menu => menu.DayWeek == DayWeek.All.GetValue() || menu.DayWeek == dayOfWeek);
+            }
         }
 
         public void Sort(string sort, string sortBy)

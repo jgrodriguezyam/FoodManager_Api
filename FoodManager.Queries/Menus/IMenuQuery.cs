@@ -13,6 +13,7 @@ namespace FoodManager.Queries.Menus
         void WithSaucer(int saucerId);
         void WithOnlyToday(bool onlyToday);
         void WithDaysWeek(string daysWeek);
+        void WithDate(string date);
         IEnumerable<Menu> Execute();
     }
 }
