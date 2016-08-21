@@ -13,11 +13,13 @@ namespace FoodManager.Services.Validators.Implements
 {
     public class BranchValidator : BaseValidator<Branch>, IBranchValidator
     {
+        private readonly IRegionRepository _regionRepository;
         private readonly ICompanyRepository _companyRepository;
         private readonly IBranchRepository _branchRepository;
         
-        public BranchValidator(ICompanyRepository companyRepository, IBranchRepository branchRepository)
+        public BranchValidator(IRegionRepository regionRepository, ICompanyRepository companyRepository, IBranchRepository branchRepository)
         {
+            _regionRepository = regionRepository;
             _companyRepository = companyRepository;
             _branchRepository = branchRepository;
 
@@ -25,6 +27,7 @@ namespace FoodManager.Services.Validators.Implements
             {
                 RuleFor(branch => branch.Name).NotNull().NotEmpty();
                 RuleFor(branch => branch.Code).NotNull().NotEmpty();
+                RuleFor(branch => branch.RegionId).Must(regionId => regionId.IsNotZero()).WithMessage("Tienes que elegir una region");
                 RuleFor(branch => branch.CompanyId).Must(companyId => companyId.IsNotZero()).WithMessage("Tienes que elegir una compania");
                 Custom(ReferencesValidate);
             });
@@ -42,6 +45,10 @@ namespace FoodManager.Services.Validators.Implements
 
         public ValidationFailure ReferencesValidate(Branch branch, ValidationContext<Branch> context)
         {
+            var region = _regionRepository.FindBy(branch.RegionId);
+            if (region.IsNull() || region.Status.Equals(GlobalConstants.StatusDeactivated))
+                return new ValidationFailure("Branch", "La region esta desactivada o no existe");
+
             var company = _companyRepository.FindBy(branch.CompanyId);
             if (company.IsNull() || company.Status.Equals(GlobalConstants.StatusDeactivated))
                 return new ValidationFailure("Branch", "La compania esta desactivada o no existe");

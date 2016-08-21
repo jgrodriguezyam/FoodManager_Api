@@ -39,12 +39,6 @@ namespace FoodManager.Queries.Companies
                 _query.Where(company => company.Status == GlobalConstants.StatusDeactivated);
         }
 
-        public void WithRegion(int regionId)
-        {
-            if (regionId.IsNotZero())
-                _query.Where(company => company.RegionId == regionId);
-        }
-
         public void WithName(string name)
         {
             if (name.IsNotNullOrEmpty())

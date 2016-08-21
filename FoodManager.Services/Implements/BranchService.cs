@@ -39,6 +39,7 @@ namespace FoodManager.Services.Implements
                 _branchQuery.WithOnlyActivated(true);
                 _branchQuery.WithOnlyStatusActivated(request.OnlyStatusActivated);
                 _branchQuery.WithOnlyStatusDeactivated(request.OnlyStatusDeactivated);
+                _branchQuery.WithRegion(request.RegionId);
                 _branchQuery.WithCompany(request.CompanyId);
                 _branchQuery.WithName(request.Name);
                 _branchQuery.WithCode(request.Code);

@@ -29,7 +29,6 @@ namespace FoodManager.Migrations.Sprint_01
             Create.Table("Company").InSchema("dbo")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(250).NotNullable()
-                .WithColumn("RegionId").AsInt32().NotNullable()
 
                 .WithColumn("CreatedBy").AsInt32().NotNullable()
                 .WithColumn("ModifiedBy").AsInt32().NotNullable()
@@ -37,11 +36,6 @@ namespace FoodManager.Migrations.Sprint_01
                 .WithColumn("ModifiedOn").AsDateTime().NotNullable()
                 .WithColumn("Status").AsBoolean().NotNullable()
                 .WithColumn("IsActive").AsBoolean();
-
-            Create.ForeignKey("FK_Company_Region").FromTable("Company").InSchema("dbo").ForeignColumn("RegionId")
-                 .ToTable("Region").InSchema("dbo").PrimaryColumn("Id");
-
-            Create.Index("IX_Region").OnTable("Company").InSchema("dbo").OnColumn("RegionId").Ascending();
 
             #endregion
 
@@ -51,8 +45,9 @@ namespace FoodManager.Migrations.Sprint_01
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(250).NotNullable()
                 .WithColumn("Code").AsString(250).NotNullable()
+                .WithColumn("RegionId").AsInt32().NotNullable()
                 .WithColumn("CompanyId").AsInt32().NotNullable()
-
+                
                 .WithColumn("CreatedBy").AsInt32().NotNullable()
                 .WithColumn("ModifiedBy").AsInt32().NotNullable()
                 .WithColumn("CreatedOn").AsDateTime().NotNullable()
@@ -60,9 +55,12 @@ namespace FoodManager.Migrations.Sprint_01
                 .WithColumn("Status").AsBoolean().NotNullable()
                 .WithColumn("IsActive").AsBoolean();
 
+            Create.ForeignKey("FK_Branch_Region").FromTable("Branch").InSchema("dbo").ForeignColumn("RegionId")
+                 .ToTable("Region").InSchema("dbo").PrimaryColumn("Id");
             Create.ForeignKey("FK_Branch_Company").FromTable("Branch").InSchema("dbo").ForeignColumn("CompanyId")
                  .ToTable("Company").InSchema("dbo").PrimaryColumn("Id");
 
+            Create.Index("IX_Region").OnTable("Branch").InSchema("dbo").OnColumn("RegionId").Ascending();
             Create.Index("IX_Company").OnTable("Branch").InSchema("dbo").OnColumn("CompanyId").Ascending();
 
             #endregion
@@ -494,14 +492,14 @@ namespace FoodManager.Migrations.Sprint_01
 
             #region Branch
 
+            Delete.ForeignKey("FK_Branch_Region").OnTable("Branch").InSchema("dbo");
             Delete.ForeignKey("FK_Branch_Company").OnTable("Branch").InSchema("dbo");
             Delete.Table("Branch").InSchema("dbo");
 
             #endregion
 
             #region Company
-
-            Delete.ForeignKey("FK_Company_Region").OnTable("Company").InSchema("dbo");
+            
             Delete.Table("Company").InSchema("dbo");
 
             #endregion
@@ -600,13 +598,13 @@ namespace FoodManager.Migrations.Sprint_01
                         "('Yucatan', " + GlobalConstants.CreatedBySystemUser + ")," +
                         "('Campeche', " + GlobalConstants.CreatedBySystemUser + ")");
 
-            Execute.Sql("INSERT INTO Company (Name, RegionId, " + GlobalConstants.AuditFields + ") VALUES " +
-                        "('Bepensa Industria', 1, " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "('Bepensa Bebidas', 1, " + GlobalConstants.CreatedBySystemUser + ")");
+            Execute.Sql("INSERT INTO Company (Name, " + GlobalConstants.AuditFields + ") VALUES " +
+                        "('Bepensa Industria', " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "('Bepensa Bebidas', " + GlobalConstants.CreatedBySystemUser + ")");
 
-            Execute.Sql("INSERT INTO Branch (Name, Code, CompanyId, " + GlobalConstants.AuditFields + ") VALUES " +
-                        "('Opesystem', 'CODE1', 1, " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "('Finbe', 'CODE2', 1, " + GlobalConstants.CreatedBySystemUser + ")");
+            Execute.Sql("INSERT INTO Branch (Name, Code, RegionId, CompanyId, " + GlobalConstants.AuditFields + ") VALUES " +
+                        "('Opesystem', 'CODE1', 1, 1, " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "('Finbe', 'CODE2', 1, 1, " + GlobalConstants.CreatedBySystemUser + ")");
 
             Execute.Sql("INSERT INTO Department (Name, " + GlobalConstants.AuditFields + ") VALUES " +
                         "('Desarrollo', " + GlobalConstants.CreatedBySystemUser + ")," +

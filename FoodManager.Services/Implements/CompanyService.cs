@@ -35,7 +35,6 @@ namespace FoodManager.Services.Implements
                 _companyQuery.WithOnlyActivated(true);
                 _companyQuery.WithOnlyStatusActivated(request.OnlyStatusActivated);
                 _companyQuery.WithOnlyStatusDeactivated(request.OnlyStatusDeactivated);
-                _companyQuery.WithRegion(request.RegionId);
                 _companyQuery.WithName(request.Name);
                 _companyQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _companyQuery.TotalRecords();

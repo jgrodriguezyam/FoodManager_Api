@@ -39,6 +39,12 @@ namespace FoodManager.Queries.Branches
                 _query.Where(branch => branch.Status == GlobalConstants.StatusDeactivated);
         }
 
+        public void WithRegion(int regionId)
+        {
+            if (regionId.IsNotZero())
+                _query.Where(branch => branch.RegionId == regionId);
+        }
+
         public void WithCompany(int companyId)
         {
             if (companyId.IsNotZero())
