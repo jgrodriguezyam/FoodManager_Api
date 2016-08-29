@@ -2,11 +2,11 @@
 using FoodManager.DataAccess.Listeners;
 using FoodManager.Infrastructure.DataBase;
 using FoodManager.Infrastructure.Files;
-using FoodManager.Model.IHmac;
 using FoodManager.Model.IRepositories;
+using FoodManager.Model.Sessions;
 using FoodManager.OrmLite.DataBase;
-using FoodManager.OrmLite.Hmac;
 using FoodManager.OrmLite.Repositories;
+using FoodManager.OrmLite.Sessions;
 using FoodManager.Queries.AccessLevels;
 using FoodManager.Queries.Branches;
 using FoodManager.Queries.Companies;
@@ -74,7 +74,9 @@ namespace FoodManager.IoC.Configs
             _container.Register<IFileResolver, FileResolver>();
             _container.Register<IFileValidator, FileValidator>();
             _container.Register<IStorageProvider, StorageProvider>();
-            _container.Register<IHmacHelper, HmacHelperOrmLite>();
+
+            _container.Register<IUserSession, UserSessionOrmLite>();
+            _container.Register<IWorkerSession, WorkerSessionOrmLite>();
 
             _container.Register<IRegionRepository, RegionRepositoryOrmLite>();
             _container.Register<IRegionQuery, RegionQuery>();

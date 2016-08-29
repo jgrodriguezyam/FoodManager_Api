@@ -1,22 +1,23 @@
 ﻿using System;
-using System.Linq;
-using System.Web;
 using FoodManager.Infrastructure.Constants;
 using FoodManager.Infrastructure.Dates;
 using FoodManager.Infrastructure.Enums;
+using FoodManager.Infrastructure.Http;
 using FoodManager.Infrastructure.Validators.Enums;
 using FoodManager.Model.Base;
-using FoodManager.Model.IHmac;
+using FoodManager.Model.Sessions;
 
 namespace FoodManager.DataAccess.Listeners
 {
     public class AuditEventListener : IAuditEventListener
     {
-        private readonly IHmacHelper _hmacHelper;
+        private readonly IUserSession _userSession;
+        private readonly IWorkerSession _workerSession;
 
-        public AuditEventListener(IHmacHelper hmacHelper)
+        public AuditEventListener(IUserSession userSession, IWorkerSession workerSession)
         {
-            _hmacHelper = hmacHelper;
+            _userSession = userSession;
+            _workerSession = workerSession;
         }
 
         public void OnPreInsert(object entity)
@@ -39,16 +40,15 @@ namespace FoodManager.DataAccess.Listeners
 
         private void SetAudit(object entity, EventType eventType)
         {
-            var headerPublicKey = HttpContext.Current.Request.Headers[GlobalConstants.PublicKey];
-            var headerLoginType = HttpContext.Current.Request.Headers[GlobalConstants.LoginType];
-            var loginType = new LoginType().ConvertToCollection().FirstOrDefault(loginTp => loginTp.Value == int.Parse(headerLoginType));
+            var publicKey = HttpContextAccess.GetPublicKey();
+            var loginType = HttpContextAccess.GetLoginType();
 
             var id = GlobalConstants.SystemUserId;
             if (loginType.Value == LoginType.User.GetValue())
-                id = _hmacHelper.FindUserByPublicKey(headerPublicKey).Id;
+                id = _userSession.FindUserByPublicKey(publicKey).Id;
 
             if (loginType.Value == LoginType.Worker.GetValue())
-                id = _hmacHelper.FindWorkerByPublicKey(headerPublicKey).Id;
+                id = _workerSession.FindWorkerByPublicKey(publicKey).Id;
 
             //const int id = 1;
             var entityToAudit = entity as IAuditInfo;

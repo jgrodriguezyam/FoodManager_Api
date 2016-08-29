@@ -6,8 +6,8 @@ using FoodManager.DTO.BaseResponse;
 using FoodManager.DTO.Message.Workers;
 using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Model;
-using FoodManager.Model.IHmac;
 using FoodManager.Model.IRepositories;
+using FoodManager.Model.Sessions;
 using FoodManager.Queries.Workers;
 using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
@@ -20,16 +20,16 @@ namespace FoodManager.Services.Implements
         private readonly IWorkerQuery _workerQuery;
         private readonly IWorkerRepository _workerRepository;
         private readonly IWorkerValidator _workerValidator;
-        private readonly IHmacHelper _hmacHelper;
         private readonly IWorkerFactory _workerFactory;
+        private readonly IWorkerSession _workerSession;
 
-        public WorkerService(IWorkerQuery workerQuery, IWorkerRepository workerRepository, IWorkerValidator workerValidator, IHmacHelper hmacHelper, IWorkerFactory workerFactory)
+        public WorkerService(IWorkerQuery workerQuery, IWorkerRepository workerRepository, IWorkerValidator workerValidator, IWorkerFactory workerFactory, IWorkerSession workerSession)
         {
             _workerQuery = workerQuery;
             _workerRepository = workerRepository;
             _workerValidator = workerValidator;
-            _hmacHelper = hmacHelper;
             _workerFactory = workerFactory;
+            _workerSession = workerSession;
         }
 
         public FindWorkersResponse Find(FindWorkersRequest request)
@@ -135,7 +135,7 @@ namespace FoodManager.Services.Implements
                 var workerToUpdate = _workerRepository.FindBy(worker => worker.Badge == request.Badge).FirstOrDefault();
                 workerToUpdate.ThrowExceptionIfIsNull(HttpStatusCode.Unauthorized, "Credenciales invalidas");
                 workerToUpdate.Login();
-                _hmacHelper.UpdateHmacOfWorker(workerToUpdate);
+                _workerSession.UpdateHmacOfWorker(workerToUpdate);
 
                 return new LoginWorkerResponse
                 {
@@ -156,7 +156,7 @@ namespace FoodManager.Services.Implements
                 var worker = _workerRepository.FindBy(request.Id);
                 worker.ThrowExceptionIfRecordIsNull();
                 worker.Logout();
-                _hmacHelper.UpdateHmacOfWorker(worker);
+                _workerSession.UpdateHmacOfWorker(worker);
                 return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)

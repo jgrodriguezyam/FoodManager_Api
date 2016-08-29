@@ -57,7 +57,6 @@
     <Compile Include="Enums\MealType.cs" />
     <Compile Include="Enums\SaucerType.cs" />
     <Compile Include="Enums\UnitType.cs" />
-    <Compile Include="IHmac\IHmacHelper.cs" />
     <Compile Include="Ingredient.cs" />
     <Compile Include="IngredientGroup.cs" />
     <Compile Include="IRepositories\IAccessLevelRepository.cs" />
@@ -98,6 +97,8 @@
     <Compile Include="Saucer.cs" />
     <Compile Include="SaucerConfiguration.cs" />
     <Compile Include="SaucerMultimedia.cs" />
+    <Compile Include="Sessions\IUserSession.cs" />
+    <Compile Include="Sessions\IWorkerSession.cs" />
     <Compile Include="Tip.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Warning.cs" />

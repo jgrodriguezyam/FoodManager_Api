@@ -13,9 +13,9 @@ using FoodManager.Infrastructure.Utils;
 using FoodManager.Infrastructure.Validators.Enums;
 using FoodManager.Infrastructure.Validators.Serials;
 using FoodManager.IoC.Configs;
-using FoodManager.Model.IHmac;
 using FoodManager.OrmLite.DataBase;
 using FoodManager.Infrastructure.Http;
+using FoodManager.Model.Sessions;
 
 namespace FoodManager.Sessions
 {
@@ -69,26 +69,27 @@ namespace FoodManager.Sessions
         private string RefreshPublicKey(string headerTimespan, string headerPublicKey, string headerLoginType)
         {
             var loginType = new LoginType().ConvertToCollection().FirstOrDefault(loginTp => loginTp.Value == int.Parse(headerLoginType));
-            var hmacHelper = SimpleInjectorModule.GetContainer().GetInstance<IHmacHelper>();
-
+            
             if (loginType.Value == LoginType.User.GetValue())
             {
-                var user = hmacHelper.FindUserByPublicKey(headerPublicKey);
+                var userSession = SimpleInjectorModule.GetContainer().GetInstance<IUserSession>();
+                var user = userSession.FindUserByPublicKey(headerPublicKey);
                 if (user.IsNotNull())
                 {
                     user.RefreshAuthenticationHmac(headerTimespan);
-                    hmacHelper.UpdateHmacOfUser(user);
+                    userSession.UpdateHmacOfUser(user);
                     return user.PublicKey;
                 }
             }
 
             if (loginType.Value == LoginType.Worker.GetValue())
             {
-                var worker = hmacHelper.FindWorkerByPublicKey(headerPublicKey);
+                var workerSession = SimpleInjectorModule.GetContainer().GetInstance<IWorkerSession>();
+                var worker = workerSession.FindWorkerByPublicKey(headerPublicKey);
                 if (worker.IsNotNull())
                 {
                     worker.RefreshAuthenticationHmac(headerTimespan);
-                    hmacHelper.UpdateHmacOfWorker(worker);
+                    workerSession.UpdateHmacOfWorker(worker);
                     return worker.PublicKey;
                 }
             }

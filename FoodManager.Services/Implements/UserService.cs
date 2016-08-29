@@ -7,8 +7,8 @@ using FoodManager.DTO.Message.Users;
 using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Infrastructure.Utils;
 using FoodManager.Model;
-using FoodManager.Model.IHmac;
 using FoodManager.Model.IRepositories;
+using FoodManager.Model.Sessions;
 using FoodManager.Queries.Users;
 using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
@@ -21,16 +21,16 @@ namespace FoodManager.Services.Implements
         private readonly IUserQuery _userQuery;
         private readonly IUserRepository _userRepository;
         private readonly IUserValidator _userValidator;
-        private readonly IHmacHelper _hmacHelper;
         private readonly IUserFactory _userFactory;
+        private readonly IUserSession _userSession;
 
-        public UserService(IUserQuery userQuery, IUserRepository userRepository, IUserValidator userValidator, IHmacHelper hmacHelper, IUserFactory userFactory)
+        public UserService(IUserQuery userQuery, IUserRepository userRepository, IUserValidator userValidator, IUserFactory userFactory, IUserSession userSession)
         {
             _userQuery = userQuery;
             _userRepository = userRepository;
             _userValidator = userValidator;
-            _hmacHelper = hmacHelper;
             _userFactory = userFactory;
+            _userSession = userSession;
         }
 
         public FindUsersResponse Find(FindUsersRequest request)
@@ -131,7 +131,7 @@ namespace FoodManager.Services.Implements
                 var userToUpdate = _userRepository.FindBy(user => user.UserName == request.UserName && user.Password == encryptPassword).FirstOrDefault();
                 userToUpdate.ThrowExceptionIfIsNull(HttpStatusCode.Unauthorized, "Credenciales invalidas");
                 userToUpdate.Login();
-                _hmacHelper.UpdateHmacOfUser(userToUpdate);
+                _userSession.UpdateHmacOfUser(userToUpdate);
 
                 return new LoginUserResponse
                 {
@@ -152,7 +152,7 @@ namespace FoodManager.Services.Implements
                 var user = _userRepository.FindBy(request.Id);
                 user.ThrowExceptionIfRecordIsNull();
                 user.Logout();
-                _hmacHelper.UpdateHmacOfUser(user);
+                _userSession.UpdateHmacOfUser(user);
                 return new SuccessResponse { IsSuccess = true };
             }
             catch (DataAccessException)

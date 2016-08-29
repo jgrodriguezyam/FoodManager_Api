@@ -13,8 +13,8 @@ using FoodManager.Infrastructure.Objects;
 using FoodManager.Infrastructure.Roles;
 using FoodManager.Infrastructure.Validators.Enums;
 using FoodManager.IoC.Configs;
-using FoodManager.Model.IHmac;
 using FoodManager.Model.IRepositories;
+using FoodManager.Model.Sessions;
 
 namespace FoodManager.Sessions
 {
@@ -22,8 +22,8 @@ namespace FoodManager.Sessions
     {
         public static void UserHeaderValidation(string headerTimespan, string headerPublicKey, string headerPrivateKey, HttpActionContext actionContext)
         {
-            var hmacHelper = SimpleInjectorModule.GetContainer().GetInstance<IHmacHelper>();
-            var user = hmacHelper.FindUserByPublicKey(headerPublicKey);
+            var userSession = SimpleInjectorModule.GetContainer().GetInstance<IUserSession>();
+            var user = userSession.FindUserByPublicKey(headerPublicKey);
             user.ThrowExceptionIfIsNull(HttpStatusCode.ExpectationFailed, "Llave publica invalida");
             TimeSpanValidation(headerTimespan, user.Time);
             var messageToValidate = user.UserName + Cryptography.Decrypt(user.Password) + headerTimespan;
@@ -34,8 +34,8 @@ namespace FoodManager.Sessions
 
         public static void WorkerHeaderValidation(string headerTimespan, string headerPublicKey, string headerPrivateKey, HttpActionContext actionContext)
         {
-            var hmacHelper = SimpleInjectorModule.GetContainer().GetInstance<IHmacHelper>();
-            var worker = hmacHelper.FindWorkerByPublicKey(headerPublicKey);
+            var workerSession = SimpleInjectorModule.GetContainer().GetInstance<IWorkerSession>();
+            var worker = workerSession.FindWorkerByPublicKey(headerPublicKey);
             worker.ThrowExceptionIfIsNull(HttpStatusCode.ExpectationFailed, "Llave publica invalida");
             TimeSpanValidation(headerTimespan, worker.Time);
             var messageToValidate = worker.Badge + headerTimespan;

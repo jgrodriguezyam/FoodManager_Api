@@ -62,7 +62,7 @@
   <ItemGroup>
     <Compile Include="DataBase\DataBaseSqlServerOrmLite.cs" />
     <Compile Include="DataBase\IDataBaseSqlServerOrmLite.cs" />
-    <Compile Include="Hmac\HmacHelperOrmLite.cs" />
+    <Compile Include="Sessions\WorkerSessionOrmLite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AccessLevelRepositoryOrmLite.cs" />
     <Compile Include="Repositories\BranchDealerRepositoryOrmLite.cs" />
@@ -89,6 +89,7 @@
     <Compile Include="Repositories\UserRepositoryOrmLite.cs" />
     <Compile Include="Repositories\WarningRepositoryOrmLite.cs" />
     <Compile Include="Repositories\WorkerRepositoryOrmLite.cs" />
+    <Compile Include="Sessions\UserSessionOrmLite.cs" />
     <Compile Include="Utils\LimitResolver.cs" />
   </ItemGroup>
   <ItemGroup>
