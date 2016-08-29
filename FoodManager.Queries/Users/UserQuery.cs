@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using FoodManager.Infrastructure.Constants;
+using FoodManager.Infrastructure.Http;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Queries;
 using FoodManager.Infrastructure.Strings;
 using FoodManager.Model;
+using FoodManager.Model.Sessions;
 using FoodManager.OrmLite.DataBase;
 using FoodManager.OrmLite.Utils;
 using ServiceStack.OrmLite.SqlServer;
@@ -14,10 +16,12 @@ namespace FoodManager.Queries.Users
     {
         private readonly SqlServerExpressionVisitor<User> _query;
         private readonly IDataBaseSqlServerOrmLite _dataBaseSqlServerOrmLite;
+        private readonly IUserSession _userSession;
 
-        public UserQuery(IDataBaseSqlServerOrmLite dataBaseSqlServerOrmLite)
+        public UserQuery(IDataBaseSqlServerOrmLite dataBaseSqlServerOrmLite, IUserSession userSession)
         {
             _dataBaseSqlServerOrmLite = dataBaseSqlServerOrmLite;
+            _userSession = userSession;
             _query = new SqlServerExpressionVisitor<User>();
         }
 
@@ -55,6 +59,17 @@ namespace FoodManager.Queries.Users
         {
             if (userName.IsNotNullOrEmpty())
                 _query.Where(user => user.UserName == userName);
+        }
+
+        public void WithOnlyBelongUser(bool onlyBelongUser)
+        {
+            if (onlyBelongUser)
+            {
+                var publicKey = HttpContextAccess.GetPublicKey();
+                var userSession = _userSession.FindUserByPublicKey(publicKey);
+                    if (userSession.RoleId != GlobalConstants.AdminRoleId)
+                    _query.Where(user => user.DealerId == userSession.DealerId);
+            }
         }
 
         public void Sort(string sort, string sortBy)

@@ -4,10 +4,12 @@ using FoodManager.Infrastructure.Constants;
 using FoodManager.Infrastructure.Dates;
 using FoodManager.Infrastructure.Dates.Enums;
 using FoodManager.Infrastructure.Enums;
+using FoodManager.Infrastructure.Http;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Queries;
 using FoodManager.Infrastructure.Strings;
 using FoodManager.Model;
+using FoodManager.Model.Sessions;
 using FoodManager.OrmLite.DataBase;
 using FoodManager.OrmLite.Utils;
 using ServiceStack.OrmLite;
@@ -19,10 +21,12 @@ namespace FoodManager.Queries.Menus
     {
         private readonly SqlServerExpressionVisitor<Menu> _query;
         private readonly IDataBaseSqlServerOrmLite _dataBaseSqlServerOrmLite;
+        private readonly IUserSession _userSession;
 
-        public MenuQuery(IDataBaseSqlServerOrmLite dataBaseSqlServerOrmLite)
+        public MenuQuery(IDataBaseSqlServerOrmLite dataBaseSqlServerOrmLite, IUserSession userSession)
         {
             _dataBaseSqlServerOrmLite = dataBaseSqlServerOrmLite;
+            _userSession = userSession;
             _query = new SqlServerExpressionVisitor<Menu>();
         }
 
@@ -81,6 +85,17 @@ namespace FoodManager.Queries.Menus
                 _query.Where(menu => menu.StartDate <= dateFilter && menu.EndDate >= dateFilter);
                 var dayOfWeek = (int)dateFilter.DayOfWeek;
                 _query.Where(menu => menu.DayWeek == DayWeek.All.GetValue() || menu.DayWeek == dayOfWeek);
+            }
+        }
+
+        public void WithOnlyBelongUser(bool onlyBelongUser)
+        {
+            if (onlyBelongUser)
+            {
+                var publicKey = HttpContextAccess.GetPublicKey();
+                var userSession = _userSession.FindUserByPublicKey(publicKey);
+                if (userSession.RoleId != GlobalConstants.AdminRoleId)
+                    _query.Where(menu => menu.DealerId == userSession.DealerId);
             }
         }
 

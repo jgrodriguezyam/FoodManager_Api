@@ -43,6 +43,7 @@ namespace FoodManager.Services.Implements
                 _userQuery.WithDealer(request.DealerId);
                 _userQuery.WithName(request.Name);
                 _userQuery.WithUserName(request.UserName);
+                _userQuery.WithOnlyBelongUser(true);
                 _userQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _userQuery.TotalRecords();
                 _userQuery.Paginate(request.StartPage, request.EndPage);

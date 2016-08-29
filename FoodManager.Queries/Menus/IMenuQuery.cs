@@ -14,6 +14,7 @@ namespace FoodManager.Queries.Menus
         void WithOnlyToday(bool onlyToday);
         void WithDaysWeek(string daysWeek);
         void WithDate(string date);
+        void WithOnlyBelongUser(bool onlyBelongUser);
         IEnumerable<Menu> Execute();
     }
 }

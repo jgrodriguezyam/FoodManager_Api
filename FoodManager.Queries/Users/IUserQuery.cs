@@ -12,6 +12,7 @@ namespace FoodManager.Queries.Users
         void WithDealer(int dealerId);
         void WithName(string name);
         void WithUserName(string userName);
+        void WithOnlyBelongUser(bool onlyBelongUser);
         IEnumerable<User> Execute();
     }
 }

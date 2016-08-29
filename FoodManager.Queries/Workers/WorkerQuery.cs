@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using FoodManager.Infrastructure.Constants;
+using FoodManager.Infrastructure.Http;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Queries;
 using FoodManager.Infrastructure.Strings;
 using FoodManager.Model;
+using FoodManager.Model.Sessions;
 using FoodManager.OrmLite.DataBase;
 using FoodManager.OrmLite.Utils;
+using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.SqlServer;
 
 namespace FoodManager.Queries.Workers
@@ -14,10 +18,12 @@ namespace FoodManager.Queries.Workers
     {
         private readonly SqlServerExpressionVisitor<Worker> _query;
         private readonly IDataBaseSqlServerOrmLite _dataBaseSqlServerOrmLite;
+        private readonly IUserSession _userSession;
 
-        public WorkerQuery(IDataBaseSqlServerOrmLite dataBaseSqlServerOrmLite)
+        public WorkerQuery(IDataBaseSqlServerOrmLite dataBaseSqlServerOrmLite, IUserSession userSession)
         {
             _dataBaseSqlServerOrmLite = dataBaseSqlServerOrmLite;
+            _userSession = userSession;
             _query = new SqlServerExpressionVisitor<Worker>();
         }
 
@@ -85,6 +91,23 @@ namespace FoodManager.Queries.Workers
         {
             if (imss.IsNotNullOrEmpty())
                 _query.Where(worker => worker.Imss == imss);
+        }
+
+        public void WithOnlyBelongUser(bool onlyBelongUser)
+        {
+            if (onlyBelongUser)
+            {
+                var publicKey = HttpContextAccess.GetPublicKey();
+                var userSession = _userSession.FindUserByPublicKey(publicKey);
+                if (userSession.RoleId != GlobalConstants.AdminRoleId)
+                {
+                    var branchDealerQuery = new SqlServerExpressionVisitor<BranchDealer>();
+                    branchDealerQuery.Where(branchDealer => branchDealer.DealerId == userSession.DealerId);
+                    var branchIds = _dataBaseSqlServerOrmLite.FindExpressionVisitor(branchDealerQuery).Select(branchDealer => branchDealer.BranchId);
+                    branchIds = branchIds.Count().IsNotZero() ? branchIds : new[] { int.MinValue };
+                    _query.Where(worker => Sql.In(worker.BranchId, branchIds));
+                }
+            }
         }
 
         public void Sort(string sort, string sortBy)

@@ -47,6 +47,7 @@ namespace FoodManager.Services.Implements
                 _workerQuery.WithEmail(request.Email);
                 _workerQuery.WithBadge(request.Badge);
                 _workerQuery.WithImss(request.Imss);
+                _workerQuery.WithOnlyBelongUser(true);
                 _workerQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _workerQuery.TotalRecords();
                 _workerQuery.Paginate(request.StartPage, request.EndPage);
