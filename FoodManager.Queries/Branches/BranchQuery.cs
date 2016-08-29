@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using FoodManager.Infrastructure.Constants;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Queries;
@@ -6,6 +7,7 @@ using FoodManager.Infrastructure.Strings;
 using FoodManager.Model;
 using FoodManager.OrmLite.DataBase;
 using FoodManager.OrmLite.Utils;
+using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.SqlServer;
 
 namespace FoodManager.Queries.Branches
@@ -61,6 +63,18 @@ namespace FoodManager.Queries.Branches
         {
             if (code.IsNotNullOrEmpty())
                 _query.Where(branch => branch.Code == code);
+        }
+
+        public void WithDealer(int dealerId)
+        {
+            if (dealerId.IsNotZero())
+            {
+                var branchDealerQuery = new SqlServerExpressionVisitor<BranchDealer>();
+                branchDealerQuery.Where(branchDealer => branchDealer.DealerId == dealerId);
+                var branchIds = _dataBaseSqlServerOrmLite.FindExpressionVisitor(branchDealerQuery).Select(branchDealer => branchDealer.BranchId);
+                branchIds = branchIds.Count().IsNotZero() ? branchIds : new[] { int.MinValue };
+                _query.Where(branch => Sql.In(branch.Id, branchIds));
+            }
         }
 
         public void Sort(string sort, string sortBy)

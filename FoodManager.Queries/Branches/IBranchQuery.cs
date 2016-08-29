@@ -13,6 +13,7 @@ namespace FoodManager.Queries.Branches
         void WithCompany(int companyId);
         void WithName(string name);
         void WithCode(string code);
+        void WithDealer(int dealerId);
         IEnumerable<Branch> Execute();
     }
 }

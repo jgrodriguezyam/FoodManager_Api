@@ -43,6 +43,7 @@ namespace FoodManager.Services.Implements
                 _branchQuery.WithCompany(request.CompanyId);
                 _branchQuery.WithName(request.Name);
                 _branchQuery.WithCode(request.Code);
+                _branchQuery.WithDealer(request.DealerId);
                 _branchQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _branchQuery.TotalRecords();
                 _branchQuery.Paginate(request.StartPage, request.EndPage);
