@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using FoodManager.Infrastructure.Constants;
+using FoodManager.Infrastructure.Enums;
 using FoodManager.Infrastructure.Http;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Queries;
 using FoodManager.Infrastructure.Strings;
+using FoodManager.Infrastructure.Validators.Enums;
 using FoodManager.Model;
 using FoodManager.Model.Sessions;
 using FoodManager.OrmLite.DataBase;
@@ -97,9 +99,10 @@ namespace FoodManager.Queries.Workers
         {
             if (onlyBelongUser)
             {
+                var loginType = HttpContextAccess.GetLoginType();
                 var publicKey = HttpContextAccess.GetPublicKey();
                 var userSession = _userSession.FindUserByPublicKey(publicKey);
-                if (userSession.RoleId != GlobalConstants.AdminRoleId)
+                if (loginType.Value != LoginType.Worker.GetValue() && userSession.RoleId != GlobalConstants.AdminRoleId)
                 {
                     var branchDealerQuery = new SqlServerExpressionVisitor<BranchDealer>();
                     branchDealerQuery.Where(branchDealer => branchDealer.DealerId == userSession.DealerId);
