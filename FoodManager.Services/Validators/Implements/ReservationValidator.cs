@@ -91,7 +91,8 @@ namespace FoodManager.Services.Validators.Implements
             var reservationRetrieved = _reservationRepository.FindBy(reservatio => reservatio.Date == reservation.Date &&
                                                                                    reservatio.SaucerId == reservation.SaucerId &&
                                                                                    reservatio.WorkerId == reservation.WorkerId &&
-                                                                                   reservatio.DealerId == reservation.DealerId);
+                                                                                   reservatio.DealerId == reservation.DealerId && 
+                                                                                   reservatio.IsActive);
             if (reservationRetrieved.IsNotEmpty())
                 return new ValidationFailure("Reservation", "Ya existe una reservacion para ese platillo");
 
@@ -104,7 +105,8 @@ namespace FoodManager.Services.Validators.Implements
                                                                                    reservatio.SaucerId == reservation.SaucerId &&
                                                                                    reservatio.WorkerId == reservation.WorkerId &&
                                                                                    reservatio.DealerId == reservation.DealerId &&
-                                                                                   reservatio.Id != reservation.Id);
+                                                                                   reservatio.Id != reservation.Id &&
+                                                                                   reservatio.IsActive);
             if (reservationRetrieved.IsNotEmpty())
                 return new ValidationFailure("Reservation", "Ya existe una reservacion para ese platillo");
 
