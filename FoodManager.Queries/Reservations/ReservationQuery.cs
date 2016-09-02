@@ -78,6 +78,12 @@ namespace FoodManager.Queries.Reservations
                 _query.Where(reservation => reservation.Portion == portion);
         }
 
+        public void WithoutDealer(bool withoutDealer)
+        {
+            if (withoutDealer)
+                _query.Where(reservation => reservation.DealerId == null);
+        }
+
         public void Sort(string sort, string sortBy)
         {
             sort = sort.SortResolver();

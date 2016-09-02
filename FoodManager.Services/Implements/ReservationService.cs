@@ -45,6 +45,7 @@ namespace FoodManager.Services.Implements
                 _reservationQuery.WithOnlyToday(request.OnlyToday);
                 _reservationQuery.WithDate(request.Date);
                 _reservationQuery.WithPortion(request.Portion);
+                _reservationQuery.WithoutDealer(request.WithoutDealer);
                 _reservationQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _reservationQuery.TotalRecords();
                 _reservationQuery.Paginate(request.StartPage, request.EndPage);

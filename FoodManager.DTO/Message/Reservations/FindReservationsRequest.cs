@@ -10,5 +10,6 @@ namespace FoodManager.DTO.Message.Reservations
         public bool OnlyToday { get; set; }
         public string Date { get; set; }
         public decimal Portion { get; set; }
+        public bool WithoutDealer { get; set; }
     }
 }
