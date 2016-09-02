@@ -363,7 +363,6 @@ namespace FoodManager.Migrations.Sprint_01
                 .WithColumn("Comment").AsString(250).Nullable()
                 .WithColumn("DayWeek").AsInt32().NotNullable()
                 .WithColumn("MealType").AsInt32().NotNullable()
-                .WithColumn("Limit").AsInt32().Nullable()
                 .WithColumn("StartDate").AsDateTime().NotNullable()
                 .WithColumn("EndDate").AsDateTime().NotNullable()
                 .WithColumn("MaxAmount").AsInt32().NotNullable()

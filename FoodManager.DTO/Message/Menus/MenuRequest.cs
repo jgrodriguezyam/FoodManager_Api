@@ -6,7 +6,6 @@
         public string Comment { get; set; }
         public int DayWeek { get; set; }
         public int MealType { get; set; }
-        public int Limit { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
         public int MaxAmount { get; set; }
