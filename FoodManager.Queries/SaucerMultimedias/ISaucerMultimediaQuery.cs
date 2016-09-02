@@ -10,6 +10,7 @@ namespace FoodManager.Queries.SaucerMultimedias
         void WithOnlyStatusActivated(bool onlyStatusActivated);
         void WithOnlyStatusDeactivated(bool onlyStatusDeactivated);
         void WithSaucer(int saucerId);
+        void WithSaucerIds(string saucerIds);
         IEnumerable<SaucerMultimedia> Execute();
     }
 }

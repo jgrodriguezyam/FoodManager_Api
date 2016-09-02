@@ -37,6 +37,7 @@ namespace FoodManager.Services.Implements
                 _saucerConfigurationQuery.WithOnlyStatusActivated(request.OnlyStatusActivated);
                 _saucerConfigurationQuery.WithOnlyStatusDeactivated(request.OnlyStatusDeactivated);
                 _saucerConfigurationQuery.WithSaucer(request.SaucerId);
+                _saucerConfigurationQuery.WithSaucerIds(request.SaucerIds);
                 _saucerConfigurationQuery.WithIngredient(request.IngredientId);
                 _saucerConfigurationQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _saucerConfigurationQuery.TotalRecords();

@@ -10,6 +10,7 @@ namespace FoodManager.Queries.SaucerConfigurations
         void WithOnlyStatusActivated(bool onlyStatusActivated);
         void WithOnlyStatusDeactivated(bool onlyStatusDeactivated);
         void WithSaucer(int saucerId);
+        void WithSaucerIds(string saucerIds);
         void WithIngredient(int ingredientId);
         IEnumerable<SaucerConfiguration> Execute();
     }

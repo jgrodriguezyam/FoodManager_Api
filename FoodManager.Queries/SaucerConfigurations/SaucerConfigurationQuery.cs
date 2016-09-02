@@ -2,9 +2,11 @@
 using FoodManager.Infrastructure.Constants;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Queries;
+using FoodManager.Infrastructure.Strings;
 using FoodManager.Model;
 using FoodManager.OrmLite.DataBase;
 using FoodManager.OrmLite.Utils;
+using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.SqlServer;
 
 namespace FoodManager.Queries.SaucerConfigurations
@@ -42,6 +44,12 @@ namespace FoodManager.Queries.SaucerConfigurations
         {
             if (saucerId.IsNotZero())
                 _query.Where(saucerConfiguration => saucerConfiguration.SaucerId == saucerId);
+        }
+
+        public void WithSaucerIds(string saucerIds)
+        {
+            if (saucerIds.IsNotNullOrEmpty())
+                _query.Where(saucerConfiguration => Sql.In(saucerConfiguration.SaucerId, saucerIds.Split(',')));
         }
 
         public void WithIngredient(int ingredientId)

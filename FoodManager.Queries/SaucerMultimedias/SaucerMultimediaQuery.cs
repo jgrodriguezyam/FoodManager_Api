@@ -2,9 +2,11 @@
 using FoodManager.Infrastructure.Constants;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Queries;
+using FoodManager.Infrastructure.Strings;
 using FoodManager.Model;
 using FoodManager.OrmLite.DataBase;
 using FoodManager.OrmLite.Utils;
+using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.SqlServer;
 
 namespace FoodManager.Queries.SaucerMultimedias
@@ -42,6 +44,12 @@ namespace FoodManager.Queries.SaucerMultimedias
         {
             if (saucerId.IsNotZero())
                 _query.Where(saucerMultimedia => saucerMultimedia.SaucerId == saucerId);
+        }
+
+        public void WithSaucerIds(string saucerIds)
+        {
+            if (saucerIds.IsNotNullOrEmpty())
+                _query.Where(saucerMultimedia => Sql.In(saucerMultimedia.SaucerId, saucerIds.Split(',')));
         }
 
         public void Sort(string sort, string sortBy)

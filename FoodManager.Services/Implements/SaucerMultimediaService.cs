@@ -44,6 +44,7 @@ namespace FoodManager.Services.Implements
                 _saucerMultimediaQuery.WithOnlyStatusActivated(request.OnlyStatusActivated);
                 _saucerMultimediaQuery.WithOnlyStatusDeactivated(request.OnlyStatusDeactivated);
                 _saucerMultimediaQuery.WithSaucer(request.SaucerId);
+                _saucerMultimediaQuery.WithSaucerIds(request.SaucerIds);
                 _saucerMultimediaQuery.Sort(request.Sort, request.SortBy);
                 var totalRecords = _saucerMultimediaQuery.TotalRecords();
                 _saucerMultimediaQuery.Paginate(request.StartPage, request.EndPage);
