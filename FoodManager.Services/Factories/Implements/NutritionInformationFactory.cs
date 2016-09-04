@@ -1,4 +1,6 @@
-﻿using FoodManager.Infrastructure.Application;
+﻿using System;
+using FoodManager.Infrastructure.Application;
+using FoodManager.Infrastructure.Decimals;
 using FoodManager.Model.IRepositories;
 using FoodManager.Services.Factories.Interfaces;
 using ServiceStack.Common.Extensions;
@@ -32,7 +34,18 @@ namespace FoodManager.Services.Factories.Implements
                                             nutritionInformation.Lipid += (ingredient.Lipid / ingredient.NetWeight) * netWeight;
                                             nutritionInformation.Sodium += (ingredient.Sodium / ingredient.NetWeight) * netWeight;
                                         });
+            RoundDecimalAmout(nutritionInformation);
             return nutritionInformation;
+        }
+
+        private void RoundDecimalAmout(NutritionInformation nutritionInformation)
+        {
+            nutritionInformation.Energy = nutritionInformation.Energy.RoundDecimal();
+            nutritionInformation.Protein = nutritionInformation.Protein.RoundDecimal();
+            nutritionInformation.Carbohydrate = nutritionInformation.Carbohydrate.RoundDecimal();
+            nutritionInformation.Sugar = nutritionInformation.Sugar.RoundDecimal();
+            nutritionInformation.Lipid = nutritionInformation.Lipid.RoundDecimal();
+            nutritionInformation.Sodium = nutritionInformation.Sodium.RoundDecimal();
         }
     }
 }
