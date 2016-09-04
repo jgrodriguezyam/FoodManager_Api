@@ -8,5 +8,6 @@ namespace FoodManager.DTO.Message.Ingredients
         public string Name { get; set; }
         public string WithoutIds { get; set; }
         public int Unit { get; set; }
+        public string WithIds { get; set; }
     }
 }

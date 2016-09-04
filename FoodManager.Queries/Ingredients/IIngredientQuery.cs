@@ -13,6 +13,7 @@ namespace FoodManager.Queries.Ingredients
         void WithName(string name);
         void WithoutIds(string ids);
         void WithUnit(int unit);
+        void WithIds(string ids);
         IEnumerable<Ingredient> Execute();
     }
 }
