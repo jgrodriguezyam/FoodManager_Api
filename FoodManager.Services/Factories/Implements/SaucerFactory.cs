@@ -3,6 +3,7 @@ using System.Linq;
 using FastMapper;
 using FoodManager.DTO.Message.Saucers;
 using FoodManager.Infrastructure.Files;
+using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Strings;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
@@ -14,24 +15,41 @@ namespace FoodManager.Services.Factories.Implements
     public class SaucerFactory : ISaucerFactory
     {
         private readonly IStorageProvider _storageProvider;
-        private readonly ISaucerRepository _saucerRepository;
+        private readonly IMenuRepository _menuRepository;
+        private readonly IReservationRepository _reservationRepository;
 
-        public SaucerFactory(IStorageProvider storageProvider, ISaucerRepository saucerRepository)
+        public SaucerFactory(IStorageProvider storageProvider, IMenuRepository menuRepository, IReservationRepository reservationRepository)
         {
             _storageProvider = storageProvider;
-            _saucerRepository = saucerRepository;
+            _menuRepository = menuRepository;
+            _reservationRepository = reservationRepository;
         }
 
         public SaucerResponse Execute(Saucer saucer)
         {
-            var saucerResponse = TypeAdapter.Adapt<SaucerResponse>(saucer);
-            saucerResponse.IsReference = _saucerRepository.IsReference(saucer.Id);
-            return saucerResponse;
+            return AppendProperties(new[] { saucer }).FirstOrDefault();
         }
 
         public IEnumerable<SaucerResponse> Execute(IEnumerable<Saucer> saucers)
         {
-            return saucers.Select(Execute);
+            return AppendProperties(saucers);
+        }
+
+        private IEnumerable<SaucerResponse> AppendProperties(IEnumerable<Saucer> saucers)
+        {
+            var saucersResponse = TypeAdapter.Adapt<List<SaucerResponse>>(saucers);
+            var menus = _menuRepository.FindBy(menu => menu.IsActive);
+            var reservations = _reservationRepository.FindBy(menu => menu.IsActive);
+
+            saucersResponse.ForEach(saucerResponse =>
+            {
+                var saucer = saucers.First(saucerModel => saucerModel.Id == saucerResponse.Id);
+                var amountOfReferences = menus.Count(menu => menu.SaucerId == saucer.Id);
+                amountOfReferences += reservations.Count(reservation => reservation.SaucerId == saucer.Id);
+                saucerResponse.IsReference = amountOfReferences.IsNotZero();
+            });
+
+            return saucersResponse;
         }
 
         public List<Saucer> FromCsv(string fileName)

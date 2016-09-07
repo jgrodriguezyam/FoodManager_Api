@@ -4,6 +4,7 @@ using FastMapper;
 using FoodManager.DTO.Message.IngredientGroups;
 using FoodManager.DTO.Message.Ingredients;
 using FoodManager.Infrastructure.Files;
+using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Strings;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
@@ -16,27 +17,46 @@ namespace FoodManager.Services.Factories.Implements
     {
         private readonly IIngredientGroupRepository _ingredientGroupRepository;
         private readonly IStorageProvider _storageProvider;
-        private readonly IIngredientRepository _ingredientRepository;
+        private readonly ISaucerConfigurationRepository _saucerConfigurationRepository;
+        private readonly IReservationDetailRepository _reservationDetailRepository;
 
-        public IngredientFactory(IIngredientGroupRepository ingredientGroupRepository, IStorageProvider storageProvider, IIngredientRepository ingredientRepository)
+        public IngredientFactory(IIngredientGroupRepository ingredientGroupRepository, IStorageProvider storageProvider, ISaucerConfigurationRepository saucerConfigurationRepository, IReservationDetailRepository reservationDetailRepository)
         {
             _ingredientGroupRepository = ingredientGroupRepository;
             _storageProvider = storageProvider;
-            _ingredientRepository = ingredientRepository;
+            _saucerConfigurationRepository = saucerConfigurationRepository;
+            _reservationDetailRepository = reservationDetailRepository;
         }
 
         public IngredientResponse Execute(Ingredient ingredient)
         {
-            var ingredientResponse = TypeAdapter.Adapt<IngredientResponse>(ingredient);
-            var ingredientGroup = _ingredientGroupRepository.FindBy(ingredient.IngredientGroupId);
-            ingredientResponse.IngredientGroup = TypeAdapter.Adapt<IngredientGroupResponse>(ingredientGroup);
-            ingredientResponse.IsReference = _ingredientRepository.IsReference(ingredient.Id);
-            return ingredientResponse;
+            return AppendProperties(new[] { ingredient }).FirstOrDefault();
         }
 
         public IEnumerable<IngredientResponse> Execute(IEnumerable<Ingredient> ingredients)
         {
-            return ingredients.Select(Execute);
+
+            return AppendProperties(ingredients);
+        }
+
+        private IEnumerable<IngredientResponse> AppendProperties(IEnumerable<Ingredient> ingredients)
+        {
+            var ingredientsResponse = TypeAdapter.Adapt<List<IngredientResponse>>(ingredients);
+            var ingredientGroups = _ingredientGroupRepository.FindBy(ingredientGroup => ingredientGroup.IsActive);
+            var saucerConfigurations = _saucerConfigurationRepository.FindBy(saucerConfiguration => saucerConfiguration.IsActive);
+            var reservationDetails = _reservationDetailRepository.FindBy(reservationDetail => reservationDetail.IsActive);
+
+            ingredientsResponse.ForEach(ingredientResponse =>
+            {
+                var ingredient = ingredients.First(ingredientModel => ingredientModel.Id == ingredientResponse.Id);
+                var ingredientGroup = ingredientGroups.First(ingredientGroupModel => ingredientGroupModel.Id == ingredient.IngredientGroupId);
+                ingredientResponse.IngredientGroup = TypeAdapter.Adapt<IngredientGroupResponse>(ingredientGroup);
+                var amountOfReferences = saucerConfigurations.Count(saucerConfiguration => saucerConfiguration.IngredientId == ingredient.Id);
+                amountOfReferences += reservationDetails.Count(reservationDetail => reservationDetail.IngredientId == ingredient.Id);
+                ingredientResponse.IsReference = amountOfReferences.IsNotZero();
+            });
+
+            return ingredientsResponse;
         }
 
         public List<Ingredient> FromCsv(string fileName)
