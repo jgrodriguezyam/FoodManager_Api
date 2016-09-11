@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using FoodManager.Infrastructure.Application;
 using FoodManager.Infrastructure.Decimals;
 using FoodManager.Model.IRepositories;
@@ -22,9 +22,11 @@ namespace FoodManager.Services.Factories.Implements
         {
             var nutritionInformation = new NutritionInformation();
             var saucerConfigurations = _saucerConfigurationRepository.FindBy(saucerConfiguration => saucerConfiguration.SaucerId == saucerId && saucerConfiguration.Status);
+            var ingredients = _ingredientRepository.FindBy(ingredient => ingredient.IsActive);
+
             saucerConfigurations.ForEach(saucerConfiguration =>
-                                        {
-                                            var ingredient = _ingredientRepository.FindBy(saucerConfiguration.IngredientId);
+                                        {                                            
+                                            var ingredient = ingredients.First(ingredientModel => ingredientModel.Id == saucerConfiguration.IngredientId);
                                             var netWeight = saucerConfiguration.NetWeight;
 
                                             nutritionInformation.Energy += (ingredient.Energy / ingredient.NetWeight) * netWeight;

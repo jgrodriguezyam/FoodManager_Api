@@ -20,15 +20,27 @@ namespace FoodManager.Services.Factories.Implements
 
         public WarningResponse Execute(Warning warning)
         {
-            var warningResponse = TypeAdapter.Adapt<WarningResponse>(warning);
-            var disease = _diseaseRepository.FindBy(warning.DiseaseId);
-            warningResponse.Disease = TypeAdapter.Adapt<DiseaseResponse>(disease);
-            return warningResponse;
+            return AppendProperties(new[] { warning }).FirstOrDefault();
         }
 
         public IEnumerable<WarningResponse> Execute(IEnumerable<Warning> warnings)
         {
-            return warnings.Select(Execute);
+            return AppendProperties(warnings);
+        }
+
+        private IEnumerable<WarningResponse> AppendProperties(IEnumerable<Warning> warnings)
+        {
+            var warningsResponse = TypeAdapter.Adapt<List<WarningResponse>>(warnings);
+            var diseases = _diseaseRepository.FindBy(disease => disease.IsActive);
+
+            warningsResponse.ForEach(warningResponse =>
+            {
+                var warning = warnings.First(warningModel => warningModel.Id == warningResponse.Id);
+                var disease = diseases.First(diseaseModel => diseaseModel.Id == warning.DiseaseId);
+                warningResponse.Disease = TypeAdapter.Adapt<DiseaseResponse>(disease);
+            });
+
+            return warningsResponse;
         }
     }
 }

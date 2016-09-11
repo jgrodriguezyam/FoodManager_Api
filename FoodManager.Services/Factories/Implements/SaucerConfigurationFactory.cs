@@ -23,17 +23,30 @@ namespace FoodManager.Services.Factories.Implements
 
         public SaucerConfigurationResponse Execute(SaucerConfiguration saucerConfiguration)
         {
-            var saucerConfigurationResponse = TypeAdapter.Adapt<SaucerConfigurationResponse>(saucerConfiguration);
-            var saucer = _saucerRepository.FindBy(saucerConfiguration.SaucerId);
-            saucerConfigurationResponse.Saucer = TypeAdapter.Adapt<SaucerResponse>(saucer);
-            var ingredient = _ingredientRepository.FindBy(saucerConfiguration.IngredientId);
-            saucerConfigurationResponse.Ingredient = TypeAdapter.Adapt<IngredientResponse>(ingredient);
-            return saucerConfigurationResponse;
+            return AppendProperties(new[] { saucerConfiguration }).FirstOrDefault();
         }
 
         public IEnumerable<SaucerConfigurationResponse> Execute(IEnumerable<SaucerConfiguration> saucerConfigurations)
         {
-            return saucerConfigurations.Select(Execute);
+            return AppendProperties(saucerConfigurations);
+        }
+
+        private IEnumerable<SaucerConfigurationResponse> AppendProperties(IEnumerable<SaucerConfiguration> saucerConfigurations)
+        {
+            var saucerConfigurationsResponse = TypeAdapter.Adapt<List<SaucerConfigurationResponse>>(saucerConfigurations);            
+            var saucers = _saucerRepository.FindBy(saucer => saucer.IsActive);
+            var ingredients = _ingredientRepository.FindBy(ingredient => ingredient.IsActive);
+
+            saucerConfigurationsResponse.ForEach(saucerConfigurationResponse =>
+            {
+                var saucerConfiguration = saucerConfigurations.First(saucerConfigurationModel => saucerConfigurationModel.Id == saucerConfigurationResponse.Id);
+                var saucer = saucers.First(saucerModel => saucerModel.Id == saucerConfiguration.SaucerId);
+                saucerConfigurationResponse.Saucer = TypeAdapter.Adapt<SaucerResponse>(saucer);
+                var ingredient = ingredients.First(ingredientModel => ingredientModel.Id == saucerConfiguration.IngredientId);
+                saucerConfigurationResponse.Ingredient = TypeAdapter.Adapt<IngredientResponse>(ingredient);                
+            });
+
+            return saucerConfigurationsResponse;
         }
     }
 }

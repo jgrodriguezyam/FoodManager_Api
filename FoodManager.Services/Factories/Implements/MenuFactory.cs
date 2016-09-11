@@ -23,17 +23,30 @@ namespace FoodManager.Services.Factories.Implements
 
         public MenuResponse Execute(Menu menu)
         {
-            var menuResponse = TypeAdapter.Adapt<MenuResponse>(menu);
-            var dealer = _dealerRepository.FindBy(menu.DealerId);
-            menuResponse.Dealer = TypeAdapter.Adapt<DealerResponse>(dealer);
-            var saucer = _saucerRepository.FindBy(menu.SaucerId);
-            menuResponse.Saucer = TypeAdapter.Adapt<SaucerResponse>(saucer);
-            return menuResponse;
+            return AppendProperties(new[] { menu }).FirstOrDefault();
         }
 
         public IEnumerable<MenuResponse> Execute(IEnumerable<Menu> menus)
         {
-            return menus.Select(Execute);
+            return AppendProperties(menus);
+        }
+
+        private IEnumerable<MenuResponse> AppendProperties(IEnumerable<Menu> menus)
+        {
+            var menusResponse = TypeAdapter.Adapt<List<MenuResponse>>(menus);
+            var dealers = _dealerRepository.FindBy(dealer => dealer.IsActive);
+            var saucers = _saucerRepository.FindBy(saucer => saucer.IsActive);
+
+            menusResponse.ForEach(menuResponse =>
+            {
+                var menu = menus.First(menuModel => menuModel.Id == menuResponse.Id);
+                var dealer = dealers.First(dealerModel => dealerModel.Id == menu.DealerId);
+                menuResponse.Dealer = TypeAdapter.Adapt<DealerResponse>(dealer);
+                var saucer = saucers.First(saucerModel => saucerModel.Id == menu.SaucerId);
+                menuResponse.Saucer = TypeAdapter.Adapt<SaucerResponse>(saucer);
+            });
+
+            return menusResponse;
         }
     }
 }

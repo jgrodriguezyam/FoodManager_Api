@@ -25,17 +25,30 @@ namespace FoodManager.Services.Factories.Implements
 
         public ReservationDetailResponse Execute(ReservationDetail reservationDetail)
         {
-            var reservationDetailResponse = TypeAdapter.Adapt<ReservationDetailResponse>(reservationDetail);
-            var reservation = _reservationRepository.FindBy(reservationDetail.ReservationId);
-            reservationDetailResponse.Reservation = TypeAdapter.Adapt<ReservationResponse>(reservation);
-            var ingredient = _ingredientRepository.FindBy(reservationDetail.IngredientId);
-            reservationDetailResponse.Ingredient = TypeAdapter.Adapt<IngredientResponse>(ingredient);
-            return reservationDetailResponse;
+            return AppendProperties(new[] { reservationDetail }).FirstOrDefault();
         }
 
         public IEnumerable<ReservationDetailResponse> Execute(IEnumerable<ReservationDetail> reservationDetails)
         {
-            return reservationDetails.Select(Execute);
+            return AppendProperties(reservationDetails);
+        }
+
+        private IEnumerable<ReservationDetailResponse> AppendProperties(IEnumerable<ReservationDetail> reservationDetails)
+        {
+            var reservationDetailsResponse = TypeAdapter.Adapt<List<ReservationDetailResponse>>(reservationDetails);
+            var reservations = _reservationRepository.FindBy(reservation => reservation.IsActive);
+            var ingredients = _ingredientRepository.FindBy(ingredient => ingredient.IsActive);
+
+            reservationDetailsResponse.ForEach(reservationDetailResponse =>
+            {
+                var reservationDetail = reservationDetails.First(reservationDetailModel => reservationDetailModel.Id == reservationDetailResponse.Id);
+                var reservation = reservations.First(reservationModel => reservationModel.Id == reservationDetail.ReservationId);
+                reservationDetailResponse.Reservation = TypeAdapter.Adapt<ReservationResponse>(reservation);
+                var ingredient = ingredients.First(ingredientModel => ingredientModel.Id == reservationDetail.IngredientId);
+                reservationDetailResponse.Ingredient = TypeAdapter.Adapt<IngredientResponse>(ingredient);
+            });
+
+            return reservationDetailsResponse;
         }
 
         public List<ReservationDetail> BySaucer(int saucerId)

@@ -2,6 +2,7 @@
 using System.Linq;
 using FastMapper;
 using FoodManager.DTO.Message.Departments;
+using FoodManager.Infrastructure.Integers;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Services.Factories.Interfaces;
@@ -10,23 +11,36 @@ namespace FoodManager.Services.Factories.Implements
 {
     public class DepartmentFactory : IDepartmentFactory
     {
-        private readonly IDepartmentRepository _departmentRepository;
+        private readonly IWorkerRepository _workerRepository;
 
-        public DepartmentFactory(IDepartmentRepository departmentRepository)
+        public DepartmentFactory(IWorkerRepository workerRepository)
         {
-            _departmentRepository = departmentRepository;
+            _workerRepository = workerRepository;
         }
 
         public DepartmentResponse Execute(Department department)
         {
-            var departmentResponse = TypeAdapter.Adapt<DepartmentResponse>(department);
-            departmentResponse.IsReference = _departmentRepository.IsReference(department.Id);
-            return departmentResponse;
+            return AppendProperties(new[] { department }).FirstOrDefault();
         }
 
         public IEnumerable<DepartmentResponse> Execute(IEnumerable<Department> departments)
         {
-            return departments.Select(Execute);
+            return AppendProperties(departments);
+        }
+
+        private IEnumerable<DepartmentResponse> AppendProperties(IEnumerable<Department> departments)
+        {
+            var departmentsResponse = TypeAdapter.Adapt<List<DepartmentResponse>>(departments);
+            var workers = _workerRepository.FindBy(worker => worker.IsActive);
+
+            departmentsResponse.ForEach(departmentResponse =>
+            {
+                var department = departments.First(departmentModel => departmentModel.Id == departmentResponse.Id);
+                var amountOfReferences = workers.Count(worker => worker.DepartmentId == department.Id);
+                departmentResponse.IsReference = amountOfReferences.IsNotZero();
+            });
+
+            return departmentsResponse;
         }
     }
 }

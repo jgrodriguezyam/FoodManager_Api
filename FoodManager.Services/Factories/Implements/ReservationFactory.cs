@@ -5,7 +5,7 @@ using FoodManager.DTO.Message.Dealers;
 using FoodManager.DTO.Message.Reservations;
 using FoodManager.DTO.Message.Saucers;
 using FoodManager.DTO.Message.Workers;
-using FoodManager.Infrastructure.Objects;
+using FoodManager.Infrastructure.Integers;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Services.Factories.Interfaces;
@@ -27,21 +27,37 @@ namespace FoodManager.Services.Factories.Implements
 
         public ReservationResponse Execute(Reservation reservation)
         {
-            var reservationResponse = TypeAdapter.Adapt<ReservationResponse>(reservation);
-            var worker = _workerRepository.FindBy(reservation.WorkerId);
-            reservationResponse.Worker = TypeAdapter.Adapt<WorkerResponse>(worker);
-            var saucer = _saucerRepository.FindBy(reservation.SaucerId);
-            reservationResponse.Saucer = TypeAdapter.Adapt<SaucerResponse>(saucer);
-            var dealerId = reservation.DealerId ?? 0;
-            var dealer = _dealerRepository.FindBy(dealerId);
-            if (dealer.IsNotNull())
-                reservationResponse.Dealer = TypeAdapter.Adapt<DealerResponse>(dealer);
-            return reservationResponse;
+            return AppendProperties(new[] { reservation }).FirstOrDefault();
         }
 
         public IEnumerable<ReservationResponse> Execute(IEnumerable<Reservation> reservations)
         {
-            return reservations.Select(Execute);
+            return AppendProperties(reservations);
+        }
+
+        private IEnumerable<ReservationResponse> AppendProperties(IEnumerable<Reservation> reservations)
+        {
+            var reservationsResponse = TypeAdapter.Adapt<List<ReservationResponse>>(reservations);
+            var workers = _workerRepository.FindBy(worker => worker.IsActive);
+            var saucers = _saucerRepository.FindBy(saucer => saucer.IsActive);
+            var dealers = _dealerRepository.FindBy(dealer => dealer.IsActive);
+
+            reservationsResponse.ForEach(reservationResponse =>
+            {
+                var reservation = reservations.First(reservationModel => reservationModel.Id == reservationResponse.Id);
+                var worker = workers.First(workerModel => workerModel.Id == reservation.WorkerId);
+                reservationResponse.Worker = TypeAdapter.Adapt<WorkerResponse>(worker);
+                var saucer = saucers.First(saucerModel => saucerModel.Id == reservation.SaucerId);
+                reservationResponse.Saucer = TypeAdapter.Adapt<SaucerResponse>(saucer);
+                var dealerId = reservation.DealerId ?? 0;
+                if (dealerId.IsNotZero())
+                {
+                    var dealer = dealers.First(dealerModel => dealerModel.Id == dealerId);
+                    reservationResponse.Dealer = TypeAdapter.Adapt<DealerResponse>(dealer);
+                }
+            });
+
+            return reservationsResponse;
         }
     }
 }

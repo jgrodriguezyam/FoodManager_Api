@@ -4,7 +4,7 @@ using FastMapper;
 using FoodManager.DTO.Message.Dealers;
 using FoodManager.DTO.Message.Roles;
 using FoodManager.DTO.Message.Users;
-using FoodManager.Infrastructure.Objects;
+using FoodManager.Infrastructure.Integers;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Services.Factories.Interfaces;
@@ -24,19 +24,34 @@ namespace FoodManager.Services.Factories.Implements
 
         public UserResponse Execute(User user)
         {
-            var userResponse = TypeAdapter.Adapt<UserResponse>(user);
-            var dealerId = user.DealerId ?? 0;
-            var dealer = _dealerRepository.FindBy(dealerId);
-            if (dealer.IsNotNull())
-                userResponse.Dealer = TypeAdapter.Adapt<DealerResponse>(dealer);
-            var role = _roleRepository.FindBy(user.RoleId);
-            userResponse.Role = TypeAdapter.Adapt<RoleResponse>(role);
-            return userResponse;
+            return AppendProperties(new[] { user }).FirstOrDefault();
         }
 
         public IEnumerable<UserResponse> Execute(IEnumerable<User> users)
         {
-            return users.Select(Execute);
+            return AppendProperties(users);
+        }
+
+        private IEnumerable<UserResponse> AppendProperties(IEnumerable<User> users)
+        {
+            var usersResponse = TypeAdapter.Adapt<List<UserResponse>>(users);
+            var dealers = _dealerRepository.FindBy(dealer => dealer.IsActive);
+            var roles = _roleRepository.FindBy(role => role.IsActive);
+
+            usersResponse.ForEach(userResponse =>
+            {
+                var user = users.First(userModel => userModel.Id == userResponse.Id);
+                var dealerId = user.DealerId ?? 0;
+                if (dealerId.IsNotZero())
+                {
+                    var dealer = dealers.First(dealerModel => dealerModel.Id == user.DealerId);
+                    userResponse.Dealer = TypeAdapter.Adapt<DealerResponse>(dealer);
+                }
+                var role = roles.First(roleModel => roleModel.Id == user.RoleId);
+                userResponse.Role = TypeAdapter.Adapt<RoleResponse>(role);
+            });
+
+            return usersResponse;
         }
     }
 }

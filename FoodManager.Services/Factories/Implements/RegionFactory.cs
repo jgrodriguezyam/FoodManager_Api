@@ -2,6 +2,7 @@
 using System.Linq;
 using FastMapper;
 using FoodManager.DTO.Message.Regions;
+using FoodManager.Infrastructure.Integers;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Services.Factories.Interfaces;
@@ -10,23 +11,36 @@ namespace FoodManager.Services.Factories.Implements
 {
     public class RegionFactory : IRegionFactory
     {
-        private readonly IRegionRepository _regionRepository;
+        private readonly IBranchRepository _branchRepository;
 
-        public RegionFactory(IRegionRepository regionRepository)
+        public RegionFactory(IBranchRepository branchRepository)
         {
-            _regionRepository = regionRepository;
+            _branchRepository = branchRepository;
         }
 
         public RegionResponse Execute(Region region)
         {
-            var regionResponse = TypeAdapter.Adapt<RegionResponse>(region);
-            regionResponse.IsReference = _regionRepository.IsReference(region.Id);
-            return regionResponse;
+            return AppendProperties(new[] { region }).FirstOrDefault();
         }
 
         public IEnumerable<RegionResponse> Execute(IEnumerable<Region> regions)
         {
-            return regions.Select(Execute);
+            return AppendProperties(regions);
+        }
+
+        private IEnumerable<RegionResponse> AppendProperties(IEnumerable<Region> regions)
+        {
+            var regionsResponse = TypeAdapter.Adapt<List<RegionResponse>>(regions);
+            var branches = _branchRepository.FindBy(branch => branch.IsActive);
+
+            regionsResponse.ForEach(regionResponse =>
+            {
+                var region = regions.First(regionModel => regionModel.Id == regionResponse.Id);
+                var amountOfReferences = branches.Count(branch => branch.RegionId == region.Id);
+                regionResponse.IsReference = amountOfReferences.IsNotZero();
+            });
+
+            return regionsResponse;
         }
     }
 }

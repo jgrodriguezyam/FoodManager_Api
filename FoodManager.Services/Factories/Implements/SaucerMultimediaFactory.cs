@@ -20,15 +20,27 @@ namespace FoodManager.Services.Factories.Implements
 
         public SaucerMultimediaResponse Execute(SaucerMultimedia saucerMultimedia)
         {
-            var saucerMultimediaResponse = TypeAdapter.Adapt<SaucerMultimediaResponse>(saucerMultimedia);
-            var saucer = _saucerRepository.FindBy(saucerMultimedia.SaucerId);
-            saucerMultimediaResponse.Saucer = TypeAdapter.Adapt<SaucerResponse>(saucer);
-            return saucerMultimediaResponse;
+            return AppendProperties(new[] { saucerMultimedia }).FirstOrDefault();
         }
 
         public IEnumerable<SaucerMultimediaResponse> Execute(IEnumerable<SaucerMultimedia> saucerMultimedias)
         {
-            return saucerMultimedias.Select(Execute);
+            return AppendProperties(saucerMultimedias);
+        }
+
+        private IEnumerable<SaucerMultimediaResponse> AppendProperties(IEnumerable<SaucerMultimedia> saucerMultimedias)
+        {
+            var saucerMultimediasResponse = TypeAdapter.Adapt<List<SaucerMultimediaResponse>>(saucerMultimedias);
+            var saucers = _saucerRepository.FindBy(saucer => saucer.IsActive);
+
+            saucerMultimediasResponse.ForEach(saucerMultimediaResponse =>
+            {
+                var saucerMultimedia = saucerMultimedias.First(saucerMultimediaModel => saucerMultimediaModel.Id == saucerMultimediaResponse.Id);
+                var saucer = saucers.First(saucerModel => saucerModel.Id == saucerMultimedia.SaucerId);
+                saucerMultimediaResponse.Saucer = TypeAdapter.Adapt<SaucerResponse>(saucer);
+            });
+
+            return saucerMultimediasResponse;
         }
     }
 }

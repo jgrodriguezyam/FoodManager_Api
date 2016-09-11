@@ -6,6 +6,7 @@ using FoodManager.DTO.Message.Departments;
 using FoodManager.DTO.Message.Jobs;
 using FoodManager.DTO.Message.Roles;
 using FoodManager.DTO.Message.Workers;
+using FoodManager.Infrastructure.Integers;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Services.Factories.Interfaces;
@@ -18,35 +19,52 @@ namespace FoodManager.Services.Factories.Implements
         private readonly IJobRepository _jobRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly IBranchRepository _branchRepository;
-        private readonly IWorkerRepository _workerRepository;
+        private readonly IReservationRepository _reservationRepository;
 
-        public WorkerFactory(IDepartmentRepository departmentRepository, IJobRepository jobRepository, IRoleRepository roleRepository, IBranchRepository branchRepository, IWorkerRepository workerRepository)
+        public WorkerFactory(IDepartmentRepository departmentRepository, IJobRepository jobRepository, IRoleRepository roleRepository, IBranchRepository branchRepository, IReservationRepository reservationRepository)
         {
             _departmentRepository = departmentRepository;
             _jobRepository = jobRepository;
             _roleRepository = roleRepository;
             _branchRepository = branchRepository;
-            _workerRepository = workerRepository;
+            _reservationRepository = reservationRepository;
         }
 
         public WorkerResponse Execute(Worker worker)
         {
-            var workerResponse = TypeAdapter.Adapt<WorkerResponse>(worker);
-            var department = _departmentRepository.FindBy(worker.DepartmentId);
-            workerResponse.Department = TypeAdapter.Adapt<DepartmentResponse>(department);
-            var job = _jobRepository.FindBy(worker.JobId);
-            workerResponse.Job = TypeAdapter.Adapt<JobResponse>(job);
-            var role = _roleRepository.FindBy(worker.RoleId);
-            workerResponse.Role = TypeAdapter.Adapt<RoleResponse>(role);
-            var branch = _branchRepository.FindBy(worker.BranchId);
-            workerResponse.Branch = TypeAdapter.Adapt<BranchResponse>(branch);
-            workerResponse.IsReference = _workerRepository.IsReference(worker.Id);
-            return workerResponse;
+            return AppendProperties(new[] { worker }).FirstOrDefault();
         }
 
         public IEnumerable<WorkerResponse> Execute(IEnumerable<Worker> workers)
         {
-            return workers.Select(Execute);
+            return AppendProperties(workers);
+        }
+
+        private IEnumerable<WorkerResponse> AppendProperties(IEnumerable<Worker> workers)
+        {
+            var workersResponse = TypeAdapter.Adapt<List<WorkerResponse>>(workers);
+            var departments = _departmentRepository.FindBy(department => department.IsActive);
+            var jobs = _jobRepository.FindBy(job => job.IsActive);
+            var roles = _roleRepository.FindBy(role => role.IsActive);
+            var branches = _branchRepository.FindBy(branch => branch.IsActive);
+            var reservations = _reservationRepository.FindBy(reservation => reservation.IsActive);
+
+            workersResponse.ForEach(workerResponse =>
+            {
+                var worker = workers.First(workerModel => workerModel.Id == workerResponse.Id);
+                var department = departments.First(departmentModel => departmentModel.Id == worker.DepartmentId);
+                workerResponse.Department = TypeAdapter.Adapt<DepartmentResponse>(department);
+                var job = jobs.First(jobModel => jobModel.Id == worker.JobId);
+                workerResponse.Job = TypeAdapter.Adapt<JobResponse>(job);
+                var role = roles.First(roleModel => roleModel.Id == worker.RoleId);
+                workerResponse.Role = TypeAdapter.Adapt<RoleResponse>(role);
+                var branch = branches.First(branchModel => branchModel.Id == worker.BranchId);
+                workerResponse.Branch = TypeAdapter.Adapt<BranchResponse>(branch);
+                var amountOfReferences = reservations.Count(reservation => reservation.WorkerId == worker.Id);
+                workerResponse.IsReference = amountOfReferences.IsNotZero();
+            });
+
+            return workersResponse;
         }
     }
 }

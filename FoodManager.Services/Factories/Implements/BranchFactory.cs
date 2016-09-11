@@ -4,6 +4,7 @@ using FastMapper;
 using FoodManager.DTO.Message.Branches;
 using FoodManager.DTO.Message.Companies;
 using FoodManager.DTO.Message.Regions;
+using FoodManager.Infrastructure.Integers;
 using FoodManager.Model;
 using FoodManager.Model.IRepositories;
 using FoodManager.Services.Factories.Interfaces;
@@ -14,29 +15,44 @@ namespace FoodManager.Services.Factories.Implements
     {
         private readonly IRegionRepository _regionRepository;
         private readonly ICompanyRepository _companyRepository;
-        private readonly IBranchRepository _branchRepository;
+        private readonly IWorkerRepository _workerRepository;
 
-        public BranchFactory(IRegionRepository regionRepository, ICompanyRepository companyRepository, IBranchRepository branchRepository)
+        public BranchFactory(IRegionRepository regionRepository, ICompanyRepository companyRepository, IWorkerRepository workerRepository)
         {
             _regionRepository = regionRepository;
             _companyRepository = companyRepository;
-            _branchRepository = branchRepository;
+            _workerRepository = workerRepository;
         }
 
         public BranchResponse Execute(Branch branch)
         {
-            var branchResponse = TypeAdapter.Adapt<BranchResponse>(branch);
-            var region = _regionRepository.FindBy(branch.RegionId);
-            branchResponse.Region = TypeAdapter.Adapt<RegionResponse>(region);
-            var company = _companyRepository.FindBy(branch.CompanyId);
-            branchResponse.Company = TypeAdapter.Adapt<CompanyResponse>(company);
-            branchResponse.IsReference = _branchRepository.IsReference(branch.Id);
-            return branchResponse;
+            return AppendProperties(new[] { branch }).FirstOrDefault();
         }
 
         public IEnumerable<BranchResponse> Execute(IEnumerable<Branch> branches)
         {
-            return branches.Select(Execute);
+            return AppendProperties(branches);
+        }
+
+        private IEnumerable<BranchResponse> AppendProperties(IEnumerable<Branch> branches)
+        {
+            var branchesResponse = TypeAdapter.Adapt<List<BranchResponse>>(branches);
+            var regions = _regionRepository.FindBy(region => region.IsActive);
+            var companies = _companyRepository.FindBy(company => company.IsActive);
+            var workers = _workerRepository.FindBy(worker => worker.IsActive);
+
+            branchesResponse.ForEach(branchResponse =>
+            {
+                var branch = branches.First(branchModel => branchModel.Id == branchResponse.Id);
+                var region = regions.First(regionModel => regionModel.Id == branch.RegionId);
+                branchResponse.Region = TypeAdapter.Adapt<RegionResponse>(region);
+                var company = companies.First(companyModel => companyModel.Id == branch.CompanyId);
+                branchResponse.Company = TypeAdapter.Adapt<CompanyResponse>(company);
+                var amountOfReferences = workers.Count(worker => worker.BranchId == branch.Id);
+                branchResponse.IsReference = amountOfReferences.IsNotZero();
+            });
+
+            return branchesResponse;
         }
     }
 }

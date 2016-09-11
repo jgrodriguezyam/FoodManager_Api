@@ -40,5 +40,10 @@ namespace FoodManager.OrmLite.Repositories
         {
             _dataBaseSqlServerOrmLite.RemoveMiddleEntity(item);
         }
+
+        public IEnumerable<BranchDealer> FindAll()
+        {
+            return _dataBaseSqlServerOrmLite.FindAll<BranchDealer>();
+        }
     }
 }
