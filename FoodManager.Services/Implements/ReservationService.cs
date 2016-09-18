@@ -147,5 +147,17 @@ namespace FoodManager.Services.Implements
                 throw new ApplicationException();
             }
         }
+
+        public ReservationReportResponse Report(ReservationReportRequest request)
+        {
+            try
+            {              
+                return _reservationFactory.Execute(request);
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace FoodManager.Services.Factories.Interfaces
     {
         ReservationResponse Execute(Reservation reservation);
         IEnumerable<ReservationResponse> Execute(IEnumerable<Reservation> reservations);
+        ReservationReportResponse Execute(ReservationReportRequest reservationReportRequest);
     }
 }

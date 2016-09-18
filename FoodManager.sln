@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodManager", "FoodManager\FoodManager.csproj", "{62C6C326-7B0F-4846-9BC6-6265474EE5D4}"
 EndProject
@@ -34,6 +34,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodManager.Queries", "FoodManager.Queries\FoodManager.Queries.csproj", "{65E92C10-BFA4-42C3-AFE7-AD12023F1DB6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodManager.Client", "FoodManager.Client\FoodManager.Client.csproj", "{5C66F9AE-BE09-4D9B-8C25-0DC3A96D14E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodManager.SoapService", "FoodManager.SoapService\FoodManager.SoapService.csproj", "{F8BE77AB-CCAE-48B7-85EB-617D4BBE7EB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +91,10 @@ Global
 		{5C66F9AE-BE09-4D9B-8C25-0DC3A96D14E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C66F9AE-BE09-4D9B-8C25-0DC3A96D14E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C66F9AE-BE09-4D9B-8C25-0DC3A96D14E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8BE77AB-CCAE-48B7-85EB-617D4BBE7EB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8BE77AB-CCAE-48B7-85EB-617D4BBE7EB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8BE77AB-CCAE-48B7-85EB-617D4BBE7EB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8BE77AB-CCAE-48B7-85EB-617D4BBE7EB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,5 +111,6 @@ Global
 		{9F0E986D-7458-4F6E-8726-2A7EC11CB826} = {51952B1B-4256-4B9E-A7EC-6CA907CA9238}
 		{65E92C10-BFA4-42C3-AFE7-AD12023F1DB6} = {51952B1B-4256-4B9E-A7EC-6CA907CA9238}
 		{5C66F9AE-BE09-4D9B-8C25-0DC3A96D14E6} = {51952B1B-4256-4B9E-A7EC-6CA907CA9238}
+		{F8BE77AB-CCAE-48B7-85EB-617D4BBE7EB4} = {51952B1B-4256-4B9E-A7EC-6CA907CA9238}
 	EndGlobalSection
 EndGlobal

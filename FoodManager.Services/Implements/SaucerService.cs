@@ -181,5 +181,21 @@ namespace FoodManager.Services.Implements
                 throw new ApplicationException();
             }
         }
+
+        public SaucerReportResponse Report(SaucerReportRequest request)
+        {
+            try
+            {
+                return new SaucerReportResponse
+                {
+                    Main = _saucerFactory.MainSaucersExecute(request).ToList(),
+                    Garrison = _saucerFactory.GarrisonSaucersExecute(request).ToList()
+                };
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
     }
 }

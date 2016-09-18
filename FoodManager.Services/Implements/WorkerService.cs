@@ -195,5 +195,20 @@ namespace FoodManager.Services.Implements
                 throw new ApplicationException();
             }
         }
+
+        public WorkerReportResponse Report(WorkerReportRequest request)
+        {
+            try
+            {
+                return new WorkerReportResponse
+                {
+                    Workers = _workerFactory.Execute(request).ToList()
+                };     
+            }
+            catch (DataAccessException)
+            {
+                throw new ApplicationException();
+            }
+        }
     }
 }

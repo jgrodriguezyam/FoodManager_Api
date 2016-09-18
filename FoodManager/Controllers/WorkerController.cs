@@ -68,5 +68,11 @@ namespace FoodManager.Controllers
         {
             return _workerService.IsReference(request);
         }
+
+        [HttpGet, Route("workers/report")]
+        public WorkerReportResponse Report(WorkerReportRequest request)
+        {
+            return _workerService.Report(request);
+        }
     }
 }

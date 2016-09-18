@@ -17,5 +17,6 @@ namespace FoodManager.Services.Interfaces
         SuccessResponse IsReference(IsReferenceRequest request);
         NutritionInformation GetNutritionInformation(GetNutritionInformationRequest request);
         SuccessResponse Csv(CsvRequest request, File file);
+        SaucerReportResponse Report(SaucerReportRequest request);
     }
 }

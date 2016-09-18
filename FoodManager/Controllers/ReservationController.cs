@@ -58,5 +58,11 @@ namespace FoodManager.Controllers
         {
             return new EnumeratorResponse { Enumerator = new MealType().ConvertToCollection() };
         }
+
+        [HttpGet, Route("reservations/report")]
+        public ReservationReportResponse Report(ReservationReportRequest request)
+        {
+            return _reservationService.Report(request);
+        }
     }
 }

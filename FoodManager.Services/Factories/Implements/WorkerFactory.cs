@@ -20,14 +20,17 @@ namespace FoodManager.Services.Factories.Implements
         private readonly IRoleRepository _roleRepository;
         private readonly IBranchRepository _branchRepository;
         private readonly IReservationRepository _reservationRepository;
+        private readonly IWorkerRepository _workerRepository;
+        private int _workerTop = 10;
 
-        public WorkerFactory(IDepartmentRepository departmentRepository, IJobRepository jobRepository, IRoleRepository roleRepository, IBranchRepository branchRepository, IReservationRepository reservationRepository)
+        public WorkerFactory(IDepartmentRepository departmentRepository, IJobRepository jobRepository, IRoleRepository roleRepository, IBranchRepository branchRepository, IReservationRepository reservationRepository, IWorkerRepository workerRepository)
         {
             _departmentRepository = departmentRepository;
             _jobRepository = jobRepository;
             _roleRepository = roleRepository;
             _branchRepository = branchRepository;
             _reservationRepository = reservationRepository;
+            _workerRepository = workerRepository;
         }
 
         public WorkerResponse Execute(Worker worker)
@@ -65,6 +68,28 @@ namespace FoodManager.Services.Factories.Implements
             });
 
             return workersResponse;
+        }
+
+        public IEnumerable<WorkerTopReportResponse> Execute(WorkerReportRequest workerReportRequest)
+        {
+            var workers = _workerRepository.FindBy(worker => worker.IsActive);
+            var reservations = _reservationRepository.FindBy(reservation => reservation.IsActive);
+            var workersGroup = reservations.GroupBy(reservation => reservation.WorkerId);
+            var workersTop = workersGroup.Select(workerGroup => new WorkerTopReportResponse
+                            {
+                                WorkerId = workerGroup.Key,
+                                ReservationCount = workerGroup.Count()
+                            })
+                            .OrderByDescending(workerTop => workerTop.ReservationCount).Take(_workerTop).ToList();
+
+            workersTop.ForEach(workerTop =>
+            {
+                var worker = workers.First(currentWorker => currentWorker.Id == workerTop.WorkerId);
+                workerTop.FirstName = worker.FirstName;
+                workerTop.LastName = worker.LastName;
+            });
+
+            return workersTop;
         }
     }
 }

@@ -78,5 +78,11 @@ namespace FoodManager.Controllers
         {
             return _saucerService.Csv(request, Request.GetFile());
         }
+
+        [HttpGet, Route("saucers/report")]
+        public SaucerReportResponse Report(SaucerReportRequest request)
+        {
+            return _saucerService.Report(request);
+        }
     }
 }

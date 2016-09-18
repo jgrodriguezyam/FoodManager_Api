@@ -9,5 +9,7 @@ namespace FoodManager.Services.Factories.Interfaces
         SaucerResponse Execute(Saucer saucer);
         IEnumerable<SaucerResponse> Execute(IEnumerable<Saucer> saucers);
         List<Saucer> FromCsv(string fileName);
+        IEnumerable<SaucerTopReportResponse> MainSaucersExecute(SaucerReportRequest saucerReportRequest);
+        IEnumerable<SaucerTopReportResponse> GarrisonSaucersExecute(SaucerReportRequest saucerReportRequest);
     }
 }

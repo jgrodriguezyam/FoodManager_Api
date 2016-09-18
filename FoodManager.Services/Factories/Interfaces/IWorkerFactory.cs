@@ -8,5 +8,6 @@ namespace FoodManager.Services.Factories.Interfaces
     {
         WorkerResponse Execute(Worker worker);
         IEnumerable<WorkerResponse> Execute(IEnumerable<Worker> workers);
+        IEnumerable<WorkerTopReportResponse> Execute(WorkerReportRequest workerReportRequest);
     }
 }
