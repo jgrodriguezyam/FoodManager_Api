@@ -22,17 +22,17 @@ namespace FoodManager.Services.Factories.Implements
         private readonly ISaucerRepository _saucerRepository;
         private readonly IDealerRepository _dealerRepository;
         private readonly IReservationRepository _reservationRepository;
-        private readonly ISaucerConfigurationRepository _saucerConfigurationRepository;
         private readonly IIngredientRepository _ingredientRepository;
+        private readonly IReservationDetailRepository _reservationDetailRepository;
         
-        public ReservationFactory(IWorkerRepository workerRepository, ISaucerRepository saucerRepository, IDealerRepository dealerRepository, IReservationRepository reservationRepository, ISaucerConfigurationRepository saucerConfigurationRepository, IIngredientRepository ingredientRepository)
+        public ReservationFactory(IWorkerRepository workerRepository, ISaucerRepository saucerRepository, IDealerRepository dealerRepository, IReservationRepository reservationRepository, IIngredientRepository ingredientRepository, IReservationDetailRepository reservationDetailRepository)
         {
             _workerRepository = workerRepository;
             _saucerRepository = saucerRepository;
             _dealerRepository = dealerRepository;
             _reservationRepository = reservationRepository;
-            _saucerConfigurationRepository = saucerConfigurationRepository;
             _ingredientRepository = ingredientRepository;
+            _reservationDetailRepository = reservationDetailRepository;
         }
 
         public ReservationResponse Execute(Reservation reservation)
@@ -72,41 +72,43 @@ namespace FoodManager.Services.Factories.Implements
 
         public ReservationReportResponse Execute(ReservationReportRequest reservationReportRequest)
         {
-            var reservationReport = new ReservationReportResponse();
-            var reservations = _reservationRepository.FindBy(
-                    reservation => reservation.WorkerId == reservationReportRequest.WorkerId &&
+            var reservations = _reservationRepository.FindBy(reservation => 
+                                   reservation.WorkerId == reservationReportRequest.WorkerId &&
                                    reservation.Date == reservationReportRequest.Date.DateStringToDateTime() &&
-                                   reservation.Status);
-            var breakfasts = reservations.Where(reservation => reservation.MealType == MealType.Breakfast.GetValue());
-            var lunchs = reservations.Where(reservation => reservation.MealType == MealType.Lunch.GetValue());
-            var dinners = reservations.Where(reservation => reservation.MealType == MealType.Dinner.GetValue());
+                                   reservation.Status).ToList();
+
+            var breakfastReservations = reservations.Where(reservation => reservation.MealType == MealType.Breakfast.GetValue());
+            var lunchReservations = reservations.Where(reservation => reservation.MealType == MealType.Lunch.GetValue());
+            var dinnerReservations = reservations.Where(reservation => reservation.MealType == MealType.Dinner.GetValue());
       
-            var saucerConfigurations = _saucerConfigurationRepository.FindBy(saucerConfiguration => saucerConfiguration.Status);
+            var reservationDetails = _reservationDetailRepository.FindBy(saucerConfiguration => saucerConfiguration.Status);
             var ingredients = _ingredientRepository.FindBy(ingredient => ingredient.Status);
 
-            breakfasts.ForEach(breakfast => {
-                reservationReport.Breakfast += GetTotalCaloriesBySaucer(breakfast.SaucerId, saucerConfigurations, ingredients);
-            });
-
-            lunchs.ForEach(lunch => {
-                reservationReport.Lunch += GetTotalCaloriesBySaucer(lunch.SaucerId, saucerConfigurations, ingredients);
-            });
-
-            dinners.ForEach(dinner => {
-                reservationReport.Dinner += GetTotalCaloriesBySaucer(dinner.SaucerId, saucerConfigurations, ingredients);
-            });
+            var reservationReport = new ReservationReportResponse();
+            breakfastReservations.ForEach(reservation => 
+                                {
+                                    reservationReport.Breakfast += GetTotalCaloriesByReservation(reservation.Id, reservationDetails, ingredients);
+                                });
+            lunchReservations.ForEach(reservation => 
+                                {
+                                    reservationReport.Lunch += GetTotalCaloriesByReservation(reservation.Id, reservationDetails, ingredients);
+                                });
+            dinnerReservations.ForEach(reservation => 
+                                {
+                                    reservationReport.Dinner += GetTotalCaloriesByReservation(reservation.Id, reservationDetails, ingredients);
+                                });
 
             return reservationReport;
         }
 
-        private decimal GetTotalCaloriesBySaucer(int saucerId, IEnumerable<SaucerConfiguration> allSaucerConfigurations, IEnumerable<Ingredient> allIngredients)
+        private decimal GetTotalCaloriesByReservation(int reservationId, IEnumerable<ReservationDetail> allReservationDetails, IEnumerable<Ingredient> allIngredients)
         {
             decimal totalCalories = 0;
-            var saucerConfigurations = allSaucerConfigurations.Where(saucerConfiguration => saucerConfiguration.SaucerId == saucerId);
-            saucerConfigurations.ForEach(saucerConfiguration =>
+            var reservationDetails = allReservationDetails.Where(reservationDetail => reservationDetail.ReservationId == reservationId);
+            reservationDetails.ForEach(reservationDetail =>
             {
-                var ingredient = allIngredients.First(ingredientModel => ingredientModel.Id == saucerConfiguration.IngredientId);
-                var netWeightConfiguration = saucerConfiguration.NetWeight;
+                var ingredient = allIngredients.First(ingredientModel => ingredientModel.Id == reservationDetail.IngredientId);
+                var netWeightConfiguration = reservationDetail.NetWeight;
                 totalCalories += (ingredient.Energy / ingredient.NetWeight) * netWeightConfiguration;
             });
 

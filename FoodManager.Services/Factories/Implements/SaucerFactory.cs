@@ -80,7 +80,6 @@ namespace FoodManager.Services.Factories.Implements
             var saucers = _saucerRepository.FindBy(saucer => saucer.IsActive);
             var saucerIds = saucers.Where(saucer => saucer.Type == SaucerType.Main.GetValue()).Select(saucer => saucer.Id);
             var reservations = _reservationRepository.FindBy(reservation => reservation.IsActive && saucerIds.Contains(reservation.SaucerId));
-            //var mainReservations = reservations.Where(reservation => saucerIds.Contains(reservation.SaucerId));
             var reservationsGroup = reservations.GroupBy(reservation => reservation.SaucerId);
 
             var saucersTop = reservationsGroup.Select(reservationGroup => new SaucerTopReportResponse
