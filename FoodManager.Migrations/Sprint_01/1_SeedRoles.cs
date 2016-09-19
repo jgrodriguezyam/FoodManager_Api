@@ -214,7 +214,8 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + AccessLevelType.ChangeStatus.GetValue() + ", '" + AccessLevelType.ChangeStatus + "', 'Actualizar Estado')," +
                         "(" + AccessLevelType.Assign.GetValue() + ", '" + AccessLevelType.Assign + "', 'Asignar')," +
                         "(" + AccessLevelType.Unassign.GetValue() + ", '" + AccessLevelType.Unassign + "', 'Desasignar')," +
-                        "(" + AccessLevelType.ChangePassword.GetValue() + ", '" + AccessLevelType.ChangePassword + "', 'Actualizar Contraseña')");
+                        "(" + AccessLevelType.ChangePassword.GetValue() + ", '" + AccessLevelType.ChangePassword + "', 'Actualizar Contraseña')," +
+                        "(" + AccessLevelType.Report.GetValue() + ", '" + AccessLevelType.Report + "', 'Reportes')");
         }
 
         private void InsertPermission()
@@ -272,6 +273,7 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + PermissionType.Worker.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.Worker.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
                         "(" + PermissionType.Worker.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
+                        "(" + PermissionType.Worker.GetValue() + ", " + AccessLevelType.Report.GetValue() + ")," +
 
                         "(" + PermissionType.Region.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.Region.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
@@ -340,6 +342,7 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
                         "(" + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
                         "(" + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
+                        "(" + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Report.GetValue() + ")," +
 
                         "(" + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.Post.GetValue() + ")," +
                         "(" + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
@@ -369,7 +372,8 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Put.GetValue() + ")," +
                         "(" + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Get.GetValue() + ")," +
                         "(" + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ")," +
-                        "(" + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")");
+                        "(" + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ")," +
+                        "(" + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Report.GetValue() + ")");
         }
 
         private void InsertAdminRoleConfiguration()
@@ -400,6 +404,7 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Worker.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Worker.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Worker.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Worker.GetValue() + ", " + AccessLevelType.Report.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Region.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Region.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
@@ -468,6 +473,7 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Report.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
 
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
@@ -497,7 +503,8 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")");
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.ChangeStatus.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.AdminRoleId + ", " + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Report.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")");
         }
 
         private void InsertDealerRoleConfiguration()
@@ -521,7 +528,8 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Menu.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         
                         "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        
+                        "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Report.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+
                         "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         
                         "(" + GlobalConstants.DealerRoleId + ", " + PermissionType.SaucerConfiguration.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
@@ -571,7 +579,8 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + GlobalConstants.WorkerRoleId + ", " + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Post.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.WorkerRoleId + ", " + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Put.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         "(" + GlobalConstants.WorkerRoleId + ", " + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "(" + GlobalConstants.WorkerRoleId + ", " + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")");
+                        "(" + GlobalConstants.WorkerRoleId + ", " + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Delete.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "(" + GlobalConstants.WorkerRoleId + ", " + PermissionType.Reservation.GetValue() + ", " + AccessLevelType.Report.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")");
         }
 
         private void InsertDoctorRoleConfiguration()
@@ -610,7 +619,8 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.User.GetValue() + ", " + AccessLevelType.ChangePassword.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         
                         "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.Worker.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        
+                        "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.Worker.GetValue() + ", " + AccessLevelType.Report.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+
                         "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.Branch.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         
                         "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.Dealer.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
@@ -618,7 +628,8 @@ namespace FoodManager.Migrations.Sprint_01
                         "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.Menu.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         
                         "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        
+                        "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.Saucer.GetValue() + ", " + AccessLevelType.Report.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+
                         "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.SaucerMultimedia.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
                         
                         "(" + GlobalConstants.NutritionistRoleId + ", " + PermissionType.SaucerConfiguration.GetValue() + ", " + AccessLevelType.Get.GetValue() + ", " + GlobalConstants.CreatedBySystemUser + ")," +
