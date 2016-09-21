@@ -92,5 +92,14 @@ namespace FoodManager.Infrastructure.Exceptions
             if (objectValue.IsNull())
                 ThrowCustomException(HttpStatusCode.NotFound, "Registro no encontrado");
         }
+
+        public static void ThrowCustomException(HttpStatusCode httpStatusCode, int code, string message)
+        {
+            throw new HttpResponseException(new HttpResponseMessage
+            {
+                StatusCode = httpStatusCode,
+                Content = new StringContent("{\"ErrorCode\": " + code + ",\"Message\": \"" + message + "\"}", Encoding.Default, "application/json")
+            });
+        }
     }
 }

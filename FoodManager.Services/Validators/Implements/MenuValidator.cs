@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using FluentValidation;
 using FluentValidation.Results;
+using FoodManager.Infrastructure.Collections;
 using FoodManager.Infrastructure.Constants;
 using FoodManager.Infrastructure.Dates.Enums;
 using FoodManager.Infrastructure.Enums;
+using FoodManager.Infrastructure.Exceptions;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Infrastructure.Objects;
 using FoodManager.Infrastructure.Validators;
+using FoodManager.Infrastructure.Validators.Enums;
 using FoodManager.Model;
 using FoodManager.Model.Enums;
 using FoodManager.Model.IRepositories;
@@ -42,12 +46,12 @@ namespace FoodManager.Services.Validators.Implements
 
             RuleSet("Create", () =>
             {
-                Custom(TodayValidate);
+                Custom(CreateValidate);
             });
 
             RuleSet("Update", () =>
             {
-                Custom(EditStartDateValidate);
+                Custom(EditValidate);
             });
         }
 
@@ -77,10 +81,32 @@ namespace FoodManager.Services.Validators.Implements
             if (dayWeek.IsNull())
                 return new ValidationFailure("Menu", "El dia de la semana no existe");
 
+            if (menu.StartDate.IsNull() || menu.EndDate.IsNull())
+                ExceptionExtensions.ThrowCustomException(HttpStatusCode.Conflict, CodeValidator.InvalidDate.GetValue(), "Fecha null");
+
+            var menus = _menuRepository.FindBy(currentMenu => currentMenu.DealerId == menu.DealerId && currentMenu.SaucerId == menu.SaucerId && currentMenu.Id != menu.Id && currentMenu.IsActive);
+            var menusInvalidStartDate = menus.Where(currentMenu => currentMenu.StartDate <= menu.StartDate && currentMenu.EndDate >= menu.StartDate);
+            var menusInvalidEndDate = menus.Where(currentMenu => currentMenu.StartDate <= menu.EndDate && currentMenu.EndDate >= menu.EndDate);
+
+            if (menusInvalidStartDate.IsNotEmpty())
+                ExceptionExtensions.ThrowCustomException(HttpStatusCode.Conflict, CodeValidator.InvalidDate.GetValue(), "Fecha de inicio se encuentra entre otro menu");
+
+            if (menusInvalidEndDate.IsNotEmpty())
+                ExceptionExtensions.ThrowCustomException(HttpStatusCode.Conflict, CodeValidator.InvalidDate.GetValue(), "Fecha de fin se encuentra entre otro menu");
+
+            var menusInvalidCurrentStartDate = menus.Where(currentMenu => currentMenu.StartDate >= menu.StartDate && currentMenu.StartDate <= menu.EndDate);
+            var menusInvalidCurrentEndtDate = menus.Where(currentMenu => currentMenu.EndDate >= menu.StartDate && currentMenu.EndDate <= menu.EndDate);
+
+            if (menusInvalidCurrentStartDate.IsNotEmpty())
+                ExceptionExtensions.ThrowCustomException(HttpStatusCode.Conflict, CodeValidator.InvalidDate.GetValue(), "Las fechas se encuentra entre otro menu");
+
+            if (menusInvalidCurrentEndtDate.IsNotEmpty())
+                ExceptionExtensions.ThrowCustomException(HttpStatusCode.Conflict, CodeValidator.InvalidDate.GetValue(), "Las fechas se encuentra entre otro menu");
+            
             return null;
         }
 
-        public ValidationFailure TodayValidate(Menu menu, ValidationContext<Menu> context)
+        public ValidationFailure CreateValidate(Menu menu, ValidationContext<Menu> context)
         {
             if (menu.StartDate.Date < _today.Date)
                 return new ValidationFailure("Menu", "La fecha de inicio es menor a fecha de hoy");
@@ -88,7 +114,7 @@ namespace FoodManager.Services.Validators.Implements
             return null;
         }
 
-        public ValidationFailure EditStartDateValidate(Menu menu, ValidationContext<Menu> context)
+        public ValidationFailure EditValidate(Menu menu, ValidationContext<Menu> context)
         {
             var currentMenu = _menuRepository.FindBy(menu.Id);
             if (menu.StartDate.Date < _today.Date && currentMenu.StartDate.Date != menu.StartDate.Date)

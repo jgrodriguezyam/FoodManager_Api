@@ -100,6 +100,7 @@
     <Compile Include="Http\HttpContextAccess.cs" />
     <Compile Include="Roles\AccessLevelType.cs" />
     <Compile Include="Roles\PermissionType.cs" />
+    <Compile Include="Validators\Enums\CodeValidator.cs" />
     <Compile Include="Validators\Enums\DisableValidatorHmac.cs" />
     <Compile Include="Hmac\HmacGenerator.cs" />
     <Compile Include="IGenericQuery\IQuery.cs" />
