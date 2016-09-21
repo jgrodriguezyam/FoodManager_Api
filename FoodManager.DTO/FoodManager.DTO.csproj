@@ -127,6 +127,7 @@
     <Compile Include="Message\Reservations\FindReservationsRequest.cs" />
     <Compile Include="Message\Reservations\FindReservationsResponse.cs" />
     <Compile Include="Message\Reservations\GetReservationRequest.cs" />
+    <Compile Include="Message\Reservations\ReservationCaloryReportResponse.cs" />
     <Compile Include="Message\Reservations\ReservationReportRequest.cs" />
     <Compile Include="Message\Reservations\ReservationReportResponse.cs" />
     <Compile Include="Message\Reservations\ReservationRequest.cs" />

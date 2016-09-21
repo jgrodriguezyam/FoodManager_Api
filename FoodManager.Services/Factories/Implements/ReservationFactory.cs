@@ -72,31 +72,43 @@ namespace FoodManager.Services.Factories.Implements
 
         public ReservationReportResponse Execute(ReservationReportRequest reservationReportRequest)
         {
-            var reservations = _reservationRepository.FindBy(reservation => 
-                                   reservation.WorkerId == reservationReportRequest.WorkerId &&
-                                   reservation.Date == reservationReportRequest.Date.DateStringToDateTime() &&
-                                   reservation.Status).ToList();
-
-            var breakfastReservations = reservations.Where(reservation => reservation.MealType == MealType.Breakfast.GetValue());
-            var lunchReservations = reservations.Where(reservation => reservation.MealType == MealType.Lunch.GetValue());
-            var dinnerReservations = reservations.Where(reservation => reservation.MealType == MealType.Dinner.GetValue());
-      
+            var reservations = _reservationRepository.FindBy(reservation =>
+                                                             reservation.WorkerId == reservationReportRequest.WorkerId &&
+                                                             reservation.Date >= reservationReportRequest.StarDate.DateStringToDateTime() &&
+                                                             reservation.Date <= reservationReportRequest.EndDate.DateStringToDateTime() &&
+                                                             reservation.Status).ToList();
+            var dates = reservations.GroupBy(reservation => reservation.Date);
             var reservationDetails = _reservationDetailRepository.FindBy(saucerConfiguration => saucerConfiguration.Status);
             var ingredients = _ingredientRepository.FindBy(ingredient => ingredient.Status);
-
             var reservationReport = new ReservationReportResponse();
-            breakfastReservations.ForEach(reservation => 
-                                {
-                                    reservationReport.Breakfast += GetTotalCaloriesByReservation(reservation.Id, reservationDetails, ingredients);
-                                });
-            lunchReservations.ForEach(reservation => 
-                                {
-                                    reservationReport.Lunch += GetTotalCaloriesByReservation(reservation.Id, reservationDetails, ingredients);
-                                });
-            dinnerReservations.ForEach(reservation => 
-                                {
-                                    reservationReport.Dinner += GetTotalCaloriesByReservation(reservation.Id, reservationDetails, ingredients);
-                                });
+
+            dates.ForEach(date =>
+            {
+                var reservationsByDate = reservations.Where(reservation => reservation.Date == date.Key).ToList();
+                var breakfastReservations = reservationsByDate.Where(reservation => reservation.MealType == MealType.Breakfast.GetValue());
+                var lunchReservations = reservationsByDate.Where(reservation => reservation.MealType == MealType.Lunch.GetValue());
+                var dinnerReservations = reservationsByDate.Where(reservation => reservation.MealType == MealType.Dinner.GetValue());
+
+                var reservationCaloryReport = new ReservationCaloryReportResponse();
+                reservationCaloryReport.Date = date.Key.ToDateString();
+                breakfastReservations.ForEach(reservation =>
+                {
+                    reservationCaloryReport.Breakfast += GetTotalCaloriesByReservation(reservation.Id, reservationDetails,
+                        ingredients);
+                });
+                lunchReservations.ForEach(reservation =>
+                {
+                    reservationCaloryReport.Lunch += GetTotalCaloriesByReservation(reservation.Id, reservationDetails,
+                        ingredients);
+                });
+                dinnerReservations.ForEach(reservation =>
+                {
+                    reservationCaloryReport.Dinner += GetTotalCaloriesByReservation(reservation.Id, reservationDetails,
+                        ingredients);
+                });
+
+                reservationReport.Calories.Add(reservationCaloryReport);
+            });
 
             return reservationReport;
         }
