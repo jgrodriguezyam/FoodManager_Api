@@ -78,7 +78,7 @@ namespace FoodManager.Services.Factories.Implements
             var workersTop = workersGroup.Select(workerGroup => new WorkerTopReportResponse
                             {
                                 WorkerId = workerGroup.Key,
-                                ReservationCount = workerGroup.Count()
+                                ReservationCount = reservations.Where(reservation => reservation.WorkerId == workerGroup.Key).GroupBy(reservation => reservation.Date).Count()
                             })
                             .OrderByDescending(workerTop => workerTop.ReservationCount).Take(_workerTop).ToList();
 

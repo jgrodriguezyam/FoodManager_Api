@@ -74,7 +74,7 @@ namespace FoodManager.Services.Factories.Implements
         {
             var reservations = _reservationRepository.FindBy(reservation =>
                                                              reservation.WorkerId == reservationReportRequest.WorkerId &&
-                                                             reservation.Date >= reservationReportRequest.StarDate.DateStringToDateTime() &&
+                                                             reservation.Date >= reservationReportRequest.StartDate.DateStringToDateTime() &&
                                                              reservation.Date <= reservationReportRequest.EndDate.DateStringToDateTime() &&
                                                              reservation.Status).ToList();
             var dates = reservations.GroupBy(reservation => reservation.Date);
