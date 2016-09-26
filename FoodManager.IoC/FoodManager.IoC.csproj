@@ -111,6 +111,10 @@
       <Project>{B4824622-D0A2-4334-BC33-0F8FB3C75521}</Project>
       <Name>FoodManager.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FoodManager.SoapService\FoodManager.SoapService.csproj">
+      <Project>{F8BE77AB-CCAE-48B7-85EB-617D4BBE7EB4}</Project>
+      <Name>FoodManager.SoapService</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -201,6 +201,10 @@
       <Project>{65E92C10-BFA4-42C3-AFE7-AD12023F1DB6}</Project>
       <Name>FoodManager.Queries</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FoodManager.SoapService\FoodManager.SoapService.csproj">
+      <Project>{F8BE77AB-CCAE-48B7-85EB-617D4BBE7EB4}</Project>
+      <Name>FoodManager.SoapService</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

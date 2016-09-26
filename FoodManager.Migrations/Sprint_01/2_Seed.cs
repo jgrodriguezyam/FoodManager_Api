@@ -44,7 +44,7 @@ namespace FoodManager.Migrations.Sprint_01
             Create.Table("Branch").InSchema("dbo")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(250).NotNullable()
-                .WithColumn("Code").AsString(250).NotNullable()
+                .WithColumn("Code").AsString(250).Unique().NotNullable()
                 .WithColumn("RegionId").AsInt32().NotNullable()
                 .WithColumn("CompanyId").AsInt32().NotNullable()
                 
@@ -85,7 +85,7 @@ namespace FoodManager.Migrations.Sprint_01
             Create.Table("Disease").InSchema("dbo")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(250).NotNullable()
-                .WithColumn("Code").AsString(250).NotNullable()
+                .WithColumn("Code").AsString(250).Unique().NotNullable()
 
                 .WithColumn("CreatedBy").AsInt32().NotNullable()
                 .WithColumn("ModifiedBy").AsInt32().NotNullable()
@@ -101,7 +101,7 @@ namespace FoodManager.Migrations.Sprint_01
             Create.Table("Warning").InSchema("dbo")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(250).NotNullable()
-                .WithColumn("Code").AsString(250).NotNullable()
+                .WithColumn("Code").AsString(250).Unique().NotNullable()
                 .WithColumn("DiseaseId").AsInt32().NotNullable()
 
                 .WithColumn("CreatedBy").AsInt32().NotNullable()
@@ -319,10 +319,10 @@ namespace FoodManager.Migrations.Sprint_01
 
             Create.Table("Worker").InSchema("dbo")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("Code").AsString(250).NotNullable()
+                .WithColumn("Code").AsString(250).Unique().NotNullable()
                 .WithColumn("FirstName").AsString(250).NotNullable()
                 .WithColumn("LastName").AsString(250).NotNullable()
-                .WithColumn("Email").AsString(250).Unique().NotNullable()
+                .WithColumn("Email").AsString(250).Nullable()
                 .WithColumn("Imss").AsString(250).Unique().NotNullable()
                 .WithColumn("Gender").AsInt32().NotNullable()
                 .WithColumn("Badge").AsString(250).Unique().NotNullable()
@@ -595,19 +595,23 @@ namespace FoodManager.Migrations.Sprint_01
         {
             Execute.Sql("INSERT INTO Region (Name, "+ GlobalConstants.AuditFields + ") VALUES " +
                         "('Yucatan', " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "('Campeche', " + GlobalConstants.CreatedBySystemUser + ")");
+                        "('Tabasco', " + GlobalConstants.CreatedBySystemUser + ")");
 
             Execute.Sql("INSERT INTO Company (Name, " + GlobalConstants.AuditFields + ") VALUES " +
-                        "('Bepensa Industria', " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "('Bepensa Bebidas', " + GlobalConstants.CreatedBySystemUser + ")");
+                        "('EmBe', " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "('Capsa', " + GlobalConstants.CreatedBySystemUser + ")");
 
             Execute.Sql("INSERT INTO Branch (Name, Code, RegionId, CompanyId, " + GlobalConstants.AuditFields + ") VALUES " +
-                        "('Opesystem', 'CODE1', 1, 1, " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "('Finbe', 'CODE2', 1, 1, " + GlobalConstants.CreatedBySystemUser + ")");
+                        "('CORPORATIVO 3', '95', 1, 1, " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "('TIZIMIN', '11', 1, 1, " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "('VILLAHERMOSA', '79', 2, 1, " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "('PACABTUN VENTAS', '104', 1, 1, " + GlobalConstants.CreatedBySystemUser + ")");
 
             Execute.Sql("INSERT INTO Department (Name, " + GlobalConstants.AuditFields + ") VALUES " +
-                        "('Desarrollo', " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "('HelpDesk', " + GlobalConstants.CreatedBySystemUser + ")");
+                        "('AD Administracion y Finanzas', " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "('CO Ventas', " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "('CO Administracion', " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "('CO Cuentas clave y CM ejecució', " + GlobalConstants.CreatedBySystemUser + ")");
 
             Execute.Sql("INSERT INTO [User] (Name, UserName, Password, RoleId, " + GlobalConstants.AuditFields + ") VALUES " +
                         "('" + GlobalConstants.AdminUserName + "', '" + GlobalConstants.AdminUserName + "', '" + Cryptography.Encrypt(GlobalConstants.AdminPassword) + "', "+ GlobalConstants.AdminRoleId + ", " + GlobalConstants.CreatedBySystemUser + ")");
@@ -621,8 +625,10 @@ namespace FoodManager.Migrations.Sprint_01
                         "('Cuidado con tu alimentacion', 'CODE2', 1, " + GlobalConstants.CreatedBySystemUser + ")");
 
             Execute.Sql("INSERT INTO Job (Name, " + GlobalConstants.AuditFields + ") VALUES " +
-                        "('Secretaria', " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "('Programador', " + GlobalConstants.CreatedBySystemUser + ")");
+                        "('ADMINISTRACION PROYECTOS ADMON', " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "('VENDEDOR AGUA HOGAR', " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "('ENCARGADO DE CARTERA', " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "('GESTION DE AUTOSERVICIOS', " + GlobalConstants.CreatedBySystemUser + ")");
 
             Execute.Sql("INSERT INTO Dealer (Name, " + GlobalConstants.AuditFields + ") VALUES " +
                         "('Areca', " + GlobalConstants.CreatedBySystemUser + ")," +
@@ -631,8 +637,8 @@ namespace FoodManager.Migrations.Sprint_01
             Execute.Sql("INSERT INTO BranchDealer (BranchId, DealerId) VALUES (1,1), (1,2)");
 
             Execute.Sql("INSERT INTO Worker (Code, FirstName, LastName, Email, Imss, Gender, Badge, DepartmentId, JobId, BranchId, RoleId, " + GlobalConstants.AuditFields + ") VALUES " +
-                        "('1122', 'Juan', 'Martinez', 'juan@gmail.com', 'WV12H78', 1, '010107002113774', 1, 1, 1, " + GlobalConstants.WorkerRoleId + ", " + GlobalConstants.CreatedBySystemUser + ")," +
-                        "('3344', 'Luis', 'Hernandez', 'luis@gmail.com', 'kV34H23', 1, '010107002112355', 1, 1, 1, " + GlobalConstants.WorkerRoleId + ", " + GlobalConstants.CreatedBySystemUser + ")");
+                        "('10987', 'GABRIELA MAGDALENA', 'TUN CHALE', '', '84-06-86-1123-9', 2, '010000951098776', 1, 1, 1, " + GlobalConstants.WorkerRoleId + ", " + GlobalConstants.CreatedBySystemUser + ")," +
+                        "('10996', 'CARLOS FRANCISCO', 'CHAN CHI', '', '84-10-91-2141-2', 1, '010000111099616', 2, 2, 1, " + GlobalConstants.WorkerRoleId + ", " + GlobalConstants.CreatedBySystemUser + ")");
         }
     }
 }

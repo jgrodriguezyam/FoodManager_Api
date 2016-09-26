@@ -12,6 +12,7 @@ using FoodManager.Queries.Workers;
 using FoodManager.Services.Factories.Interfaces;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Interfaces;
+using FoodManager.SoapService.Interfaces;
 
 namespace FoodManager.Services.Implements
 {
@@ -22,14 +23,16 @@ namespace FoodManager.Services.Implements
         private readonly IWorkerValidator _workerValidator;
         private readonly IWorkerFactory _workerFactory;
         private readonly IWorkerSession _workerSession;
+        private readonly IWorkerSoapRepository _workerSoapRepository;
 
-        public WorkerService(IWorkerQuery workerQuery, IWorkerRepository workerRepository, IWorkerValidator workerValidator, IWorkerFactory workerFactory, IWorkerSession workerSession)
+        public WorkerService(IWorkerQuery workerQuery, IWorkerRepository workerRepository, IWorkerValidator workerValidator, IWorkerFactory workerFactory, IWorkerSession workerSession, IWorkerSoapRepository workerSoapRepository)
         {
             _workerQuery = workerQuery;
             _workerRepository = workerRepository;
             _workerValidator = workerValidator;
             _workerFactory = workerFactory;
             _workerSession = workerSession;
+            _workerSoapRepository = workerSoapRepository;
         }
 
         public FindWorkersResponse Find(FindWorkersRequest request)
@@ -133,6 +136,7 @@ namespace FoodManager.Services.Implements
         {
             try
             {
+                _workerSoapRepository.GetByBadge(request.Badge);
                 var workerToUpdate = _workerRepository.FindBy(worker => worker.Badge == request.Badge).FirstOrDefault();
                 workerToUpdate.ThrowExceptionIfIsNull(HttpStatusCode.Unauthorized, "Credenciales invalidas");
                 workerToUpdate.Login();

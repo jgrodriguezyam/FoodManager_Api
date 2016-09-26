@@ -35,6 +35,8 @@ using FoodManager.Services.Implements;
 using FoodManager.Services.Interfaces;
 using FoodManager.Services.Validators.Implements;
 using FoodManager.Services.Validators.Interfaces;
+using FoodManager.SoapService.Implements;
+using FoodManager.SoapService.Interfaces;
 using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.SqlServer;
 using SimpleInjector;
@@ -176,6 +178,7 @@ namespace FoodManager.IoC.Configs
             _container.Register<IWorkerValidator, WorkerValidator>();
             _container.Register<IWorkerService, WorkerService>();
             _container.Register<IWorkerFactory, WorkerFactory>();
+            _container.Register<IWorkerSoapRepository, WorkerSoapRepository>();
 
             _container.Register<IMenuRepository, MenuRepositoryOrmLite>();
             _container.Register<IMenuQuery, MenuQuery>();
