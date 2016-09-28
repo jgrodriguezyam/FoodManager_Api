@@ -40,11 +40,11 @@ namespace FoodManager.SoapService.Implements
                 if (workerModelImss.IsNotNull())
                 {
                     workerModelImss.Badge = workerMySpace.Badge;
-                    _workerRepository.Update(workerModelImss);
+                    _workerRepository.UpdateForSystem(workerModelImss);
                 }
                 else
                 {
-                    _workerRepository.Add(workerMySpace);
+                    _workerRepository.AddForSystem(workerMySpace);
                 }
             }
         }

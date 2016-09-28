@@ -38,6 +38,18 @@ namespace FoodManager.DataAccess.Listeners
                 SetAudit(entity, EventType.Delete);
         }
 
+        public void OnPreInsertForSystem(object entity)
+        {
+            if (entity is IAuditInfo)
+                SetAuditForSystem(entity, EventType.Create);
+        }
+
+        public void OnPreUpdateForSystem(object entity)
+        {
+            if (entity is IAuditInfo)
+                SetAuditForSystem(entity, EventType.Update);
+        }
+
         private void SetAudit(object entity, EventType eventType)
         {
             var publicKey = HttpContextAccess.GetPublicKey();
@@ -51,6 +63,17 @@ namespace FoodManager.DataAccess.Listeners
                 id = _workerSession.FindWorkerByPublicKey(publicKey).Id;
 
             //const int id = 1;
+            SetAuditToEntity(entity, eventType, id);
+        }
+
+        private void SetAuditForSystem(object entity, EventType eventType)
+        {
+            var id = GlobalConstants.SystemUserId;
+            SetAuditToEntity(entity, eventType, id);
+        }
+
+        private void SetAuditToEntity(object entity, EventType eventType, int id)
+        {
             var entityToAudit = entity as IAuditInfo;
             var today = DateTime.Now.ToDateTimeString().DateTimeStringToDateTime();
 

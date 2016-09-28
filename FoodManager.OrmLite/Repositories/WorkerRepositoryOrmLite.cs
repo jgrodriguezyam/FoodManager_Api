@@ -53,5 +53,17 @@ namespace FoodManager.OrmLite.Repositories
             var amountOfReferences = _dataBaseSqlServerOrmLite.Count<Reservation>(reservation => reservation.WorkerId == workerId && reservation.IsActive);
             return amountOfReferences.IsNotZero();
         }
+
+        public void AddForSystem(Worker worker)
+        {
+            _auditEventListener.OnPreInsertForSystem(worker);
+            _dataBaseSqlServerOrmLite.Insert(worker);
+        }
+
+        public void UpdateForSystem(Worker worker)
+        {
+            _auditEventListener.OnPreUpdateForSystem(worker);
+            _dataBaseSqlServerOrmLite.Update(worker);
+        }
     }
 }
