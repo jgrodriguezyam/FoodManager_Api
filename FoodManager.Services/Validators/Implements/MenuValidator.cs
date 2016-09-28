@@ -89,19 +89,19 @@ namespace FoodManager.Services.Validators.Implements
             var menusInvalidEndDate = menus.Where(currentMenu => currentMenu.StartDate <= menu.EndDate && currentMenu.EndDate >= menu.EndDate);
 
             if (menusInvalidStartDate.IsNotEmpty())
-                ExceptionExtensions.ThrowCustomException(HttpStatusCode.Conflict, CodeValidator.InvalidDate.GetValue(), "Fecha de inicio se encuentra entre otro menu");
+                ExceptionExtensions.ThrowCustomException(HttpStatusCode.Conflict, CodeValidator.InvalidDate.GetValue(), "La fecha de inicio del platillo ya está siendo utilizado en otro menu");
 
             if (menusInvalidEndDate.IsNotEmpty())
-                ExceptionExtensions.ThrowCustomException(HttpStatusCode.Conflict, CodeValidator.InvalidDate.GetValue(), "Fecha de fin se encuentra entre otro menu");
+                ExceptionExtensions.ThrowCustomException(HttpStatusCode.Conflict, CodeValidator.InvalidDate.GetValue(), "La fecha final del platillo ya está siendo utilizado en otro menu");
 
             var menusInvalidCurrentStartDate = menus.Where(currentMenu => currentMenu.StartDate >= menu.StartDate && currentMenu.StartDate <= menu.EndDate);
             var menusInvalidCurrentEndtDate = menus.Where(currentMenu => currentMenu.EndDate >= menu.StartDate && currentMenu.EndDate <= menu.EndDate);
 
             if (menusInvalidCurrentStartDate.IsNotEmpty())
-                ExceptionExtensions.ThrowCustomException(HttpStatusCode.Conflict, CodeValidator.InvalidDate.GetValue(), "Las fechas se encuentra entre otro menu");
+                ExceptionExtensions.ThrowCustomException(HttpStatusCode.Conflict, CodeValidator.InvalidDate.GetValue(), "La configuración del platillo ya está siendo utilizado en otro menu");
 
             if (menusInvalidCurrentEndtDate.IsNotEmpty())
-                ExceptionExtensions.ThrowCustomException(HttpStatusCode.Conflict, CodeValidator.InvalidDate.GetValue(), "Las fechas se encuentra entre otro menu");
+                ExceptionExtensions.ThrowCustomException(HttpStatusCode.Conflict, CodeValidator.InvalidDate.GetValue(), "La configuración del platillo ya está siendo utilizado en otro menu");
             
             return null;
         }
