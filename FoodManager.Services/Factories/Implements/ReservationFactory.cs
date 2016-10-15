@@ -6,6 +6,7 @@ using FoodManager.DTO.Message.Reservations;
 using FoodManager.DTO.Message.Saucers;
 using FoodManager.DTO.Message.Workers;
 using FoodManager.Infrastructure.Dates;
+using FoodManager.Infrastructure.Decimals;
 using FoodManager.Infrastructure.Enums;
 using FoodManager.Infrastructure.Integers;
 using FoodManager.Model;
@@ -107,7 +108,8 @@ namespace FoodManager.Services.Factories.Implements
                         ingredients);
                 });
 
-                reservationReport.Calories.Add(reservationCaloryReport);
+                if (reservationCaloryReport.Breakfast.IsNotZero() && reservationCaloryReport.Lunch.IsNotZero() && reservationCaloryReport.Dinner.IsNotZero())
+                    reservationReport.Calories.Add(reservationCaloryReport);
             });
 
             return reservationReport;
