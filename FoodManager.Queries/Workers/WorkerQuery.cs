@@ -102,7 +102,7 @@ namespace FoodManager.Queries.Workers
                 var loginType = HttpContextAccess.GetLoginType();
                 var publicKey = HttpContextAccess.GetPublicKey();
                 var userSession = _userSession.FindUserByPublicKey(publicKey);
-                if (loginType.Value != LoginType.Worker.GetValue() && userSession.RoleId != GlobalConstants.AdminRoleId)
+                if (loginType.Value != LoginType.Worker.GetValue() && userSession.RoleId != GlobalConstants.AdminRoleId && userSession.RoleId != GlobalConstants.NutritionistRoleId)
                 {
                     var branchDealerQuery = new SqlServerExpressionVisitor<BranchDealer>();
                     branchDealerQuery.Where(branchDealer => branchDealer.DealerId == userSession.DealerId);
