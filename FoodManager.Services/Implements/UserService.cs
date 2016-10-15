@@ -131,6 +131,7 @@ namespace FoodManager.Services.Implements
                 var encryptPassword = Cryptography.Encrypt(request.Password);
                 var userToUpdate = _userRepository.FindBy(user => user.UserName == request.UserName && user.Password == encryptPassword).FirstOrDefault();
                 userToUpdate.ThrowExceptionIfIsNull(HttpStatusCode.Unauthorized, "Credenciales invalidas");
+                _userValidator.ValidateAndThrowException(userToUpdate, "LoginValidate");
                 userToUpdate.Login();
                 _userSession.UpdateHmacOfUser(userToUpdate);
 
