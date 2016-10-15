@@ -5,5 +5,6 @@ namespace FoodManager.DTO.Message.Users
     public class LoginUserResponse : LoginResponse
     {
         public int UserId { get; set; }
+        public int? DealerId { get; set; }
     }
 }

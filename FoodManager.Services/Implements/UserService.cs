@@ -137,7 +137,8 @@ namespace FoodManager.Services.Implements
                 return new LoginUserResponse
                 {
                     UserId = userToUpdate.Id,
-                    PublicKey = userToUpdate.PublicKey
+                    PublicKey = userToUpdate.PublicKey,
+                    DealerId = userToUpdate.DealerId
                 };
             }
             catch (DataAccessException)
