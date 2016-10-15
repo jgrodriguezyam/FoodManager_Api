@@ -84,7 +84,7 @@ namespace FoodManager.Services.Validators.Implements
             if (menu.StartDate.IsNull() || menu.EndDate.IsNull())
                 ExceptionExtensions.ThrowCustomException(HttpStatusCode.Conflict, CodeValidator.InvalidDate.GetValue(), "Fecha null");
 
-            var menus = _menuRepository.FindBy(currentMenu => currentMenu.DealerId == menu.DealerId && currentMenu.SaucerId == menu.SaucerId && currentMenu.Id != menu.Id && currentMenu.IsActive);
+            var menus = _menuRepository.FindBy(currentMenu => currentMenu.DealerId == menu.DealerId && currentMenu.SaucerId == menu.SaucerId && currentMenu.Id != menu.Id && currentMenu.MealType == menu.MealType && currentMenu.IsActive);
             var menusInvalidStartDate = menus.Where(currentMenu => currentMenu.StartDate <= menu.StartDate && currentMenu.EndDate >= menu.StartDate);
             var menusInvalidEndDate = menus.Where(currentMenu => currentMenu.StartDate <= menu.EndDate && currentMenu.EndDate >= menu.EndDate);
 
