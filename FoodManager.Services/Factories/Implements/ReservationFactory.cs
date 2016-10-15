@@ -108,7 +108,7 @@ namespace FoodManager.Services.Factories.Implements
                         ingredients);
                 });
 
-                if (reservationCaloryReport.Breakfast.IsNotZero() && reservationCaloryReport.Lunch.IsNotZero() && reservationCaloryReport.Dinner.IsNotZero())
+                if (reservationCaloryReport.Breakfast.IsNotZero() || reservationCaloryReport.Lunch.IsNotZero() || reservationCaloryReport.Dinner.IsNotZero())
                     reservationReport.Calories.Add(reservationCaloryReport);
             });
 
