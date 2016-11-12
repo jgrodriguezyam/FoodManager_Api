@@ -1,7 +1,5 @@
 C:\JGRY\Projects\FoodManager_Api\FoodManager.SoapService\bin\Release\FoodManager.SoapService.dll
 C:\JGRY\Projects\FoodManager_Api\FoodManager.SoapService\bin\Release\FoodManager.SoapService.pdb
-C:\JGRY\Projects\FoodManager_Api\FoodManager.SoapService\obj\Release\FoodManager.SoapService.dll
-C:\JGRY\Projects\FoodManager_Api\FoodManager.SoapService\obj\Release\FoodManager.SoapService.pdb
 C:\JGRY\Projects\FoodManager_Api\FoodManager.SoapService\bin\Release\FoodManager.Infrastructure.dll
 C:\JGRY\Projects\FoodManager_Api\FoodManager.SoapService\bin\Release\FoodManager.Model.dll
 C:\JGRY\Projects\FoodManager_Api\FoodManager.SoapService\bin\Release\FluentValidation.dll
@@ -31,3 +29,5 @@ C:\JGRY\Projects\FoodManager_Api\FoodManager.SoapService\bin\Release\ru\FluentVa
 C:\JGRY\Projects\FoodManager_Api\FoodManager.SoapService\bin\Release\sv\FluentValidation.resources.dll
 C:\JGRY\Projects\FoodManager_Api\FoodManager.SoapService\bin\Release\tr\FluentValidation.resources.dll
 C:\JGRY\Projects\FoodManager_Api\FoodManager.SoapService\obj\Release\FoodManager.SoapService.csprojResolveAssemblyReference.cache
+C:\JGRY\Projects\FoodManager_Api\FoodManager.SoapService\obj\Release\FoodManager.SoapService.dll
+C:\JGRY\Projects\FoodManager_Api\FoodManager.SoapService\obj\Release\FoodManager.SoapService.pdb

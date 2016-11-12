@@ -10,6 +10,7 @@
         public string Imss { get; set; }
         public int Gender { get; set; }
         public string Badge { get; set; }
+        public int LimitEnergy { get; set; }
         public int DepartmentId { get; set; }
         public int JobId { get; set; }
         public int RoleId { get; set; }

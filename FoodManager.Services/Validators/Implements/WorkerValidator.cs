@@ -36,6 +36,7 @@ namespace FoodManager.Services.Validators.Implements
                 RuleFor(worker => worker.Imss).NotNull().NotEmpty();
                 RuleFor(worker => worker.Gender).Must(gender => gender.IsNotZero()).WithMessage("Tienes que elegir un genero");
                 RuleFor(worker => worker.Badge).NotNull().NotEmpty();
+                RuleFor(worker => worker.LimitEnergy).Must(limitEnergy => limitEnergy.IsNotZero()).WithMessage("Tienes que elegir un limite de ingesta calorica");
                 RuleFor(worker => worker.DepartmentId).Must(departmentId => departmentId.IsNotZero()).WithMessage("Tienes que elegir un departamento");
                 RuleFor(worker => worker.JobId).Must(jobId => jobId.IsNotZero()).WithMessage("Tienes que elegir un puesto");
                 RuleFor(worker => worker.RoleId).Must(roleId => roleId.IsNotZero()).WithMessage("Tienes que elegir un rol");

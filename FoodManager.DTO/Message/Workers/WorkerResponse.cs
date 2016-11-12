@@ -15,6 +15,7 @@ namespace FoodManager.DTO.Message.Workers
         public string Imss { get; set; }
         public int Gender { get; set; }
         public string Badge { get; set; }
+        public int LimitEnergy { get; set; }
         public DepartmentResponse Department { get; set; }
         public JobResponse Job { get; set; }
         public RoleResponse Role { get; set; }
