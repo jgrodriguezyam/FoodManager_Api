@@ -9,6 +9,7 @@ using FoodManager.Infrastructure.Dates;
 using FoodManager.Infrastructure.Decimals;
 using FoodManager.Infrastructure.Enums;
 using FoodManager.Infrastructure.Integers;
+using FoodManager.Infrastructure.Strings;
 using FoodManager.Model;
 using FoodManager.Model.Enums;
 using FoodManager.Model.IRepositories;
@@ -73,11 +74,17 @@ namespace FoodManager.Services.Factories.Implements
 
         public ReservationReportResponse Execute(ReservationReportRequest reservationReportRequest)
         {
-            var reservations = _reservationRepository.FindBy(reservation =>
-                                                             reservation.WorkerId == reservationReportRequest.WorkerId &&
-                                                             reservation.Date >= reservationReportRequest.StartDate.DateStringToDateTime() &&
-                                                             reservation.Date <= reservationReportRequest.EndDate.DateStringToDateTime() &&
-                                                             reservation.Status).ToList();
+            var reservations = _reservationRepository.FindBy(reservation => reservation.Status);
+
+            if (reservationReportRequest.WorkerId.IsNotZero())
+                reservations = reservations.Where(reservation => reservation.WorkerId == reservationReportRequest.WorkerId);
+
+            if (reservationReportRequest.StartDate.IsNotNullOrEmpty())
+                reservations = reservations.Where(reservation => reservation.Date >= reservationReportRequest.StartDate.DateStringToDateTime());
+
+            if (reservationReportRequest.EndDate.IsNotNullOrEmpty())
+                reservations = reservations.Where(reservation => reservation.Date <= reservationReportRequest.EndDate.DateStringToDateTime());
+                
             var dates = reservations.GroupBy(reservation => reservation.Date);
             var reservationDetails = _reservationDetailRepository.FindBy(saucerConfiguration => saucerConfiguration.Status);
             var ingredients = _ingredientRepository.FindBy(ingredient => ingredient.Status);

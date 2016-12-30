@@ -51,5 +51,10 @@ namespace FoodManager.OrmLite.Repositories
             var reservationDetails = _reservationDetailRepository.FindBy(reservationDetail => reservationDetail.ReservationId == item.Id && reservationDetail.IsActive);
             reservationDetails.ForEach(reservationDetail => { _reservationDetailRepository.Remove(reservationDetail); });
         }
+
+        public IEnumerable<Reservation> FindAll()
+        {
+            return _dataBaseSqlServerOrmLite.FindAll<Reservation>();
+        }
     }
 }
