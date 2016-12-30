@@ -32,7 +32,6 @@ namespace FoodManager.Services.Validators.Implements
                 RuleFor(worker => worker.Code).NotNull().NotEmpty();
                 RuleFor(worker => worker.FirstName).NotNull().NotEmpty();
                 RuleFor(worker => worker.LastName).NotNull().NotEmpty();
-                RuleFor(worker => worker.Email).NotNull().NotEmpty();
                 RuleFor(worker => worker.Imss).NotNull().NotEmpty();
                 RuleFor(worker => worker.Gender).Must(gender => gender.IsNotZero()).WithMessage("Tienes que elegir un genero");
                 RuleFor(worker => worker.Badge).NotNull().NotEmpty();

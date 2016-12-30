@@ -37,7 +37,6 @@ namespace FoodManager.Services.Validators.Implements
                 RuleFor(reservation => reservation.WorkerId).Must(workerId => workerId.IsNotZero()).WithMessage("Tienes que elegir un trabajador");
                 RuleFor(reservation => reservation.SaucerId).Must(saucerId => saucerId.IsNotZero()).WithMessage("Tienes que elegir un platillo");
                 RuleFor(reservation => reservation.Portion).Must(portion => portion.IsNotZero()).WithMessage("Tienes que elegir una porcion");
-                //RuleFor(reservation => reservation.MealType).NotNull().NotEmpty();
                 Custom(ReferencesValidate);
                 Custom(DateValidate);
             });
