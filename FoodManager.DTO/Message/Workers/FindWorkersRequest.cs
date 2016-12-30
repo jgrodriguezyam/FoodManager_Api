@@ -8,6 +8,7 @@ namespace FoodManager.DTO.Message.Workers
         public int JobId { get; set; }
         public int RoleId { get; set; }
         public int BranchId { get; set; }
+        public int CompanyId { get; set; }
         public string Code { get; set; }
         public string Email { get; set; }
         public string Badge { get; set; }

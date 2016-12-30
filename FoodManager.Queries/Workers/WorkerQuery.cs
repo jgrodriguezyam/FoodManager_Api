@@ -113,6 +113,18 @@ namespace FoodManager.Queries.Workers
             }
         }
 
+        public void WithCompany(int companyId)
+        {
+            if (companyId.IsNotZero())
+            {
+                var branchQuery = new SqlServerExpressionVisitor<Branch>();
+                branchQuery.Where(branch => branch.CompanyId == companyId);
+                var branchIds = _dataBaseSqlServerOrmLite.FindExpressionVisitor(branchQuery).Select(branch => branch.Id);
+                branchIds = branchIds.Count().IsNotZero() ? branchIds : new[] { int.MinValue };
+                _query.Where(worker => Sql.In(worker.BranchId, branchIds));
+            }
+        }
+
         public void Sort(string sort, string sortBy)
         {
             sort = sort.SortResolver();

@@ -18,6 +18,7 @@ namespace FoodManager.Queries.Workers
         void WithBadge(string badge);
         void WithImss(string imss);
         void WithOnlyBelongUser(bool onlyBelongUser);
+        void WithCompany(int companyId);
         IEnumerable<Worker> Execute();
     }
 }
