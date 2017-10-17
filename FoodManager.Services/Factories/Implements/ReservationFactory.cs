@@ -101,18 +101,15 @@ namespace FoodManager.Services.Factories.Implements
                 reservationCaloryReport.Date = date.Key.ToDateString();
                 breakfastReservations.ForEach(reservation =>
                 {
-                    reservationCaloryReport.Breakfast += GetTotalCaloriesByReservation(reservation.Id, reservationDetails,
-                        ingredients);
+                    reservationCaloryReport.Breakfast += GetTotalCaloriesByReservation(reservation.Id, reservationDetails, ingredients, reservation.Portion);
                 });
                 lunchReservations.ForEach(reservation =>
                 {
-                    reservationCaloryReport.Lunch += GetTotalCaloriesByReservation(reservation.Id, reservationDetails,
-                        ingredients);
+                    reservationCaloryReport.Lunch += GetTotalCaloriesByReservation(reservation.Id, reservationDetails, ingredients, reservation.Portion);
                 });
                 dinnerReservations.ForEach(reservation =>
                 {
-                    reservationCaloryReport.Dinner += GetTotalCaloriesByReservation(reservation.Id, reservationDetails,
-                        ingredients);
+                    reservationCaloryReport.Dinner += GetTotalCaloriesByReservation(reservation.Id, reservationDetails, ingredients, reservation.Portion);
                 });
 
                 if (reservationCaloryReport.Breakfast.IsNotZero() || reservationCaloryReport.Lunch.IsNotZero() || reservationCaloryReport.Dinner.IsNotZero())
@@ -122,7 +119,7 @@ namespace FoodManager.Services.Factories.Implements
             return reservationReport;
         }
 
-        private decimal GetTotalCaloriesByReservation(int reservationId, IEnumerable<ReservationDetail> allReservationDetails, IEnumerable<Ingredient> allIngredients)
+        private decimal GetTotalCaloriesByReservation(int reservationId, IEnumerable<ReservationDetail> allReservationDetails, IEnumerable<Ingredient> allIngredients, decimal portion)
         {
             decimal totalCalories = 0;
             var reservationDetails = allReservationDetails.Where(reservationDetail => reservationDetail.ReservationId == reservationId);
@@ -133,6 +130,7 @@ namespace FoodManager.Services.Factories.Implements
                 totalCalories += (ingredient.Energy / ingredient.NetWeight) * netWeightConfiguration;
             });
 
+            totalCalories = totalCalories * portion;
             return totalCalories;
         }
     }
